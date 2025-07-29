@@ -1,30 +1,25 @@
-#' @title plot
+#' @title Plotting the estimated treatment effect
 #'
-#' @description Plot 
+#' @description This function plots the estimated treatment effect (difference in potential
+#' cumulative incidences under treated and control) with pointwise confidence intervals.
 #'
-#' @param fit fit
+#' @param fit A fitted object from \code{surv.ICH}.
 #'
-#' @param decrease decrease
+#' @param decrease A logical variable indicating whether displaying the difference in cumulative
+#' incidence functions (\code{decrease = FALSE}) or survival functions (\code{decrease = TRUE}).
 #'
-#' @param conf.int conf
+#' @param conf.int Level of the confidence interval. If \code{conf.int = NULL}, then the condifence
+#' interval will not be provided.
 #'
-#' @param nboot nboot
+#' @param nboot Number of resamplings in bootstrapping. Default \code{nboot = 0}, using the explicit
+#' formula of the standard error.
 #'
-#' @param seed seed
-#'
-#' @param xlab xlab
-#'
-#' @param xlim xlim
-#'
-#' @param ylim ylim
-#' 
+#' @param seed Seed for bootstrapping.
 #'
 #' @param ... Other augments in function \code{\link{plot.default}} or function \code{\link{curve}}
 #'
 #' @importFrom graphics plot abline points
 #' @importFrom stats qnorm
-#'
-#' @return curves
 #'
 #' @seealso
 #' \code{\link[graphics]{plot.default}},
@@ -33,7 +28,13 @@
 #'
 #'
 #' @examples
-#' plot(1,1)
+#' \code{
+#' dat = generatedata(500)
+#' for (st in c('composite','natural','removed','whileon','principal')){
+#' fit = surv.ICH(dat$Z, dat$Time, dat$cstatus, st)
+#' plot.ate(fit, ylim=c(-0.4,0.4))
+#' }
+#' }
 #'
 #' @export
 

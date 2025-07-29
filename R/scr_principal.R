@@ -1,0 +1,63 @@
+#' @title Fitting the cumulative incidence function using principal stratum strategy
+#'
+#' @description This function nonparametrically estimates the potential cumulative incidence function
+#' using primcipal stratum strategy (semicompeting risks data structure). The estimand is defined in a
+#' subpopulation where intercurrent events would never occur regardless of treatment conditions.
+#'
+#' @param A Treatment indicator, 1 for treatment and 0 for control.
+#'
+#' @param Time Time to the primary (terminal) event.
+#'
+#' @param status Indicator of the primary (terminal) event, 1 for event and 0 for censoring.
+#'
+#' @param Time_int Time to the intercurrent event.
+#'
+#' @param status_int Indicator of the intercurrent event, 1 for event and 0 for censoring.
+#'
+#' @param weights Weight for each subject.
+#'
+#' @param subset Subset, either numerical or logical.
+#'
+#'
+#' @return A list including
+#' \describe{
+#' \item {time1} {Time points in the treated group.}
+#' \item {time0} {Time points in the control group.}
+#' \item {cif1} {Estimated cumulative incidence function in the treated group.}
+#' \item {cif0} {Estimated cumulative incidence function in the control group.}
+#' \item {se1} {Standard error of the estimated cumulative incidence function in the treated group.}
+#' \item {se0} {Standard error of the estimated cumulative incidence function in the control group.}
+#' \item {tt} {Time points in both groups.}
+#' \item {ate} {Estimated treatment effect (difference in cumulative incidence functions).}
+#' \item {se} {Standard error of the estimated treatment effect.}
+#' \item {p.val} {P value of testing the treatment effect, which is not available under this strategy.}
+#' }
+#'
+#' @examples
+#' 1
+#'
+#' @details
+#' \describe{
+#' The principal stratum strategy aims to stratify the population into subpopulations based on the joint
+#' potential occurrences of intercurrent events under the two treatment assignments \eqn{(R(1), R(0))}.
+#' Suppose we are interested in a principal stratum comprised of individuals who would never experience
+#' intercurrent events, regardless of which treatment they receive. This principal stratum can be indicated
+#' by \eqn{\{R(1)=R(0)=\infty\}}. The treatment effect is now defined within this subpopulation,
+#' \eqn{\tau(t) = P(T(1) < t \mid R(1)=R(0)=\infty) - P(T(0) < t \mid R(1)=R(0)=\infty),}
+#' representing the difference in probabilities of experiencing primary outcome events during \eqn{(0,t)}
+#' under active treatment and placebo in the subpopulation that will not experience intercurrent events
+#' regardless of treatment during \eqn{(0,t)}.
+#' }
+#'
+#' @seealso \code{\link[ICHe9r1]{scr.principal.eff}}, \code{\link[ICHe9r1]{scr.ICH}}
+#'
+#'
+#' @export
+
+scr.principal <- function(A,Time,status,Time_int,status_int,weights=rep(1,length(A)),subset=NULL){
+  Time = (Time + Time_int - abs(Time-Time_int))/2
+  cstatus = status + 2*status_int
+  cstatus[cstatus>2] = 2
+  fit = surv.principal(A,Time,cstatus,weights,subset)
+  return(fit)
+}

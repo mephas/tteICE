@@ -1,35 +1,25 @@
-
-#' @title plot
+#' @title Plotting the estimated cumulative incidence function
 #'
-#' @description Plot 
+#' @description This function plots the estimated potential cumulative incidence function
+#' with pointwise confidence intervals.
 #'
-#' @param fit fit
+#' @param fit A fitted object from \code{surv.ICH}.
 #'
-#' @param decrease decrease
+#' @param decrease A logical variable indicating whether displaying the cumulative incidence
+#' function (\code{decrease = FALSE}) or survival function (\code{decrease = TRUE}).
 #'
-#' @param conf.int conf
+#' @param conf.int Level of the confidence interval. If \code{conf.int = NULL}, then the condifence
+#' interval will not be provided.
 #'
-#' @param nboot nboot
+#' @param nboot Number of resamplings in bootstrapping. Default \code{nboot = 0}, using the explicit
+#' formula of the standard error.
 #'
-#' @param seed seed
-#'
-#' @param xlab xlab
-#'
-#' @param xlim xlim
-#'
-#' @param ylim ylim
-#' 
-#' @param legend legend
-#' 
-#' @param cex cex
-#' 
+#' @param seed Seed for bootstrapping.
 #'
 #' @param ... Other augments in function \code{\link{plot.default}} or function \code{\link{curve}}
 #'
 #' @importFrom graphics plot abline points
 #' @importFrom stats qnorm
-#'
-#' @return curves
 #'
 #' @seealso
 #' \code{\link[graphics]{plot.default}},
@@ -38,7 +28,15 @@
 #'
 #'
 #' @examples
-#' plot(1,1)
+#' \code{
+#' dat = generatedata(500)
+#' for (st in c('composite','natural','removed','whileon','principal')){
+#' fit = surv.ICH(dat$Z, dat$Time, dat$cstatus, st)
+#' plot.inc(fit, ylim=c(0,1))
+#' p = fit$p.val
+#' if (!is.null(p)) text(0.6, 0.8, paste0('P = ', round(p,3)))
+#' }
+#' }
 #'
 #' @export
 
