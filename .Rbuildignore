@@ -3,3 +3,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^README\.Rmd$
+^doc$
+^Meta$
+^LICENSE\.md$
+^docs$

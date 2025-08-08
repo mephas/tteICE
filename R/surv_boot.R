@@ -14,17 +14,17 @@
 #'
 #' @return A list including
 #' \describe{
-#' \item {time1} {Time points in the treated group.}
-#' \item {time0} {Time points in the control group.}
-#' \item {cif1} {Estimated cumulative incidence function in the treated group.}
-#' \item {cif0} {Estimated cumulative incidence function in the control group.}
-#' \item {se1} {Standard error of the estimated cumulative incidence function in the treated group.}
-#' \item {se0} {Standard error of the estimated cumulative incidence function in the control group.}
-#' \item {time} {Time points in both groups.}
-#' \item {ate} {Estimated treatment effect (difference in cumulative incidence functions).}
-#' \item {se} {Standard error of the estimated treatment effect.}
-#' \item {strategy} {Strategy used.}
-#' \item {method} {Estimation method used.}
+#' \item{time1}{Time points in the treated group.}
+#' \item{time0}{Time points in the control group.}
+#' \item{cif1}{Estimated cumulative incidence function in the treated group.}
+#' \item{cif0}{Estimated cumulative incidence function in the control group.}
+#' \item{se1}{Standard error of the estimated cumulative incidence function in the treated group.}
+#' \item{se0}{Standard error of the estimated cumulative incidence function in the control group.}
+#' \item{time}{Time points in both groups.}
+#' \item{ate}{Estimated treatment effect (difference in cumulative incidence functions).}
+#' \item{se}{Standard error of the estimated treatment effect.}
+#' \item{strategy}{Strategy used.}
+#' \item{method}{Estimation method used.}
 #' }
 #'
 #' @examples
@@ -44,8 +44,8 @@ surv.boot <- function(fit,nboot=0,seed=0){
   cif0 = fit$cif0
   se1 = fit$se1
   se0 = fit$se0
-  ate = matchy(fit$ate,fit$time,Time)
-  se = matchy(fit$se,fit$time,Time)
+  ate = .matchy(fit$ate,fit$time,Time)
+  se = .matchy(fit$se,fit$time,Time)
   if (nboot>1){
     cif1l = cif0l = te = NULL
     set.seed(seed)
@@ -59,16 +59,16 @@ surv.boot <- function(fit,nboot=0,seed=0){
       fitb = scr.ICH(fit$A,fit$Time,fit$status,fit$Time_int,fit$status_int,fit$strategy,fit$cov1,fit$method,
                         fit$weights,subset)
       }
-      cifb1 = matchy(fitb$cif1,fitb$time1,Time)
-      cifb0 = matchy(fitb$cif0,fitb$time0,Time)
+      cifb1 = .matchy(fitb$cif1,fitb$time1,Time)
+      cifb0 = .matchy(fitb$cif0,fitb$time0,Time)
       cif1l = rbind(cif1l, cifb1)
       cif0l = rbind(cif0l, cifb0)
       te = rbind(te, cifb1-cifb0)
     }
     se1 = apply(cif1l,2,sd)
     se0 = apply(cif0l,2,sd)
-    se1 = matchy(se1,Time,time1)
-    se0 = matchy(se0,Time,time0)
+    se1 = .matchy(se1,Time,time1)
+    se0 = .matchy(se0,Time,time0)
     se = apply(te,2,sd)
   }
   return(list(time1=time1,time0=time0,cif1=fit$cif1,cif0=fit$cif0,

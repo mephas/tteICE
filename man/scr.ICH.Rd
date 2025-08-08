@@ -59,7 +59,7 @@ question of interest. The International Conference on Harmonization (ICH) E9 (R1
 five strategies have been proposed in to address intercurrent events, namely, treatment policy strategy,
 composite variable strategy, while on treatment strategy, hypothetical strategy, and principal stratum
 strategy. To answer a specific scientific question, a strategy with a particular estimand is chosen
-before the study design. \n
+before the study design. \\cr
 We adopt the potential outcomes framework that defines a causal estimand as the contrast between
 functionals of potential outcomes. Consider a randomized controlled trial with \eqn{n} individuals
 randomly assigned to one of two treatment conditions, denoted by \eqn{w}, where \eqn{w = 1} represents
@@ -69,7 +69,7 @@ patients adhere to their treatment assignments and do not discontinue treatment.
 if any, which represent the time durations from treatment initiation to the primary outcome event under
 two treatment assignments respectively. Let \eqn{R_i(1)} and \eqn{R_i(0)} denote the occurrence time of
 potential intercurrent events, if any, under the two treatment assignments, respectively. Intercurrent
-events are considered as absent if no post-treatment intercurrent events occur until the end of study. \n
+events are considered as absent if no post-treatment intercurrent events occur until the end of study. \\cr
 We adopt the potential cumulative incidences under both treatment assignments as the target estimands.
 Potential cumulative incidences describe the probability of time-to-event outcomes occurring at each
 time point. We define the treatment effect as the contrast of two potential cumulative incidences.
@@ -77,20 +77,24 @@ Cumulative incidences are model-free and collapsible, enjoying causal interpreta
 }
 }
 \examples{
-\code{
 ## Generate simulated data
-dat = generatedata(500)
-## composite variable strategy, nonparametric estimation without covariates
+## dat = .generatedata(500)
+
+## composite variable strategy, 
+## nonparametric estimation without covariates
 fit1 = scr.ICH(dat$Z, dat$T, dat$dT, dat$R, dat$dR, "composite")
-## hypothetical strategy (natural effects), nonparametric estimation with inverse probability weighting
-ps = predict(glm(dat$A ~ dat$X, family='binomial'), type='response')
-w = dat$A/ps + (1-dat$A)/(1-ps)
-fit1 = surv.ICH(dat$Z, dat$T, dat$dT, dat$R, dat$dR, "natural", dat$X, weights=w)
-## composite variable strategy, semiparametrically efficient estimation with covariates
+
+## hypothetical strategy (natural effects), 
+## nonparametric estimation with inverse probability weighting
+ps = predict(glm(dat$Z ~ dat$X, family='binomial'), type='response')
+w = dat$Z/ps + (1-dat$Z)/(1-ps)
+## **fit1 = surv.ICH(dat$Z, dat$T, dat$dT, dat$R, dat$dR, "natural", dat$X, weights=w)
+
+## composite variable strategy, 
+## semiparametrically efficient estimation with covariates
 fit2 = scr.ICH(dat$Z, dat$T, dat$dT, dat$R, dat$dR, "composite", dat$X, method='eff')
-}
 
 }
 \seealso{
-\code{\link[ICHe9r1]{ICH_boot}}
+\code{\link[ICHe9r1]{surv.boot}}
 }

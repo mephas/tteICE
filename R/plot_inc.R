@@ -15,11 +15,20 @@
 #' formula of the standard error.
 #'
 #' @param seed Seed for bootstrapping.
+#' 
+#' @param xlab Label for x-axis.
+#' 
+#' @param xlim Limit for x-axis. 
+#' 
+#' @param ylim Limit for y-axis. 
+#' 
+#' @param legend Legend. 
+#' 
+#' @param cex Size of legend. 
 #'
 #' @param ... Other augments in function \code{\link{plot.default}} or function \code{\link{curve}}
 #'
-#' @importFrom graphics plot abline points
-#' @importFrom stats qnorm
+#' @importFrom graphics plot points
 #'
 #' @seealso
 #' \code{\link[graphics]{plot.default}},
@@ -28,19 +37,17 @@
 #'
 #'
 #' @examples
-#' \code{
-#' dat = generatedata(500)
-#' for (st in c('composite','natural','removed','whileon','principal')){
+#' ## dat = .generatedata(500)
+#' for (st in c('composite')){
 #' fit = surv.ICH(dat$Z, dat$Time, dat$cstatus, st)
-#' plot.inc(fit, ylim=c(0,1))
+#' plot_inc(fit, ylim=c(0,1))
 #' p = fit$p.val
 #' if (!is.null(p)) text(0.6, 0.8, paste0('P = ', round(p,3)))
-#' }
 #' }
 #'
 #' @export
 
-plot.inc <- function(fit,decrease=FALSE,conf.int=.95,nboot=0,seed=0,xlab='Time',xlim=NULL,
+plot_inc <- function(fit,decrease=FALSE,conf.int=.95,nboot=0,seed=0,xlab='Time',xlim=NULL,
                      ylim=c(0,1),legend=c('Treated','Control'),cex=0.9,...){
   if (fit$strategy=='treatment') stname = 'Treatment policy'
   if (fit$strategy=='composite') stname = 'Composite variable'

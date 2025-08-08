@@ -21,16 +21,16 @@
 #'
 #' @return A list including
 #' \describe{
-#' \item {time1} {Time points in the treated group.}
-#' \item {time0} {Time points in the control group.}
-#' \item {cif1} {Estimated cumulative incidence function in the treated group.}
-#' \item {cif0} {Estimated cumulative incidence function in the control group.}
-#' \item {se1} {Standard error of the estimated cumulative incidence function in the treated group.}
-#' \item {se0} {Standard error of the estimated cumulative incidence function in the control group.}
-#' \item {tt} {Time points in both groups.}
-#' \item {ate} {Estimated treatment effect (difference in cumulative incidence functions).}
-#' \item {se} {Standard error of the estimated treatment effect.}
-#' \item {p.val} {P value of testing the treatment effect based on logrank test.}
+#' \item{time1}{Time points in the treated group.}
+#' \item{time0}{Time points in the control group.}
+#' \item{cif1}{Estimated cumulative incidence function in the treated group.}
+#' \item{cif0}{Estimated cumulative incidence function in the control group.}
+#' \item{se1}{Standard error of the estimated cumulative incidence function in the treated group.}
+#' \item{se0}{Standard error of the estimated cumulative incidence function in the control group.}
+#' \item{tt}{Time points in both groups.}
+#' \item{ate}{Estimated treatment effect (difference in cumulative incidence functions).}
+#' \item{se}{Standard error of the estimated treatment effect.}
+#' \item{p.val}{P value of testing the treatment effect based on logrank test.}
 #' }
 #'
 #' @examples

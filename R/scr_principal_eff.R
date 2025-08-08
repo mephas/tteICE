@@ -22,16 +22,16 @@
 #'
 #' @return A list including
 #' \describe{
-#' \item {time1} {Time points in the treated group.}
-#' \item {time0} {Time points in the control group.}
-#' \item {cif1} {Estimated cumulative incidence function in the treated group.}
-#' \item {cif0} {Estimated cumulative incidence function in the control group.}
-#' \item {se1} {Standard error of the estimated cumulative incidence function in the treated group.}
-#' \item {se0} {Standard error of the estimated cumulative incidence function in the control group.}
-#' \item {tt} {Time points in both groups.}
-#' \item {ate} {Estimated treatment effect (difference in cumulative incidence functions).}
-#' \item {se} {Standard error of the estimated treatment effect.}
-#' \item {p.val} {P value of testing the treatment effect based on the efficient influence function of
+#' \item{time1}{Time points in the treated group.}
+#' \item{time0}{Time points in the control group.}
+#' \item{cif1}{Estimated cumulative incidence function in the treated group.}
+#' \item{cif0}{Estimated cumulative incidence function in the control group.}
+#' \item{se1}{Standard error of the estimated cumulative incidence function in the treated group.}
+#' \item{se0}{Standard error of the estimated cumulative incidence function in the control group.}
+#' \item{tt}{Time points in both groups.}
+#' \item{ate}{Estimated treatment effect (difference in cumulative incidence functions).}
+#' \item{se}{Standard error of the estimated treatment effect.}
+#' \item{p.val}{P value of testing the treatment effect based on the efficient influence function of
 #' the restricted mean survival time lost by the end of study.}
 #' }
 #'
@@ -62,6 +62,7 @@ scr.principal.eff <- function(A,Time,status,Time_int,status_int,X=NULL,subset=NU
   cstatus[cstatus>2] = 2
   fit = surv.principal.eff(A,Time,cstatus,X,subset)
   return(fit)
+
 }
 
 

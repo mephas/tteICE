@@ -1,0 +1,67 @@
+#' @title Plotting the estimated function
+#'
+#' @description This function plots the estimated potential cumulative incidence function
+#' with pointwise confidence intervals.
+#'
+#' @param x A fitted object from \code{surv.ICH}.
+#' 
+#' @param type which plot to create
+#'
+#' @param decrease A logical variable indicating whether displaying the cumulative incidence
+#' function (\code{decrease = FALSE}) or survival function (\code{decrease = TRUE}).
+#'
+#' @param conf.int Level of the confidence interval. If \code{conf.int = NULL}, then the condifence
+#' interval will not be provided.
+#'
+#' @param nboot Number of resamplings in bootstrapping. Default \code{nboot = 0}, using the explicit
+#' formula of the standard error.
+#'
+#' @param seed Seed for bootstrapping.
+#' 
+#' @param xlab Label for x-axis.
+#' 
+#' @param xlim Limit for x-axis. 
+#' 
+#' @param ylim Limit for y-axis. 
+#' 
+#' @param legend Legend. 
+#' 
+#' @param cex Size of legend. 
+#'
+#' @param ... Other augments in function \code{\link{plot.default}} or function \code{\link{curve}}
+#'
+#' @examples
+#' ## dat = .generatedata(500)
+#' for (st in c('composite')){
+#' fit = surv.ICH(dat$Z, dat$Time, dat$cstatus, st)
+#' plot(fit, type="ate", ylim=c(0,1))
+#' }
+#' 
+#' for (st in c('composite')){
+#' fit = surv.ICH(dat$Z, dat$Time, dat$cstatus, st)
+#' plot(fit, type="inc", ylim=c(0,1))
+#' p = fit$p.val
+#' if (!is.null(p)) text(0.6, 0.8, paste0('P = ', round(p,3)))
+#' }
+#'
+#' @seealso
+#' \code{\link{plot_ate}},
+#' \code{\link{plot_inc}}
+#'
+#' @rdname plot.ICH
+#'
+#' @export
+
+plot.ICH <- function(x, type=c("ate","inc")[1],decrease=FALSE,conf.int=.95,nboot=0,seed=0,xlab='Time',xlim=NULL,
+                     ylim=NULL,legend=c('Treated','Control'),cex=0.9,...){
+
+
+  if(type=="ate") plot_ate(fit=x,decrease=decrease,conf.int=conf.int,nboot=nboot,seed=seed,xlab=xlab,
+                     xlim=xlim,ylim=c(-1,1),...)
+
+  if(type=="inc") plot_inc(fit=x,decrease=decrease,conf.int=conf.int,nboot=nboot,seed=seed,xlab=xlab,
+                     xlim=xlim,ylim=c(0,1),legend=legend,cex=0.9,...)
+
+
+
+}

@@ -24,16 +24,16 @@ scr.removed.eff(A, Time, status, Time_int, status_int, X = NULL, subset = NULL)
 \value{
 A list including
 \describe{
-\item {time1} {Time points in the treated group.}
-\item {time0} {Time points in the control group.}
-\item {cif1} {Estimated cumulative incidence function in the treated group.}
-\item {cif0} {Estimated cumulative incidence function in the control group.}
-\item {se1} {Standard error of the estimated cumulative incidence function in the treated group.}
-\item {se0} {Standard error of the estimated cumulative incidence function in the control group.}
-\item {tt} {Time points in both groups.}
-\item {ate} {Estimated treatment effect (difference in cumulative incidence functions).}
-\item {se} {Standard error of the estimated treatment effect.}
-\item {p.val} {P value of testing the treatment effect based on the efficient influence function of
+\item{time1}{Time points in the treated group.}
+\item{time0}{Time points in the control group.}
+\item{cif1}{Estimated cumulative incidence function in the treated group.}
+\item{cif0}{Estimated cumulative incidence function in the control group.}
+\item{se1}{Standard error of the estimated cumulative incidence function in the treated group.}
+\item{se0}{Standard error of the estimated cumulative incidence function in the control group.}
+\item{tt}{Time points in both groups.}
+\item{ate}{Estimated treatment effect (difference in cumulative incidence functions).}
+\item{se}{Standard error of the estimated treatment effect.}
+\item{p.val}{P value of testing the treatment effect based on the efficient influence function of
 the restricted mean survival time lost by the end of study.}
 }
 }
@@ -53,7 +53,7 @@ primary outcome event in the hypothetical scenario. The time-dependent treatment
 to this hypothetical scenario is written as
 \eqn{\tau(t) = P(T'(1) < t) - P(T'(0) < t),}
 representing the difference in probabilities of experiencing primary outcome events during \eqn{(0,t)}
-in the pre-specified hypothetical scenario under active treatment and placebo. \n
+in the pre-specified hypothetical scenario under active treatment and placebo. \\cr
 The key question is how to envision \eqn{T'(w)}. We manipulate the hazard specific to intercurrent
 event \eqn{\lambda_2(t; w)} while assuming the cause-specific hazard specific to the primary outcome event
 under no intercurrent events \eqn{\lambda_1(t; w)} remains unchanged. Specifically, we envision that

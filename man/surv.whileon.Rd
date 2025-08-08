@@ -20,16 +20,16 @@ surv.whileon(A, Time, cstatus, weights = rep(1, length(A)), subset = NULL)
 \value{
 A list including
 \describe{
-\item {time1} {Time points in the treated group.}
-\item {time0} {Time points in the control group.}
-\item {cif1} {Estimated cumulative incidence function in the treated group.}
-\item {cif0} {Estimated cumulative incidence function in the control group.}
-\item {se1} {Standard error of the estimated cumulative incidence function in the treated group.}
-\item {se0} {Standard error of the estimated cumulative incidence function in the control group.}
-\item {tt} {Time points in both groups.}
-\item {ate} {Estimated treatment effect (difference in cumulative incidence functions).}
-\item {se} {Standard error of the estimated treatment effect.}
-\item {p.val} {P value of testing the treatment effect based on Gray test.}
+\item{time1}{Time points in the treated group.}
+\item{time0}{Time points in the control group.}
+\item{cif1}{Estimated cumulative incidence function in the treated group.}
+\item{cif0}{Estimated cumulative incidence function in the control group.}
+\item{se1}{Standard error of the estimated cumulative incidence function in the treated group.}
+\item{se0}{Standard error of the estimated cumulative incidence function in the control group.}
+\item{tt}{Time points in both groups.}
+\item{ate}{Estimated treatment effect (difference in cumulative incidence functions).}
+\item{se}{Standard error of the estimated treatment effect.}
+\item{p.val}{P value of testing the treatment effect based on Gray test.}
 }
 }
 \description{
@@ -47,7 +47,7 @@ counterfactual cumulative incidences under this strategy is
 representing the difference in probabilities of experiencing primary outcome events without
 intercurrent events during \eqn{(0,t)} under active treatment and placebo. The cumulative
 incidence function is also known as the cause-specific cumulative incidence or subdistribution
-function. \n
+function. \\cr
 The while on treatment strategy is closely related to the competing risks model. However,
 for causal interpretations, it is worth emphasizing that the hazard of \eqn{R(1)} may differ
 from that of \eqn{R(0)}, leading to vast difference in the underlying features of individuals

@@ -15,6 +15,12 @@
 #' formula of the standard error.
 #'
 #' @param seed Seed for bootstrapping.
+#' 
+#' @param xlab Label for x-axis.
+#' 
+#' @param xlim Limit for x-axis. 
+#' 
+#' @param ylim Limit for y-axis. 
 #'
 #' @param ... Other augments in function \code{\link{plot.default}} or function \code{\link{curve}}
 #'
@@ -28,18 +34,14 @@
 #'
 #'
 #' @examples
-#' \code{
-#' dat = generatedata(500)
-#' for (st in c('composite','natural','removed','whileon','principal')){
+#' ## dat = .generatedata(500)
+#' for (st in c('composite')){
 #' fit = surv.ICH(dat$Z, dat$Time, dat$cstatus, st)
-#' plot.ate(fit, ylim=c(-0.4,0.4))
-#' }
+#' plot_ate(fit, ylim=c(-0.4,0.4))
 #' }
 #'
 #' @export
-
-
-plot.ate <- function(fit,decrease=FALSE,conf.int=.95,nboot=0,seed=0,xlab='Time',
+plot_ate <- function(fit,decrease=FALSE,conf.int=.95,nboot=0,seed=0,xlab='Time',
                      xlim=NULL,ylim=c(-1,1),...){
   if (fit$strategy=='treatment') stname = 'Treatment policy'
   if (fit$strategy=='composite') stname = 'Composite variable'

@@ -22,16 +22,16 @@
 #'
 #' @return A list including
 #' \describe{
-#' \item {time1} {Time points in the treated group.}
-#' \item {time0} {Time points in the control group.}
-#' \item {cif1} {Estimated cumulative incidence function in the treated group.}
-#' \item {cif0} {Estimated cumulative incidence function in the control group.}
-#' \item {se1} {Standard error of the estimated cumulative incidence function in the treated group.}
-#' \item {se0} {Standard error of the estimated cumulative incidence function in the control group.}
-#' \item {tt} {Time points in both groups.}
-#' \item {ate} {Estimated treatment effect (difference in cumulative incidence functions).}
-#' \item {se} {Standard error of the estimated treatment effect.}
-#' \item {p.val} {P value of testing the treatment effect based on the efficient influence function of
+#' \item{time1}{Time points in the treated group.}
+#' \item{time0}{Time points in the control group.}
+#' \item{cif1}{Estimated cumulative incidence function in the treated group.}
+#' \item{cif0}{Estimated cumulative incidence function in the control group.}
+#' \item{se1}{Standard error of the estimated cumulative incidence function in the treated group.}
+#' \item{se0}{Standard error of the estimated cumulative incidence function in the control group.}
+#' \item{tt}{Time points in both groups.}
+#' \item{ate}{Estimated treatment effect (difference in cumulative incidence functions).}
+#' \item{se}{Standard error of the estimated treatment effect.}
+#' \item{p.val}{P value of testing the treatment effect based on the efficient influence function of
 #' the restricted mean survival time lost by the end of study.}
 #' }
 #'
@@ -48,7 +48,7 @@
 #' to this hypothetical scenario is written as
 #' \eqn{\tau(t) = P(T'(1) < t) - P(T'(0) < t),}
 #' representing the difference in probabilities of experiencing primary outcome events during \eqn{(0,t)}
-#' in the pre-specified hypothetical scenario under active treatment and placebo. \n
+#' in the pre-specified hypothetical scenario under active treatment and placebo. \\cr
 #' The key question is how to envision \eqn{T'(w)}. We manipulate the hazard specific to intercurrent
 #' event \eqn{\lambda_2(t; w)} while assuming the hazard specific to the primary outcome event
 #' \eqn{\lambda_1(t; w)} remains unchanged. Specifically, we envision that the intercurrent events that
@@ -66,175 +66,6 @@
 #'
 #'
 #' @export
-
-.phfit_d = function(Tr,Dr,Td,Dd,A,X,a,par=NULL){
-  X0 = X
-  Tr = Tr[A==a]
-  Td = Td[A==a]
-  Dr = Dr[A==a]
-  Dd = Dd[A==a]
-  tt = sort(unique(c(Td[Dd==1],Tr[Dr==1])))
-  l = length(tt)
-  k = length(Td)
-  if (!is.null(X)){
-    X = as.matrix(as.matrix(X)[A==a,])
-    p = ncol(X)
-    upb = TRUE
-  } else {
-    X = as.matrix(rep(0,k))
-    p = 0
-    upb = FALSE
-  }
-  if (!is.null(par)){
-    beta = beta0 = par[1+1:p]
-    delta_r = delta_r0 = par[1]
-  } else {
-    beta = beta0 = rep(0, max(p,1))
-    delta_r = delta_r0 = 0
-  }
-  Xb = as.numeric(X%*%beta)
-  lam = sapply(tt, function(t) sum(Dd*(Td==t))/sum((Td>=t)*
-                                                     exp(Xb+(Tr<t)*delta_r)))
-  lam[is.nan(lam)] = 0
-  while(TRUE){
-    lam0 = lam
-    Lam = sapply(1:k, function(i) sum((tt<=Td[i])*lam*
-                                        exp(Xb[i]+(tt>Tr[i])*delta_r)))
-    dddelta_r = - sum(sapply(1:k, function(i) sum((tt<=Td[i])*lam*
-                                                    (tt>Tr[i])*exp(Xb[i]+delta_r))))
-    ddelta_r = dddelta_r + sum(Dd*(Tr<Td))
-    if (sum(Dd*(Tr<Td))==0) {
-      delta_r = 0
-    } else {
-      delta_r = delta_r - ddelta_r/dddelta_r
-    }
-    if (upb) {
-      dbeta = t(X)%*%(Dd-Lam)
-      ddbeta = -t(X)%*%diag(Lam)%*%X
-      beta = beta - ginv(ddbeta) %*% dbeta
-      Xb = as.numeric(X%*%beta)
-    }
-    lam = sapply(tt, function(t) sum(Dd*(Td==t))/sum((Td>=t)*
-                                                       exp(Xb+(Tr<t)*delta_r)))
-    lam[is.nan(lam)] = 0
-    tol = max(abs(c(beta-beta0,delta_r-delta_r0,lam-lam0)))
-    #print(c(delta_r,beta,tol))
-    if (tol<0.00001) break
-    beta0 = beta; delta_r0 = delta_r
-  }
-  if (upb) {
-    Xb = X0%*%beta
-  } else {
-    Xb = rep(0,length(A))
-  }
-  return(list(beta=beta,delta_r=delta_r,tt=tt,lam=lam,Xb=Xb))
-}
-
-.phfit_r = function(Tr,Dr,Td,Dd,A,X,a,par=NULL){
-  X0 = X
-  Tr = Tr[A==a]
-  Td = Td[A==a]
-  Dr = Dr[A==a]
-  Dd = Dd[A==a]
-  tt = sort(unique(Tr[Dr==1]))
-  l = length(tt)
-  k = length(Tr)
-  if (!is.null(X)){
-    X = as.matrix(as.matrix(X)[A==a,])
-    p = ncol(X)
-    upb = TRUE
-  } else {
-    X = as.matrix(rep(0,k))
-    p = 0
-    upb = FALSE
-  }
-  if (!is.null(par)){
-    beta = beta0 = par[1:p]
-  } else {
-    beta = beta0 = rep(0, max(p,1))
-  }
-  Xb = as.numeric(X%*%beta)
-  lam = sapply(tt, function(t) sum(Dr*(Tr==t))/sum((Tr>=t)*exp(Xb)))
-  lam[is.nan(lam)] = 0
-  while(TRUE){
-    lam0 = lam
-    Lam = sapply(1:k, function(i) sum((tt<=Tr[i])*lam))
-    Lam = Lam * exp(Xb)
-    if (upb){
-    dbeta = t(X)%*%(Dr-Lam)
-    ddbeta = -t(X)%*%diag(Lam)%*%X
-    beta = beta - ginv(ddbeta) %*% dbeta
-    Xb = as.numeric(X%*%beta)
-    }
-    lam = sapply(tt, function(t) sum(Dr*(Tr==t))/sum((Tr>=t)*exp(Xb)))
-    lam[is.nan(lam)] = 0
-    tol = max(abs(c(beta-beta0,lam-lam0)))
-    #print(c(beta,tol))
-    if (tol<0.00001) break
-    beta0 = beta
-  }
-  if (upb) {
-    Xb = X0%*%beta
-  } else {
-    Xb = rep(0,length(A))
-  }
-  return(list(beta=beta,tt=tt,lam=lam,Xb=Xb))
-}
-
-.phfit_c = function(Tr,Dr,Td,Dd,A,X,a,par=NULL){
-  X0 = X
-  Td = Td[A==a]
-  Dd = Dd[A==a]
-  Tc = Td
-  Dc = 1 - Dd
-  tt = sort(unique(Td[Dd==0]))
-  l = length(tt)
-  k = length(Tc)
-  if (!is.null(X)){
-    X = as.matrix(as.matrix(X)[A==a,])
-    p = ncol(X)
-    upb = TRUE
-  } else {
-    X = as.matrix(rep(0,k))
-    p = 0
-    upb = FALSE
-  }
-  if (!is.null(par)){
-    beta = beta0 = par
-  } else {
-    beta = beta0 = rep(0, max(p,1))
-  }
-  if (l==0) {
-    return(list(beta=beta,tt=0,lam=0))
-  }
-  Xb = as.numeric(X%*%beta)
-  lam = sapply(tt, function(t) sum(Dc*(Tc==t))/sum((Tc>=t)*exp(Xb)))
-  lam[is.nan(lam)] = 0
-  while(TRUE){
-    lam0 = lam
-    Lam = sapply(1:k, function(i) sum((tt<=Tc[i])*lam)) * exp(Xb)
-    if (upb) {
-      dbeta = t(X)%*%(Dc-Lam)
-      ddbeta = -t(X)%*%diag(Lam)%*%X
-      beta = beta - ginv(ddbeta) %*% dbeta
-      Xb = as.numeric(X%*%beta)
-    }
-    lam = sapply(tt, function(t) sum(Dc*(Tc==t))/sum((Tc>=t)*exp(Xb)))
-    lam[is.nan(lam)] = 0
-    tol = max(abs(c(beta-beta0,lam-lam0)))
-    #print(c(beta,tol))
-    if (tol<0.00001) break
-    beta0 = beta
-  }
-  if (upb) {
-    Xb = X0%*%beta
-  } else {
-    Xb = rep(0,length(A))
-  }
-  return(list(beta=beta,tt=tt,lam=lam,Xb=Xb))
-}
-
-
 scr.natural.eff <- function(A,Time,status,Time_int,status_int,X=NULL,subset=NULL){
   Td = Time; Dd = status
   Tr = Time_int; Dr = status_int

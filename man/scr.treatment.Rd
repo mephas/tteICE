@@ -32,16 +32,16 @@ scr.treatment(
 \value{
 A list including
 \describe{
-\item {time1} {Time points in the treated group.}
-\item {time0} {Time points in the control group.}
-\item {cif1} {Estimated cumulative incidence function in the treated group.}
-\item {cif0} {Estimated cumulative incidence function in the control group.}
-\item {se1} {Standard error of the estimated cumulative incidence function in the treated group.}
-\item {se0} {Standard error of the estimated cumulative incidence function in the control group.}
-\item {tt} {Time points in both groups.}
-\item {ate} {Estimated treatment effect (difference in cumulative incidence functions).}
-\item {se} {Standard error of the estimated treatment effect.}
-\item {p.val} {P value of testing the treatment effect based on logrank test.}
+\item{time1}{Time points in the treated group.}
+\item{time0}{Time points in the control group.}
+\item{cif1}{Estimated cumulative incidence function in the treated group.}
+\item{cif0}{Estimated cumulative incidence function in the control group.}
+\item{se1}{Standard error of the estimated cumulative incidence function in the treated group.}
+\item{se0}{Standard error of the estimated cumulative incidence function in the control group.}
+\item{tt}{Time points in both groups.}
+\item{ate}{Estimated treatment effect (difference in cumulative incidence functions).}
+\item{se}{Standard error of the estimated treatment effect.}
+\item{p.val}{P value of testing the treatment effect based on logrank test.}
 }
 }
 \description{
@@ -63,7 +63,7 @@ the contrast of interest is made between the two treatment policies. The differe
 cumulative incidences under the two treatment policies is then
 \eqn{\tau(t) = P(T(1, R(1)) < t) - P(T(0, R(0)) < t),}{ATE_tp}
 representing the difference in probabilities of experiencing primary outcome events during
-\eqn{(0,t)} under active treatment and placebo. \n
+\eqn{(0,t)} under active treatment and placebo. \\cr
 The average treatment effect \eqn{\tau^{\text{tp}}(t)} has a meaningful causal interpretation
 only when \eqn{T(1, R(1))} and \eqn{T(0, R(0))} are well defined. Because the treatment policy
 includes the occurrence of the intercurrent event as natural, the entire treatment policy is
