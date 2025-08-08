@@ -25,6 +25,9 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(ICHe9r1)
+#> 要求されたパッケージ cmprsk をロード中です
+#> 要求されたパッケージ survival をロード中です
+#> 要求されたパッケージ MASS をロード中です
 ## basic example code
 ```
 
