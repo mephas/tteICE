@@ -1,16 +1,15 @@
 Package: ICHe9r1
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
+Title: ICH E9 (R1) for time-to-event data
+Version: 1.0.0
 Authors@R: c(
     person(
-      "Jane", "Doe",
-      email = "jane@example.com",
+      "Yuhao Deng", "Yi Zhou",
+      email = "dengyuhao@pku.edu.cn",
       role = c("aut", "cre")
     )
   )
-Description: More about what it does (maybe more than one line).
-    Continuation lines should be indented.
+Description: Estimation and inference for the cumulative incidence function for time-to-event outcomes with intercurrent events under ICH E9 (R1)
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
