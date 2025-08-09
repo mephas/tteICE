@@ -39,7 +39,7 @@
 #' ## composite variable strategy
 #' fit = surv.HR(A, bmt$t2, bmt$d4, "composite")
 #' ## while on treatment strategy
-#' fit = surv.HR(A, bmt$t2, bmt$d4, "whileon", cov1=dat$X)
+#' fit = surv.HR(A, bmt$t2, bmt$d4, "whileon", cov1=X)
 #' 
 #'
 #' @details
