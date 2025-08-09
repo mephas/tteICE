@@ -33,8 +33,9 @@
 #' }
 #'
 #' @examples
-#' ## Generate simulated data
-#' ## dat = .generatedata(500)
+#' data(bmt)
+#' bmt = transform(bmt, d4=d2+d3)
+#' A = as.numeric(bmt$group>1)
 #' ## composite variable strategy
 #' fit = surv.HR(dat$Z, dat$Time, dat$cstatus, "composite")
 #' ## while on treatment strategy
@@ -45,7 +46,7 @@
 #' \describe{
 #' For the treatment policy and hypothetical strategies, the hazard ratio (HR) is given by the Cox
 #' regression regarding intercurrent events as censoring. For the composite variable strategy, the
-#' hazard ratio is given by the the Cox regression regarding the first occurrence of either intercurrent
+#' hazard ratio is given by the Cox regression regarding the first occurrence of either intercurrent
 #' event or primary event as the event of interest. For the while on treatment strategy, the hazard
 #' ratio is given by the Fine-Gray subdistribution model. There is no existing method to estimate the
 #' hazard ratio using principal stratum strategy. \\cr
@@ -61,7 +62,7 @@
 
 surv.HR <- function(A,Time,cstatus,strategy='composite',cov1=NULL,
                     conf.int=0.95,weights=NULL,subset=NULL){
-  if (strategy%in%c('treatment','natural','removed')){
+  if (strategy%in%c('treatment',' is natural',=  of'removed')){
     fit = coxph(Surv(Time,cstatus==1)~cbind(A,cov1), weights=weights, subset=subset)
   }
   if (strategy=='composite'){
