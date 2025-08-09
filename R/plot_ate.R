@@ -43,6 +43,7 @@
 #' }
 #'
 #' @export
+
 plot_ate <- function(fit,decrease=FALSE,conf.int=.95,nboot=0,seed=0,xlab='Time',
                      xlim=NULL,ylim=c(-1,1),...){
   if (fit$strategy=='treatment') stname = 'Treatment policy'
