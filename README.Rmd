@@ -39,7 +39,11 @@ experimental design and analysis.
 ## Example
 
 We use the bmt data to illustrate how to estimate the treatment effect. The primary event is death, and 
-the intercurrent event is relapse. The time to the first event (either death or relapse) is t2. The event 
+the intercurrent event is relapse. 
+
+### Competing risks data structure
+
+The time to the first event (either death or relapse) is t2. The event 
 indicator is d4=d2+d3, so that d4=1 if death occurs first, while d4=2 if relapse occurs first.
 
 ```{r data}
@@ -53,13 +57,67 @@ bmt = transform(bmt, d4=d2+d3)
 Suppose we would like to use the hypothetical strategy (natural effects).
 We fit the model by nonparametric estimation.
 
-```{r nonparametric}
-scr.ICH(A, bmt$t2, bmt$d4, "natural", X)
+```{r example 1}
+fit1 = surv.ICH(A, bmt$t2, bmt$d4, "natural")
+plot.ICH(fit1, type='inc')
+p = fit1$p.val
+text(0.6, 0.8, paste0('P = ', round(p,3)))
+plot.ICH(fit1, type='ate')
 ```
 
+We can also use inverse probability weighting to account for confounding.
 
-```{r pressure, echo = FALSE}
-plot(pressure)
+```{r example 2}
+ps = predict(glm(A ~ X, family='binomial'), type='response')
+w = A/ps + (1-A)/(1-ps)
+fit2 = surv.ICH(A, bmt$t2, bmt$d4, "natural", weights=w)
+plot.ICH(fit2, type='inc')
+p = fit2$p.val
+text(0.6, 0.8, paste0('P = ', round(p,3)))
+plot.ICH(fit3, type='ate')
 ```
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
+To increase efficiency, we use the efficient influence function (EIF)-based method.
+
+```{r example 3}
+fit3 = surv.ICH(A, bmt$t2, bmt$d4, "natural", X, method='eff')
+plot.ICH(fit3, type='inc')
+p = fit3$p.val
+text(0.6, 0.8, paste0('P = ', round(p,3)))
+plot.ICH(fit3, type='ate')
+```
+
+### Semicompeting risks data structure
+
+Note that the time to death (or censoring) is t1 and the time to relapse (or censoring) is t2.
+We use the hypothetical strategy (natural effects) and fit the model nonparametrically.
+
+```{r example 4}
+fit4 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural")
+plot.ICH(fit4, type='inc')
+p = fit4$p.val
+text(0.6, 0.8, paste0('P = ', round(p,3)))
+plot.ICH(fit5, type='ate')
+```
+
+We can also use inverse probability weighting to account for confounding.
+
+```{r example 5}
+ps = predict(glm(A ~ X, family='binomial'), type='response')
+w = A/ps + (1-A)/(1-ps)
+fit5 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", weights=w)
+plot.ICH(fit5, type='inc')
+p = fit5$p.val
+text(0.6, 0.8, paste0('P = ', round(p,3)))
+plot.ICH(fit5, type='ate')
+```
+
+To increase efficiency, we use the efficient influence function (EIF)-based method.
+
+```{r example 6}
+fit6 = surv.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='eff')
+plot.ICH(fit6, type='inc')
+p = fit6$p.val
+text(0.6, 0.8, paste0('P = ', round(p,3)))
+plot.ICH(fit6, type='ate')
+```
