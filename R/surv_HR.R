@@ -62,7 +62,7 @@
 
 surv.HR <- function(A,Time,cstatus,strategy='composite',cov1=NULL,
                     conf.int=0.95,weights=NULL,subset=NULL){
-  if (strategy%in%c('treatment',' is natural',=  of'removed')){
+  if (strategy %in% c('treatment','natural','removed')){
     fit = coxph(Surv(Time,cstatus==1)~cbind(A,cov1), weights=weights, subset=subset)
   }
   if (strategy=='composite'){
