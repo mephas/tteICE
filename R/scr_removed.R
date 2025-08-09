@@ -33,9 +33,6 @@
 #' \item{p.val}{P value of testing the treatment effect based on logrank test.}
 #' }
 #'
-#' @examples
-#' 1
-#'
 #' @details
 #' \describe{
 #' The hypothetical strategy envisions a hypothetical clinical trial condition where the occurrence
