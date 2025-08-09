@@ -24,11 +24,11 @@
 #'  \item z6 Donor CMVStatus: 1-CMV Positive, 0-CMV Negative
 #'  \item z7 Waiting Time to Transplant In Days
 #'  \item z8 FAB: 1-FAB Grade 4 Or 5 and AML, 0-Otherwise
-#'  \item z9 Hospital: 1-The Ohio State University, 2-Alferd , 3-St. Vincent, 4-Hahnemann
-#'  \item z10 MTXUsedasaGraft-Versus-Host- Prophylactic: 1-Yes 0-No
+#'  \item z9 Hospital: 1-The Ohio State University, 2-Alferd, 3-St. Vincent, 4-Hahnemann
+#'  \item z10 MTX used as a Graft-Versus-Host-Prophylactic: 1-Yes 0-No
 #'  }
 #' 
-#' @source Klein and Moeschberger (1997) Survival Analysis Techniques for Censored and truncated data,
+#' @source Klein and Moeschberger (1997) Survival Analysis Techniques for Censored and Truncated Data,
 #'  Springer.
 #'
 #' @examples
