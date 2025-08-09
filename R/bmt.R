@@ -4,7 +4,7 @@
 #'
 #' @format This data frame contains the following columns:
 #' \describe{
-#' group Disease Group 1-ALL, 2-AML Low Risk, 3-AML High Risk
+#'  \item group Disease Group 1-ALL, 2-AML Low Risk, 3-AML High Risk
 #'  \item t1 Time To Death Or On Study Time
 #'  \item t2 Disease Free Survival Time (Time To Relapse, Death Or End Of Study)
 #'  \item d1 Death Indicator 1-Dead 0-Alive
