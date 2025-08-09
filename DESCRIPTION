@@ -1,12 +1,12 @@
 Package: ICHe9r1
 Type: Package
-Title: ICH E9 (R1) for time-to-event data
+Title: Treatment effect estimation for time-to-event data under ICH E9 (R1)
 Version: 1.0.0
 Authors@R: c(
     person(
-      "Yuhao Deng", "Yi Zhou",
+      "Yuhao Deng", "Yi Zhou", "Shasha Han", "Xiao-Hua Zhou"
       email = "dengyuhao@pku.edu.cn",
-      role = c("aut", "cre")
+      role = c("aut", "cre", "aut", "aut")
     )
   )
 Description: Estimation and inference for the cumulative incidence function for time-to-event outcomes with intercurrent events under ICH E9 (R1)
