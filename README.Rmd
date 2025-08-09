@@ -36,6 +36,11 @@ composite variable strategy, hypothetical strategy, while on treatment strategy,
 strategy. To answer a specific scientific question, a specific strategy should be chosen before 
 experimental design and analysis.
 
+Reference: Deng, Y., Han, S., & Zhou, X. H. (2025). Inference for Cumulative Incidences and Treatment 
+Effects in Randomized Controlled Trials With Time‐to‐Event Outcomes Under ICH E9 (R1). Statistics in Medicine, 
+44(10-12), e70091.
+
+
 ## Example
 
 We use the bmt data to illustrate how to estimate the treatment effect. The primary event is death, and 
