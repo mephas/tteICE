@@ -20,6 +20,39 @@ knitr::opts_chunk$set(
 
 The goal of ICHe9r1 is to estimate the treatment effect for time-to-event outcomes with intercurrent events under ICH E9 (R1).
 
+## Method
+
+The ICH E9 (R1) proposed five strategies to deal with intercurrent events: treatment policy strategy, 
+composite variable strategy, hypothetical strategy, while on treatment strategy, and principal stratum 
+strategy. To answer a specific scientific question, a specific strategy should be chosen before 
+experimental design and analysis.
+
+* Treatment policy strategy. The treatment policy strategy addresses the problem of intercurrent events 
+by expanding the initial treatment conditions to a treatment policy. This strategy is applicable only if 
+intercurrent events do not hinder primary outcome events. It is confined to a semicompeting risks 
+context. <\cr>
+* Composite variable strategy. The composite variable strategy addresses the problem of intercurrent events 
+by expanding the outcome variables. It aggregates the intercurrent event and primary outcome event into a 
+single composite outcome variable. <\cr>
+* Hypothetical strategy. The hypothetical strategy envisions a hypothetical clinical trial condition where 
+the occurrence of intercurrent events is restricted in certain ways. By doing so, the distribution of 
+potential outcomes under the hypothetical scenario can capture the impact of intercurrent events explicitly 
+through a pre-specified criterion. The hypothetical strategy is closely related to mediation analysis, 
+which is intended to evaluate the direct and indirect effects for semi-competing risks data. <\cr>
+* While on treatment strategy. The while on treatment strategy considers the measure of outcome variables 
+taken only up to the occurrence of intercurrent events. The failures of primary outcome events should not 
+be counted in the cumulative incidences if intercurrent events occurred. The while on treatment strategy is 
+closely related to the competing risks model. <\cr>
+* Principal stratum strategy. The principal stratum strategy aims to stratify the population into 
+subpopulations based on the joint potential occurrences of intercurrent events under the two treatment 
+assignments. Usually, we are interested in a principal stratum comprised of individuals who would never 
+experience intercurrent events, regardless of which treatment they receive.
+
+Reference: Deng, Y., Han, S., & Zhou, X. H. (2025). Inference for Cumulative Incidences and Treatment 
+Effects in Randomized Controlled Trials With Time‐to‐Event Outcomes Under ICH E9 (R1). Statistics in Medicine, 
+44(10-12), e70091.
+
+
 ## Installation
 
 You can install the development version of ICHe9r1 from [GitHub](https://github.com/) with:
@@ -28,18 +61,6 @@ You can install the development version of ICHe9r1 from [GitHub](https://github.
 # install.packages("pak")
 pak::pak("mephas/ICHe9r1")
 ```
-
-## Method
-
-The ICH E9 (R1) proposed five strategies to deal with intercurrent events: treatment policy strategy, 
-composite variable strategy, hypothetical strategy, while on treatment strategy, and principal stratum 
-strategy. To answer a specific scientific question, a specific strategy should be chosen before 
-experimental design and analysis.
-
-Reference: Deng, Y., Han, S., & Zhou, X. H. (2025). Inference for Cumulative Incidences and Treatment 
-Effects in Randomized Controlled Trials With Time‐to‐Event Outcomes Under ICH E9 (R1). Statistics in Medicine, 
-44(10-12), e70091.
-
 
 ## Example
 
