@@ -33,9 +33,6 @@
 #' \item{p.val}{P value of testing the treatment effect based on logrank test.}
 #' }
 #'
-#' @examples
-#' 1
-#'
 #' @details
 #' \describe{
 #' The treatment policy strategy addresses the problem of intercurrent events by expanding
