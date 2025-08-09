@@ -37,9 +37,9 @@
 #' bmt = transform(bmt, d4=d2+d3)
 #' A = as.numeric(bmt$group>1)
 #' ## composite variable strategy
-#' fit = surv.HR(dat$Z, dat$Time, dat$cstatus, "composite")
+#' fit = surv.HR(A, bmt$t2, bmt$d4, "composite")
 #' ## while on treatment strategy
-#' fit = surv.HR(dat$Z, dat$Time, dat$cstatus, "whileon", cov1=dat$X)
+#' fit = surv.HR(A, bmt$t2, bmt$d4, "whileon", cov1=dat$X)
 #' 
 #'
 #' @details
