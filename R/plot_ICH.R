@@ -32,7 +32,7 @@
 #'
 #' @examples
 #' data(bmt)
-#' dat = transform(dat, d4=d2+d3)
+#' bmt = transform(bmt, d4=d2+d3)
 #' A = as.numeric(bmt$group>1)
 #' for (st in c('composite','natural','removed','whileon','principal')){
 #' fit = surv.ICH(A, bmt$t2, bmt$d4, st)
