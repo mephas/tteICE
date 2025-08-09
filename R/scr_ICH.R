@@ -37,22 +37,24 @@
 #' @return A list including the fitted object and input variables.
 #'
 #' @examples
-#' ## Generate simulated data
-#' ## dat = .generatedata(500)
+#' data(bmt)
+#' bmt = transform(bmt, d4=d2+d3)
+#' A = as.numeric(bmt$group>1)
+#' X = bmt[,c('z1','z3','z5')]
 #' 
 #' ## composite variable strategy, 
 #' ## nonparametric estimation without covariates
-#' fit1 = surv.ICH(dat$Z, dat$Time, dat$cstatus,"composite")
+#' fit1 = surv.ICH(A, dat$t2, dat$d4,"composite")
 #' 
 #' ## hypothetical strategy (natural effects), 
 #' ## nonparametric estimation with inverse probability weighting
-#' ps = predict(glm(dat$Z ~ dat$X, family='binomial'), type='response')
+#' ps = predict(glm(A ~ X, family='binomial'), type='response')
 #' w = dat$Z/ps + (1-dat$Z)/(1-ps)
-#' fit1 = surv.ICH(dat$Z, dat$Time, dat$cstatus, "natural", dat$X, weights=w)
+#' fit1 = surv.ICH(dA, dat$t2, dat$d3, "natural", X, weights=w)
 #' 
 #' ## composite variable strategy, 
 #' ## semiparametrically efficient estimation with covariates
-#' fit2 = scr.ICH(dat$Z, dat$T, dat$dT, dat$R, dat$dR, "composite", dat$X, method='eff')
+#' fit2 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite", X, method='eff')
 #'
 #' @details
 #' \describe{
