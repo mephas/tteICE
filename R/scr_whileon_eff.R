@@ -36,9 +36,6 @@
 #' the restricted mean survival time lost by the end of study.}
 #' }
 #'
-#' @examples
-#' 1
-#'
 #' @details
 #' \describe{
 #' The while on treatment strategy considers the measure of outcome variables taken only up to
