@@ -2,14 +2,12 @@ Package: ICHe9r1
 Type: Package
 Title: Treatment effect estimation for time-to-event data under ICH E9 (R1)
 Version: 1.0.0
-Authors@R: c(
-    person(
-      "Yuhao Deng", "Yi Zhou", "Shasha Han", "Xiao-Hua Zhou",
-      email = "dengyuhao@pku.edu.cn",
-      role = c("aut", "cre", "aut", "aut")
-    )
-  )
+Authors@R: c(person(given = "Yuhao", family = "Deng", role = "aut"),
+             person(given = "Yi", family = "Zhou", role = c("aut","cre"), email = "zhouyi900426@gmail.com"))
+Maintainer: Yi Zhou <zhouyi900426@gmail.com>
 Description: Estimation and inference for the cumulative incidence function for time-to-event outcomes with intercurrent events under ICH E9 (R1)
+URL: https://github.com/mephas/ICHe9r1
+Reference: Deng, Y., Han, S., & Zhou, X. H. (2025). Inference for Cumulative Incidences and Treatment Effects in Randomized Controlled Trials With Time‐to‐Event Outcomes Under ICH E9 (R1). Statistics in Medicine, 44(10-12), e70091.
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
