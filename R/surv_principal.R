@@ -29,9 +29,6 @@
 #' \item{p.val}{P value of testing the treatment effect, which is not available under this strategy.}
 #' }
 #'
-#' @examples
-#' 1
-#'
 #' @details
 #' \describe{
 #' The principal stratum strategy aims to stratify the population into subpopulations based on the joint
