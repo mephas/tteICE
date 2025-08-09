@@ -35,9 +35,6 @@
 #' the restricted mean survival time lost by the end of study.}
 #' }
 #'
-#' @examples
-#' 1
-#'
 #' @details
 #' \describe{
 #' The hypothetical strategy envisions a hypothetical clinical trial condition where the occurrence
