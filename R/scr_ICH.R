@@ -42,18 +42,15 @@
 #' A = as.numeric(bmt$group>1)
 #' X = bmt[,c('z1','z3','z5')]
 #' 
-#' ## composite variable strategy, 
-#' ## nonparametric estimation without covariates
-#' fit1 = surv.ICH(A, dat$t2, dat$d4,"composite")
+#' ## Composite variable strategy, nonparametric estimation without covariates
+#' fit1 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
 #' 
-#' ## hypothetical strategy (natural effects), 
-#' ## nonparametric estimation with inverse probability weighting
+#' ## Hypothetical strategy (natural effects), nonparametric estimation with inverse probability weighting
 #' ps = predict(glm(A ~ X, family='binomial'), type='response')
-#' w = dat$Z/ps + (1-dat$Z)/(1-ps)
-#' fit1 = surv.ICH(dA, dat$t2, dat$d3, "natural", X, weights=w)
+#' w = A/ps + (1-A)/(1-ps)
+#' fit1 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, weights=w)
 #' 
-#' ## composite variable strategy, 
-#' ## semiparametrically efficient estimation with covariates
+#' ## Composite variable strategy, semiparametrically efficient estimation with covariates
 #' fit2 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite", X, method='eff')
 #'
 #' @details
