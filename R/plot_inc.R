@@ -37,9 +37,11 @@
 #'
 #'
 #' @examples
-#' ## dat = .generatedata(500)
+#' data(bmt)
+#' bmt = transform(bmt, d4=d2+d3)
+#' A = as.numeric(bmt$group>1)
 #' for (st in c('composite')){
-#' fit = surv.ICH(dat$Z, dat$Time, dat$cstatus, st)
+#' fit = surv.ICH(A, dat$t2, dat$d4, st)
 #' plot_inc(fit, ylim=c(0,1))
 #' p = fit$p.val
 #' if (!is.null(p)) text(0.6, 0.8, paste0('P = ', round(p,3)))
