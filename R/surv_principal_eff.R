@@ -31,9 +31,6 @@
 #' the restricted mean survival time lost by the end of study.}
 #' }
 #'
-#' @examples
-#' 1
-#'
 #' @details
 #' \describe{
 #' The principal stratum strategy aims to stratify the population into subpopulations based on the joint
