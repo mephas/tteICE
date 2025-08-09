@@ -4,7 +4,7 @@ Title: Treatment effect estimation for time-to-event data under ICH E9 (R1)
 Version: 1.0.0
 Authors@R: c(
     person(
-      "Yuhao Deng", "Yi Zhou", "Shasha Han", "Xiao-Hua Zhou"
+      "Yuhao Deng", "Yi Zhou", "Shasha Han", "Xiao-Hua Zhou",
       email = "dengyuhao@pku.edu.cn",
       role = c("aut", "cre", "aut", "aut")
     )
