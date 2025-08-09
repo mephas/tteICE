@@ -33,13 +33,10 @@
 #' \item{p.val}{P value of testing the treatment effect based on logrank test.}
 #' }
 #'
-#' @examples
-#' 1
-#'
 #' @details
 #' \describe{
 #' The composite variable strategy addresses the problem of intercurrent events by expanding the
-#' outcome variables. It aggregates the intercurrent event and primary outcome event into a single
+#' outcome variables. It aggregates the intercurrent event and the primary outcome event into a single
 #' composite outcome variable. The idea is not new in the context of progression-free survival,
 #' where the composite outcome variable is defined as the occurrence of either a non-terminal event
 #' (e.g., cancer progression) or a terminal event (e.g., death). One widely used composite outcome
