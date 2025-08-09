@@ -27,8 +27,6 @@
 #' \item{method}{Estimation method used.}
 #' }
 #'
-#' @examples
-#' 1
 #'
 #' @seealso \code{\link[ICHe9r1]{surv.ICH}}, \code{\link[ICHe9r1]{scr.ICH}}
 #'
