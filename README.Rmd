@@ -59,10 +59,12 @@ We fit the model by nonparametric estimation.
 
 ```{r example 1}
 fit1 = surv.ICH(A, bmt$t2, bmt$d4, "natural")
-plot.ICH(fit1, type='inc')
+plot_inc(fit1, legend=c('AML','ALL'))
 p = fit1$p.val
-text(0.6, 0.8, paste0('P = ', round(p,3)))
-plot.ICH(fit1, type='ate')
+text(200, 0.8, paste0('P = ', round(p,3)))
+plot_ate(fit1, legend=c('AML','ALL'))
+## bootstrap confidence interval
+plot_ate(fit1, nboot=200, legend=c('AML','ALL'))
 ```
 
 We can also use inverse probability weighting to account for confounding.
@@ -71,20 +73,20 @@ We can also use inverse probability weighting to account for confounding.
 ps = predict(glm(A ~ X, family='binomial'), type='response')
 w = A/ps + (1-A)/(1-ps)
 fit2 = surv.ICH(A, bmt$t2, bmt$d4, "natural", weights=w)
-plot.ICH(fit2, type='inc')
-p = fit2$p.val
-text(0.6, 0.8, paste0('P = ', round(p,3)))
-plot.ICH(fit3, type='ate')
+plot_inc(fit2, legend=c('AML','ALL'))
+p = fit1$p.val
+text(200, 0.8, paste0('P = ', round(p,3)))
+plot_ate(fit2, legend=c('AML','ALL'))
 ```
 
 To increase efficiency, we use the efficient influence function (EIF)-based method.
 
 ```{r example 3}
 fit3 = surv.ICH(A, bmt$t2, bmt$d4, "natural", X, method='eff')
-plot.ICH(fit3, type='inc')
-p = fit3$p.val
-text(0.6, 0.8, paste0('P = ', round(p,3)))
-plot.ICH(fit3, type='ate')
+plot_inc(fit3, legend=c('AML','ALL'))
+p = fit1$p.val
+text(200, 0.8, paste0('P = ', round(p,3)))
+plot_ate(fit3, legend=c('AML','ALL'))
 ```
 
 ### Semicompeting risks data structure
@@ -94,10 +96,12 @@ We use the hypothetical strategy (natural effects) and fit the model nonparametr
 
 ```{r example 4}
 fit4 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural")
-plot.ICH(fit4, type='inc')
-p = fit4$p.val
-text(0.6, 0.8, paste0('P = ', round(p,3)))
-plot.ICH(fit5, type='ate')
+plot_inc(fit4, legend=c('AML','ALL'))
+p = fit1$p.val
+text(200, 0.8, paste0('P = ', round(p,3)))
+plot_ate(fit4, legend=c('AML','ALL'))
+## bootstrap confidence interval
+plot_ate(fit4, nboot=200, legend=c('AML','ALL'))
 ```
 
 We can also use inverse probability weighting to account for confounding.
@@ -106,18 +110,18 @@ We can also use inverse probability weighting to account for confounding.
 ps = predict(glm(A ~ X, family='binomial'), type='response')
 w = A/ps + (1-A)/(1-ps)
 fit5 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", weights=w)
-plot.ICH(fit5, type='inc')
-p = fit5$p.val
-text(0.6, 0.8, paste0('P = ', round(p,3)))
-plot.ICH(fit5, type='ate')
+plot_inc(fit5, legend=c('AML','ALL'))
+p = fit1$p.val
+text(200, 0.8, paste0('P = ', round(p,3)))
+plot_ate(fit5, legend=c('AML','ALL'))
 ```
 
 To increase efficiency, we use the efficient influence function (EIF)-based method.
 
 ```{r example 6}
 fit6 = surv.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='eff')
-plot.ICH(fit6, type='inc')
-p = fit6$p.val
-text(0.6, 0.8, paste0('P = ', round(p,3)))
-plot.ICH(fit6, type='ate')
+plot_inc(fit6, legend=c('AML','ALL'))
+p = fit1$p.val
+text(200, 0.8, paste0('P = ', round(p,3)))
+plot_ate(fit6, legend=c('AML','ALL'))
 ```
