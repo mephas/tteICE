@@ -34,9 +34,6 @@
 #' \item{p.val}{P value of testing the treatment effect based on Gray test.}
 #' }
 #'
-#' @examples
-#' 1
-#'
 #' @details
 #' \describe{
 #' The while on treatment strategy considers the measure of outcome variables taken only up to
