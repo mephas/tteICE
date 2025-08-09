@@ -2,7 +2,7 @@
 #'
 #' @description This function nonparametrically estimates the potential cumulative incidence function
 #' using hypothetical strategy (competing risks data structure). The intercurrent event is only
-#' permitted under treated if is would occur under control.
+#' permitted under treated if it would occur under control.
 #'
 #' @param A Treatment indicator, 1 for treatment and 0 for control.
 #'
@@ -28,9 +28,6 @@
 #' \item{se}{Standard error of the estimated treatment effect.}
 #' \item{p.val}{P value of testing the treatment effect based on logrank test.}
 #' }
-#'
-#' @examples
-#' 1
 #'
 #' @details
 #' \describe{
