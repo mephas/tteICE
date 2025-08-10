@@ -42,10 +42,8 @@
 #' bmt = transform(bmt, d4=d2+d3)
 #' A = as.numeric(bmt$group>1)
 #' fit = surv.ICH(A, bmt$t2, bmt$d4, 'composite')
-#' p = fit$p.val
-#' ## plot asymptotic confidence intervals based on explicite formulas
+#' ## plot asymptotic confidence intervals based on explicit formulas
 #' plot_inc(fit, legend=c('AML','ALL'), ylim=c(0,1))
-#' text(200, 0.8, paste0('P = ', round(p,3)))
 #' ## plot bootstrap confidence intervals
 #' plot_inc(fit, nboot=200, legend=c('AML','ALL'), ylim=c(0,1))
 #'
