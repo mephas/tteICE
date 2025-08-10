@@ -1,4 +1,4 @@
-#' @title Fitting the cumulative incidence function for time-to event data under ICH E9 (R1)
+#' @title Fitting the cumulative incidence function for time-to-event data under ICH E9 (R1)
 #'
 #' @description This function estimates the potential cumulative incidence function
 #' for time-to event data under ICH E9 (R1) to address intercurrent events. Multiple
@@ -46,7 +46,7 @@
 #' ## nonparametric estimation without covariates
 #' fit1 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
 #' ## Hypothetical strategy (natural effects),
-#' ## nonparametric estimation with inverse probability weighting
+#' ## nonparametric estimation with inverse probability weighting (X unused)
 #' ps = predict(glm(A ~ X, family='binomial'), type='response')
 #' w = A/ps + (1-A)/(1-ps)
 #' fit2 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, weights=w)
