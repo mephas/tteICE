@@ -31,19 +31,21 @@
 #' @param ... Other augments in function \code{\link{plot.default}} or function \code{\link{curve}}
 #'
 #' @examples
+#' ## load data
 #' data(bmt)
 #' bmt = transform(bmt, d4=d2+d3)
 #' A = as.numeric(bmt$group>1)
-#' for (st in c('composite','natural','removed','whileon','principal')){
-#' fit = surv.ICH(A, bmt$t2, bmt$d4, st)
-#' plot(fit, type="ate", ylim=c(0,1))
-#' }
-#' 
+#' ## plot treatment effects with p-values
 #' for (st in c('composite','natural','removed','whileon','principal')){
 #' fit = surv.ICH(A, bmt$t2, bmt$d4, st)
 #' plot(fit, type="inc", ylim=c(0,1))
 #' p = fit$p.val
-#' if (!is.null(p)) text(0.6, 0.8, paste0('P = ', round(p,3)))
+#' if (!is.null(p)) text(200, 0.8, paste0('P = ', round(p,3)))
+#' }
+#' ## plot counterfactual cumulative incidence functions
+#' for (st in c('composite','natural','removed','whileon','principal')){
+#' fit = surv.ICH(A, bmt$t2, bmt$d4, st)
+#' plot(fit, type="ate", ylim=c(0,1))
 #' }
 #'
 #' @seealso
