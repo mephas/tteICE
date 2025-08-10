@@ -50,8 +50,8 @@
 #' \code{\link{plot_ate}},
 #' \code{\link{plot_inc}}
 #'
-#' @rdname plot.ICH
-#'
+#' 
+#' @method plot ICH
 #' @export
 
 plot.ICH <- function(x, type=c("ate","inc")[1],decrease=FALSE,conf.int=.95,nboot=0,seed=0,xlab='Time',xlim=NULL,
