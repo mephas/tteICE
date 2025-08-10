@@ -32,7 +32,7 @@
 #' ## load data
 #' data(bmt)
 #' bmt = transform(bmt, d4=d2+d3)
-#' A = as.numeric(group>1)
+#' A = as.numeric(bmt$group>1)
 #' X = as.matrix(bmt[,c('z1','z3','z5')])
 #' ## Composite variable strategy, 
 #' ## nonparametric estimation without covariates

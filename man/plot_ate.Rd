@@ -43,13 +43,15 @@ This function plots the estimated treatment effect (difference in potential
 cumulative incidences under treated and control) with pointwise confidence intervals.
 }
 \examples{
+## load data and fit the model
 data(bmt)
 bmt = transform(bmt, d4=d2+d3)
 A = as.numeric(bmt$group>1)
-for (st in c('composite')){
-fit = surv.ICH(A, bmt$t2, bmt$d4, st)
-plot_ate(fit, ylim=c(-0.4,0.4))
-}
+fit = surv.ICH(A, bmt$t2, bmt$d4, 'composite')
+## plot asymptotic confidence intervals based on explicit formulas
+plot_ate(fit, legend=c('AML','ALL'), ylim=c(-0.4,0.4))
+## plot bootstrap confidence intervals
+plot_ate(fit, nboot=200, legend=c('AML','ALL'), ylim=c(-0.4,0.4))
 
 }
 \seealso{

@@ -2,7 +2,7 @@
 % Please edit documentation in R/scr_ICH.R
 \name{scr.ICH}
 \alias{scr.ICH}
-\title{Fitting the cumulative incidence function for time-to event data under ICH E9 (R1)}
+\title{Fitting the cumulative incidence function for time-to-event data under ICH E9 (R1)}
 \usage{
 scr.ICH(
   A,
@@ -56,7 +56,7 @@ strategies are allowed. The input data should be of semicompeting risks structur
  \item{Background}{Intercurrent events refer to the events occurring after treatment initiation of clinical trials that
 affect either the interpretation of or the existence of the measurements associated with the clinical
 question of interest. The International Conference on Harmonization (ICH) E9 (R1) addendum proposed
-five strategies have been proposed in to address intercurrent events, namely, treatment policy strategy,
+five strategies to address intercurrent events, namely, treatment policy strategy,
 composite variable strategy, while on treatment strategy, hypothetical strategy, and principal stratum
 strategy. To answer a specific scientific question, a strategy with a particular estimand is chosen
 before the study design.}
@@ -77,24 +77,22 @@ Cumulative incidences are model-free and collapsible, enjoying causal interpreta
 }
 }
 \examples{
+## load data
 data(bmt)
 bmt = transform(bmt, d4=d2+d3)
 A = as.numeric(bmt$group>1)
-X = bmt[,c('z1','z3','z5')]
-bmt$A = A
-
+X = as.matrix(bmt[,c('z1','z3','z5')])
 ## Composite variable strategy,
 ## nonparametric estimation without covariates
 fit1 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
-
 ## Hypothetical strategy (natural effects),
 ## nonparametric estimation with inverse probability weighting
-ps = predict(glm(A ~ z1+z3+z5-1, family='binomial', data=bmt), type='response')
+ps = predict(glm(A ~ X, family='binomial'), type='response')
 w = A/ps + (1-A)/(1-ps)
-fit1 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, weights=w)
-
-## Composite variable strategy, semiparametrically efficient estimation with covariates
-## ERROR in glm**fit2 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite", X, method='eff')
+fit2 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, weights=w)
+## Hypothetical strategy (natural effects),
+## semiparametrically efficient estimation with covariates
+fit3 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='eff')
 
 }
 \seealso{
