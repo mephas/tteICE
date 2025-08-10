@@ -29,22 +29,22 @@
 #' @return A list including the fitted object and input variables.
 #'
 #' @examples
+#' ## load data
 #' data(bmt)
 #' bmt = transform(bmt, d4=d2+d3)
-#' A = as.numeric(bmt$group>1)
-#' bmt$A = A
-#' X = bmt[,c('z1','z3','z5')]
+#' A = as.numeric(group>1)
+#' X = as.matrix(bmt[,c('z1','z3','z5')])
 #' ## Composite variable strategy, 
 #' ## nonparametric estimation without covariates
 #' fit1 = surv.ICH(A, bmt$t2, bmt$d4, "composite")
 #' ## Hypothetical strategy (natural effects), 
 #' ## nonparametric estimation with inverse probability weighting
-#' ps = predict(glm(A ~ z1+z3+z5-1, family='binomial', data=bmt), type='response')
+#' ps = predict(glm(A ~ X, family='binomial'), type='response')
 #' w = A/ps + (1-A)/(1-ps)
-#' fit1 = surv.ICH(A, bmt$t2, bmt$d4, "natural", X, weights=w)
-#' ## Composite variable strategy, semiparametrically efficient estimation with covariates
-#' ## ERROR in glm**fit2 = surv.ICH(A, bmt$t2, bmt$d4, "composite", X, method='eff')
-#' 
+#' fit2 = surv.ICH(A, bmt$t2, bmt$d4, "natural", X, weights=w)
+#' ## Hypothetical strategy (natural effects),
+#' ## semiparametrically efficient estimation with covariates
+#' fit3 = surv.ICH(A, bmt$t2, bmt$d4, "natural", X, method='eff')
 #'
 #' @details
 #' \describe{
