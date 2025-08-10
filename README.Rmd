@@ -55,7 +55,7 @@ Effects in Randomized Controlled Trials With Time‐to‐Event Outcomes Under IC
 
 ## Installation
 
-You can install the development version of ICHe9r1 from [GitHub](https://github.com/) with:
+You can install the development version of ICHe9r1 from GitHub with:
 
 ``` r
 # install.packages("pak")
@@ -84,35 +84,35 @@ Suppose we would like to use the hypothetical strategy (natural effects).
 We fit the model by nonparametric estimation.
 
 ```{r example 1}
-fit1 = surv.ICH(A, bmt$t2, bmt$d4, "natural")
-plot_inc(fit1, legend=c('AML','ALL'))
-p = fit1$p.val
-text(200, 0.8, paste0('P = ', round(p,3)))
-plot_ate(fit1, legend=c('AML','ALL'))
-## bootstrap confidence interval
-plot_ate(fit1, nboot=200, legend=c('AML','ALL'))
+# fit1 = surv.ICH(A, bmt$t2, bmt$d4, "natural")
+# plot_inc(fit1, legend=c('AML','ALL'))
+# p = fit1$p.val
+# text(200, 0.8, paste0('P = ', round(p,3)))
+# plot_ate(fit1, legend=c('AML','ALL'))
+# ## bootstrap confidence interval
+# plot_ate(fit1, nboot=200, legend=c('AML','ALL'))
 ```
 
 We can also use inverse probability weighting to account for confounding.
 
 ```{r example 2}
-ps = predict(glm(A ~ X, family='binomial'), type='response')
-w = A/ps + (1-A)/(1-ps)
-fit2 = surv.ICH(A, bmt$t2, bmt$d4, "natural", weights=w)
-plot_inc(fit2, legend=c('AML','ALL'))
-p = fit1$p.val
-text(200, 0.8, paste0('P = ', round(p,3)))
-plot_ate(fit2, legend=c('AML','ALL'))
+# ps = predict(glm(A ~ X, family='binomial'), type='response')
+# w = A/ps + (1-A)/(1-ps)
+# fit2 = surv.ICH(A, bmt$t2, bmt$d4, "natural", weights=w)
+# plot_inc(fit2, legend=c('AML','ALL'))
+# p = fit1$p.val
+# text(200, 0.8, paste0('P = ', round(p,3)))
+# plot_ate(fit2, legend=c('AML','ALL'))
 ```
 
 To increase efficiency, we use the efficient influence function (EIF)-based method.
 
 ```{r example 3}
-fit3 = surv.ICH(A, bmt$t2, bmt$d4, "natural", X, method='eff')
-plot_inc(fit3, legend=c('AML','ALL'))
-p = fit1$p.val
-text(200, 0.8, paste0('P = ', round(p,3)))
-plot_ate(fit3, legend=c('AML','ALL'))
+# fit3 = surv.ICH(A, bmt$t2, bmt$d4, "natural", X, method='eff')
+# plot_inc(fit3, legend=c('AML','ALL'))
+# p = fit1$p.val
+# text(200, 0.8, paste0('P = ', round(p,3)))
+# plot_ate(fit3, legend=c('AML','ALL'))
 ```
 
 ### Semicompeting risks data structure
@@ -121,33 +121,33 @@ Note that the time to death (or censoring) is t1 and the time to relapse (or cen
 We use the hypothetical strategy (natural effects) and fit the model nonparametrically.
 
 ```{r example 4}
-fit4 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural")
-plot_inc(fit4, legend=c('AML','ALL'))
-p = fit1$p.val
-text(200, 0.8, paste0('P = ', round(p,3)))
-plot_ate(fit4, legend=c('AML','ALL'))
-## bootstrap confidence interval
-plot_ate(fit4, nboot=200, legend=c('AML','ALL'))
+# fit4 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural")
+# plot_inc(fit4, legend=c('AML','ALL'))
+# p = fit1$p.val
+# text(200, 0.8, paste0('P = ', round(p,3)))
+# plot_ate(fit4, legend=c('AML','ALL'))
+# ## bootstrap confidence interval
+# plot_ate(fit4, nboot=200, legend=c('AML','ALL'))
 ```
 
 We can also use inverse probability weighting to account for confounding.
 
 ```{r example 5}
-ps = predict(glm(A ~ X, family='binomial'), type='response')
-w = A/ps + (1-A)/(1-ps)
-fit5 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", weights=w)
-plot_inc(fit5, legend=c('AML','ALL'))
-p = fit1$p.val
-text(200, 0.8, paste0('P = ', round(p,3)))
-plot_ate(fit5, legend=c('AML','ALL'))
+# ps = predict(glm(A ~ X, family='binomial'), type='response')
+# w = A/ps + (1-A)/(1-ps)
+# fit5 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", weights=w)
+# plot_inc(fit5, legend=c('AML','ALL'))
+# p = fit1$p.val
+# text(200, 0.8, paste0('P = ', round(p,3)))
+# plot_ate(fit5, legend=c('AML','ALL'))
 ```
 
 To increase efficiency, we use the efficient influence function (EIF)-based method.
 
 ```{r example 6}
-fit6 = surv.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='eff')
-plot_inc(fit6, legend=c('AML','ALL'))
-p = fit1$p.val
-text(200, 0.8, paste0('P = ', round(p,3)))
-plot_ate(fit6, legend=c('AML','ALL'))
+# fit6 = surv.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='eff')
+# plot_inc(fit6, legend=c('AML','ALL'))
+# p = fit1$p.val
+# text(200, 0.8, paste0('P = ', round(p,3)))
+# plot_ate(fit6, legend=c('AML','ALL'))
 ```

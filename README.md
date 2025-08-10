@@ -7,12 +7,55 @@
 
 <!-- badges: end -->
 
-The goal of ICHe9r1 is to …
+The goal of ICHe9r1 is to estimate the treatment effect for
+time-to-event outcomes with intercurrent events under ICH E9 (R1).
+
+## Method
+
+The ICH E9 (R1) proposed five strategies to deal with intercurrent
+events: treatment policy strategy, composite variable strategy,
+hypothetical strategy, while on treatment strategy, and principal
+stratum strategy. To answer a specific scientific question, a specific
+strategy should be chosen before experimental design and analysis.
+
+- Treatment policy strategy. The treatment policy strategy addresses the
+  problem of intercurrent events by expanding the initial treatment
+  conditions to a treatment policy. This strategy is applicable only if
+  intercurrent events do not hinder primary outcome events. It is
+  confined to a semicompeting risks context. \<\>
+- Composite variable strategy. The composite variable strategy addresses
+  the problem of intercurrent events by expanding the outcome variables.
+  It aggregates the intercurrent event and primary outcome event into a
+  single composite outcome variable. \<\>
+- Hypothetical strategy. The hypothetical strategy envisions a
+  hypothetical clinical trial condition where the occurrence of
+  intercurrent events is restricted in certain ways. By doing so, the
+  distribution of potential outcomes under the hypothetical scenario can
+  capture the impact of intercurrent events explicitly through a
+  pre-specified criterion. The hypothetical strategy is closely related
+  to mediation analysis, which is intended to evaluate the direct and
+  indirect effects for semi-competing risks data. \<\>
+- While on treatment strategy. The while on treatment strategy considers
+  the measure of outcome variables taken only up to the occurrence of
+  intercurrent events. The failures of primary outcome events should not
+  be counted in the cumulative incidences if intercurrent events
+  occurred. The while on treatment strategy is closely related to the
+  competing risks model. \<\>
+- Principal stratum strategy. The principal stratum strategy aims to
+  stratify the population into subpopulations based on the joint
+  potential occurrences of intercurrent events under the two treatment
+  assignments. Usually, we are interested in a principal stratum
+  comprised of individuals who would never experience intercurrent
+  events, regardless of which treatment they receive.
+
+Reference: Deng, Y., Han, S., & Zhou, X. H. (2025). Inference for
+Cumulative Incidences and Treatment Effects in Randomized Controlled
+Trials With Time‐to‐Event Outcomes Under ICH E9 (R1). Statistics in
+Medicine, 44(10-12), e70091.
 
 ## Installation
 
-You can install the development version of ICHe9r1 from
-[GitHub](https://github.com/) with:
+You can install the development version of ICHe9r1 from GitHub with:
 
 ``` r
 # install.packages("pak")
@@ -21,36 +64,99 @@ pak::pak("mephas/ICHe9r1")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+We use the bmt data to illustrate how to estimate the treatment effect.
+The primary event is death, and the intercurrent event is relapse.
+
+### Competing risks data structure
+
+The time to the first event (either death or relapse) is t2. The event
+indicator is d4=d2+d3, so that d4=1 if death occurs first, while d4=2 if
+relapse occurs first.
 
 ``` r
 library(ICHe9r1)
 #> 要求されたパッケージ cmprsk をロード中です
 #> 要求されたパッケージ survival をロード中です
 #> 要求されたパッケージ MASS をロード中です
-## basic example code
+data(bmt)
+A = as.numeric(bmt$group>1)
+X = bmt[,c('z1','z3','z5')]
+bmt = transform(bmt, d4=d2+d3)
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+Suppose we would like to use the hypothetical strategy (natural
+effects). We fit the model by nonparametric estimation.
 
 ``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
+# fit1 = surv.ICH(A, bmt$t2, bmt$d4, "natural")
+# plot_inc(fit1, legend=c('AML','ALL'))
+# p = fit1$p.val
+# text(200, 0.8, paste0('P = ', round(p,3)))
+# plot_ate(fit1, legend=c('AML','ALL'))
+# ## bootstrap confidence interval
+# plot_ate(fit1, nboot=200, legend=c('AML','ALL'))
 ```
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this.
+We can also use inverse probability weighting to account for
+confounding.
 
-You can also embed plots, for example:
+``` r
+# ps = predict(glm(A ~ X, family='binomial'), type='response')
+# w = A/ps + (1-A)/(1-ps)
+# fit2 = surv.ICH(A, bmt$t2, bmt$d4, "natural", weights=w)
+# plot_inc(fit2, legend=c('AML','ALL'))
+# p = fit1$p.val
+# text(200, 0.8, paste0('P = ', round(p,3)))
+# plot_ate(fit2, legend=c('AML','ALL'))
+```
 
-<img src="man/figures/README-pressure-1.png" width="100%" />
+To increase efficiency, we use the efficient influence function
+(EIF)-based method.
 
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
+``` r
+# fit3 = surv.ICH(A, bmt$t2, bmt$d4, "natural", X, method='eff')
+# plot_inc(fit3, legend=c('AML','ALL'))
+# p = fit1$p.val
+# text(200, 0.8, paste0('P = ', round(p,3)))
+# plot_ate(fit3, legend=c('AML','ALL'))
+```
+
+### Semicompeting risks data structure
+
+Note that the time to death (or censoring) is t1 and the time to relapse
+(or censoring) is t2. We use the hypothetical strategy (natural effects)
+and fit the model nonparametrically.
+
+``` r
+# fit4 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural")
+# plot_inc(fit4, legend=c('AML','ALL'))
+# p = fit1$p.val
+# text(200, 0.8, paste0('P = ', round(p,3)))
+# plot_ate(fit4, legend=c('AML','ALL'))
+# ## bootstrap confidence interval
+# plot_ate(fit4, nboot=200, legend=c('AML','ALL'))
+```
+
+We can also use inverse probability weighting to account for
+confounding.
+
+``` r
+# ps = predict(glm(A ~ X, family='binomial'), type='response')
+# w = A/ps + (1-A)/(1-ps)
+# fit5 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", weights=w)
+# plot_inc(fit5, legend=c('AML','ALL'))
+# p = fit1$p.val
+# text(200, 0.8, paste0('P = ', round(p,3)))
+# plot_ate(fit5, legend=c('AML','ALL'))
+```
+
+To increase efficiency, we use the efficient influence function
+(EIF)-based method.
+
+``` r
+# fit6 = surv.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='eff')
+# plot_inc(fit6, legend=c('AML','ALL'))
+# p = fit1$p.val
+# text(200, 0.8, paste0('P = ', round(p,3)))
+# plot_ate(fit6, legend=c('AML','ALL'))
+```

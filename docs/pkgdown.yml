@@ -1,6 +1,5 @@
 pandoc: '3.4'
 pkgdown: 2.1.3
 pkgdown_sha: ~
-articles:
-  ICHer91: ICHer91.html
-last_built: 2025-08-09T01:05Z
+articles: {}
+last_built: 2025-08-10T06:13Z

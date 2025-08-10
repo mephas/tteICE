@@ -19,7 +19,7 @@ strategies except the principal stratum strategy are allowed."><!-- mathjax --><
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ICHe9r1</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -27,20 +27,16 @@ strategies except the principal stratum strategy are allowed."><!-- mathjax --><
       <ul class="nav navbar-nav"><li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Articles
-
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/ICHer91.html">ICHer91</a>
-    </li>
-  </ul></li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
-      </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="https://github.com/mephas/ICHe9r1/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+
+  </a>
+</li>
+      </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
@@ -50,7 +46,7 @@ strategies except the principal stratum strategy are allowed."><!-- mathjax --><
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Estimating the hazard ratio under ICH E9 (R1)</h1>
-
+    <small class="dont-index">Source: <a href="https://github.com/mephas/ICHe9r1/blob/HEAD/R/surv_HR.R" class="external-link"><code>R/surv_HR.R</code></a></small>
     <div class="hidden name"><code>surv.HR.Rd</code></div>
     </div>
 
@@ -134,10 +130,10 @@ strategies except the principal stratum strategy are allowed.</p>
 <dl>
 For the treatment policy and hypothetical strategies, the hazard ratio (HR) is given by the Cox
 regression regarding intercurrent events as censoring. For the composite variable strategy, the
-hazard ratio is given by the the Cox regression regarding the first occurrence of either intercurrent
+hazard ratio is given by the Cox regression regarding the first occurrence of either intercurrent
 event or primary event as the event of interest. For the while on treatment strategy, the hazard
 ratio is given by the Fine-Gray subdistribution model. There is no existing method to estimate the
-hazard ratio using principal stratum strategy. \cr
+hazard ratio using principal stratum strategy.
 The weakness of using hazard ratio to infer treatment effects is critical. First, the hazard ratio
 relies on model specification. Second, the hazard ratio is not collapsible. Therefore, the hazard
 ratio should only be treated as a descriptive or exploratory measure of the treatment effect.
@@ -150,12 +146,14 @@ ratio should only be treated as a descriptive or exploratory measure of the trea
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Generate simulated data</span></span></span>
-<span class="r-in"><span><span class="co">## dat = .generatedata(500)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">bmt</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">bmt</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform</a></span><span class="op">(</span><span class="va">bmt</span>, d4<span class="op">=</span><span class="va">d2</span><span class="op">+</span><span class="va">d3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">A</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">bmt</span><span class="op">$</span><span class="va">group</span><span class="op">&gt;</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co">## composite variable strategy</span></span></span>
-<span class="r-in"><span><span class="va">fit</span> <span class="op">=</span> <span class="fu">surv.HR</span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">Z</span>, <span class="va">dat</span><span class="op">$</span><span class="va">Time</span>, <span class="va">dat</span><span class="op">$</span><span class="va">cstatus</span>, <span class="st">"composite"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fit</span> <span class="op">=</span> <span class="fu">surv.HR</span><span class="op">(</span><span class="va">A</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t2</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d4</span>, <span class="st">"composite"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co">## while on treatment strategy</span></span></span>
-<span class="r-in"><span><span class="va">fit</span> <span class="op">=</span> <span class="fu">surv.HR</span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">Z</span>, <span class="va">dat</span><span class="op">$</span><span class="va">Time</span>, <span class="va">dat</span><span class="op">$</span><span class="va">cstatus</span>, <span class="st">"whileon"</span>, cov1<span class="op">=</span><span class="va">dat</span><span class="op">$</span><span class="va">X</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">X</span> <span class="op">=</span> <span class="va">bmt</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'z1'</span>,<span class="st">'z3'</span>,<span class="st">'z5'</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">fit</span> <span class="op">=</span> <span class="fu">surv.HR</span><span class="op">(</span><span class="va">A</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t2</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d4</span>, <span class="st">"whileon"</span>, cov1<span class="op">=</span><span class="va">X</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
@@ -168,7 +166,7 @@ ratio should only be treated as a descriptive or exploratory measure of the trea
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Jane Doe.</p>
+  <p></p><p>Developed by Yuhao Deng, Yi Zhou.</p>
 </div>
 
 <div class="pkgdown">

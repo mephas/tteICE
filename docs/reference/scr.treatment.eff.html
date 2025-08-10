@@ -20,7 +20,7 @@ the primary event as it was recorded."><!-- mathjax --><script src="https://cdnj
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ICHe9r1</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -28,20 +28,16 @@ the primary event as it was recorded."><!-- mathjax --><script src="https://cdnj
       <ul class="nav navbar-nav"><li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Articles
-
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/ICHer91.html">ICHer91</a>
-    </li>
-  </ul></li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
-      </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="https://github.com/mephas/ICHe9r1/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+
+  </a>
+</li>
+      </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
@@ -51,7 +47,7 @@ the primary event as it was recorded."><!-- mathjax --><script src="https://cdnj
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Fitting the cumulative incidence function using treatment policy strategy</h1>
-
+    <small class="dont-index">Source: <a href="https://github.com/mephas/ICHe9r1/blob/HEAD/R/scr_treatment_eff.R" class="external-link"><code>R/scr_treatment_eff.R</code></a></small>
     <div class="hidden name"><code>scr.treatment.eff.Rd</code></div>
     </div>
 
@@ -157,7 +153,7 @@ the contrast of interest is made between the two treatment policies. The differe
 cumulative incidences under the two treatment policies is then
 \tau(t) = P(T(1, R(1)) &lt; t) - P(T(0, R(0)) &lt; t),ATE_tp
 representing the difference in probabilities of experiencing primary outcome events during
-(0,t) under active treatment and placebo. \cr
+(0,t) under active treatment and placebo.
 The average treatment effect \tau^{\text{tp}}(t) has a meaningful causal interpretation
 only when T(1, R(1)) and T(0, R(0)) are well defined. Because the treatment policy
 includes the occurrence of the intercurrent event as natural, the entire treatment policy is
@@ -171,13 +167,6 @@ the notations T(w, R(w)) = T(w) in defining estimands. As such,
     <div class="dont-index"><p><code><a href="scr.treatment.html">scr.treatment</a></code>, <code><a href="scr.ICH.html">scr.ICH</a></code></p></div>
     </div>
 
-    <div id="ref-examples">
-    <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fl">1</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
-<span class="r-in"><span></span></span>
-</code></pre></div>
-    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>
@@ -186,7 +175,7 @@ the notations T(w, R(w)) = T(w) in defining estimands. As such,
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Jane Doe.</p>
+  <p></p><p>Developed by Yuhao Deng, Yi Zhou.</p>
 </div>
 
 <div class="pkgdown">
