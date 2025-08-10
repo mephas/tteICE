@@ -37,24 +37,22 @@
 #' @return A list including the fitted object and input variables.
 #'
 #' @examples
+#' ## load data
 #' data(bmt)
 #' bmt = transform(bmt, d4=d2+d3)
 #' A = as.numeric(bmt$group>1)
-#' X = bmt[,c('z1','z3','z5')]
-#' bmt$A = A
-#'
+#' X = as.matrix(bmt[,c('z1','z3','z5')])
 #' ## Composite variable strategy,
 #' ## nonparametric estimation without covariates
 #' fit1 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
-#'
 #' ## Hypothetical strategy (natural effects),
 #' ## nonparametric estimation with inverse probability weighting
-#' ps = predict(glm(A ~ z1+z3+z5-1, family='binomial', data=bmt), type='response')
+#' ps = predict(glm(A ~ X, family='binomial'), type='response')
 #' w = A/ps + (1-A)/(1-ps)
-#' fit1 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, weights=w)
-#'
-#' ## Composite variable strategy, semiparametrically efficient estimation with covariates
-#' ## ERROR in glm**fit2 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite", X, method='eff')
+#' fit2 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, weights=w)
+#' ## Hypothetical strategy (natural effects),
+#' ## semiparametrically efficient estimation with covariates
+#' fit3 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='eff')
 #'
 #' @details
 #' \describe{
