@@ -47,14 +47,14 @@ strategies are allowed. The input data should be of competing risks structure.
 }
 \details{
 \describe{
-Intercurrent events refer to the events occurring after treatment initiation of clinical trials that
+\item{Background}{Intercurrent events refer to the events occurring after treatment initiation of clinical trials that
 affect either the interpretation of or the existence of the measurements associated with the clinical
 question of interest. The International Conference on Harmonization (ICH) E9 (R1) addendum proposed
 five strategies have been proposed in to address intercurrent events, namely, treatment policy strategy,
 composite variable strategy, while on treatment strategy, hypothetical strategy, and principal stratum
 strategy. To answer a specific scientific question, a strategy with a particular estimand is chosen
-before the study design. \\cr
-We adopt the potential outcomes framework that defines a causal estimand as the contrast between
+before the study design.}
+\item{Model}{We adopt the potential outcomes framework that defines a causal estimand as the contrast between
 functionals of potential outcomes. Consider a randomized controlled trial with \eqn{n} individuals
 randomly assigned to one of two treatment conditions, denoted by \eqn{w}, where \eqn{w = 1} represents
 the active treatment (a test drug) and \eqn{w = 0} represents the control (placebo). Assume that all
@@ -63,26 +63,29 @@ patients adhere to their treatment assignments and do not discontinue treatment.
 if any, which represent the time durations from treatment initiation to the primary outcome event under
 two treatment assignments respectively. Let \eqn{R_i(1)} and \eqn{R_i(0)} denote the occurrence time of
 potential intercurrent events, if any, under the two treatment assignments, respectively. Intercurrent
-events are considered as absent if no post-treatment intercurrent events occur until the end of study. \\cr
-We adopt the potential cumulative incidences under both treatment assignments as the target estimands.
+events are considered as absent if no post-treatment intercurrent events occur until the end of study.}
+\item{Estimand}{We adopt the potential cumulative incidences under both treatment assignments as the target estimands.
 Potential cumulative incidences describe the probability of time-to-event outcomes occurring at each
 time point. We define the treatment effect as the contrast of two potential cumulative incidences.
-Cumulative incidences are model-free and collapsible, enjoying causal interpretations.
+Cumulative incidences are model-free and collapsible, enjoying causal interpretations.}
 }
 }
 \examples{
-## Generate simulated data
-## dat = .generatedata(500)
-## composite variable strategy, 
+data(bmt)
+bmt = transform(bmt, d4=d2+d3)
+A = as.numeric(bmt$group>1)
+bmt$A = A
+X = bmt[,c('z1','z3','z5')]
+## Composite variable strategy, 
 ## nonparametric estimation without covariates
-fit1 = surv.ICH(dat$Z, dat$Time, dat$cstatus, "composite")
-## hypothetical strategy (natural effects),
+fit1 = surv.ICH(A, bmt$t2, bmt$d4, "composite")
+## Hypothetical strategy (natural effects), 
 ## nonparametric estimation with inverse probability weighting
-ps = predict(glm(dat$Z ~ dat$X, family='binomial'), type='response')
-w = dat$Z/ps + (1-dat$Z)/(1-ps)
-fit1 = surv.ICH(dat$Z, dat$Time, dat$cstatus, "natural", dat$X, weights=w)
-## composite variable strategy, semiparametrically efficient estimation with covariates
-fit2 = surv.ICH(dat$Z, dat$Time, dat$cstatus, "composite", dat$X, method='eff')
+ps = predict(glm(A ~ z1+z3+z5-1, family='binomial', data=bmt), type='response')
+w = A/ps + (1-A)/(1-ps)
+fit1 = surv.ICH(A, bmt$t2, bmt$d4, "natural", X, weights=w)
+## Composite variable strategy, semiparametrically efficient estimation with covariates
+## ERROR in glm**fit2 = surv.ICH(A, bmt$t2, bmt$d4, "composite", X, method='eff')
 
 
 }

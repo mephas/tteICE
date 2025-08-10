@@ -43,7 +43,7 @@
 #' cumulative incidences under the two treatment policies is then
 #' \eqn{\tau(t) = P(T(1, R(1)) < t) - P(T(0, R(0)) < t),}{ATE_tp}
 #' representing the difference in probabilities of experiencing primary outcome events during
-#' \eqn{(0,t)} under active treatment and placebo. \\cr
+#' \eqn{(0,t)} under active treatment and placebo. \cr
 #' The average treatment effect \eqn{\tau^{\text{tp}}(t)} has a meaningful causal interpretation
 #' only when \eqn{T(1, R(1))} and \eqn{T(0, R(0))} are well defined. Because the treatment policy
 #' includes the occurrence of the intercurrent event as natural, the entire treatment policy is

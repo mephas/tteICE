@@ -35,10 +35,6 @@ This function calculates the standard error for the estimated potential cumulati
 and treatment effect. Two methods to calculate the standard error are considered: asymptotic standard error
 based on the explicit formula and bootstrapping.
 }
-\examples{
-1
-
-}
 \seealso{
 \code{\link[ICHe9r1]{surv.ICH}}, \code{\link[ICHe9r1]{scr.ICH}}
 }

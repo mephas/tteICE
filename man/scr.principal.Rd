@@ -62,10 +62,6 @@ under active treatment and placebo in the subpopulation that will not experience
 regardless of treatment during \eqn{(0,t)}.
 }
 }
-\examples{
-1
-
-}
 \seealso{
 \code{\link[ICHe9r1]{scr.principal.eff}}, \code{\link[ICHe9r1]{scr.ICH}}
 }

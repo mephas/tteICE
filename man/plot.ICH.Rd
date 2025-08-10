@@ -52,14 +52,16 @@ This function plots the estimated potential cumulative incidence function
 with pointwise confidence intervals.
 }
 \examples{
-## dat = .generatedata(500)
-for (st in c('composite')){
-fit = surv.ICH(dat$Z, dat$Time, dat$cstatus, st)
+data(bmt)
+bmt = transform(bmt, d4=d2+d3)
+A = as.numeric(bmt$group>1)
+for (st in c('composite','natural','removed','whileon','principal')){
+fit = surv.ICH(A, bmt$t2, bmt$d4, st)
 plot(fit, type="ate", ylim=c(0,1))
 }
 
-for (st in c('composite')){
-fit = surv.ICH(dat$Z, dat$Time, dat$cstatus, st)
+for (st in c('composite','natural','removed','whileon','principal')){
+fit = surv.ICH(A, bmt$t2, bmt$d4, st)
 plot(fit, type="inc", ylim=c(0,1))
 p = fit$p.val
 if (!is.null(p)) text(0.6, 0.8, paste0('P = ', round(p,3)))

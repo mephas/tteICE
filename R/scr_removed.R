@@ -43,7 +43,7 @@
 #' to this hypothetical scenario is written as
 #' \eqn{\tau(t) = P(T'(1) < t) - P(T'(0) < t),}
 #' representing the difference in probabilities of experiencing primary outcome events during \eqn{(0,t)}
-#' in the pre-specified hypothetical scenario under active treatment and placebo. \\cr
+#' in the pre-specified hypothetical scenario under active treatment and placebo. \cr
 #' The key question is how to envision \eqn{T'(w)}. We manipulate the hazard specific to intercurrent
 #' event \eqn{\lambda_2(t; w)} while assuming the hazard specific to the primary outcome event
 #' \eqn{\lambda_1(t; w)} remains unchanged. Specifically, we envision that intercurrent events are

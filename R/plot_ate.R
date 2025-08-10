@@ -15,12 +15,12 @@
 #' formula of the standard error.
 #'
 #' @param seed Seed for bootstrapping.
-#' 
+#'
 #' @param xlab Label for x-axis.
-#' 
-#' @param xlim Limit for x-axis. 
-#' 
-#' @param ylim Limit for y-axis. 
+#'
+#' @param xlim Limit for x-axis.
+#'
+#' @param ylim Limit for y-axis.
 #'
 #' @param ... Other augments in function \code{\link{plot.default}} or function \code{\link{curve}}
 #'
@@ -38,7 +38,7 @@
 #' bmt = transform(bmt, d4=d2+d3)
 #' A = as.numeric(bmt$group>1)
 #' for (st in c('composite')){
-#' fit = surv.ICH(bmt$Z, bmt$t2, bmt$d4, st)
+#' fit = surv.ICH(A, bmt$t2, bmt$d4, st)
 #' plot_ate(fit, ylim=c(-0.4,0.4))
 #' }
 #'

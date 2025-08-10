@@ -53,22 +53,24 @@ strategies except the principal stratum strategy are allowed.
 \describe{
 For the treatment policy and hypothetical strategies, the hazard ratio (HR) is given by the Cox
 regression regarding intercurrent events as censoring. For the composite variable strategy, the
-hazard ratio is given by the the Cox regression regarding the first occurrence of either intercurrent
+hazard ratio is given by the Cox regression regarding the first occurrence of either intercurrent
 event or primary event as the event of interest. For the while on treatment strategy, the hazard
 ratio is given by the Fine-Gray subdistribution model. There is no existing method to estimate the
-hazard ratio using principal stratum strategy. \\cr
+hazard ratio using principal stratum strategy. \cr
 The weakness of using hazard ratio to infer treatment effects is critical. First, the hazard ratio
 relies on model specification. Second, the hazard ratio is not collapsible. Therefore, the hazard
 ratio should only be treated as a descriptive or exploratory measure of the treatment effect.
 }
 }
 \examples{
-## Generate simulated data
-## dat = .generatedata(500)
+data(bmt)
+bmt = transform(bmt, d4=d2+d3)
+A = as.numeric(bmt$group>1)
 ## composite variable strategy
-fit = surv.HR(dat$Z, dat$Time, dat$cstatus, "composite")
+fit = surv.HR(A, bmt$t2, bmt$d4, "composite")
 ## while on treatment strategy
-fit = surv.HR(dat$Z, dat$Time, dat$cstatus, "whileon", cov1=dat$X)
+X = bmt[,c('z1','z3','z5')]
+fit = surv.HR(A, bmt$t2, bmt$d4, "whileon", cov1=X)
 
 
 }

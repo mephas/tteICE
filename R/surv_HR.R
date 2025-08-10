@@ -39,6 +39,7 @@
 #' ## composite variable strategy
 #' fit = surv.HR(A, bmt$t2, bmt$d4, "composite")
 #' ## while on treatment strategy
+#' X = bmt[,c('z1','z3','z5')]
 #' fit = surv.HR(A, bmt$t2, bmt$d4, "whileon", cov1=X)
 #' 
 #'
@@ -49,7 +50,7 @@
 #' hazard ratio is given by the Cox regression regarding the first occurrence of either intercurrent
 #' event or primary event as the event of interest. For the while on treatment strategy, the hazard
 #' ratio is given by the Fine-Gray subdistribution model. There is no existing method to estimate the
-#' hazard ratio using principal stratum strategy. \\cr
+#' hazard ratio using principal stratum strategy. \cr
 #' The weakness of using hazard ratio to infer treatment effects is critical. First, the hazard ratio
 #' relies on model specification. Second, the hazard ratio is not collapsible. Therefore, the hazard
 #' ratio should only be treated as a descriptive or exploratory measure of the treatment effect.

@@ -43,9 +43,11 @@ This function plots the estimated treatment effect (difference in potential
 cumulative incidences under treated and control) with pointwise confidence intervals.
 }
 \examples{
-## dat = .generatedata(500)
+data(bmt)
+bmt = transform(bmt, d4=d2+d3)
+A = as.numeric(bmt$group>1)
 for (st in c('composite')){
-fit = surv.ICH(dat$Z, dat$Time, dat$cstatus, st)
+fit = surv.ICH(A, bmt$t2, bmt$d4, st)
 plot_ate(fit, ylim=c(-0.4,0.4))
 }
 
