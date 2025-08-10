@@ -30,27 +30,31 @@ experimental design and analysis.
 * Treatment policy strategy. The treatment policy strategy addresses the problem of intercurrent events 
 by expanding the initial treatment conditions to a treatment policy. This strategy is applicable only if 
 intercurrent events do not hinder primary outcome events. It is confined to a semicompeting risks 
-context. <\cr>
+context. 
 * Composite variable strategy. The composite variable strategy addresses the problem of intercurrent events 
 by expanding the outcome variables. It aggregates the intercurrent event and primary outcome event into a 
-single composite outcome variable. <\cr>
+single composite outcome variable. 
 * Hypothetical strategy. The hypothetical strategy envisions a hypothetical clinical trial condition where 
 the occurrence of intercurrent events is restricted in certain ways. By doing so, the distribution of 
 potential outcomes under the hypothetical scenario can capture the impact of intercurrent events explicitly 
 through a pre-specified criterion. The hypothetical strategy is closely related to mediation analysis, 
-which is intended to evaluate the direct and indirect effects for semi-competing risks data. <\cr>
+which is intended to evaluate the direct and indirect effects for semi-competing risks data. 
 * While on treatment strategy. The while on treatment strategy considers the measure of outcome variables 
 taken only up to the occurrence of intercurrent events. The failures of primary outcome events should not 
 be counted in the cumulative incidences if intercurrent events occurred. The while on treatment strategy is 
-closely related to the competing risks model. <\cr>
+closely related to the competing risks model. 
 * Principal stratum strategy. The principal stratum strategy aims to stratify the population into 
 subpopulations based on the joint potential occurrences of intercurrent events under the two treatment 
 assignments. Usually, we are interested in a principal stratum comprised of individuals who would never 
 experience intercurrent events, regardless of which treatment they receive.
 
-Reference: Deng, Y., Han, S., & Zhou, X. H. (2025). Inference for Cumulative Incidences and Treatment 
+Reference: 
+[1] International Conference on Harmonization (2019). ICH E9 (R1): Addendum to Statistical Principles for Clinical 
+Trials on Choosing Appropriate Estimands and Defining Sensitivity Analyses in Clinical Trials. (Step 4 version 
+dated 20 November 2019). https://database.ich.org/sites/default/files/E9-R1_Step4_Guideline_2019_1203.pdf.
+[2] Deng, Y., Han, S., & Zhou, X. H. (2025). Inference for Cumulative Incidences and Treatment 
 Effects in Randomized Controlled Trials With Time‐to‐Event Outcomes Under ICH E9 (R1). Statistics in Medicine, 
-44(10-12), e70091.
+44(10-12), e70091. https://doi.org/10.1002/sim.70091.
 
 
 ## Installation
