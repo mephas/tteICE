@@ -48,7 +48,7 @@ subpopulations based on the joint potential occurrences of intercurrent events u
 assignments. Usually, we are interested in a principal stratum comprised of individuals who would never 
 experience intercurrent events, regardless of which treatment they receive.
 
-Reference: 
+References: 
 [1] International Conference on Harmonization (2019). ICH E9 (R1): Addendum to Statistical Principles for Clinical 
 Trials on Choosing Appropriate Estimands and Defining Sensitivity Analyses in Clinical Trials. (Step 4 version 
 dated 20 November 2019). https://database.ich.org/sites/default/files/E9-R1_Step4_Guideline_2019_1203.pdf.
