@@ -53,8 +53,8 @@ References:
 Trials on Choosing Appropriate Estimands and Defining Sensitivity Analyses in Clinical Trials. (Step 4 version 
 dated 20 November 2019). https://database.ich.org/sites/default/files/E9-R1_Step4_Guideline_2019_1203.pdf.
 [2] Deng, Y., Han, S., & Zhou, X. H. (2025). Inference for Cumulative Incidences and Treatment 
-Effects in Randomized Controlled Trials With Time‐to‐Event Outcomes Under ICH E9 (R1). Statistics in Medicine, 
-44(10-12), e70091. https://doi.org/10.1002/sim.70091.
+Effects in Randomized Controlled Trials With Time‐to‐Event Outcomes Under ICH E9 (R1). Statistics in Medicine. 
+https://doi.org/10.1002/sim.70091.
 
 
 ## Installation
