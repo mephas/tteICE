@@ -51,7 +51,7 @@
 #' \item{Background}{Intercurrent events refer to the events occurring after treatment initiation of clinical trials that
 #' affect either the interpretation of or the existence of the measurements associated with the clinical
 #' question of interest. The International Conference on Harmonization (ICH) E9 (R1) addendum proposed
-#' five strategies have been proposed in to address intercurrent events, namely, treatment policy strategy,
+#' five strategies to address intercurrent events, namely, treatment policy strategy,
 #' composite variable strategy, while on treatment strategy, hypothetical strategy, and principal stratum
 #' strategy. To answer a specific scientific question, a strategy with a particular estimand is chosen
 #' before the study design.}
