@@ -5,7 +5,7 @@
 #'
 #' @param fit A fitted object from \code{surv.ICH}.
 #'
-#' @param decrease A logical variable indicating whether displaying the cumulative incidence
+#' @param decrease A logical variable indicating whether to display the cumulative incidence
 #' function (\code{decrease = FALSE}) or survival function (\code{decrease = TRUE}).
 #'
 #' @param conf.int Level of the confidence interval. If \code{conf.int = NULL}, then the condifence
@@ -37,15 +37,17 @@
 #'
 #'
 #' @examples
+#' ## load data and fit the model
 #' data(bmt)
 #' bmt = transform(bmt, d4=d2+d3)
 #' A = as.numeric(bmt$group>1)
-#' for (st in c('composite')){
-#' fit = surv.ICH(A, bmt$t2, bmt$d4, st)
-#' plot_inc(fit, ylim=c(0,1))
+#' fit = surv.ICH(A, bmt$t2, bmt$d4, 'composite')
 #' p = fit$p.val
-#' if (!is.null(p)) text(0.6, 0.8, paste0('P = ', round(p,3)))
-#' }
+#' ## plot asymptotic confidence intervals based on explicite formulas
+#' plot_inc(fit, legend=c('AML','ALL'), ylim=c(0,1))
+#' text(200, 0.8, paste0('P = ', round(p,3)))
+#' ## plot bootstrap confidence intervals
+#' plot_inc(fit, nboot=200, legend=c('AML','ALL'), ylim=c(0,1))
 #'
 #' @export
 
