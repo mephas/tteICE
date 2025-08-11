@@ -5,7 +5,7 @@
 #'
 #' @param fit A fitted object from \code{surv.ICH}.
 #'
-#' @param decrease A logical variable indicating whether displaying the difference in cumulative
+#' @param decrease A logical variable indicating whether to display the difference in cumulative
 #' incidence functions (\code{decrease = FALSE}) or survival functions (\code{decrease = TRUE}).
 #'
 #' @param conf.int Level of the confidence interval. If \code{conf.int = NULL}, then the condifence
@@ -31,7 +31,7 @@
 #' \code{\link[graphics]{plot.default}},
 #' \code{\link[graphics]{points}},
 #' \code{\link[graphics]{curve}},
-#'
+#'\code{\link[ICHe9r1]{plot.ICH}},
 #'
 #' @examples
 #' ## load data and fit the model
