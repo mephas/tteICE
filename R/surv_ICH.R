@@ -2,7 +2,7 @@
 #'
 #' @description This function estimates the potential cumulative incidence function
 #' for time-to event data under ICH E9 (R1) to address intercurrent events. Multiple
-#' strategies are allowed. The input data should be of competing risks structure.
+#' strategies are allowed. The input data should be of a competing risks structure.
 #'
 #' @param A Treatment indicator, 1 for treatment and 0 for control.
 #'
@@ -18,7 +18,7 @@
 #'
 #' @param cov1 Baseline covariates.
 #'
-#' @param method Estimation method, \code{"np"} indicating nonparametric estimation, otherwise
+#' @param method Estimation method, \code{"np"} indicating nonparametric estimation, \code{"eff"}
 #' indicating semiparametrically efficient estimation based on efficient influence functions.
 #'
 #' @param weights Weight for each subject.
@@ -82,20 +82,23 @@ surv.ICH <- function(A,Time,cstatus,strategy='composite',cov1=NULL,method='np',
   N = length(A)
   if (is.null(weights)) weights = rep(1,N)
   #if (!is.null(cov1)) weights = weights*.ipscore(A,cov1)
-  if (method=='np'){
+  if (method=='np') {
     if (strategy=='treatment') fit = surv.treatment(A,Time,cstatus,weights,subset)
     if (strategy=='composite') fit = surv.composite(A,Time,cstatus,weights,subset)
     if (strategy=='natural') fit = surv.natural(A,Time,cstatus,weights,subset)
     if (strategy=='removed') fit = surv.removed(A,Time,cstatus,weights,subset)
     if (strategy=='whileon') fit = surv.whileon(A,Time,cstatus,weights,subset)
     if (strategy=='principal') fit = surv.principal(A,Time,cstatus,weights,subset)
-  } else {
+  } else if (method=='eff') {
     if (strategy=='treatment') fit = surv.treatment.eff(A,Time,cstatus,cov1,subset)
     if (strategy=='composite') fit = surv.composite.eff(A,Time,cstatus,cov1,subset)
     if (strategy=='natural') fit = surv.natural.eff(A,Time,cstatus,cov1,subset)
     if (strategy=='removed') fit = surv.removed.eff(A,Time,cstatus,cov1,subset)
     if (strategy=='whileon') fit = surv.whileon.eff(A,Time,cstatus,cov1,subset)
     if (strategy=='principal') fit = surv.principal.eff(A,Time,cstatus,cov1,subset)
+  } else {
+    cat('Please specify a correct estimation method, either np or eff!\n')
+    return()
   }
   ate.list = c(fit,list(A=A,Time=Time,cstatus=cstatus,strategy=strategy,cov1=cov1,
                     method=method,weights=weights,subset=subset,dtype='cmprsk'))
