@@ -43,7 +43,7 @@
 #' \eqn{\tau(t) = P(T(1) < t \mid R(1)=R(0)=\infty) - P(T(0) < t \mid R(1)=R(0)=\infty),}
 #' representing the difference in probabilities of experiencing primary outcome events during \eqn{(0,t)}
 #' under active treatment and placebo in the subpopulation that will not experience intercurrent events
-#' regardless of treatment during \eqn{(0,t)}.
+#' regardless of treatment during \eqn{(0,t)}. A principal ignorability assumption is made for identification.
 #' }
 #'
 #' @seealso \code{\link[ICHe9r1]{scr.principal.eff}}, \code{\link[ICHe9r1]{scr.ICH}}
