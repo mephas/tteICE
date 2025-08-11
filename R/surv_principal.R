@@ -1,7 +1,7 @@
 #' @title Fitting the cumulative incidence function using principal stratum strategy
 #'
 #' @description This function nonparametrically estimates the potential cumulative incidence function
-#' using primcipal stratum strategy (competing risks data structure). The estimand is defined in a
+#' using principal stratum strategy (competing risks data structure). The estimand is defined in a
 #' subpopulation where intercurrent events would never occur regardless of treatment conditions.
 #'
 #' @param A Treatment indicator, 1 for treatment and 0 for control.
@@ -39,7 +39,7 @@
 #' \eqn{\tau(t) = P(T(1) < t \mid R(1)=R(0)=\infty) - P(T(0) < t \mid R(1)=R(0)=\infty),}
 #' representing the difference in probabilities of experiencing primary outcome events during \eqn{(0,t)}
 #' under active treatment and placebo in the subpopulation that will not experience intercurrent events
-#' regardless of treatment during \eqn{(0,t)}.
+#' regardless of treatment during \eqn{(0,t)}. A principal ignorability assumption is made for identification.
 #' }
 #'
 #' @seealso \code{\link[ICHe9r1]{surv.principal.eff}}, \code{\link[ICHe9r1]{surv.ICH}}
