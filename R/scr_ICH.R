@@ -22,7 +22,7 @@
 #'
 #' @param cov1 Baseline covariates.
 #'
-#' @param method Estimation method, \code{"np"} indicating nonparametric estimation, otherwise
+#' @param method Estimation method, \code{"np"} indicating nonparametric estimation, \code{"eff"}
 #' indicating semiparametrically efficient estimation based on efficient influence functions.
 #'
 #' @param weights Weight for each subject.
@@ -90,20 +90,22 @@ scr.ICH <- function(A,Time,status,Time_int,status_int,strategy='composite',cov1=
   N = length(A)
   if (is.null(weights)) weights = rep(1,N)
   #if (!is.null(cov1)) weights = weights*.ipscore(A,cov1)
-  if (method=='np'){
+  if (method=='np') {
     if (strategy=='treatment') fit = scr.treatment(A,Time,status,Time_int,status_int,weights,subset)
     if (strategy=='composite') fit = scr.composite(A,Time,status,Time_int,status_int,weights,subset)
     if (strategy=='natural') fit = scr.natural(A,Time,status,Time_int,status_int,weights,subset)
     if (strategy=='removed') fit = scr.removed(A,Time,status,Time_int,status_int,weights,subset)
     if (strategy=='whileon') fit = scr.whileon(A,Time,status,Time_int,status_int,weights,subset)
     if (strategy=='principal') fit = scr.principal(A,Time,status,Time_int,status_int,weights,subset)
-  } else {
+  } else if (method=='eff') {
     if (strategy=='treatment') fit = scr.treatment.eff(A,Time,status,Time_int,status_int,cov1,subset)
     if (strategy=='composite') fit = scr.composite.eff(A,Time,status,Time_int,status_int,cov1,subset)
     if (strategy=='natural') fit = scr.natural.eff(A,Time,status,Time_int,status_int,cov1,subset)
     if (strategy=='removed') fit = scr.removed.eff(A,Time,status,Time_int,status_int,cov1,subset)
     if (strategy=='whileon') fit = scr.whileon.eff(A,Time,status,Time_int,status_int,cov1,subset)
     if (strategy=='principal') fit = scr.principal.eff(A,Time,status,Time_int,status_int,cov1,subset)
+  } else {
+    cat('Please specify a correct estimation method, either np or eff!\n')
   }
   return(c(fit,list(A=A,Time=Time,status=status,Time_int=Time_int,status_int=status_int,
                     strategy=strategy,cov1=cov1,method=method,weights=weights,subset=subset,
