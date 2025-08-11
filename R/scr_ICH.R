@@ -2,7 +2,7 @@
 #'
 #' @description This function estimates the potential cumulative incidence function
 #' for time-to event data under ICH E9 (R1) to address intercurrent events. The input data 
-should be of a semicompeting risks structure.
+#' should be of a semicompeting risks structure.
 #'
 #' @param A Treatment indicator, 1 for treatment and 0 for control.
 #'
@@ -111,6 +111,6 @@ scr.ICH <- function(A,Time,status,Time_int,status_int,strategy='composite',cov1=
   ate.list = c(fit,list(A=A,Time=Time,status=status,Time_int=Time_int,status_int=status_int,
                     strategy=strategy,cov1=cov1,method=method,weights=weights,subset=subset,
                     dtype='smcmprsk'))
-  class(ate.list)="ICH"
+  class(ate.list) = "ICH"
   return(ate.list)
 }
