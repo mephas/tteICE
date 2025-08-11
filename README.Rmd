@@ -28,7 +28,9 @@ intercurrent events under ICH E9 (R1).
 The ICH E9 (R1) proposed five strategies to deal with intercurrent events: treatment policy strategy, 
 composite variable strategy, hypothetical strategy, while on treatment strategy, and principal stratum 
 strategy. To answer a specific scientific question, a corresponding strategy should be chosen before 
-the experimental design and data analysis.
+the experimental design and data analysis. The estimand to describe the distribution of the time to the 
+primary outcome event is the potential cumulative incidence function (CIF). The treatment effect is defined 
+as the contrast of the potential cumulative incidence functions under treated and control.
 
 * Treatment policy strategy. The treatment policy strategy addresses the problem of intercurrent events 
 by expanding the initial treatment conditions to a treatment policy. This strategy is applicable only if 
@@ -179,3 +181,37 @@ p = fit6$p.val
 text(200, 0.8, paste0('P = ', round(p,3)))
 plot_ate(fit6, legend=c('AML','ALL'))
 ```
+
+
+## Remarks on methodology
+
+To identify the potential CIF and treatment effect, we make the following assumptions. When the semiparametrically efficient 
+estimation method is used, these assumptions are made conditional on covariates.
+* Stale unit treatment value assumption (SUTVA). All individuals are independent, and there is only one version of potential outcomes 
+associated with each treatment condition.
+* Consistency. The potential time to events and event indicators associated with the realized treatment condition are observable.
+* Randomization. The treatment is independent of potential outcomes, i.e., the treatment assignment is randomized.
+* Random censoring. The potential censoring time is independent of potential event times.
+* Positivity. There is a positive probability for each individual to be treated or controlled. There is a positive probability that 
+the censoring time is larger than the end of study.
+* Principal ignorability. The potential time to the primary outcome event does not rely on the cross-world potential time to the 
+intercurrent event. This assumption is only required for the principal stratum strategy. 
+
+The five strategies differ in the scientific questions to answer and, therefore, incorporate intercurrent events differently. The 
+treatment policy strategy considers the effect on primary outcome events with intercurrent events as natural. Because the intercurrent 
+event is considered part of the treatment condition, any difference in the hazards of intercurrent events between the 
+treatment groups reflects the effect of the treatment policy. The composite variable strategy considers a composite of the primary 
+outcome event and the intercurrent event. The while on treatment strategy estimand quantifies the total effect on the cumulative 
+incidence of the primary outcome event, which is contributed by two sources: one is the effect of changing the hazard of primary 
+outcome events, and the other is the effect of changing the hazard of intercurrent events. The first source is also quantified by the 
+hypothetical strategy estimand Scenario I. The principal stratum strategy considers a subpopulation defined by potential intercurrent 
+events, typically where such events would not occur under either treatment condition.
+
+In general, the hypothetical strategy and principal stratum strategy target some direct effects, while other strategies target some 
+total effects. Identifying direct effects requires stronger assumptions, such as sequential ignorability or principal ignorability. 
+Under the multi-state model, let the original status, intercurrent event status, and primary outcome event status be three 
+compartments. Then the potential CIF under the composite variable strategy is the probability of being in either state of intercurrent 
+events or primary outcome events, whereas the potential CIF under the while on treatment strategy is the probability of being in the 
+state of primary outcome events developed directly following the initial status. If the data are of the semi-competing risks structure, 
+the potential CIF under the treatment policy strategy represents the probability of being in the state of primary outcome events, 
+regardless of whether intercurrent events occur before the primary outcome events.
