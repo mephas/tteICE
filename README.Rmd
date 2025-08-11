@@ -64,8 +64,8 @@ The censoring indicators for these events are also recorded. All five strategies
 risks data.
 
 The composite variable strategy, while on treatment strategy, principal stratum strategy, and hypothetical strategy 
-(I, removed) yield the same results for the competing risks and semicompeting risks data, since only the first 
-occurrence of events is used. The hypothetical strategy (II, natural) yields different results for the competing risks 
+(II, removed) yield the same results for the competing risks and semicompeting risks data, since only the first 
+occurrence of events is used. The hypothetical strategy (I, natural) yields different results for the competing risks 
 and semicompeting risks data, since both cause-specific hazards of the primary event contribute to the counterfactual 
 cumulative incidence function for semicompeting risk data.
 
