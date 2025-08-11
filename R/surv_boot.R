@@ -63,8 +63,8 @@ surv.boot <- function(fit,nboot=0,seed=0){
       cif0l = rbind(cif0l, cifb0)
       te = rbind(te, cifb1-cifb0)
     }
-    se1 = apply(cif1l,2,sd)
-    se0 = apply(cif0l,2,sd)
+    se1 = apply(cif1l,2,sd,na.rm=TRUE)
+    se0 = apply(cif0l,2,sd,na.rm=TRUE)
     se1 = .matchy(se1,Time,time1)
     se0 = .matchy(se0,Time,time0)
     se = apply(te,2,sd)
