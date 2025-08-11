@@ -31,7 +31,7 @@
 #' \code{\link[graphics]{plot.default}},
 #' \code{\link[graphics]{points}},
 #' \code{\link[graphics]{curve}},
-#'\code{\link[ICHe9r1]{plot.ICH}},
+#' \code{\link{plot.ICH}}
 #'
 #' @examples
 #' ## load data and fit the model
