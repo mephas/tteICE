@@ -41,7 +41,7 @@ surv.boot <- function(fit,nboot=0,seed=0){
     Time = sort(unique(c(0,fit$Time[fit$cstatus>0],max(fit$Time))))
   } else {
     maxt = max(c(fit$Time,fit$Time_int))
-    Time = sort(unique(c(0,fit$Time[fit$status>0],fit$Time_int[status_int>0],maxt)))
+    Time = sort(unique(c(0,fit$Time[fit$status>0],fit$Time_int[fit$status_int>0],maxt)))
   }
   cif1 = fit$cif1
   cif0 = fit$cif0
