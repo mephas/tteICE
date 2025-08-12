@@ -154,7 +154,7 @@ To increase efficiency, we use the efficient influence function
 (EIF)-based method.
 
 ``` r
-# fit6 = surv.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='eff')
+# fit6 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='eff')
 # plot_inc(fit6, legend=c('AML','ALL'))
 # p = fit1$p.val
 # text(200, 0.8, paste0('P = ', round(p,3)))
