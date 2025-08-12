@@ -241,11 +241,6 @@ fit6 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='eff')
 plot_inc(fit6, legend=c('AML','ALL'))
 p = fit6$p.val
 text(200, 0.8, paste0('P = ', round(p,3)))
-# fit6 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='eff')
-# plot_inc(fit6, legend=c('AML','ALL'))
-# p = fit1$p.val
-# text(200, 0.8, paste0('P = ', round(p,3)))
-# plot_ate(fit6, legend=c('AML','ALL'))
 ```
 
 <img src="man/figures/README-example 6-1.png" width="100%" />
