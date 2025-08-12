@@ -2,7 +2,7 @@
 % Please edit documentation in R/surv_ICH.R
 \name{surv.ICH}
 \alias{surv.ICH}
-\title{Fitting the cumulative incidence function for time-to event data under ICH E9 (R1)}
+\title{Fitting the cumulative incidence function for time-to-event data under ICH E9 (R1)}
 \usage{
 surv.ICH(
   A,
@@ -30,7 +30,7 @@ surv.ICH(
 
 \item{cov1}{Baseline covariates.}
 
-\item{method}{Estimation method, \code{"np"} indicating nonparametric estimation, otherwise
+\item{method}{Estimation method, \code{"np"} indicating nonparametric estimation, \code{"eff"}
 indicating semiparametrically efficient estimation based on efficient influence functions.}
 
 \item{weights}{Weight for each subject.}
@@ -42,8 +42,8 @@ A list including the fitted object and input variables.
 }
 \description{
 This function estimates the potential cumulative incidence function
-for time-to event data under ICH E9 (R1) to address intercurrent events. Multiple
-strategies are allowed. The input data should be of competing risks structure.
+for time-to event data under ICH E9 (R1) to address intercurrent events. The input data 
+should be of a competing risks structure.
 }
 \details{
 \describe{

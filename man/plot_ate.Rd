@@ -19,7 +19,7 @@ plot_ate(
 \arguments{
 \item{fit}{A fitted object from \code{surv.ICH}.}
 
-\item{decrease}{A logical variable indicating whether displaying the difference in cumulative
+\item{decrease}{A logical variable indicating whether to display the difference in cumulative
 incidence functions (\code{decrease = FALSE}) or survival functions (\code{decrease = TRUE}).}
 
 \item{conf.int}{Level of the confidence interval. If \code{conf.int = NULL}, then the condifence
@@ -58,4 +58,5 @@ plot_ate(fit, nboot=200, legend=c('AML','ALL'), ylim=c(-0.4,0.4))
 \code{\link[graphics]{plot.default}},
 \code{\link[graphics]{points}},
 \code{\link[graphics]{curve}},
+\code{\link{plot.ICH}}
 }

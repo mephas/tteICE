@@ -64,4 +64,5 @@ plot_inc(fit, nboot=200, legend=c('AML','ALL'), ylim=c(0,1))
 \code{\link[graphics]{plot.default}},
 \code{\link[graphics]{points}},
 \code{\link[graphics]{curve}},
+\code{\link{plot.ICH}}
 }

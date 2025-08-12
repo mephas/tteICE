@@ -36,7 +36,7 @@ scr.ICH(
 
 \item{cov1}{Baseline covariates.}
 
-\item{method}{Estimation method, \code{"np"} indicating nonparametric estimation, otherwise
+\item{method}{Estimation method, \code{"np"} indicating nonparametric estimation, \code{"eff"}
 indicating semiparametrically efficient estimation based on efficient influence functions.}
 
 \item{weights}{Weight for each subject.}
@@ -48,8 +48,8 @@ A list including the fitted object and input variables.
 }
 \description{
 This function estimates the potential cumulative incidence function
-for time-to event data under ICH E9 (R1) to address intercurrent events. Multiple
-strategies are allowed. The input data should be of semicompeting risks structure.
+for time-to event data under ICH E9 (R1) to address intercurrent events. The input data 
+should be of a semicompeting risks structure.
 }
 \details{
 \describe{

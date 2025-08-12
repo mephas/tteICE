@@ -47,7 +47,7 @@ A list including
 \description{
 This function nonparametrically estimates the potential cumulative incidence function
 using hypothetical strategy (semicompeting risks data structure). The intercurrent event is only
-permitted under treated if is would occur under control.
+permitted under treated if it would occur under control.
 }
 \details{
 \describe{
@@ -69,8 +69,8 @@ scenario, when assigned to placebo, individuals would be equally likely to exper
 events as they are assigned to placebo in the real-world trial in terms of the hazards; when assigned
 to test drug, the hazard of intercurrent events would be identical to that if assigned to placebo in
 the real-world trial. That is, \eqn{\lambda_2'(t;0) = \lambda_2'(t;1) = \lambda_2(t;0)}. The treatment
-effect corresponds to the natural direct effect with the hazard of intercurrent events set at
-the level under control.
+effect corresponds to the natural direct effect, with the hazard of intercurrent events set at
+the level under control. Markovness is assumed in estimation.
 }
 }
 \seealso{
