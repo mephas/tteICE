@@ -27,6 +27,17 @@ intercurrent events under ICH E9 (R1).
 
 ## Method
 
+### Randomized trials and observational studies
+
+Randomized trials are the best form of experiments for evaluating the treatment effect because confounders 
+are naturally balanced between treatment groups. The difference in outcomes between treatment groups is 
+explained by the treatment condition. In observational studies, confounders (observed or unobserved) are not 
+balanced. To estimate the treatment effect, we need to assume all confounders are collected. Then we may use 
+matching, weighting, or emulating trial methods to create a sample analogue to randomized trials. 
+Although methods for randomized trials apply to observational studies after adjusting for confounders, one 
+should be careful in making causal conclusions based on observational studies due to the threat of unmeasured 
+confounding.
+
 ### Five strategies to deal with intercurrent events
 
 The ICH E9 (R1) proposed five strategies to deal with intercurrent events: treatment policy strategy, 
