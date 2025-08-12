@@ -37,7 +37,12 @@ surv.boot <- function(fit,nboot=0,seed=0){
   N = length(fit$A)
   time1 = fit$time1
   time0 = fit$time0
-  Time = sort(unique(c(0,fit$Time[fit$cstatus>0],max(fit$Time))))
+  if (fit$dtype=='cmprsk') {
+    Time = sort(unique(c(0,fit$Time[fit$cstatus>0],max(fit$Time))))
+  } else {
+    maxt = max(c(fit$Time,fit$Time_int))
+    Time = sort(unique(c(0,fit$Time[fit$status>0],fit$Time_int[status_int>0],maxt)))
+  }
   cif1 = fit$cif1
   cif0 = fit$cif0
   se1 = fit$se1
@@ -48,7 +53,6 @@ surv.boot <- function(fit,nboot=0,seed=0){
     cif1l = cif0l = te = NULL
     set.seed(seed)
     for(b in 1:nboot){
-      #wt = as.vector(rmultinom(1,N,rep(1/N,N)))
       subset = sample(1:N,replace=TRUE)
       if (fit$dtype=='cmprsk'){
       fitb = surv.ICH(fit$A,fit$Time,fit$cstatus,fit$strategy,fit$cov1,fit$method,
