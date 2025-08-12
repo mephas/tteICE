@@ -60,6 +60,7 @@ surv.composite.eff <- function(A,Time,cstatus,X=NULL,subset=NULL){
     fit1c = coxph(Surv(Time,cstatus==0)~NULL, subset=subset[A[subset]==1])
     fit0c = coxph(Surv(Time,cstatus==0)~NULL, subset=subset[A[subset]==0])
   } else {
+    X = as.matrix(X)
     psfit = glm(A~X, family='binomial', subset=subset)
     fit1 = coxph(Surv(Time,cstatus>0)~X, subset=subset[A[subset]==1])
     fit0 = coxph(Surv(Time,cstatus>0)~X, subset=subset[A[subset]==0])
@@ -72,10 +73,10 @@ surv.composite.eff <- function(A,Time,cstatus,X=NULL,subset=NULL){
   tt = sort(unique(c(tt1,tt0)))
   if (!is.null(X)){
     X = as.matrix(X)
-    Xb1 = as.numeric(X[subset,]%*%fit1$coefficients)
-    Xb0 = as.numeric(X[subset,]%*%fit0$coefficients)
-    Xb1c = as.numeric(X[subset,]%*%fit1c$coefficients)
-    Xb0c = as.numeric(X[subset,]%*%fit0c$coefficients)
+    Xb1 = as.numeric(as.matrix(X[subset,])%*%fit1$coefficients)
+    Xb0 = as.numeric(as.matrix(X[subset,])%*%fit0$coefficients)
+    Xb1c = as.numeric(as.matrix(X[subset,])%*%fit1c$coefficients)
+    Xb0c = as.numeric(as.matrix(X[subset,])%*%fit0c$coefficients)
   } else {
     Xb1 = Xb0 = Xb1c = Xb0c = rep(0,n)
   }
