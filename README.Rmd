@@ -191,7 +191,8 @@ plot_ate(fit6)
 
 To identify the potential CIF and treatment effect, we make the following assumptions. When the semiparametrically efficient 
 estimation method is used, these assumptions are made conditional on covariates.
-* Stale unit treatment value assumption (SUTVA). All individuals are independent, and there is only one version of potential outcomes 
+
+* Stable unit treatment value assumption (SUTVA). All individuals are independent, and there is only one version of potential outcomes 
 associated with each treatment condition.
 * Consistency. The potential time to events and event indicators associated with the realized treatment condition are observable.
 * Randomization. The treatment is independent of potential outcomes, i.e., the treatment assignment is randomized.
