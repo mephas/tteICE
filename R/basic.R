@@ -4,6 +4,7 @@
 ## Hidden functions
 
 .matchy <- function(yvec,xvec,newx,exact=FALSE){
+  options(warn = -1)
   if (exact) {
     ivec = sapply(newx, function(x) max(which(xvec==x)))
   } else {
