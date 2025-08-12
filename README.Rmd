@@ -134,7 +134,7 @@ ps = predict(glm(A ~ X, family='binomial'), type='response')
 w = A/ps + (1-A)/(1-ps)
 fit2 = surv.ICH(A, bmt$t2, bmt$d4, "natural", weights=w)
 plot_inc(fit2, legend=c('AML','ALL'))
-p = fit1$p.val
+p = fit2$p.val
 text(200, 0.8, paste0('P = ', round(p,3)))
 plot_ate(fit2, legend=c('AML','ALL'))
 ```
@@ -144,7 +144,7 @@ To increase efficiency, we use the efficient influence function (EIF)-based meth
 ```{r example 3}
 fit3 = surv.ICH(A, bmt$t2, bmt$d4, "natural", X, method='eff')
 plot_inc(fit3, legend=c('AML','ALL'))
-p = fit1$p.val
+p = fit3$p.val
 text(200, 0.8, paste0('P = ', round(p,3)))
 plot_ate(fit3, legend=c('AML','ALL'))
 ```
@@ -161,7 +161,7 @@ p = fit4$p.val
 text(200, 0.8, paste0('P = ', round(p,3)))
 plot_ate(fit4, legend=c('AML','ALL'))
 ## We can also use bootstrap confidence intervals
- plot_ate(fit4, nboot=200, legend=c('AML','ALL'))
+plot_ate(fit4, nboot=200, legend=c('AML','ALL'))
 ```
 
 We can also use inverse probability weighting to account for confounding.
