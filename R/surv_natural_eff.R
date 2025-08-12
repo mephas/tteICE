@@ -88,7 +88,6 @@ surv.natural.eff <- function(A,Time,cstatus,X=NULL,subset=NULL){
   tt20 = c(0,basehaz(fit20)$time)
   tt = sort(unique(c(tt11,tt10,tt21,tt20)))
   if (!is.null(X)){
-    X = as.matrix(X)
     Xb11 = as.numeric(as.matrix(X[subset,])%*%fit11$coefficients)
     Xb10 = as.numeric(as.matrix(X[subset,])%*%fit10$coefficients)
     Xb21 = as.numeric(as.matrix(X[subset,])%*%fit21$coefficients)
