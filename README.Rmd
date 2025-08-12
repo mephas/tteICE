@@ -117,7 +117,7 @@ bmt = transform(bmt, d4=d2+d3)
 Suppose we would like to use the hypothetical strategy (natural effects).
 We fit the model by nonparametric estimation.
 
-```{r example 1}
+```{r example_1}
 fit1 = surv.ICH(A, bmt$t2, bmt$d4, "natural")
 plot_inc(fit1, legend=c('AML','ALL'))
 p = fit1$p.val
@@ -129,7 +129,7 @@ plot_ate(fit1, nboot=200)
 
 We can also use inverse probability weighting to account for confounding.
 
-```{r example 2}
+```{r example_2}
 ps = predict(glm(A ~ X, family='binomial'), type='response')
 w = A/ps + (1-A)/(1-ps)
 fit2 = surv.ICH(A, bmt$t2, bmt$d4, "natural", weights=w)
@@ -141,7 +141,7 @@ plot_ate(fit2)
 
 To increase efficiency, we use the efficient influence function (EIF)-based method.
 
-```{r example 3}
+```{r example_3}
 fit3 = surv.ICH(A, bmt$t2, bmt$d4, "natural", X, method='eff')
 plot_inc(fit3, legend=c('AML','ALL'))
 p = fit3$p.val
@@ -154,7 +154,7 @@ plot_ate(fit3)
 Note that the time to death (or censoring) is t1 and the time to relapse (or censoring) is t2.
 We use the hypothetical strategy (natural effects) and fit the model nonparametrically.
 
-```{r example 4}
+```{r example_4}
 fit4 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural")
 plot_inc(fit4, legend=c('AML','ALL'))
 p = fit4$p.val
@@ -166,7 +166,7 @@ plot_ate(fit4, nboot=200)
 
 We can also use inverse probability weighting to account for confounding.
 
-```{r example 5}
+```{r example_5}
 ps = predict(glm(A ~ X, family='binomial'), type='response')
 w = A/ps + (1-A)/(1-ps)
 fit5 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", weights=w)
@@ -178,7 +178,7 @@ plot_ate(fit5)
 
 To increase efficiency, we use the efficient influence function (EIF)-based method.
 
-```{r example 6}
+```{r example_6}
 fit6 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='eff')
 plot_inc(fit6, legend=c('AML','ALL'))
 p = fit6$p.val

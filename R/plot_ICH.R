@@ -64,7 +64,7 @@ plot.ICH <- function(x, type=c("ate","inc")[1],decrease=FALSE,conf.int=.95,nboot
                      xlim=xlim,ylim=c(-1,1),...)
 
   if(type=="inc") plot_inc(fit=x,decrease=decrease,conf.int=conf.int,nboot=nboot,seed=seed,xlab=xlab,
-                     xlim=xlim,ylim=c(0,1),legend=legend,cex=0.9,...)
+                     xlim=xlim,ylim=c(0,1),legend=legend,cex=cex,...)
 
 
 

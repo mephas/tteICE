@@ -132,20 +132,20 @@ p = fit1$p.val
 text(200, 0.8, paste0('P = ', round(p,3)))
 ```
 
-<img src="man/figures/README-example 1-1.png" width="100%" />
+<img src="man/figures/README-example_1-1.png" width="100%" />
 
 ``` r
-plot_ate(fit1, legend=c('AML','ALL'))
+plot_ate(fit1)
 ```
 
-<img src="man/figures/README-example 1-2.png" width="100%" />
+<img src="man/figures/README-example_1-2.png" width="100%" />
 
 ``` r
 ## We can also use bootstrap confidence intervals
-plot_ate(fit1, nboot=200, legend=c('AML','ALL'))
+plot_ate(fit1, nboot=200)
 ```
 
-<img src="man/figures/README-example 1-3.png" width="100%" />
+<img src="man/figures/README-example_1-3.png" width="100%" />
 
 We can also use inverse probability weighting to account for
 confounding.
@@ -155,17 +155,17 @@ ps = predict(glm(A ~ X, family='binomial'), type='response')
 w = A/ps + (1-A)/(1-ps)
 fit2 = surv.ICH(A, bmt$t2, bmt$d4, "natural", weights=w)
 plot_inc(fit2, legend=c('AML','ALL'))
-p = fit1$p.val
+p = fit2$p.val
 text(200, 0.8, paste0('P = ', round(p,3)))
 ```
 
-<img src="man/figures/README-example 2-1.png" width="100%" />
+<img src="man/figures/README-example_2-1.png" width="100%" />
 
 ``` r
-plot_ate(fit2, legend=c('AML','ALL'))
+plot_ate(fit2)
 ```
 
-<img src="man/figures/README-example 2-2.png" width="100%" />
+<img src="man/figures/README-example_2-2.png" width="100%" />
 
 To increase efficiency, we use the efficient influence function
 (EIF)-based method.
@@ -173,17 +173,17 @@ To increase efficiency, we use the efficient influence function
 ``` r
 fit3 = surv.ICH(A, bmt$t2, bmt$d4, "natural", X, method='eff')
 plot_inc(fit3, legend=c('AML','ALL'))
-p = fit1$p.val
+p = fit3$p.val
 text(200, 0.8, paste0('P = ', round(p,3)))
 ```
 
-<img src="man/figures/README-example 3-1.png" width="100%" />
+<img src="man/figures/README-example_3-1.png" width="100%" />
 
 ``` r
-plot_ate(fit3, legend=c('AML','ALL'))
+plot_ate(fit3)
 ```
 
-<img src="man/figures/README-example 3-2.png" width="100%" />
+<img src="man/figures/README-example_3-2.png" width="100%" />
 
 ### Semicompeting risks data structure
 
@@ -198,20 +198,20 @@ p = fit4$p.val
 text(200, 0.8, paste0('P = ', round(p,3)))
 ```
 
-<img src="man/figures/README-example 4-1.png" width="100%" />
+<img src="man/figures/README-example_4-1.png" width="100%" />
 
 ``` r
-plot_ate(fit4, legend=c('AML','ALL'))
+plot_ate(fit4)
 ```
 
-<img src="man/figures/README-example 4-2.png" width="100%" />
+<img src="man/figures/README-example_4-2.png" width="100%" />
 
 ``` r
 ## We can also use bootstrap confidence intervals
- plot_ate(fit4, nboot=200, legend=c('AML','ALL'))
+plot_ate(fit4, nboot=200)
 ```
 
-<img src="man/figures/README-example 4-3.png" width="100%" />
+<img src="man/figures/README-example_4-3.png" width="100%" />
 
 We can also use inverse probability weighting to account for
 confounding.
@@ -225,13 +225,13 @@ p = fit5$p.val
 text(200, 0.8, paste0('P = ', round(p,3)))
 ```
 
-<img src="man/figures/README-example 5-1.png" width="100%" />
+<img src="man/figures/README-example_5-1.png" width="100%" />
 
 ``` r
-plot_ate(fit5, legend=c('AML','ALL'))
+plot_ate(fit5)
 ```
 
-<img src="man/figures/README-example 5-2.png" width="100%" />
+<img src="man/figures/README-example_5-2.png" width="100%" />
 
 To increase efficiency, we use the efficient influence function
 (EIF)-based method.
@@ -243,13 +243,13 @@ p = fit6$p.val
 text(200, 0.8, paste0('P = ', round(p,3)))
 ```
 
-<img src="man/figures/README-example 6-1.png" width="100%" />
+<img src="man/figures/README-example_6-1.png" width="100%" />
 
 ``` r
-plot_ate(fit6, legend=c('AML','ALL'))
+plot_ate(fit6)
 ```
 
-<img src="man/figures/README-example 6-2.png" width="100%" />
+<img src="man/figures/README-example_6-2.png" width="100%" />
 
 ## Remarks on methodology
 
