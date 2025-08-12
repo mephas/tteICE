@@ -72,7 +72,6 @@ surv.composite.eff <- function(A,Time,cstatus,X=NULL,subset=NULL){
   tt0 = c(0,basehaz(fit0)$time)
   tt = sort(unique(c(tt1,tt0)))
   if (!is.null(X)){
-    X = as.matrix(X)
     Xb1 = as.numeric(as.matrix(X[subset,])%*%fit1$coefficients)
     Xb0 = as.numeric(as.matrix(X[subset,])%*%fit0$coefficients)
     Xb1c = as.numeric(as.matrix(X[subset,])%*%fit1c$coefficients)
