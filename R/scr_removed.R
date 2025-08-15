@@ -50,7 +50,6 @@
 #' absent in the hypothetical scenario for all individuals, so \eqn{\lambda_2'(t;0) = \Lambda_2'(t;1) = 0}.
 #' This hypothetical scenario leads to an estimand called the marginal cumulative incidence. The treatment
 #' effect corresponds to the controlled direct effect with the intercurrent events removed.
-
 #' }
 #'
 #' @seealso \code{\link[ICHe9r1]{scr.removed.eff}}, \code{\link[ICHe9r1]{scr.ICH}}
@@ -62,7 +61,7 @@ scr.removed <- function(A,Time,status,Time_int,status_int,weights=rep(1,length(A
   Time = (Time + Time_int - abs(Time-Time_int))/2
   cstatus = status + 2*status_int
   cstatus[cstatus>2] = 2
-  fit = scr.removed(A,Time,cstatus,weights,subset)
+  fit = surv.removed(A,Time,cstatus,weights,subset)
   return(fit)
 
 }
