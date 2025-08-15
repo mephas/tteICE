@@ -12,6 +12,20 @@ for time-to-event outcomes with intercurrent events under ICH E9 (R1).
 
 ## Method
 
+### Randomized trials and observational studies
+
+Randomized trials are the best form of experiments for evaluating the
+treatment effect because confounders are naturally balanced between
+treatment groups. The difference in outcomes between treatment groups is
+explained by the treatment condition. In observational studies,
+confounders (observed or unobserved) are not balanced. To estimate the
+treatment effect, we need to assume all confounders are collected. Then
+we may use matching, weighting, or emulating trial methods to create a
+sample analogue to randomized trials. Although methods for randomized
+trials apply to observational studies after adjusting for confounders,
+one should be careful in making causal conclusions based on
+observational studies due to the threat of unmeasured confounding.
+
 ### Five strategies to deal with intercurrent events
 
 The ICH E9 (R1) proposed five strategies to deal with intercurrent
@@ -113,9 +127,6 @@ relapse occurs first.
 
 ``` r
 library(ICHe9r1)
-#> 要求されたパッケージ cmprsk をロード中です
-#> 要求されたパッケージ survival をロード中です
-#> 要求されたパッケージ MASS をロード中です
 data(bmt)
 A = as.numeric(bmt$group>1)
 X = as.matrix(bmt[,c('z1','z3','z5')])
@@ -255,21 +266,24 @@ plot_ate(fit6)
 
 To identify the potential CIF and treatment effect, we make the
 following assumptions. When the semiparametrically efficient estimation
-method is used, these assumptions are made conditional on covariates. \*
-Stale unit treatment value assumption (SUTVA). All individuals are
-independent, and there is only one version of potential outcomes
-associated with each treatment condition. \* Consistency. The potential
-time to events and event indicators associated with the realized
-treatment condition are observable. \* Randomization. The treatment is
-independent of potential outcomes, i.e., the treatment assignment is
-randomized. \* Random censoring. The potential censoring time is
-independent of potential event times. \* Positivity. There is a positive
-probability for each individual to be treated or controlled. There is a
-positive probability that the censoring time is larger than the end of
-study. \* Principal ignorability. The potential time to the primary
-outcome event does not rely on the cross-world potential time to the
-intercurrent event. This assumption is only required for the principal
-stratum strategy.
+method is used, these assumptions are made conditional on covariates.
+
+- Stable unit treatment value assumption (SUTVA). All individuals are
+  independent, and there is only one version of potential outcomes
+  associated with each treatment condition.
+- Consistency. The potential time to events and event indicators
+  associated with the realized treatment condition are observable.
+- Randomization. The treatment is independent of potential outcomes,
+  i.e., the treatment assignment is randomized.
+- Random censoring. The potential censoring time is independent of
+  potential event times.
+- Positivity. There is a positive probability for each individual to be
+  treated or controlled. There is a positive probability that the
+  censoring time is larger than the end of study.
+- Principal ignorability. The potential time to the primary outcome
+  event does not rely on the cross-world potential time to the
+  intercurrent event. This assumption is only required for the principal
+  stratum strategy.
 
 The five strategies differ in the scientific questions to answer and,
 therefore, incorporate intercurrent events differently. The treatment
