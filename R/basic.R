@@ -76,7 +76,6 @@
   }
   lamd = rep(1/L, L)
   lamr = rep(1/L, L)
-  
   # d
   eXb = rep(1, N)
   delta_r = 0
@@ -108,7 +107,6 @@
     if (tol<0.00001) break
   }
   delta_rd = delta_r
-  
   # r
   eXb = rep(1, N)
   iter = 0; tol = 1
@@ -131,7 +129,6 @@
     tol = max(abs(est-est0))
     if (tol<0.00001) break
   }
-  
   if (!is.null(X)){
     betad = as.numeric(betad)
     betar = as.numeric(betar)
@@ -184,7 +181,6 @@
     tol = max(abs(est-est0))
     if (tol<0.00001) break
   }
-  
   if (!is.null(X)){
     beta = as.numeric(beta)
     Xb = as.numeric(X%*%beta)
