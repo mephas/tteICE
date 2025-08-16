@@ -50,7 +50,8 @@
 #' @export
 
 plot_inc <- function(fit,decrease=FALSE,conf.int=.95,nboot=0,seed=0,xlab='Time',xlim=NULL,
-                     ylim=c(0,1),legend=c('Treated','Control'),cex=0.9,...){
+                     ylim=c(0,1),legend=c('Treated','Control'),
+                     col=c('brown','darkcyan'),cex=0.9,...){
   if (fit$strategy=='treatment') stname = 'Treatment policy'
   if (fit$strategy=='composite') stname = 'Composite variable'
   if (fit$strategy=='natural') stname = 'Hypothetical I (natural)'
@@ -69,29 +70,27 @@ plot_inc <- function(fit,decrease=FALSE,conf.int=.95,nboot=0,seed=0,xlab='Time',
     ylab = 'Cumulative incidence'
   }
   if (!is.null(xlim)){
-    i1 = fit$time1<=xlim[2]
-    i0 = fit$time0<=xlim[2]
-    t1 = fit$time1[i1]
-    t0 = fit$time0[i0]
-    cif1 = cif1[i1]
-    cif0 = cif0[i0]
+    ti = (fit$Time>=xlim[1])&(fit$Time<=xlim[2])
+    tt = fit$Time[ti]
+    cif1 = cif1[ti]
+    cif0 = cif0[ti]
   } else {
-    t1 = fit$time1
-    t0 = fit$time0
-    i1 = rep(TRUE,length(t1))
-    i0 = rep(TRUE,length(t0))
+    tt = fit$Time
+    ti = rep(TRUE,length(tt))
   }
-  plot(t1,cif1,type='s',col='brown',lwd=2,main=stname,
+  col1 = col[1]
+  col0 = col[2]
+  plot(tt,cif1,type='s',col=col1,lwd=2,main=stname,
        xlab=xlab,ylab=ylab,ylim=ylim,...)
-  points(t0,cif0,type='s',col='darkcyan',lwd=2)
+  points(tt,cif0,type='s',col=col0,lwd=2)
   if (!is.null(conf.int)){
     fit.b = surv.boot(fit,nboot,seed)
     z = -qnorm((1-conf.int)/2)
-    points(t1,cif1+fit.b$se1[i1]*z,type='s',lty=2,lwd=1.5,col='brown')
-    points(t1,cif1-fit.b$se1[i1]*z,type='s',lty=2,lwd=1.5,col='brown')
-    points(t0,cif0+fit.b$se0[i0]*z,type='s',lty=2,lwd=1.5,col='darkcyan')
-    points(t0,cif0-fit.b$se0[i0]*z,type='s',lty=2,lwd=1.5,col='darkcyan')
+    points(tt,cif1+fit.b$se1[i1]*z,type='s',lty=2,lwd=1.5,col=col1)
+    points(tt,cif1-fit.b$se1[i1]*z,type='s',lty=2,lwd=1.5,col=col1)
+    points(tt,cif0+fit.b$se0[i0]*z,type='s',lty=2,lwd=1.5,col=col0)
+    points(tt,cif0-fit.b$se0[i0]*z,type='s',lty=2,lwd=1.5,col=col0)
   }
-  legend(x,cex=cex,col=c('brown','darkcyan'),lwd=c(2,2),legend=legend)
+  legend(x,cex=cex,col=c(col1,col0),lwd=c(2,2),legend=legend)
 }
 
