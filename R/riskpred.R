@@ -5,7 +5,8 @@
 #'
 #' @param fit An ICH object.
 #'
-#' @param timeset Time to predict the risk.
+#' @param timeset Time at which to predict the risk. If \code{timeset=NULL}, risks will be predict at the 
+#' quartiles of the maximum follow-up time.
 #'
 #'
 #' @return A matrix. The meanings of each row are: time points, potential cumulative incidences (under 
@@ -17,8 +18,12 @@
 #'
 #' @export
 
-riskpredict <- function(fit, timeset, nboot=0, seed=0){
+riskpredict <- function(fit, timeset=NULL, nboot=0, seed=0){
   fit = surv.boot(fit, nboot, seed)
+  if (is.null(timeset)) {
+    maxt = max(fit$time)
+    timeset = c(0.25,0.5,0.75,1)*maxt
+  }
   cif1 = .matchy(fit$time,fit$cif1,timeset)
   cif0 = .matchy(fit$time,fit$cif0,timeset)
   ate = cif1 - cif0
