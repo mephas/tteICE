@@ -88,10 +88,10 @@ plot_inc <- function(fit,decrease=FALSE,conf.int=.95,nboot=0,seed=0,xlab='Time',
     z = -qnorm((1-conf.int)/2)
     se1 = fit$se1
     se0 = fit$se0
-    points(tt,cif1+se1[i1]*z,type='s',lty=2,lwd=1.5,col=col1)
-    points(tt,cif1-se1[i1]*z,type='s',lty=2,lwd=1.5,col=col1)
-    points(tt,cif0+se0[i0]*z,type='s',lty=2,lwd=1.5,col=col0)
-    points(tt,cif0-se0[i0]*z,type='s',lty=2,lwd=1.5,col=col0)
+    points(tt,cif1+se1[ti]*z,type='s',lty=2,lwd=1.5,col=col1)
+    points(tt,cif1-se1[ti]*z,type='s',lty=2,lwd=1.5,col=col1)
+    points(tt,cif0+se0[ti]*z,type='s',lty=2,lwd=1.5,col=col0)
+    points(tt,cif0-se0[ti]*z,type='s',lty=2,lwd=1.5,col=col0)
   }
   legend(x,cex=cex,col=c(col1,col0),lwd=c(2,2),legend=legend)
 }
