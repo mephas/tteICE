@@ -139,10 +139,11 @@ surv.natural.eff <- function(A,Time,cstatus,X=NULL,subset=NULL){
   se = apply(cif1x-cif0x,2,sd)/sqrt(n)
   eif1 = t(t(cif1x)-cif1)
   eif0 = t(t(cif0x)-cif0)
-  Tt = sum(((cif1-cif0)*diff(c(0,cif1+cif0)))[tt<0.99*max(tt)])
-  V1 = apply((t(eif1-eif0)*diff(c(0,cif1+cif0)))[tt<0.99*max(tt),],2,sum)
-  V2 = apply(((cif1-cif0)*apply(cbind(0,eif1+eif0),1,diff))[tt<0.99*max(tt),],2,sum)
-  p = 2*pnorm(-abs(Tt)/sd(V1+V2)*sqrt(n))
+  Ti = (tt<0.99*max(tt))
+  Tt = sum((cif1-cif0)*diff(c(0,tt))*Ti)
+  IFt = colSums(t(eif1-eif0)*diff(c(0,tt))*Ti)
+  Vt = sd(IFt,na.rm=TRUE)/sqrt(n)
+  p = 2*pnorm(-abs(Tt/Vt))
   return(list(time1=tt,time0=tt,cif1=cif1,cif0=cif0,se1=se1,se0=se0,
               time=tt,ate=ate,se=se,p.val=p))
 }
