@@ -24,13 +24,12 @@ riskpredict <- function(fit, timeset=NULL, nboot=0, seed=0){
     maxt = max(fit$time)
     timeset = c(0.25,0.5,0.75,1)*maxt
   }
-  cif1 = .matchy(fit$time,fit$cif1,timeset)
-  cif0 = .matchy(fit$time,fit$cif0,timeset)
+  cif1 = .matchy(fit$cif1,fit$time,timeset)
+  cif0 = .matchy(fit$cif0,fit$time,timeset)
   ate = cif1 - cif0
-  se1 = .matchy(fit$time,fit$se1,timeset)
-  se0 = .matchy(fit$time,fit$se0,timeset)
-  cif1 = .matchy(fit$time,fit$cif1,timeset)
-  se = .matchy(fit$time,fit$se,timeset)
+  se1 = .matchy(fit$se1,fit$time,timeset)
+  se0 = .matchy(fit$se0,fit$time,timeset)
+  se = .matchy(fit$se,fit$time,timeset)
   p = 2*pnorm(-abs(ate/se))
   res = rbind(cif1,se1,cif0,se0,ate,se,p)
   colnames(res) = timeset
