@@ -58,6 +58,8 @@ plot_inc <- function(fit,decrease=FALSE,conf.int=.95,nboot=0,seed=0,xlab='Time',
   if (fit$strategy=='removed') stname = 'Hypothetical II (removed)'
   if (fit$strategy=='whileon') stname = 'While on treatment'
   if (fit$strategy=='principal') stname = 'Principal stratum'
+  fit = surv.boot(fit,nboot,seed)
+  tt = fit$time
   if (decrease==TRUE){
     cif1 = 1-fit$cif1
     cif0 = 1-fit$cif0
@@ -69,25 +71,23 @@ plot_inc <- function(fit,decrease=FALSE,conf.int=.95,nboot=0,seed=0,xlab='Time',
     x = 'topleft'
     ylab = 'Cumulative incidence'
   }
+  col1 = col[1]
+  col0 = col[2]
   if (!is.null(xlim)){
-    ti = (fit$Time>=xlim[1])&(fit$Time<=xlim[2])
-    tt = fit$Time[ti]
+    ti = (tt>=xlim[1])&(tt<=xlim[2])
+    tt = tt[ti]
     cif1 = cif1[ti]
     cif0 = cif0[ti]
   } else {
-    tt = fit$Time
     ti = rep(TRUE,length(tt))
   }
-  col1 = col[1]
-  col0 = col[2]
   plot(tt,cif1,type='s',col=col1,lwd=2,main=stname,
        xlab=xlab,ylab=ylab,ylim=ylim,...)
   points(tt,cif0,type='s',col=col0,lwd=2)
   if (!is.null(conf.int)){
-    fit.b = surv.boot(fit,nboot,seed)
     z = -qnorm((1-conf.int)/2)
-    se1 = .matchy(fit.b$time,fit$se1,tt)
-    se0 = .matchy(fit.b$time,fit$se0,tt)
+    se1 = fit$se1
+    se0 = fit$se0
     points(tt,cif1+se1[i1]*z,type='s',lty=2,lwd=1.5,col=col1)
     points(tt,cif1-se1[i1]*z,type='s',lty=2,lwd=1.5,col=col1)
     points(tt,cif0+se0[i0]*z,type='s',lty=2,lwd=1.5,col=col0)
