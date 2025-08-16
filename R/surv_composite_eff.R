@@ -79,12 +79,12 @@ surv.composite.eff <- function(A,Time,cstatus,X=NULL,subset=NULL){
   } else {
     Xb1 = Xb0 = Xb1c = Xb0c = rep(0,n)
   }
-  cumhaz1 = .matchy(c(0,basehaz(fit1)$hazard),tt1,tt)
+  cumhaz1 = .matchy(c(0,basehaz(fit1,centered=FALSE)$hazard),tt1,tt)
   cumhaz1 = exp(Xb1)%*%t(cumhaz1)
-  cumhaz0 = .matchy(c(0,basehaz(fit0)$hazard),tt0,tt)
+  cumhaz0 = .matchy(c(0,basehaz(fit0,centered=FALSE)$hazard),tt0,tt)
   cumhaz0 = exp(Xb0)%*%t(cumhaz0)
-  cumhaz1c = .matchy(c(0,basehaz(fit1c)$hazard),c(0,basehaz(fit1c)$time),tt)
-  cumhaz0c = .matchy(c(0,basehaz(fit0c)$hazard),c(0,basehaz(fit0c)$time),tt)
+  cumhaz1c = .matchy(c(0,basehaz(fit1c,centered=FALSE)$hazard),c(0,basehaz(fit1c)$time),tt)
+  cumhaz0c = .matchy(c(0,basehaz(fit0c,centered=FALSE)$hazard),c(0,basehaz(fit0c)$time),tt)
   cumhaz1c = exp(Xb1c)%*%t(cumhaz1c)
   cumhaz0c = exp(Xb0c)%*%t(cumhaz0c)
   dN = sapply(tt, function(l) (Time[subset]==l)*(cstatus[subset]>0))
