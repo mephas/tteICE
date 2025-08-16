@@ -14,13 +14,11 @@
 #'
 #' @return A list including
 #' \describe{
-#' \item{time1}{Time points in the treated group.}
-#' \item{time0}{Time points in the control group.}
+#' \item{time}{Time points in both groups.}
 #' \item{cif1}{Estimated cumulative incidence function in the treated group.}
 #' \item{cif0}{Estimated cumulative incidence function in the control group.}
 #' \item{se1}{Standard error of the estimated cumulative incidence function in the treated group.}
 #' \item{se0}{Standard error of the estimated cumulative incidence function in the control group.}
-#' \item{time}{Time points in both groups.}
 #' \item{ate}{Estimated treatment effect (difference in cumulative incidence functions).}
 #' \item{se}{Standard error of the estimated treatment effect.}
 #' \item{strategy}{Strategy used.}
@@ -43,11 +41,11 @@ surv.boot <- function(fit,nboot=0,seed=0){
     maxt = max(c(fit$Time,fit$Time_int))
     Time = sort(unique(c(0,fit$Time[fit$status>0],fit$Time_int[fit$status_int>0],maxt)))
   }
-  cif1 = fit$cif1
-  cif0 = fit$cif0
-  se1 = fit$se1
-  se0 = fit$se0
-  ate = .matchy(fit$ate,fit$time,Time)
+  cif1 = .matchy(fit$cif1,fit$time1,Time)
+  cif0 = .matchy(fit$cif0,fit$time0,Time)
+  se1 = .matchy(fit$se1,fit$time1,Time)
+  se0 = .matchy(fit$se0,fit$time0,Time)
+  ate = cif1-cif0
   se = .matchy(fit$se,fit$time,Time)
   if (nboot>1){
     cif1l = cif0l = te = NULL
@@ -69,12 +67,9 @@ surv.boot <- function(fit,nboot=0,seed=0){
     }
     se1 = apply(cif1l,2,sd,na.rm=TRUE)
     se0 = apply(cif0l,2,sd,na.rm=TRUE)
-    se1 = .matchy(se1,Time,time1)
-    se0 = .matchy(se0,Time,time0)
     se = apply(te,2,sd)
   }
-  return(list(time1=time1,time0=time0,cif1=fit$cif1,cif0=fit$cif0,
-              se1=se1,se0=se0,time=Time,ate=ate,se=se,
+  return(list(time=Time,cif1=fit$cif1,cif0=fit$cif0,ate=ate,se1=se1,se0=se0,se=se,
               strategy=fit$strategy,method=fit$method,dtype=fit$dtype))
 }
 
