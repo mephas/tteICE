@@ -36,17 +36,16 @@ surv.boot <- function(fit,nboot=0,seed=0){
   time1 = fit$time1
   time0 = fit$time0
   if (fit$dtype=='cmprsk') {
-    Time = sort(unique(c(0,fit$Time[fit$cstatus>0],max(fit$Time))))
+    tt = sort(unique(c(0,fit$Time)))
   } else {
-    maxt = max(c(fit$Time,fit$Time_int))
-    Time = sort(unique(c(0,fit$Time[fit$status>0],fit$Time_int[fit$status_int>0],maxt)))
+    tt = sort(unique(c(0,fit$Time,fit$Time_int)))
   }
-  cif1 = .matchy(fit$cif1,fit$time1,Time)
-  cif0 = .matchy(fit$cif0,fit$time0,Time)
-  se1 = .matchy(fit$se1,fit$time1,Time)
-  se0 = .matchy(fit$se0,fit$time0,Time)
+  cif1 = .matchy(fit$cif1,fit$time1,tt)
+  cif0 = .matchy(fit$cif0,fit$time0,tt)
+  se1 = .matchy(fit$se1,fit$time1,tt)
+  se0 = .matchy(fit$se0,fit$time0,tt)
   ate = cif1-cif0
-  se = .matchy(fit$se,fit$time,Time)
+  se = .matchy(fit$se,fit$time,tt)
   if (nboot>1){
     cif1l = cif0l = te = NULL
     set.seed(seed)
@@ -59,8 +58,8 @@ surv.boot <- function(fit,nboot=0,seed=0){
       fitb = scr.ICH(fit$A,fit$Time,fit$status,fit$Time_int,fit$status_int,fit$strategy,fit$cov1,fit$method,
                         fit$weights,subset)
       }
-      cifb1 = .matchy(fitb$cif1,fitb$time1,Time)
-      cifb0 = .matchy(fitb$cif0,fitb$time0,Time)
+      cifb1 = .matchy(fitb$cif1,fitb$time1,tt)
+      cifb0 = .matchy(fitb$cif0,fitb$time0,tt)
       cif1l = rbind(cif1l, cifb1)
       cif0l = rbind(cif0l, cifb0)
       te = rbind(te, cifb1-cifb0)
@@ -69,7 +68,7 @@ surv.boot <- function(fit,nboot=0,seed=0){
     se0 = apply(cif0l,2,sd,na.rm=TRUE)
     se = apply(te,2,sd)
   }
-  return(list(time=Time,cif1=fit$cif1,cif0=fit$cif0,ate=ate,se1=se1,se0=se0,se=se,
+  return(list(time=tt,cif1=cif1,cif0=cif0,ate=ate,se1=se1,se0=se0,se=se,
               strategy=fit$strategy,method=fit$method,dtype=fit$dtype))
 }
 
