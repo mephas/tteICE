@@ -55,6 +55,7 @@
 }
 
 .phfit <- function(Tr,Dr,Td,Dd,A,X,a){
+  X0 = X
   Tr = Tr[A==a]
   Td = Td[A==a]
   Dr = Dr[A==a]
@@ -132,7 +133,7 @@
   if (!is.null(X)){
     betad = as.numeric(betad)
     betar = as.numeric(betar)
-    Xbd = as.numeric(X%*%betad)
+    Xbd = as.numeric(X0%*%betad)
     Xbr = as.numeric(X%*%betar)
   } else {
     betad = betar = 0
@@ -170,8 +171,8 @@
       S1 = t(sapply(Td, function(l) colSums((Td>=l)*eXb*X)))
       S2 = t(sapply(Td, function(l) t(X)%*%diag((Td>=l)*eXb)%*%X))
       if (p==1) {S1=t(S1);S2=t(S2)}
-      dbeta = as.numeric(t(X-S1/S0)%*%Dr)
-      ddbeta = t(S1/S0)%*%diag(Dr)%*%(S1/S0) - matrix(colSums(Dr*S2/S0),p,p)
+      dbeta = as.numeric(t(X-S1/S0)%*%Dc)
+      ddbeta = t(S1/S0)%*%diag(Dc)%*%(S1/S0) - matrix(colSums(Dc*S2/S0),p,p)
       beta = beta - ginv(ddbeta) %*% dbeta
       eXb = exp(as.numeric(X%*%beta))
     }
