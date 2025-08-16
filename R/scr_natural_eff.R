@@ -236,7 +236,7 @@ scr.natural.eff <- function(A,Time,status,Time_int,status_int,X=NULL,subset=NULL
   se0 = apply(Feff0, 2, sd, na.rm=TRUE) / sqrt(n)
   ate = cif1 - cif0
   se = apply(Feff1-Feff0, 2, sd, na.rm=TRUE) / sqrt(n)
-  Ti = (tt<=0.99*max(tt))
+  Ti = (tt<0.99*max(tt))
   Tt = sum((cif1-cif0)*diff(c(0,tt))*Ti)
   IFt = colSums(t(EIF1-EIF0)*diff(c(0,tt))*Ti)
   Vt = sd(IFt, na.rm=TRUE)/sqrt(n)
