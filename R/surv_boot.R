@@ -32,14 +32,12 @@
 #' @export
 
 surv.boot <- function(fit,nboot=0,seed=0){
-  N = length(fit$A)
   time1 = fit$time1
   time0 = fit$time0
-  if (fit$dtype=='cmprsk') {
-    tt = sort(unique(c(0,fit$Time)))
-  } else {
-    tt = sort(unique(c(0,fit$Time,fit$Time_int)))
+  if ((is.null(time1)&is.null(time1))) {
+    time1 = time0 = fit$time
   }
+  tt = sort(unique(c(0,time1,time0)))
   cif1 = .matchy(fit$cif1,fit$time1,tt)
   cif0 = .matchy(fit$cif0,fit$time0,tt)
   se1 = .matchy(fit$se1,fit$time1,tt)
