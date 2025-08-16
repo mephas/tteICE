@@ -1,5 +1,3 @@
-
-
 # library(survival)
 ## Hidden functions
 
@@ -134,7 +132,7 @@
     betad = as.numeric(betad)
     betar = as.numeric(betar)
     Xbd = as.numeric(X0%*%betad)
-    Xbr = as.numeric(X%*%betar)
+    Xbr = as.numeric(X0%*%betar)
   } else {
     betad = betar = 0
     Xbd = Xbr = rep(0,N)
@@ -144,6 +142,7 @@
 }
 
 .phfit_c <- function(Tr,Dr,Td,Dd,A,X,a){
+  X0 = X
   Td = Td[A==a]
   Dd = Dd[A==a]
   Dd[Td==max(Td)] = 1
@@ -184,7 +183,7 @@
   }
   if (!is.null(X)){
     beta = as.numeric(beta)
-    Xb = as.numeric(X%*%beta)
+    Xb = as.numeric(X0%*%beta)
   } else {
     beta = 0
     Xb = rep(0,N)
