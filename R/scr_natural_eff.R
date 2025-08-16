@@ -72,30 +72,28 @@ scr.natural.eff <- function(A,Time,status,Time_int,status_int,X=NULL,subset=NULL
     if (!is.null(X)) X = as.matrix(X)[subset,]
   }
   n = length(A)
-  if (!is.null(X)) X = as.matrix(X)
+  if (!is.null(X)) X = as.matrix(scale(X))
   tt = sort(unique(c(Tr,Td)))
   l = length(tt)
+  fit1 = .phfit(Tr,Dr,Td,Dd,A,X,a=1)
+  fit0 = .phfit(Tr,Dr,Td,Dd,A,X,a=0)
   # hazard of d
-  fit_d = .phfit_d(Tr,Dr,Td,Dd,A,X,a=1)
-  Xb = fit_d$Xb
-  delta_r = fit_d$delta_r
-  lam_d = .matchy(fit_d$lam, fit_d$tt, tt, TRUE)
+  Xb = fit1$Xbd
+  delta_r = fit1$delta
+  lam_d = .matchy(fit1$lamd, fit1$tt, tt, TRUE)
   lam_od1 = sapply(1:l, function(t) lam_d[t]*exp(Xb))
   lam_ord1 = lam_od1 * exp(delta_r)
-  fit_d = .phfit_d(Tr,Dr,Td,Dd,A,X,a=0)
-  Xb = fit_d$Xb
-  delta_r = fit_d$delta_r
-  lam_d = .matchy(fit_d$lam, fit_d$tt, tt, TRUE)
+  Xb = fit0$Xbd
+  delta_r = fit0$delta
+  lam_d = .matchy(fit0$lamd, fit0$tt, tt, TRUE)
   lam_od0 = sapply(1:l, function(t) lam_d[t]*exp(Xb))
   lam_ord0 = lam_od0 * exp(delta_r)
   # hazard of r
-  fit_r = .phfit_r(Tr,Dr,Td,Dd,A,X,a=1)
-  Xb = fit_r$Xb
-  lam_r = .matchy(fit_r$lam, fit_r$tt, tt, TRUE)
+  Xb = fit_r$Xbr
+  lam_r = .matchy(fit1$lamr, fit1$tt, tt, TRUE)
   lam_or1 = sapply(1:l, function(t) lam_r[t]*exp(Xb))
-  fit_r = .phfit_r(Tr,Dr,Td,Dd,A,X,a=0)
-  Xb = fit_r$Xb
-  lam_r = .matchy(fit_r$lam, fit_r$tt, tt, TRUE)
+  Xb = fit0$Xbr
+  lam_r = .matchy(fit0$lamr, fit0$tt, tt, TRUE)
   lam_or0 = sapply(1:l, function(t) lam_r[t]*exp(Xb))
   # hazard of c
   fit_c = .phfit_c(Tr,Dr,Td,Dd,A,X,a=1)
