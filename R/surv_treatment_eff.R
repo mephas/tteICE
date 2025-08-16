@@ -69,7 +69,7 @@ surv.treatment.eff <- function(A,Time,cstatus,X=NULL,subset=NULL){
     fit1c = coxph(Surv(Time,cstatus!=1)~NULL, subset=subset[A[subset]==1])
     fit0c = coxph(Surv(Time,cstatus!=1)~NULL, subset=subset[A[subset]==0])
   } else {
-    X = as.matrix(X)
+    X = as.matrix(scale(X))
     psfit = glm(A~X, family='binomial', subset=subset)
     fit1 = coxph(Surv(Time,cstatus==1)~X, subset=subset[A[subset]==1])
     fit0 = coxph(Surv(Time,cstatus==1)~X, subset=subset[A[subset]==0])
