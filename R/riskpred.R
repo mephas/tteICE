@@ -1,6 +1,7 @@
-#' @title Risk prediction
+#' @title Risk prediction at specific time points
 #'
-#' @description This function predicts the potential cumulative incidence function and treatment effect.
+#' @description This function predicts the potential cumulative incidence function and treatment effect at
+#' specific time points.
 #'
 #' @param fit An ICH object.
 #'
