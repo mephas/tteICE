@@ -68,7 +68,7 @@ scr.natural.eff <- function(A,Time,status,Time_int,status_int,X=NULL,subset=NULL
   Tr = Time_int; Dr = status_int
   if (!is.null(subset)) {
     A = A[subset]
-    Td = Td[subset]; Dd = Dd[subset]; Tr = Td[subset]; Dr = Dr[subset]
+    Td = Td[subset]; Dd = Dd[subset]; Tr = Tr[subset]; Dr = Dr[subset]
     if (!is.null(X)) X = as.matrix(X)[subset,]
   }
   n = length(A)
