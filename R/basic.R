@@ -54,7 +54,7 @@
   return(list(Z=A,T=T,R=R,dT=dT,dR=dR,Time=Time,cstatus=cstatus,X=X))
 }
 
-.phfit = function(Tr,Dr,Td,Dd,A,X,a){
+.phfit <- function(Tr,Dr,Td,Dd,A,X,a){
   Tr = Tr[A==a]
   Td = Td[A==a]
   Dr = Dr[A==a]
@@ -145,7 +145,7 @@
               Xbd=Xbd, Xbr=Xbr, tt=tt, lamd=lamd, lamr=lamr))
 }
 
-.phfit_c = function(Tr,Dr,Td,Dd,A,X,a){
+.phfit_c <- function(Tr,Dr,Td,Dd,A,X,a){
   Td = Td[A==a]
   Dd = Dd[A==a]
   Dd[Td==max(Td)] = 1
