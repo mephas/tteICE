@@ -146,7 +146,7 @@
   Td = Td[A==a]
   Dd = Dd[A==a]
   Dd[Td==max(Td)] = 1
-  Dc = 1 - Dc
+  Dc = 1 - Dd
   tt = sort(unique(Td[Dc==1]))
   maxt = max(tt)*0.9
   L = length(tt)
