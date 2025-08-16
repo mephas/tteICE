@@ -86,16 +86,16 @@ surv.principal.eff <- function(A,Time,cstatus,X=NULL,subset=NULL){
   } else {
     Xb11 = Xb10 = Xb21 = Xb20 = Xb1c = Xb0c = rep(0,n)
   }
-  cumhaz11 = .matchy(c(0,basehaz(fit11)$hazard),tt11,tt)
+  cumhaz11 = .matchy(c(0,basehaz(fit11,centered=FALSE)$hazard),tt11,tt)
   cumhaz11 = exp(Xb11)%*%t(cumhaz11)
-  cumhaz10 = .matchy(c(0,basehaz(fit10)$hazard),tt10,tt)
+  cumhaz10 = .matchy(c(0,basehaz(fit10,centered=FALSE)$hazard),tt10,tt)
   cumhaz10 = exp(Xb10)%*%t(cumhaz10)
-  cumhaz21 = .matchy(c(0,basehaz(fit21)$hazard),tt21,tt)
+  cumhaz21 = .matchy(c(0,basehaz(fit21,centered=FALSE)$hazard),tt21,tt)
   cumhaz21 = exp(Xb21)%*%t(cumhaz21)
-  cumhaz20 = .matchy(c(0,basehaz(fit20)$hazard),tt20,tt)
+  cumhaz20 = .matchy(c(0,basehaz(fit20,centered=FALSE)$hazard),tt20,tt)
   cumhaz20 = exp(Xb20)%*%t(cumhaz20)
-  cumhaz1c = .matchy(c(0,basehaz(fit1c)$hazard),c(0,basehaz(fit1c)$time),tt)
-  cumhaz0c = .matchy(c(0,basehaz(fit0c)$hazard),c(0,basehaz(fit0c)$time),tt)
+  cumhaz1c = .matchy(c(0,basehaz(fit1c,centered=FALSE)$hazard),c(0,basehaz(fit1c)$time),tt)
+  cumhaz0c = .matchy(c(0,basehaz(fit0c,centered=FALSE)$hazard),c(0,basehaz(fit0c)$time),tt)
   cumhaz1c = exp(Xb1c)%*%t(cumhaz1c)
   cumhaz0c = exp(Xb0c)%*%t(cumhaz0c)
   cumhaz1 = cumhaz11+cumhaz21
