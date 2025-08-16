@@ -55,27 +55,27 @@ plot_ate <- function(fit,decrease=FALSE,conf.int=.95,nboot=0,seed=0,xlab='Time',
   if (fit$strategy=='whileon') stname = 'While on treatment'
   if (fit$strategy=='principal') stname = 'Principal stratum'
   fit.b = surv.boot(fit,nboot=nboot,seed=seed)
-  tm = fit.b$time
+  tt = fit.b$time
   dcif = fit.b$ate
   se = fit.b$se
   ciu = dcif - qnorm((1-conf.int)/2)*se
   cil = dcif + qnorm((1-conf.int)/2)*se
-  ylab = 'Diff in cumulative incidences'
+  ylab = 'Difference in CIFs'
   if (decrease==TRUE){
     dcif = -dcif
     ciu = -ciu
     cil = -cil
-    ylab = 'Diff in survival probabilities'
+    ylab = 'Difference in Survivals'
   }
   if (!is.null(xlim)) {
-    id = tm<=xlim[2]
-    tm = tm[id]
-    dcif = dcif[id]
-    ciu = ciu[id]
-    cil = cil[id]
+    ti = (tt>=xlim[1])&(tt<=xlim[2])
+    tt = tt[ti]
+    dcif = dcif[ti]
+    ciu = ciu[ti]
+    cil = cil[ti]
   }
-  plot(tm,dcif,type='s',main=stname,ylim=ylim,xlab=xlab,ylab=ylab,lwd=2,...)
+  plot(tt,dcif,type='s',main=stname,ylim=ylim,xlab=xlab,ylab=ylab,lwd=2,...)
   abline(h=0,lty=2)
-  points(tm,ciu,type='s',lty=5,lwd=1.5,col='brown')
-  points(tm,cil,type='s',lty=5,lwd=1.5,col='brown')
+  points(tt,ciu,type='s',lty=5,lwd=1.5,col='darkgrey')
+  points(tt,cil,type='s',lty=5,lwd=1.5,col='darkgrey')
 }
