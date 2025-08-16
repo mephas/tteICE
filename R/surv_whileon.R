@@ -96,6 +96,7 @@ surv.whileon <- function(A,Time,cstatus,weights=rep(1,length(A)),subset=NULL){
   tt = sort(unique(c(time1,time0)))
   ate = .matchy(cif1,time1,tt)-.matchy(cif0,time0,tt)
   se = sqrt(.matchy(se1,time1,tt)^2+.matchy(se0,time0,tt)^2)
+  p = cuminc(Time,cstatus,group=A,subset=subset)$Tests[1,2]
   return(list(time1=time1,time0=time0,cif1=cif1,cif0=cif0,se1=se1,se0=se0,
-              time=tt,ate=ate,se=se,p.val=NULL))
+              time=tt,ate=ate,se=se,p.val=p))
 }
