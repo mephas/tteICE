@@ -89,7 +89,7 @@ scr.natural.eff <- function(A,Time,status,Time_int,status_int,X=NULL,subset=NULL
   lam_od0 = sapply(1:l, function(t) lam_d[t]*exp(Xb))
   lam_ord0 = lam_od0 * exp(delta_r)
   # hazard of r
-  Xb = fit_r$Xbr
+  Xb = fit1$Xbr
   lam_r = .matchy(fit1$lamr, fit1$tt, tt, TRUE)
   lam_or1 = sapply(1:l, function(t) lam_r[t]*exp(Xb))
   Xb = fit0$Xbr
