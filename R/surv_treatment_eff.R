@@ -98,9 +98,9 @@ surv.treatment.eff <- function(A,Time,cstatus,X=NULL,subset=NULL){
   cumhaz0c = exp(Xb0c)%*%t(cumhaz0c)
   dN = sapply(tt, function(l) (Time[subset]==l)*(cstatus[subset]==1))
   Y = sapply(tt, function(l) as.numeric(Time[subset]>=l))
-  lam1 = t(apply(rbind(0,cumhaz1),1,diff)))=
+  lam1 = t(apply(rbind(0,cumhaz1),1,diff))
   dMP1 = (dN-Y*lam1)/exp(-cumhaz1-cumhaz1c)
-  lam0 = t(apply(rbind(0,cumhaz0),1,diff)))
+  lam0 = t(apply(rbind(0,cumhaz0),1,diff))
   dMP0 = (dN-Y*lam0)/exp(-cumhaz0-cumhaz0c)
   cif1x = A[subset]/ps*exp(-cumhaz1)*t(apply(dMP1,1,cumsum))+1-exp(-cumhaz1)
   cif0x = (1-A[subset])/(1-ps)*exp(-cumhaz0)*t(apply(dMP0,1,cumsum))+1-exp(-cumhaz0)
