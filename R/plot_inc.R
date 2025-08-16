@@ -49,8 +49,8 @@
 #'
 #' @export
 
-plot_inc <- function(fit,decrease=FALSE,conf.int=.95,nboot=0,seed=0,xlab='Time',xlim=NULL,
-                     ylim=c(0,1),legend=c('Treated','Control'),
+plot_inc <- function(fit,decrease=FALSE,conf.int=.95,nboot=0,seed=0,xlab='Time',
+                     xlim=NULL,ylim=c(0,1),legend=c('Treated','Control'),
                      col=c('brown','darkcyan'),cex=0.9,...){
   if (fit$strategy=='treatment') stname = 'Treatment policy'
   if (fit$strategy=='composite') stname = 'Composite variable'
@@ -86,10 +86,12 @@ plot_inc <- function(fit,decrease=FALSE,conf.int=.95,nboot=0,seed=0,xlab='Time',
   if (!is.null(conf.int)){
     fit.b = surv.boot(fit,nboot,seed)
     z = -qnorm((1-conf.int)/2)
-    points(tt,cif1+fit.b$se1[i1]*z,type='s',lty=2,lwd=1.5,col=col1)
-    points(tt,cif1-fit.b$se1[i1]*z,type='s',lty=2,lwd=1.5,col=col1)
-    points(tt,cif0+fit.b$se0[i0]*z,type='s',lty=2,lwd=1.5,col=col0)
-    points(tt,cif0-fit.b$se0[i0]*z,type='s',lty=2,lwd=1.5,col=col0)
+    se1 = .matchy(fit.b$time,fit$se1,tt)
+    se0 = .matchy(fit.b$time,fit$se0,tt)
+    points(tt,cif1+se1[i1]*z,type='s',lty=2,lwd=1.5,col=col1)
+    points(tt,cif1-se1[i1]*z,type='s',lty=2,lwd=1.5,col=col1)
+    points(tt,cif0+se0[i0]*z,type='s',lty=2,lwd=1.5,col=col0)
+    points(tt,cif0-se0[i0]*z,type='s',lty=2,lwd=1.5,col=col0)
   }
   legend(x,cex=cex,col=c(col1,col0),lwd=c(2,2),legend=legend)
 }
