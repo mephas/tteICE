@@ -14,7 +14,7 @@
 #'  \item{da}{Acute GVHDIndicator 1-Developed Acute GVHD 0-Never Developed Acute GVHD)}
 #'  \item{tc}{Time To Chronic Graft-Versus-Host Disease}
 #'  \item{dc}{Chronic GVHD Indicator 1-Developed Chronic GVHD 0-Never Developed Chronic GVHD}
-#'  \item{tp}{Time To Chronic Graft-Versus-Host Disease}
+#'  \item{tp}{Time To Platelet Recovery}
 #'  \item{dp}{Platelet Recovery Indicator 1-Platelets Returned To Normal, 0-Platelets Never Returned to Normal}
 #'  \item{z1}{Patient Age In Years}
 #'  \item{z2}{Donor Age In Years}
