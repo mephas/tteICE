@@ -84,7 +84,7 @@ helpText(HTML("Time to the primary (terminal) event")),
 uiOutput("cstatus_32"),
 helpText(HTML("Primary (terminal) event indicator，1 for the primary (terminal) event, 0 for censoring")),
 
-h4("Whether to address intercurrent events (semicompeting risks)"),
+h4("Whether to collect time to intercurrent events (semicompeting risks)"),
 prettyToggle(
           inputId = "scr",
           label_on = "Yes",
@@ -217,7 +217,7 @@ hr(),
 h4("Advanced settings for the plot"),
 sliderInput("bs_320", label = h5("Number of resampling in bootstrapping"), min = 0, max = 1000, value = 0, width="100%",),
 helpText(HTML("0 indicates the usage of explicit formula")),
-sliderInput("conf", label = h5("Significant level"), min = 0.9, max = 0.99, step =0.01, value = 0.95, width="100%",),
+sliderInput("conf", label = h5("Significant level"), min = 0.8, max = 0.99, step =0.01, value = 0.95, width="100%",),
 
 splitLayout(cellWidths = c("50%", "50%"),
 prettyRadioButtons(
@@ -238,14 +238,14 @@ prettyRadioButtons(
           fill = TRUE,
           icon = icon("check"),
           choiceNames = list(
-            HTML("Survival function"),
-            HTML("Cumulative incidence function")
+            HTML("Cumulative incidence function"),
+            HTML("Survival function")
           ),
           choiceValues = list(TRUE,FALSE))
 ),
 
-# selectInput("d_320", label= h5("Survival plot type"), selected = T, choices = list("Survival function"=T, "Cumulative incidence function"=F)),
-sliderInput("yrange", "Set a range for the Y axis:", min = -20, max = 20, step=0.1, width="100%", value = c(-1,1)),
+# selectInput("d_320", label= h5("Survival plot type"), selected = T, choices = list("Cumulative incidence function"=T, "Survival function"=F)),
+sliderInput("yrange", "Set a range for the Y axis:", min = -1, max = 1, step=0.05, width="100%", value = c(-1,1)),
 actionButton("B_32_surv", HTML('Show results'), 
              class =  "btn-danger",
              icon  = icon("chart-column")),
