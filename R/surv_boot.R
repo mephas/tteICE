@@ -32,6 +32,7 @@
 #' @export
 
 surv.boot <- function(fit,nboot=0,seed=0){
+  N = length(fit$A)
   time1 = fit$time1
   time0 = fit$time0
   if ((is.null(time1)&is.null(time1))) {

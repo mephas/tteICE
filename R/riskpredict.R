@@ -8,7 +8,11 @@
 #' @param timeset Time at which to predict the risk. If \code{timeset=NULL}, risks will be predict at the 
 #' quartiles of the maximum follow-up time.
 #'
+#' @param nboot Number of resamplings in bootstrapping. Default \code{nboot = 0}, using the explicit
+#' formula of the standard error.
 #'
+#' @param seed Seed for bootstrapping.
+#' 
 #' @return A matrix. The meanings of each row are: time points, potential cumulative incidences (under 
 #' treated and under control), treatment effects, standard errors, P-values.
 #' 

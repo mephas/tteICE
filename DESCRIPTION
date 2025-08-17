@@ -21,8 +21,8 @@ Depends:
     shinythemes,
     shinyWidgets,
     DT,
-    R (>= 3.5),
-    psych
+    psych,
+    R (>= 3.5)
 Suggests: 
     knitr,
     rmarkdown

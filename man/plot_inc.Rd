@@ -14,6 +14,7 @@ plot_inc(
   xlim = NULL,
   ylim = c(0, 1),
   legend = c("Treated", "Control"),
+  col = c("brown", "darkcyan"),
   cex = 0.9,
   ...
 )
@@ -38,7 +39,9 @@ formula of the standard error.}
 
 \item{ylim}{Limit for y-axis.}
 
-\item{legend}{Legend.}
+\item{legend}{Set the legend of plot.}
+
+\item{col}{Colors for each group.}
 
 \item{cex}{Size of legend.}
 

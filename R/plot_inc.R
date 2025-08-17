@@ -22,7 +22,9 @@
 #' 
 #' @param ylim Limit for y-axis. 
 #' 
-#' @param legend Legend. 
+#' @param legend Set the legend of plot.  
+#' 
+#' @param col Colors for each group. 
 #' 
 #' @param cex Size of legend. 
 #'
