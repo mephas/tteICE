@@ -74,17 +74,6 @@ hr(),
 
 h3("Step 2. Causal analysis"),
 
-h4("Whether to address intercurrent events"),
-prettyToggle(
-          inputId = "scr",
-          label_on = "Yes",
-          icon_on = icon("check"),
-          status_on = "info",
-          status_off = "warning",
-          label_off = "No",
-          icon_off = icon("remove"),
-          value = FALSE),
-
 h4("Choose variables"),
 uiOutput("a_32"),
 helpText(HTML("Treatment assignment; 1 for treatment, 0 for control")),
@@ -95,6 +84,16 @@ helpText(HTML("Time to the primary (terminal) event")),
 uiOutput("cstatus_32"),
 helpText(HTML("Primary (terminal) event indicator，1 for the primary (terminal) event, 0 for censoring")),
 
+h4("Whether to address intercurrent events (semicompeting risks)"),
+prettyToggle(
+          inputId = "scr",
+          label_on = "Yes",
+          icon_on = icon("check"),
+          status_on = "info",
+          status_off = "warning",
+          label_off = "No",
+          icon_off = icon("remove"),
+          value = FALSE),
 conditionalPanel(
   condition = "input.scr",
 uiOutput("time_321"),

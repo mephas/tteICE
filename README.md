@@ -1,4 +1,18 @@
 
+- [ICHe9r1](#iche9r1)
+  - [Randomized trials and observational
+    studies](#randomized-trials-and-observational-studies)
+  - [Five strategies to deal with intercurrent
+    events](#five-strategies-to-deal-with-intercurrent-events)
+  - [Two types of data structures](#two-types-of-data-structures)
+- [About this package](#about-this-package)
+  - [Installation](#installation)
+  - [Example](#example)
+  - [Competing risks data structure](#competing-risks-data-structure)
+  - [Semicompeting risks data
+    structure](#semicompeting-risks-data-structure)
+  - [Remarks on methodology](#remarks-on-methodology)
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # ICHe9r1
@@ -10,12 +24,10 @@
 The goal of the package “ICHe9r1” is to estimate the treatment effect
 for time-to-event outcomes with intercurrent events under ICH E9 (R1).
 
-## Method
+## Randomized trials and observational studies
 
-### Randomized trials and observational studies
-
-Randomized trials are the best form of experiments for evaluating the
-treatment effect because confounders are naturally balanced between
+**Randomized trials** are the best form of experiments for evaluating
+the treatment effect because confounders are naturally balanced between
 treatment groups. The difference in outcomes between treatment groups is
 explained by the treatment condition. In observational studies,
 confounders (observed or unobserved) are not balanced. To estimate the
@@ -26,9 +38,9 @@ trials apply to observational studies after adjusting for confounders,
 one should be careful in making causal conclusions based on
 observational studies due to the threat of unmeasured confounding.
 
-### Five strategies to deal with intercurrent events
+## Five strategies to deal with intercurrent events
 
-The ICH E9 (R1) proposed five strategies to deal with intercurrent
+**The ICH E9 (R1)** proposed five strategies to deal with intercurrent
 events: treatment policy strategy, composite variable strategy,
 hypothetical strategy, while on treatment strategy, and principal
 stratum strategy. To answer a specific scientific question, a
@@ -38,16 +50,16 @@ to the primary outcome event is the potential cumulative incidence
 function (CIF). The treatment effect is defined as the contrast of the
 potential cumulative incidence functions under treated and control.
 
-- Treatment policy strategy. The treatment policy strategy addresses the
-  problem of intercurrent events by expanding the initial treatment
+- **Treatment policy strategy.** The treatment policy strategy addresses
+  the problem of intercurrent events by expanding the initial treatment
   conditions to a treatment policy. This strategy is applicable only if
   intercurrent events do not hinder primary outcome events. It is
   confined to a semicompeting risks context.
-- Composite variable strategy. The composite variable strategy addresses
-  the problem of intercurrent events by expanding the outcome variables.
-  It aggregates the intercurrent event and primary outcome event into a
-  single composite outcome variable.
-- Hypothetical strategy. The hypothetical strategy envisions a
+- **Composite variable strategy.** The composite variable strategy
+  addresses the problem of intercurrent events by expanding the outcome
+  variables. It aggregates the intercurrent event and primary outcome
+  event into a single composite outcome variable.
+- **Hypothetical strategy.** The hypothetical strategy envisions a
   hypothetical clinical trial condition where the occurrence of
   intercurrent events is restricted in certain ways. By doing so, the
   distribution of potential outcomes under the hypothetical scenario can
@@ -55,13 +67,13 @@ potential cumulative incidence functions under treated and control.
   pre-specified criterion. The hypothetical strategy is closely related
   to mediation analysis, which is intended to evaluate the direct and
   indirect effects using semicompeting risks data.
-- While on treatment strategy. The while on treatment strategy considers
-  the measure of outcome variables taken only up to the occurrence of
-  intercurrent events. The failures of primary outcome events should not
-  be counted in the cumulative incidences if intercurrent events
-  occurred. The while on treatment strategy is closely related to the
-  competing risks model.
-- Principal stratum strategy. The principal stratum strategy aims to
+- **While on treatment strategy.** The while on treatment strategy
+  considers the measure of outcome variables taken only up to the
+  occurrence of intercurrent events. The failures of primary outcome
+  events should not be counted in the cumulative incidences if
+  intercurrent events occurred. The while on treatment strategy is
+  closely related to the competing risks model.
+- **Principal stratum strategy.** The principal stratum strategy aims to
   stratify the population into subpopulations based on the joint
   potential occurrences of intercurrent events under the two treatment
   assignments. Usually, we are interested in a principal stratum
@@ -69,17 +81,17 @@ potential cumulative incidence functions under treated and control.
   events, regardless of which treatment they receive. A principal
   ignorability assumption is made.
 
-### Two types of data structures
+## Two types of data structures
 
 In particular, we consider two types of data structures.
 
-- Competing risks. Only the time to the first occurrence of either the
-  primary outcome event or the intercurrent event is recorded. An
+- **Competing risks.** Only the time to the first occurrence of either
+  the primary outcome event or the intercurrent event is recorded. An
   indicator describes the type of this event, i.e., whether it is the
   primary outcome event, intercurrent event, or censoring. The treatment
   policy strategy cannot be applied to competing risks data.
-- Semicompeting risks. Both the time to the primary outcome event and
-  the time to the intercurrent event are recorded. The censoring
+- **Semicompeting risks.** Both the time to the primary outcome event
+  and the time to the intercurrent event are recorded. The censoring
   indicators for these events are also recorded. All five strategies can
   be applied to semicompeting risks data.
 
@@ -91,6 +103,8 @@ natural) yields different results for the competing risks and
 semicompeting risks data, since both cause-specific hazards of the
 primary event contribute to the counterfactual cumulative incidence
 function for semicompeting risk data.
+
+------------------------------------------------------------------------
 
 References:
 
@@ -104,6 +118,10 @@ Trials. (Step 4 version dated 20 November 2019).
 Incidences and Treatment Effects in Randomized Controlled Trials With
 Time‐to‐Event Outcomes Under ICH E9 (R1). Statistics in Medicine.
 <https://doi.org/10.1002/sim.70091>.
+
+------------------------------------------------------------------------
+
+# About this package
 
 ## Installation
 
@@ -119,7 +137,7 @@ pak::pak("mephas/ICHe9r1")
 We use the bmt data to illustrate how to estimate the treatment effect.
 The primary event is death, and the intercurrent event is relapse.
 
-### Competing risks data structure
+## Competing risks data structure
 
 The time to the first event (either death or relapse) is t2. The event
 indicator is d4=d2+d3, so that d4=1 if death occurs first, while d4=2 if
@@ -196,7 +214,7 @@ plot_ate(fit3)
 
 <img src="man/figures/README-example_3-2.png" width="100%" />
 
-### Semicompeting risks data structure
+## Semicompeting risks data structure
 
 Note that the time to death (or censoring) is t1 and the time to relapse
 (or censoring) is t2. We use the hypothetical strategy (natural effects)

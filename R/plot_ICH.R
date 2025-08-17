@@ -24,9 +24,11 @@
 #' 
 #' @param ylim Limit for y-axis. 
 #' 
-#' @param legend Change the legend of the estimated cumulative incidence function plot. Only valid when \code{type=inc}. 
+#' @param legend.inc Change the legend of the estimated cumulative incidence function plot. Only valid when \code{type=inc}. 
 #' 
-#' @param cex Size of legend. 
+#' @param col.inc Color of curves in the estimated cumulative incidence function. Only valid when \code{type=inc}. 
+#' 
+#' @param cex.legend Size of legend. Only valid when \code{type=inc}. 
 #'
 #' @param ... Other augments in function \code{\link{plot.default}} or function \code{\link{curve}}
 #'
@@ -56,18 +58,22 @@
 #' @method plot ICH
 #' @export
 
-plot.ICH <- function(x, type=c("ate","inc")[1],decrease=FALSE,conf.int=.95,nboot=0,seed=0,xlab='Time',xlim=NULL,
-                     ylim=NULL,legend=c('Treated','Control'),cex=0.9,...){
+plot.ICH <- function(x, type=c("ate","inc")[1],
+  decrease=FALSE,conf.int=.95,nboot=0,seed=0, xlab='Time',xlim=NULL, ylim=NULL,
+  legend.inc=c('Treated','Control'),col.inc=c('brown','darkcyan'), cex.legend=0.9,...){
 
+  if(!inherits(x, "ICH")) stop("Only valid for models by ICHe9r1.")
+  type <- match.arg(type, c("ate", "inc"))
 
   if(type=="ate") {
     if(is.null(ylim)) ylim=c(-1,1)
     plot_ate(fit=x,decrease=decrease,conf.int=conf.int,nboot=nboot,seed=seed,xlab=xlab,xlim=xlim,ylim=ylim,...)
     }
 
-  if(type=="inc") {
+  else {
     if(is.null(ylim)) ylim=c(-1,1)
-    plot_inc(fit=x,decrease=decrease,conf.int=conf.int,nboot=nboot,seed=seed,xlab=xlab, xlim=xlim,ylim=ylim,legend=legend,cex=cex,...)
+    plot_inc(fit=x,decrease=decrease,conf.int=conf.int,nboot=nboot,seed=seed,xlab=xlab, xlim=xlim,ylim=ylim,
+      legend=legend.inc,col=col.inc,cex=cex.legend,...)
     }
 
 

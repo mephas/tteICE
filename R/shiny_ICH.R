@@ -1,6 +1,6 @@
 #' @title Shiny for ICHe9r1
 #'
-#' @description This function opens the Rshiny app for ICHe9r1
+#' @description This function opens the Rshiny app for ICHe9r1.
 #'
 #' @return Rshiny inteface
 #' @import shiny shinythemes shinyWidgets

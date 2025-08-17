@@ -66,8 +66,9 @@ with pointwise confidence intervals.</p>
 <span>  xlab <span class="op">=</span> <span class="st">"Time"</span>,</span>
 <span>  xlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  ylim <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Treated"</span>, <span class="st">"Control"</span><span class="op">)</span>,</span>
-<span>  cex <span class="op">=</span> <span class="fl">0.9</span>,</span>
+<span>  legend.inc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Treated"</span>, <span class="st">"Control"</span><span class="op">)</span>,</span>
+<span>  col.inc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"brown"</span>, <span class="st">"darkcyan"</span><span class="op">)</span>,</span>
+<span>  cex.legend <span class="op">=</span> <span class="fl">0.9</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -115,12 +116,16 @@ formula of the standard error.</p></dd>
 <dd><p>Limit for y-axis.</p></dd>
 
 
-<dt id="arg-legend">legend<a class="anchor" aria-label="anchor" href="#arg-legend"></a></dt>
+<dt id="arg-legend-inc">legend.inc<a class="anchor" aria-label="anchor" href="#arg-legend-inc"></a></dt>
 <dd><p>Change the legend of the estimated cumulative incidence function plot. Only valid when <code>type=inc</code>.</p></dd>
 
 
-<dt id="arg-cex">cex<a class="anchor" aria-label="anchor" href="#arg-cex"></a></dt>
-<dd><p>Size of legend.</p></dd>
+<dt id="arg-col-inc">col.inc<a class="anchor" aria-label="anchor" href="#arg-col-inc"></a></dt>
+<dd><p>Color of curves in the estimated cumulative incidence function. Only valid when <code>type=inc</code>.</p></dd>
+
+
+<dt id="arg-cex-legend">cex.legend<a class="anchor" aria-label="anchor" href="#arg-cex-legend"></a></dt>
+<dd><p>Size of legend. Only valid when <code>type=inc</code>.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>

@@ -10,7 +10,7 @@ ICHe9r1Shiny()
 Rshiny inteface
 }
 \description{
-This function opens the Rshiny app for ICHe9r1
+This function opens the Rshiny app for ICHe9r1.
 }
 \examples{
 if(interactive()){

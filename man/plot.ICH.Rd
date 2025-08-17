@@ -14,8 +14,9 @@
   xlab = "Time",
   xlim = NULL,
   ylim = NULL,
-  legend = c("Treated", "Control"),
-  cex = 0.9,
+  legend.inc = c("Treated", "Control"),
+  col.inc = c("brown", "darkcyan"),
+  cex.legend = 0.9,
   ...
 )
 }
@@ -41,9 +42,11 @@ formula of the standard error.}
 
 \item{ylim}{Limit for y-axis.}
 
-\item{legend}{Change the legend of the estimated cumulative incidence function plot. Only valid when \code{type=inc}.}
+\item{legend.inc}{Change the legend of the estimated cumulative incidence function plot. Only valid when \code{type=inc}.}
 
-\item{cex}{Size of legend.}
+\item{col.inc}{Color of curves in the estimated cumulative incidence function. Only valid when \code{type=inc}.}
+
+\item{cex.legend}{Size of legend. Only valid when \code{type=inc}.}
 
 \item{...}{Other augments in function \code{\link{plot.default}} or function \code{\link{curve}}}
 }
