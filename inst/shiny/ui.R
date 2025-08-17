@@ -6,11 +6,12 @@ if (!requireNamespace("shiny", quietly = TRUE)) install.packages("shiny")
 library("shiny", quietly = TRUE)
 if (!requireNamespace("shinythemes", quietly = TRUE)) install.packages("shinythemes")
 library("shinythemes", quietly = TRUE)
-if (!requireNamespace("DT", quietly = TRUE)) install.packages("DT")
-library("DT", quietly = TRUE)
+if (!requireNamespace("psych")) install.packages("psych")
+library("psych")
 if (!requireNamespace("shinyWidgets")) install.packages("shinyWidgets")
 library("shinyWidgets")
-
+if (!requireNamespace("DT", quietly = TRUE)) install.packages("DT")
+library("DT", quietly = TRUE)
 source("tab/func2_causal.R", encoding = "utf-8")
 
 

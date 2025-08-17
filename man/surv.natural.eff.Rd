@@ -37,7 +37,7 @@ the restricted mean survival time lost by the end of study.}
 This function estimates the potential cumulative incidence function
 based on efficient influence functions using hypothetical strategy (competing risks
 data structure). Cox models are employed for survival models. The intercurrent event
-is only permitted under treated if is would occur under control.
+is only permitted under treated if it would occur under control.
 }
 \details{
 \describe{

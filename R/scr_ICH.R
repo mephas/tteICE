@@ -32,7 +32,7 @@
 #' @import survival
 #' @importFrom stats rbinom rweibull rexp runif pchisq sd pnorm na.omit glm predict
 #' @importFrom MASS ginv
-#' @importFrom cmprsk crr
+#' @importFrom cmprsk crr cuminc
 #'
 #' @return A list including the fitted object and input variables.
 #'

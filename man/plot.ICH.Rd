@@ -20,9 +20,9 @@
 )
 }
 \arguments{
-\item{x}{A fitted object from \code{surv.ICH}.}
+\item{x}{A fitted object from \code{surv.ICH} or \code{scr.ICH}.}
 
-\item{type}{which plot to create}
+\item{type}{Which plot to create: \code{ate} indicates to plot the estimated treatment effect; \code{inc} indicates to plot the estimated cumulative incidence function.}
 
 \item{decrease}{A logical variable indicating whether displaying the cumulative incidence
 function (\code{decrease = FALSE}) or survival function (\code{decrease = TRUE}).}
@@ -41,7 +41,7 @@ formula of the standard error.}
 
 \item{ylim}{Limit for y-axis.}
 
-\item{legend}{Legend.}
+\item{legend}{Change the legend of the estimated cumulative incidence function plot. Only valid when \code{type=inc}.}
 
 \item{cex}{Size of legend.}
 

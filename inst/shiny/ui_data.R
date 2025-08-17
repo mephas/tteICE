@@ -189,35 +189,6 @@ prettyCheckbox(
     status = "danger"
 ),
 
-sliderInput("bs_320", label = h5("Number of resampling in bootstrapping"), min = 0, max = 1000, value = 0),
-helpText(HTML("0 indicates the usage of explicit formula")),
-
-sliderInput("conf", label = h5("Significant level"), min = 0.9, max = 0.99, step =0.01, value = 0.95),
-
-prettyRadioButtons(
-          inputId = "meth",
-          status = "info",
-          label="Estimation method",
-          fill = TRUE,
-          icon = icon("check"),
-          choiceNames = list(
-            HTML("Nonparametric estimation"),
-            HTML("Semiparametrically efficient estimation")
-          ),
-          choiceValues = list("np", "eff")),
-
-selectInput(
-  "d_320",
-  label= h5("Survival plot type"),
-  selected = T,
-  choices = list("Survival function"=T,
-    "Cumulative incidence function"=F)
-),
-
-actionButton("B_32_surv", HTML('Show results'), 
-             class =  "btn-danger",
-             icon  = icon("chart-column")),
-
 hr()
 
 
@@ -243,7 +214,46 @@ tabsetPanel(
 ##-----------------------------------------------------------------------------------
 ##-----------------------------------------------------------------------------------
 
+hr(),
+h4("Advanced settings for the plot"),
+sliderInput("bs_320", label = h5("Number of resampling in bootstrapping"), min = 0, max = 1000, value = 0, width="100%",),
+helpText(HTML("0 indicates the usage of explicit formula")),
+sliderInput("conf", label = h5("Significant level"), min = 0.9, max = 0.99, step =0.01, value = 0.95, width="100%",),
+
+splitLayout(cellWidths = c("50%", "50%"),
+prettyRadioButtons(
+          inputId = "meth",
+          status = "info",
+          label="Estimation method",
+          fill = TRUE,
+          icon = icon("check"),
+          choiceNames = list(
+            HTML("Nonparametric estimation"),
+            HTML("Semiparametrically efficient estimation")
+          ),
+          choiceValues = list("np", "eff")),
+prettyRadioButtons(
+          inputId = "d_320",
+          status = "info",
+          label="Survival plot type",
+          fill = TRUE,
+          icon = icon("check"),
+          choiceNames = list(
+            HTML("Survival function"),
+            HTML("Cumulative incidence function")
+          ),
+          choiceValues = list(TRUE,FALSE))
+),
+
+# selectInput("d_320", label= h5("Survival plot type"), selected = T, choices = list("Survival function"=T, "Cumulative incidence function"=F)),
+sliderInput("yrange", "Set a range for the Y axis:", min = -20, max = 20, step=0.1, width="100%", value = c(-1,1)),
+actionButton("B_32_surv", HTML('Show results'), 
+             class =  "btn-danger",
+             icon  = icon("chart-column")),
+hr(),
+
 h4("Results"),
+
 tabsetPanel(
     tabPanel("1: Treatment policy strategy",
       conditionalPanel("input.tbd_treatment",
@@ -293,6 +303,7 @@ tabsetPanel(
       uiOutput("bstime_325"),
     DTOutput("pssbs_32_tab")
       ))
+    
 )
 ##########----------##########----------##########
 )

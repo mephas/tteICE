@@ -94,7 +94,7 @@ a<-x[,1] %in% c("integer", "numeric")
 if(sum(a)==0) {df <- data.frame(NULL)}
 else{
   data2<- as.data.frame(data[,a,drop=FALSE])
-  df <- round(as.data.frame(psych::describe(data2))[,-c(1,6,7)],6)
+  df <- round(as.data.frame(describe(data2))[,-c(1,6,7)],6)
   rownames(df) = names(data2)
   colnames(df) <- c("N", "Mean", "SD", "Median", "Min", "Max", "Range", "Skewness", "kurtosis", "SE")
 }

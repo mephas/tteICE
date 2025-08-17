@@ -5,6 +5,7 @@
 #' @return Rshiny inteface
 #' @import shiny shinythemes shinyWidgets
 #' @importFrom DT renderDT
+#' @importFrom psych describe
 #'
 #' @examples
 #' if(interactive()){

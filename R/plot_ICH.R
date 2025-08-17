@@ -3,9 +3,9 @@
 #' @description This function plots the estimated potential cumulative incidence function
 #' with pointwise confidence intervals.
 #'
-#' @param x A fitted object from \code{surv.ICH}.
+#' @param x A fitted object from \code{surv.ICH} or \code{scr.ICH}.
 #' 
-#' @param type which plot to create
+#' @param type Which plot to create: \code{ate} indicates to plot the estimated treatment effect; \code{inc} indicates to plot the estimated cumulative incidence function.
 #'
 #' @param decrease A logical variable indicating whether displaying the cumulative incidence
 #' function (\code{decrease = FALSE}) or survival function (\code{decrease = TRUE}).
@@ -24,7 +24,7 @@
 #' 
 #' @param ylim Limit for y-axis. 
 #' 
-#' @param legend Legend. 
+#' @param legend Change the legend of the estimated cumulative incidence function plot. Only valid when \code{type=inc}. 
 #' 
 #' @param cex Size of legend. 
 #'
@@ -60,12 +60,15 @@ plot.ICH <- function(x, type=c("ate","inc")[1],decrease=FALSE,conf.int=.95,nboot
                      ylim=NULL,legend=c('Treated','Control'),cex=0.9,...){
 
 
-  if(type=="ate") plot_ate(fit=x,decrease=decrease,conf.int=conf.int,nboot=nboot,seed=seed,xlab=xlab,
-                     xlim=xlim,ylim=c(-1,1),...)
+  if(type=="ate") {
+    if(is.null(ylim)) ylim=c(-1,1)
+    plot_ate(fit=x,decrease=decrease,conf.int=conf.int,nboot=nboot,seed=seed,xlab=xlab,xlim=xlim,ylim=ylim,...)
+    }
 
-  if(type=="inc") plot_inc(fit=x,decrease=decrease,conf.int=conf.int,nboot=nboot,seed=seed,xlab=xlab,
-                     xlim=xlim,ylim=c(0,1),legend=legend,cex=cex,...)
-
+  if(type=="inc") {
+    if(is.null(ylim)) ylim=c(-1,1)
+    plot_inc(fit=x,decrease=decrease,conf.int=conf.int,nboot=nboot,seed=seed,xlab=xlab, xlim=xlim,ylim=ylim,legend=legend,cex=cex,...)
+    }
 
 
 }

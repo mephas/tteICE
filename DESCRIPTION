@@ -14,15 +14,15 @@ LazyData: True
 RoxygenNote: 7.3.2
 Imports: 
     cmprsk,
+    MASS,
+    survival
+Depends: 
     shiny,
     shinythemes,
     shinyWidgets,
-    survival
-Depends: 
-    cmprsk,
     DT,
-    MASS,
-    R (>= 3.5)
+    R (>= 3.5),
+    psych
 Suggests: 
     knitr,
     rmarkdown

@@ -16,7 +16,7 @@ return(fit1)
 })
 
 tps_32_plot1 <- eventReactive(input$B_32_surv,{
-  plot(tps_32(), type="ate", decrease = input$d_320, conf.int = input$conf, nboot = input$bs_320, seed = 0)
+  plot(tps_32(), type="ate", decrease = input$d_320, conf.int = input$conf, nboot = input$bs_320, seed = 0, ylim=input$yrange)
 })
 tps_32_plot2 <- eventReactive(input$B_32_surv,{
   plot(tps_32(), type="inc", decrease = input$d_320, conf.int = input$conf, nboot = input$bs_320, seed = 0)
