@@ -241,7 +241,7 @@ prettyRadioButtons(
             HTML("Cumulative incidence function"),
             HTML("Survival function")
           ),
-          choiceValues = list(TRUE,FALSE))
+          choiceValues = list(FALSE,TRUE))
 ),
 
 # selectInput("d_320", label= h5("Survival plot type"), selected = T, choices = list("Cumulative incidence function"=T, "Survival function"=F)),
