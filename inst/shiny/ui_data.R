@@ -244,11 +244,13 @@ prettyRadioButtons(
           choiceValues = list(FALSE,TRUE))
 ),
 
-# selectInput("d_320", label= h5("Survival plot type"), selected = T, choices = list("Cumulative incidence function"=T, "Survival function"=F)),
-sliderInput("yrange", "Set a range for the Y axis:", min = -1, max = 1, step=0.05, width="100%", value = c(-1,1)),
+# selectInput("d_320", label= h5("Survival plot type"), selected = F, choices = list("Cumulative incidence function"=F, "Survival function"=T)),
+sliderInput("yrange", "Set a range for the Y axis in the treatment effect plot:", min = -1, max = 1, step=0.05, width="100%", value = c(-1,1)),
+sliderInput("yrangecif", "Set a range for the Y axis in the survival plot:", min = 0, max = 1, step=0.05, width="100%", value = c(0,1)),
 actionButton("B_32_surv", HTML('Show results'), 
              class =  "btn-danger",
              icon  = icon("chart-column")),
+
 hr(),
 
 h4("Results"),
