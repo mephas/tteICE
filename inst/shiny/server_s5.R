@@ -16,10 +16,10 @@ return(fit1)
 })
 
 wos_32_plot1 <- eventReactive(input$B_32_surv,{
-  plot(wos_32(), type="ate", decrease = input$d_320, conf.int = input$conf, nboot = input$bs_320, seed = 0)
+  plot(wos_32(), type="ate", decrease = input$d_320, conf.int = input$conf, nboot = input$bs_320, seed = 0, ylim=input$yrange)
 })
 wos_32_plot2 <- eventReactive(input$B_32_surv,{
-  plot(wos_32(), type="inc", decrease = input$d_320, conf.int = input$conf, nboot = input$bs_320, seed = 0)
+  plot(wos_32(), type="inc", decrease = input$d_320, conf.int = input$conf, nboot = input$bs_320, seed = 0, ylim=input$yrangecif)
 })
 
 output$wos_32a <- renderPlot({wos_32_plot1()})
