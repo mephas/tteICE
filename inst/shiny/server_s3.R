@@ -16,11 +16,11 @@ return(fit1)
 })
 
 hsn_32_plot1 <- eventReactive(input$B_32_surv,{
-  if(length(hsn_32())!=0) plot(hsn_32(), type="ate", decrease = input$d_320, conf.int = input$conf, nboot = input$bs_320, seed = 0)
+  if(length(hsn_32())!=0) plot(hsn_32(), type="ate", decrease = input$d_320, conf.int = input$conf, nboot = input$bs_320, seed = 0, ylim=input$yrange)
   else NULL
 })
 hsn_32_plot2 <- eventReactive(input$B_32_surv,{
-  if(length(hsn_32())!=0) plot(hsn_32(), type="inc", decrease = input$d_320, conf.int = input$conf, nboot = input$bs_320, seed = 0)
+  if(length(hsn_32())!=0) plot(hsn_32(), type="inc", decrease = input$d_320, conf.int = input$conf, nboot = input$bs_320, seed = 0, ylim=input$yrangecif)
   else NULL
 })
 
