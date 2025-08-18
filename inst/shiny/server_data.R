@@ -165,13 +165,13 @@ output$time_32 <- renderUI({
 })
 
 type.num.z2 <- reactive({
-  type.num0()[!(type.num0() %in% c(input$a_32, input$time_32))]
+  type.bi.z()[!(type.bi.z() %in% c(input$a_32, input$time_32))]
 })
 
 output$cstatus_32 <- renderUI({
   selectInput(
     "cstatus_32",
-    h5("*Primary event indicator"),
+    h5("*Primary event indicator (a binary one)"),
     choices = type.num.z2()
   )
 })
@@ -201,8 +201,8 @@ output$cstatus_321 <- renderUI({
 })
 
 type.num3_32 <- reactive({
-  type.num_32()[!(type.num_32() %in% c(input$a_32, input$time_32, input$cstatus_32, input$time_321, input$cstatus_321))]
-  # names(DF2_32()[sapply(DF2_32(), is.numeric)])
+  if(input$scr) type.num_32()[!(type.num_32() %in% c(input$a_32, input$time_32, input$cstatus_32, input$time_321, input$cstatus_321))]
+  else type.num_32()[!(type.num_32() %in% c(input$a_32, input$time_32, input$cstatus_32))]
 })
 
 output$cov1_32 <- renderUI({

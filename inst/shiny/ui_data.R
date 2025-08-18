@@ -199,7 +199,7 @@ mainPanel(
 ##-----------------------------------------------------------------------------------
 ##-----------------------------------------------------------------------------------
 
-h4("Data preview"),
+h3("Data preview"),
 tabsetPanel(
 
   tabPanel("Data preview", br(), DT::DTOutput("Xdata")),
@@ -214,7 +214,7 @@ tabsetPanel(
 ##-----------------------------------------------------------------------------------
 
 hr(),
-h4("Advanced settings for the plot"),
+h3("Advanced settings for the plot"),
 sliderInput("bs_320", label = h5("Number of resampling in bootstrapping"), min = 0, max = 1000, value = 0, width="100%",),
 helpText(HTML("0 indicates the usage of explicit formula")),
 sliderInput("conf", label = h5("Significant level"), min = 0.8, max = 0.99, step =0.01, value = 0.95, width="100%",),
@@ -247,22 +247,40 @@ prettyRadioButtons(
 # selectInput("d_320", label= h5("Survival plot type"), selected = F, choices = list("Cumulative incidence function"=F, "Survival function"=T)),
 sliderInput("yrange", "Set a range for the Y axis in the treatment effect plot:", min = -1, max = 1, step=0.05, width="100%", value = c(-1,1)),
 sliderInput("yrangecif", "Set a range for the Y axis in the survival plot:", min = 0, max = 1, step=0.05, width="100%", value = c(0,1)),
+splitLayout(
+  textInput("t1", "Legend for the treatment group, valued as 1", value = "Treat", width = "100%", placeholder = NULL),
+  textInput("t0", "Legend for the control group, valued as 0", value = "Control", width = "100%", placeholder = NULL)
+  ),
+h5("Whether to show the P-value on the the survival plot"),
+prettyToggle(
+          inputId = "adp",
+          label_on = "Yes",
+          icon_on = icon("check"),
+          status_on = "info",
+          status_off = "warning",
+          label_off = "No",
+          icon_off = icon("remove"),
+          value = FALSE),
 actionButton("B_32_surv", HTML('Show results'), 
              class =  "btn-danger",
              icon  = icon("chart-column")),
 
 hr(),
 
-h4("Results"),
+h3("Results"),
 
 tabsetPanel(
     tabPanel("1: Treatment policy strategy",
       conditionalPanel("input.tbd_treatment",
       splitLayout(
-      plotOutput("tps_32a", width = 500, height = 400),plotOutput("tps_32b", width = 500, height = 400),
+      plotOutput("tps_32a", width = 500, height = 400),plotOutput("tps_32b", width = 500, height = 400)
       ),
       uiOutput("bstime_320"),
-      DTOutput("tpsbs_32_tab")
+      DTOutput("tpsbs_32_tab"),
+      hr(),
+      h3("Prediction"),
+      numericInput("num1", "Enter a time point:", value = 0, min = 0, step = 1),
+      DTOutput("tpsbs_32_tab_pred")
       )),
     tabPanel("2: Composite variable strategy",
       conditionalPanel("input.tbd_composite",
@@ -270,7 +288,11 @@ tabsetPanel(
       plotOutput("cvs_32a", width = 500, height = 400),plotOutput("cvs_32b", width = 500, height = 400)
       ),
       uiOutput("bstime_321"),
-      DTOutput("cvsbs_32_tab")
+      DTOutput("cvsbs_32_tab"),
+      hr(),
+      h3("Prediction"),
+      numericInput("num2", "Enter a time point:", value = 0, min = 0, step = 1),
+      DTOutput("cvsbs_32_tab_pred")
       )),
     tabPanel("3: Hypothetical strategy (I)",
       conditionalPanel("input.tbd_natural",
@@ -278,7 +300,11 @@ tabsetPanel(
       plotOutput("hsn_32a", width = 500, height = 400),plotOutput("hsn_32b", width = 500, height = 400)
       ),
       uiOutput("bstime_322"),
-      DTOutput("hsnbs_32_tab")
+      DTOutput("hsnbs_32_tab"),
+      hr(),
+      h3("Prediction"),
+      numericInput("num3", "Enter a time point:", value = 0, min = 0, step = 1),
+      DTOutput("hsnbs_32_tab_pred")
       )),
     tabPanel("4: Hypothetical strategy (II)",
       conditionalPanel("input.tbd_removed",
@@ -286,7 +312,11 @@ tabsetPanel(
       plotOutput("hsr_32a", width = 500, height = 400),plotOutput("hsr_32b", width = 500, height = 400)
       ),
       uiOutput("bstime_323"),
-      DTOutput("hsrbs_32_tab")
+      DTOutput("hsrbs_32_tab"),
+      hr(),
+      h3("Prediction"),
+      numericInput("num4", "Enter a time point:", value = 0, min = 0, step = 1),
+      DTOutput("hsrbs_32_tab_pred")
       )),
     tabPanel("5: While on treatment strategy",
       conditionalPanel("input.tbd_whileon",
@@ -294,7 +324,11 @@ tabsetPanel(
       plotOutput("wos_32a", width = 500, height = 400),plotOutput("wos_32b", width = 500, height = 400)
       ),
       uiOutput("bstime_324"),
-    DTOutput("wosbs_32_tab")
+      DTOutput("wosbs_32_tab"),
+      hr(),
+      h3("Prediction"),
+      numericInput("num5", "Enter a time point:", value = 0, min = 0, step = 1),
+      DTOutput("wosbs_32_tab_pred")
       )),
     tabPanel("6: Principal stratum strategy",
       conditionalPanel("input.tbd_principal",
@@ -302,7 +336,11 @@ tabsetPanel(
       plotOutput("pss_32a", width = 500, height = 400),plotOutput("pss_32b", width = 500, height = 400)
       ),
       uiOutput("bstime_325"),
-    DTOutput("pssbs_32_tab")
+      DTOutput("pssbs_32_tab"),
+      hr(),
+      h3("Prediction"),
+      numericInput("num6", "Enter a time point:", value = 0, min = 0, step = 1),
+      DTOutput("pssbs_32_tab_pred")
       ))
     
 )

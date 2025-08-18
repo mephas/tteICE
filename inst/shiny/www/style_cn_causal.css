@@ -72,7 +72,7 @@ h5 {
 
 .shiny-output-error:before { 
 	visibility: visible; 
-	content: '请检查输入的数据和参数'; 
+	content: 'Check data and parameters'; 
 	color: #4169e1; 
 }
  
