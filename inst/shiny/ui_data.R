@@ -157,7 +157,7 @@ prettyCheckbox(
 ),
 prettyCheckbox(
    inputId = "tbd_natural",
-   label = "3: Hypothetical strategy (Scenario I, controlling the hazard of intercurrent events)", 
+   label = "3: Hypothetical strategy (I, natural ICEs)", 
     value = T,
     icon = icon("check"), 
     bigger = TRUE,
@@ -165,7 +165,7 @@ prettyCheckbox(
 ),
 prettyCheckbox(
    inputId = "tbd_removed",
-   label = "4: Hypothetical strategy (Scenario II, removing intercurrent events)", 
+   label = "4: Hypothetical strategy (II, removing ICEs)", 
     value = T,
     icon = icon("check"), 
     bigger = TRUE,
