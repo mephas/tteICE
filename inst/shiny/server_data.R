@@ -80,7 +80,7 @@ type.num0 <- reactive({
 })
 
 
-output$sum <- renderDT({if(!is.null(DF0())) desc.numeric(DF0())},
+output$sum <- renderDT({if(!is.null(DF0())) .desc.numeric(DF0())},
   extensions = list(
     "Buttons" = NULL,
     "Scroller" = NULL
@@ -100,7 +100,7 @@ output$sum <- renderDT({if(!is.null(DF0())) desc.numeric(DF0())},
   )
 )
 
-output$fsum <- renderDT({if(!is.null(DF0())) desc.factor(DF0())},
+output$fsum <- renderDT({if(!is.null(DF0())) .desc.factor(DF0())},
   extensions = list(
     "Buttons" = NULL,
     "Scroller" = NULL
@@ -123,7 +123,7 @@ output$fsum <- renderDT({if(!is.null(DF0())) desc.factor(DF0())},
 ##-----------------------------------------------------------------------------------
 ##-----------------------------------------------------------------------------------
 var.type.list0 <- reactive({
-  if(!is.null(DF0())) var.class(DF0())
+  if(!is.null(DF0())) .var.class(DF0())
 })
 
 type.bi.z <- reactive({

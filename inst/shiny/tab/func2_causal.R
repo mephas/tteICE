@@ -16,7 +16,7 @@
 #   return(x)
 # }
 
-var.class <- function(data){
+.var.class <- function(data){
   # x <- sapply(data, class)
   la <- lapply(data, class)  #为了兼容Adam数据
   # x <- unlist(la) #时间类型会有两个，导致数组长度比变量数增加
@@ -43,7 +43,7 @@ var.class <- function(data){
 ##'
 ##' @param data input data frame
 ##' @export
-desc.factor<-function(data){
+.desc.factor<-function(data){
   x <- var.class(data)
   a<-x[,1] %in% c("binary", "factor", "character")
 
@@ -87,7 +87,7 @@ desc.factor<-function(data){
 ##'
 ##' @param data input data frame
 ##' @export
-desc.numeric<- function(data){
+.desc.numeric<- function(data){
 x <- var.class(data)
 a<-x[,1] %in% c("integer", "numeric")
 

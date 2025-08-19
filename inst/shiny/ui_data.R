@@ -248,8 +248,8 @@ prettyRadioButtons(
 sliderInput("yrange", "Set a range for the Y axis in the treatment effect plot:", min = -1, max = 1, step=0.05, width="100%", value = c(-1,1)),
 sliderInput("yrangecif", "Set a range for the Y axis in the survival plot:", min = 0, max = 1, step=0.05, width="100%", value = c(0,1)),
 splitLayout(
-  textInput("t1", "Legend for the treatment group, valued as 1", value = "Treat", width = "100%", placeholder = NULL),
-  textInput("t0", "Legend for the control group, valued as 0", value = "Control", width = "100%", placeholder = NULL)
+  textInput("t1", "Legend: the group is shown in brown", value = "Treat", width = "100%", placeholder = NULL),
+  textInput("t0", "Legend: the group is shown in darkcyan", value = "Control", width = "100%", placeholder = NULL)
   ),
 h5("Whether to show the P-value on the the survival plot"),
 prettyToggle(
@@ -261,7 +261,7 @@ prettyToggle(
           label_off = "No",
           icon_off = icon("remove"),
           value = FALSE),
-actionButton("B_32_surv", HTML('Show results'), 
+actionButton("B_32_surv", HTML('Show/Update plots and results'), 
              class =  "btn-danger",
              icon  = icon("chart-column")),
 
