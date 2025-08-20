@@ -76,13 +76,13 @@ h3("Step 2. Causal analysis"),
 
 h4("Choose variables"),
 uiOutput("a_32"),
-helpText(HTML("Treatment assignment; 1 for treatment, 0 for control")),
+helpText(HTML("Treatment assignment; 0 for control, 1 for treatment")),
 
 uiOutput("time_32"),
 helpText(HTML("Time to the primary (terminal) event")),
 
 uiOutput("cstatus_32"),
-helpText(HTML("Primary (terminal) event indicator，1 for the primary (terminal) event, 0 for censoring")),
+helpText(HTML("Primary (terminal) event indicator; 0 for censoring, 1 for the primary (terminal) event, 2 for intercurrent event (or choose additional collection of intercurrent events)")),
 
 h4("Whether to collect time to intercurrent events (semicompeting risks)"),
 prettyToggle(
