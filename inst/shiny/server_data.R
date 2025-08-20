@@ -171,7 +171,7 @@ type.num.z2 <- reactive({
 output$cstatus_32 <- renderUI({
   selectInput(
     "cstatus_32",
-    h5("*Primary event indicator (a binary one)"),
+    h5("*Primary event indicator"),
     choices = type.num.z2()
   )
 })
