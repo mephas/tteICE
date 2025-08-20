@@ -4,7 +4,7 @@
 #' with pointwise confidence intervals.
 #'
 #' @param x A fitted object from \code{surv.ICH} or \code{scr.ICH}.
-#' 
+#'
 #' @param type Which plot to create: \code{ate} indicates to plot the estimated treatment effect; \code{inc} indicates to plot the estimated cumulative incidence function.
 #'
 #' @param decrease A logical variable indicating whether displaying the cumulative incidence
@@ -17,18 +17,18 @@
 #' formula of the standard error.
 #'
 #' @param seed Seed for bootstrapping.
-#' 
+#'
 #' @param xlab Label for x-axis.
-#' 
-#' @param xlim Limit for x-axis. 
-#' 
-#' @param ylim Limit for y-axis. 
-#' 
-#' @param legend.inc Change the legend of the estimated cumulative incidence function plot. Only valid when \code{type=inc}. 
-#' 
-#' @param col.inc Color of curves in the estimated cumulative incidence function. Only valid when \code{type=inc}. 
-#' 
-#' @param cex.legend Size of legend. Only valid when \code{type=inc}. 
+#'
+#' @param xlim Limit for x-axis.
+#'
+#' @param ylim Limit for y-axis.
+#'
+#' @param legend.inc Change the legend of the estimated cumulative incidence function plot. Only valid when \code{type=inc}.
+#'
+#' @param col.inc Color of curves in the estimated cumulative incidence function. Only valid when \code{type=inc}.
+#'
+#' @param cex.legend Size of legend. Only valid when \code{type=inc}.
 #'
 #' @param ... Other augments in function \code{\link{plot.default}} or function \code{\link{curve}}
 #'
@@ -54,7 +54,7 @@
 #' \code{\link{plot_ate}},
 #' \code{\link{plot_inc}}
 #'
-#' 
+#'
 #' @method plot ICH
 #' @export
 
@@ -71,7 +71,7 @@ plot.ICH <- function(x, type=c("ate","inc")[1],
     }
 
   else {
-    if(is.null(ylim)) ylim=c(-1,1)
+    if(is.null(ylim)) ylim=c(0,1)
     plot_inc(fit=x,decrease=decrease,conf.int=conf.int,nboot=nboot,seed=seed,xlab=xlab, xlim=xlim,ylim=ylim,
       legend=legend.inc,col=col.inc,cex=cex.legend,...)
     }
