@@ -275,8 +275,8 @@ tabsetPanel(
       splitLayout(
       plotOutput("tps_32a", width = 500, height = 400),plotOutput("tps_32b", width = 500, height = 400)
       ),
-      uiOutput("bstime_320"),
-      DTOutput("tpsbs_32_tab"),
+      # uiOutput("bstime_320"),
+      # DTOutput("tpsbs_32_tab"),
       hr(),
       h3("Prediction"),
       numericInput("num1", "Enter a time point:", value = 0, min = 0, step = 1),
@@ -287,8 +287,8 @@ tabsetPanel(
       splitLayout(
       plotOutput("cvs_32a", width = 500, height = 400),plotOutput("cvs_32b", width = 500, height = 400)
       ),
-      uiOutput("bstime_321"),
-      DTOutput("cvsbs_32_tab"),
+      # uiOutput("bstime_321"),
+      # DTOutput("cvsbs_32_tab"),
       hr(),
       h3("Prediction"),
       numericInput("num2", "Enter a time point:", value = 0, min = 0, step = 1),
@@ -299,8 +299,8 @@ tabsetPanel(
       splitLayout(
       plotOutput("hsn_32a", width = 500, height = 400),plotOutput("hsn_32b", width = 500, height = 400)
       ),
-      uiOutput("bstime_322"),
-      DTOutput("hsnbs_32_tab"),
+      # uiOutput("bstime_322"),
+      # DTOutput("hsnbs_32_tab"),
       hr(),
       h3("Prediction"),
       numericInput("num3", "Enter a time point:", value = 0, min = 0, step = 1),
@@ -311,8 +311,8 @@ tabsetPanel(
       splitLayout(
       plotOutput("hsr_32a", width = 500, height = 400),plotOutput("hsr_32b", width = 500, height = 400)
       ),
-      uiOutput("bstime_323"),
-      DTOutput("hsrbs_32_tab"),
+      # uiOutput("bstime_323"),
+      # DTOutput("hsrbs_32_tab"),
       hr(),
       h3("Prediction"),
       numericInput("num4", "Enter a time point:", value = 0, min = 0, step = 1),
@@ -323,8 +323,8 @@ tabsetPanel(
       splitLayout(
       plotOutput("wos_32a", width = 500, height = 400),plotOutput("wos_32b", width = 500, height = 400)
       ),
-      uiOutput("bstime_324"),
-      DTOutput("wosbs_32_tab"),
+      # uiOutput("bstime_324"),
+      # DTOutput("wosbs_32_tab"),
       hr(),
       h3("Prediction"),
       numericInput("num5", "Enter a time point:", value = 0, min = 0, step = 1),
@@ -335,8 +335,8 @@ tabsetPanel(
       splitLayout(
       plotOutput("pss_32a", width = 500, height = 400),plotOutput("pss_32b", width = 500, height = 400)
       ),
-      uiOutput("bstime_325"),
-      DTOutput("pssbs_32_tab"),
+      # uiOutput("bstime_325"),
+      # DTOutput("pssbs_32_tab"),
       hr(),
       h3("Prediction"),
       numericInput("num6", "Enter a time point:", value = 0, min = 0, step = 1),

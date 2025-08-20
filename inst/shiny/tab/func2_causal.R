@@ -44,7 +44,7 @@
 ##' @param data input data frame
 ##' @export
 .desc.factor<-function(data){
-  x <- var.class(data)
+  x <- .var.class(data)
   a<-x[,1] %in% c("binary", "factor", "character")
 
   if(sum(a)==0){
@@ -88,7 +88,7 @@
 ##' @param data input data frame
 ##' @export
 .desc.numeric<- function(data){
-x <- var.class(data)
+x <- .var.class(data)
 a<-x[,1] %in% c("integer", "numeric")
 
 if(sum(a)==0) {df <- data.frame(NULL)}
