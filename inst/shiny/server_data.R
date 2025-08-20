@@ -165,13 +165,13 @@ output$time_32 <- renderUI({
 })
 
 type.num.z2 <- reactive({
-  type.bi.z()[!(type.bi.z() %in% c(input$a_32, input$time_32))]
+  type.num_32()[!(type.num_32() %in% c(input$a_32, input$time_32))]
 })
 
 output$cstatus_32 <- renderUI({
   selectInput(
     "cstatus_32",
-    h5("*Primary event indicator (a binary one)"),
+    h5("*Primary event indicator"),
     choices = type.num.z2()
   )
 })
