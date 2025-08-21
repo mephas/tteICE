@@ -111,8 +111,8 @@ surv.principal.eff <- function(A,Time,cstatus,X=NULL,subset=NULL){
   dMP21 = (dN2-Y*lam21)/exp(-cumhaz1-cumhaz1c)
   dMP10 = (dN1-Y*lam10)/exp(-cumhaz0-cumhaz0c)
   dMP20 = (dN2-Y*lam20)/exp(-cumhaz0-cumhaz0c)
-  cif11 = t(apply(exp(-cumhaz1)*t(apply(cbind(0,cumhaz11),1,diff)),1,cumsum))
-  cif10 = t(apply(exp(-cumhaz0)*t(apply(cbind(0,cumhaz10),1,diff)),1,cumsum))
+  cif11 = t(apply(exp(-cumhaz1)*lam11,1,cumsum))
+  cif10 = t(apply(exp(-cumhaz0)*lam10,1,cumsum))
   cif1x = A[subset]/ps*t(apply(exp(-cumhaz1)*dMP11,1,cumsum))-
     A[subset]/ps*cif11*t(apply(dMP11+dMP21,1,cumsum))+
     A[subset]/ps*t(apply(cif11*(dMP11+dMP21),1,cumsum))+cif11
