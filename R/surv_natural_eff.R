@@ -119,10 +119,12 @@ surv.natural.eff <- function(A,Time,cstatus,X=NULL,subset=NULL){
   lam10 = t(apply(cbind(0,cumhaz10),1,diff))
   lam21 = t(apply(cbind(0,cumhaz21),1,diff))
   lam20 = t(apply(cbind(0,cumhaz20),1,diff))
-  dMP11 = (dN1-Y*lam11)/exp(-cumhaz1-cumhaz1c)
-  dMP21 = (dN2-Y*lam21)/exp(-cumhaz1-cumhaz1c)
-  dMP10 = (dN1-Y*lam10)/exp(-cumhaz0-cumhaz0c)
-  dMP20 = (dN2-Y*lam20)/exp(-cumhaz0-cumhaz0c)
+  S1 = exp(-cumhaz1-cbind(0,cumhaz1c)[,1:K])
+  S0 = exp(-cumhaz0-cbind(0,cumhaz0c)[,1:K])
+  dMP11 = (dN1-Y*lam11)/S1
+  dMP21 = (dN2-Y*lam21)/S1
+  dMP10 = (dN1-Y*lam10)/S0
+  dMP20 = (dN2-Y*lam20)/S0
   cif1 = t(apply(exp(-cumhaz11-cumhaz20)*lam11,1,cumsum))
   cif0 = t(apply(exp(-cumhaz0)*lam10,1,diff)),1,cumsum))
   cif1x = A[subset]/ps*t(apply((exp(-cumhaz11-cumhaz20)+cif1)*dMP11,1,cumsum))-
