@@ -93,7 +93,7 @@ surv.composite.eff <- function(A,Time,cstatus,X=NULL,subset=NULL){
   lam1 = t(apply(cbind(0,cumhaz1),1,diff))
   lam0 = t(apply(cbind(0,cumhaz0),1,diff))
   S1 = cbind(1,exp(-cumhaz1-cumhaz1c))[,1:K]
-  S0 = cbind(1,exp(-cumhaz0-cumhaz1c))[,1:K]
+  S0 = cbind(1,exp(-cumhaz0-cumhaz0c))[,1:K]
   dMP1 = (dN-Y*lam1)/S1
   dMP0 = (dN-Y*lam0)/S0
   cif1x = A[subset]/ps*exp(-cumhaz1)*t(apply(dMP1,1,cumsum))+1-exp(-cumhaz1)
