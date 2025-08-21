@@ -112,6 +112,7 @@ surv.natural.eff <- function(A,Time,cstatus,X=NULL,subset=NULL){
   cumhaz0c = exp(Xb0c)%*%t(cumhaz0c)
   cumhaz1 = cbind(0,cumhaz11+cumhaz21)[,1:K]
   cumhaz0 = cbind(0,cumhaz10+cumhaz20)[,1:K]
+  cumhaz2 = cbind(0,cumhaz11+cumhaz20)[,1:K]
   dN1 = sapply(tt, function(l) (Time[subset]==l)*(cstatus[subset]==1))
   dN2 = sapply(tt, function(l) (Time[subset]==l)*(cstatus[subset]>1))
   Y = sapply(tt, function(l) as.numeric(Time[subset]>=l))
@@ -125,9 +126,9 @@ surv.natural.eff <- function(A,Time,cstatus,X=NULL,subset=NULL){
   dMP21 = (dN2-Y*lam21)/S1
   dMP10 = (dN1-Y*lam10)/S0
   dMP20 = (dN2-Y*lam20)/S0
-  cif1 = t(apply(exp(-cumhaz11-cumhaz20)*lam11,1,cumsum))
+  cif1 = t(apply(exp(-cumhaz2)*lam11,1,cumsum))
   cif0 = t(apply(exp(-cumhaz0)*lam10,1,diff)),1,cumsum))
-  cif1x = A[subset]/ps*t(apply((exp(-cumhaz11-cumhaz20)+cif1)*dMP11,1,cumsum))-
+  cif1x = A[subset]/ps*t(apply((exp(-cumhaz2)+cif1)*dMP11,1,cumsum))-
     A[subset]/ps*cif1*t(apply(dMP11,1,cumsum))+
     (1-A[subset])/(1-ps)*t(apply(cif1*dMP20,1,cumsum))-
     (1-A[subset])/(1-ps)*cif1*t(apply(dMP20,1,cumsum))+cif1
