@@ -108,8 +108,8 @@ surv.removed.eff <- function(A,Time,cstatus,X=NULL,subset=NULL){
   Y = sapply(tt, function(l) as.numeric(Time[subset]>=l))
   lam1 = t(apply(cbind(0,cumhaz11),1,diff))
   lam0 = t(apply(cbind(0,cumhaz10),1,diff))
-  S1 = cbind(1,exp(-cumhaz11+cumhaz21-cumhaz1c))[,1:K]
-  S0 = cbind(1,exp(-cumhaz10+cumhaz20-cumhaz0c))[,1:K]
+  S1 = cbind(1,exp(-cumhaz11-cumhaz21-cumhaz1c))[,1:K]
+  S0 = cbind(1,exp(-cumhaz10-cumhaz20-cumhaz0c))[,1:K]
   dMP1 = (dN-Y*lam1)/S1
   dMP0 = (dN-Y*lam0)/S0
   cif1x = A[subset]/ps*exp(-cumhaz11)*t(apply(dMP1,1,cumsum))+1-exp(-cumhaz11)
