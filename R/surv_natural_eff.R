@@ -122,8 +122,8 @@ surv.natural.eff <- function(A,Time,cstatus,X=NULL,subset=NULL){
   dMP21 = (dN2-Y*lam21)/exp(-cumhaz1-cumhaz1c)
   dMP10 = (dN1-Y*lam10)/exp(-cumhaz0-cumhaz0c)
   dMP20 = (dN2-Y*lam20)/exp(-cumhaz0-cumhaz0c)
-  cif1 = t(apply(exp(-cumhaz11-cumhaz20)*t(apply(cbind(0,cumhaz11),1,diff)),1,cumsum))
-  cif0 = t(apply(exp(-cumhaz0)*t(apply(cbind(0,cumhaz10),1,diff)),1,cumsum))
+  cif1 = t(apply(exp(-cumhaz11-cumhaz20)*lam11,1,cumsum))
+  cif0 = t(apply(exp(-cumhaz0)*lam10,1,diff)),1,cumsum))
   cif1x = A[subset]/ps*t(apply((exp(-cumhaz11-cumhaz20)+cif1)*dMP11,1,cumsum))-
     A[subset]/ps*cif1*t(apply(dMP11,1,cumsum))+
     (1-A[subset])/(1-ps)*t(apply(cif1*dMP20,1,cumsum))-
