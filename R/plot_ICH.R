@@ -1,4 +1,4 @@
-#' @title Plotting the estimated function
+#' @title Plot the results of ICHe9r1
 #'
 #' @description This function plots the estimated potential cumulative incidence function
 #' with pointwise confidence intervals.

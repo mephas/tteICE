@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_ICH.R
 \name{plot.ICH}
 \alias{plot.ICH}
-\title{Plotting the estimated function}
+\title{Plot the results of ICHe9r1}
 \usage{
 \method{plot}{ICH}(
   x,
