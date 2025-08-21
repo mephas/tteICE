@@ -37,11 +37,12 @@
 print.ICH <- function(x, digits=3, ...){
 
   if(!inherits(x, "ICH")) stop("Only valid for models by ICHe9r1.")
-  ate.q = round(quantile(x$ate, probs=c(0.25,0.5,0.75)), digits)
+  # ate.q = round(quantile(x$ate, probs=c(0.25,0.5,0.75)), digits)
   if(is.null(x$p.val)) p=NA else p=x$p.val
-  (cat("The P-value of ATE by strategy", x$strategy, "using", x$method, "estimation method:", round(p, digits),
-      "\nThe quatiles (25%, 50%, 75%) of ATE:", paste(ate.q, collapse = ", "), "\n"))
+  cat("The P-value of ATE by strategy", x$strategy, "using", x$method, "estimation method:", round(p, digits), "\n)
+  #cat("\nThe quatiles (25%, 50%, 75%) of ATE:", paste(ate.q, collapse = ", "), "\n")
   cat("-------------------------------------------------------------------\n")
+  cat("The estimated cumulative incidences and treatment effects at quartiles:\n")
   cat(round(riskpredict(x), digits),"\n)
   invisible(x)
 
