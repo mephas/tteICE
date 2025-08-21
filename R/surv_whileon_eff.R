@@ -25,7 +25,7 @@
 #' \item{cif0}{Estimated cumulative incidence function in the control group.}
 #' \item{se1}{Standard error of the estimated cumulative incidence function in the treated group.}
 #' \item{se0}{Standard error of the estimated cumulative incidence function in the control group.}
-#' \item{tt}{Time points in both groups.}
+#' \item{time}{Time points in both groups.}
 #' \item{ate}{Estimated treatment effect (difference in cumulative incidence functions).}
 #' \item{se}{Standard error of the estimated treatment effect.}
 #' \item{p.val}{P value of testing the treatment effect based on the efficient influence function of
