@@ -104,14 +104,14 @@ surv.removed.eff <- function(A,Time,cstatus,X=NULL,subset=NULL){
   cumhaz0c = .matchy(c(0,basehaz(fit0c,centered=FALSE)$hazard),c(0,basehaz(fit0c)$time),tt)
   cumhaz1c = exp(Xb1c)%*%t(cumhaz1c)
   cumhaz0c = exp(Xb0c)%*%t(cumhaz0c)
-  cumhaz1 = cbind(0,cumhaz11+cumhaz21)[,1:K]
-  cumhaz0 = cbind(0,cumhaz10+cumhaz20)[,1:K]
   dN = sapply(tt, function(l) (Time[subset]==l)*(cstatus[subset]==1))
   Y = sapply(tt, function(l) as.numeric(Time[subset]>=l))
   lam1 = t(apply(cbind(0,cumhaz11),1,diff))
   lam0 = t(apply(cbind(0,cumhaz10),1,diff))
-  dMP1 = (dN-Y*lam1)/exp(-cumhaz1-cumhaz1c)
-  dMP0 = (dN-Y*lam0)/exp(-cumhaz0-cumhaz0c)
+  S1 = cbind(1,exp(-cumhaz11+cumhaz21-cumhaz1c))[,1:K]
+  S0 = cbind(1,exp(-cumhaz10+cumhaz20-cumhaz0c))[,1:K]
+  dMP1 = (dN-Y*lam1)/S1
+  dMP0 = (dN-Y*lam0)/S0
   cif1x = A[subset]/ps*exp(-cumhaz11)*t(apply(dMP1,1,cumsum))+1-exp(-cumhaz11)
   cif0x = (1-A[subset])/(1-ps)*exp(-cumhaz10)*t(apply(dMP0,1,cumsum))+1-exp(-cumhaz10)
   cif1 = colMeans(cif1x,na.rm=TRUE)
