@@ -76,6 +76,7 @@ surv.principal.eff <- function(A,Time,cstatus,X=NULL,subset=NULL){
   tt21 = c(0,basehaz(fit21)$time)
   tt20 = c(0,basehaz(fit20)$time)
   tt = sort(unique(c(tt11,tt10,tt21,tt20)))
+  K = length(tt)
   if (!is.null(X)){
     Xb11 = as.numeric(as.matrix(X[subset,])%*%fit11$coefficients)
     Xb10 = as.numeric(as.matrix(X[subset,])%*%fit10$coefficients)
@@ -98,8 +99,8 @@ surv.principal.eff <- function(A,Time,cstatus,X=NULL,subset=NULL){
   cumhaz0c = .matchy(c(0,basehaz(fit0c,centered=FALSE)$hazard),c(0,basehaz(fit0c)$time),tt)
   cumhaz1c = exp(Xb1c)%*%t(cumhaz1c)
   cumhaz0c = exp(Xb0c)%*%t(cumhaz0c)
-  cumhaz1 = cumhaz11+cumhaz21
-  cumhaz0 = cumhaz10+cumhaz20
+  cumhaz1 = cbind(0,cumhaz11+cumhaz21)[,1:K]
+  cumhaz0 = cbind(0,cumhaz10+cumhaz20)[,1:K]
   dN1 = sapply(tt, function(l) (Time[subset]==l)*(cstatus[subset]==1))
   dN2 = sapply(tt, function(l) (Time[subset]==l)*(cstatus[subset]>1))
   Y = sapply(tt, function(l) as.numeric(Time[subset]>=l))
@@ -119,31 +120,31 @@ surv.principal.eff <- function(A,Time,cstatus,X=NULL,subset=NULL){
   cif0x = (1-A[subset])/(1-ps)*t(apply(exp(-cumhaz0)*dMP10,1,cumsum))-
     (1-A[subset])/(1-ps)*cif10*t(apply(dMP10+dMP20,1,cumsum))+
     (1-A[subset])/(1-ps)*t(apply(cif10*(dMP10+dMP20),1,cumsum))+cif10
-  cif.wo1 = colMeans(cif1x)
-  cif.wo0 = colMeans(cif0x)
+  cif.wo1 = colMeans(cif1x,na.rm=TRUE)
+  cif.wo0 = colMeans(cif0x,na.rm=TRUE)
   if.wo1 = t(t(cif1x)-cif.wo1)
   if.wo0 = t(t(cif0x)-cif.wo0)
   cif1x = A[subset]/ps*exp(-cumhaz1)*t(apply(dMP11+dMP21,1,cumsum))+1-exp(-cumhaz1)
   cif0x = (1-A[subset])/(1-ps)*exp(-cumhaz0)*t(apply(dMP10+dMP20,1,cumsum))+1-exp(-cumhaz0)
-  cif.cv1 = colMeans(cif1x)
-  cif.cv0 = colMeans(cif0x)
+  cif.cv1 = colMeans(cif1x,na.rm=TRUE)
+  cif.cv0 = colMeans(cif0x,na.rm=TRUE)
   if.cv1 = t(t(cif1x)-cif.cv1)
   if.cv0 = t(t(cif0x)-cif.cv0)
   cif1x = t((t(if.wo1)+cif.wo1)/min(1-cif.cv1+cif.wo1))+
     ((if.cv1-if.wo1)[,ncol(if.cv1)]/min(1-cif.cv1+cif.wo1)^2)%*%t(cif.wo1)
   cif0x = t((t(if.wo0)+cif.wo0)/min(1-cif.cv0+cif.wo0))+
     ((if.cv0-if.wo0)[,ncol(if.cv1)]/min(1-cif.cv0+cif.wo0)^2)%*%t(cif.wo0)
-  cif1 = colMeans(cif1x)
-  cif0 = colMeans(cif0x)
-  se1 = apply(cif1x,2,sd)/sqrt(n)
-  se0 = apply(cif0x,2,sd)/sqrt(n)
+  cif1 = colMeans(cif1x,na.rm=TRUE)
+  cif0 = colMeans(cif0x,na.rm=TRUE)
+  se1 = apply(cif1x,2,sd,na.rm=TRUE)/sqrt(n)
+  se0 = apply(cif0x,2,sd,na.rm=TRUE)/sqrt(n)
   ate = cif1-cif0
-  se = apply(cif1x-cif0x,2,sd)/sqrt(n)
+  se = apply(cif1x-cif0x,2,sd,na.rm=TRUE)/sqrt(n)
   eif1 = t(t(cif1x)-cif1)
   eif0 = t(t(cif0x)-cif0)
   Ti = (tt<0.99*max(tt))
   Tt = sum((cif1-cif0)*diff(c(0,tt))*Ti)
-  IFt = colSums(t(eif1-eif0)*diff(c(0,tt))*Ti)
+  IFt = colSums(t(eif1-eif0)*diff(c(0,tt))*Ti,na.rm=TRUE)
   Vt = sd(IFt,na.rm=TRUE)/sqrt(n)
   p = 2*pnorm(-abs(Tt/Vt))
   return(list(time1=tt,time0=tt,cif1=cif1,cif0=cif0,se1=se1,se0=se0,
