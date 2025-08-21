@@ -41,7 +41,8 @@ print.ICH <- function(x, digits=3, ...){
   if(is.null(x$p.val)) p=NA else p=x$p.val
   (cat("The P-value of ATE by strategy", x$strategy, "using", x$method, "estimation method:", round(p, digits),
       "\nThe quatiles (25%, 50%, 75%) of ATE:", paste(ate.q, collapse = ", "), "\n"))
-
+  cat("-------------------------------------------------------------------\n")
+  cat(round(riskpredict(x), digits),"\n)
   invisible(x)
 
 }
