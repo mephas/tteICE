@@ -22,8 +22,8 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of the package "ICHe9r1" is to estimate the treatment effect for time-to-event outcomes with 
-intercurrent events under ICH E9 (R1).
+The goal of the package "tteICE" is to estimate the treatment effect for time-to-event outcomes with 
+intercurrent events.
 
 
 ## Randomized trials and observational studies
@@ -107,7 +107,7 @@ You can install the development version of ICHe9r1 from GitHub with:
 
 ``` r
 # install.packages("pak")
-pak::pak("mephas/ICHe9r1")
+pak::pak("mephas/tteICE")
 ```
 
 ## Example
@@ -121,7 +121,7 @@ The time to the first event (either death or relapse) is t2. The event indicator
 d4=1 if death occurs first, while d4=2 if relapse occurs first.
 
 ```{r data}
-library(ICHe9r1)
+library(tteICE)
 data(bmt)
 A = as.numeric(bmt$group>1)
 X = as.matrix(bmt[,c('z1','z3','z5')])
