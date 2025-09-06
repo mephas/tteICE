@@ -1,13 +1,13 @@
-#' @title Plot the results of ICHe9r1
+#' @title Plot the estimated curves
 #'
-#' @description This function plots the estimated potential cumulative incidence function
+#' @description This function plots the estimated potential cumulative incidence functions or treatment effect curve
 #' with pointwise confidence intervals.
 #'
 #' @param x A fitted object from \code{surv.ICH} or \code{scr.ICH}.
 #'
 #' @param type Which plot to create: \code{ate} indicates to plot the estimated treatment effect; \code{inc} indicates to plot the estimated cumulative incidence function.
 #'
-#' @param decrease A logical variable indicating whether displaying the cumulative incidence
+#' @param decrease A logical variable indicating whether to display the cumulative incidence
 #' function (\code{decrease = FALSE}) or survival function (\code{decrease = TRUE}).
 #'
 #' @param conf.int Level of the confidence interval. If \code{conf.int = NULL}, then the condifence
@@ -62,7 +62,7 @@ plot.ICH <- function(x, type=c("ate","inc")[1],
   decrease=FALSE,conf.int=.95,nboot=0,seed=0, xlab='Time',xlim=NULL, ylim=NULL,
   legend.inc=c('Treated','Control'),col.inc=c('brown','darkcyan'), cex.legend=0.9,...){
 
-  if(!inherits(x, "ICH")) stop("Only valid for models by ICHe9r1.")
+  if(!inherits(x, "ICH")) stop("Only valid for models by tteICE.")
   type <- match.arg(type, c("ate", "inc"))
 
   if(type=="ate") {
