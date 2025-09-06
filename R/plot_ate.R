@@ -1,4 +1,4 @@
-#' @title Plotting the estimated treatment effect
+#' @title Plotting the estimated treatment effect curve
 #'
 #' @description This function plots the estimated treatment effect (difference in potential
 #' cumulative incidences under treated and control) with pointwise confidence intervals.
