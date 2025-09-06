@@ -22,8 +22,8 @@
 #'
 #' @param cov1 Baseline covariates.
 #'
-#' @param method Estimation method, \code{"np"} indicating nonparametric estimation, \code{"eff"}
-#' indicating semiparametrically efficient estimation based on efficient influence functions.
+#' @param method Estimation method, \code{"np"} indicating nonparametric estimation, \code{"ipw"} indicating invserse 
+#' treatment probability weighting, \code{"eff"} indicating semiparametrically efficient estimation based on efficient influence functions.
 #'
 #' @param weights Weight for each subject.
 #'
@@ -79,7 +79,7 @@
 #' Cumulative incidences are model-free and collapsible, enjoying causal interpretations.}
 #' }
 #'
-#' @seealso \code{\link[ICHe9r1]{surv.boot}}
+#' @seealso \code{\link{surv.boot}}
 #'
 #'
 #' @export
@@ -89,8 +89,10 @@ scr.ICH <- function(A,Time,status,Time_int,status_int,strategy='composite',cov1=
                      weights=NULL,subset=NULL){
   N = length(A)
   if (is.null(weights)) weights = rep(1,N)
-  #if (!is.null(cov1)) weights = weights*.ipscore(A,cov1)
-  if (method=='np') {
+  if (method=='ipw') {
+    weights = weights*.ipscore(A,cov1)
+  }
+  if (method=='np' | method=='ipw') {
     if (strategy=='treatment') fit = scr.treatment(A,Time,status,Time_int,status_int,weights,subset)
     if (strategy=='composite') fit = scr.composite(A,Time,status,Time_int,status_int,weights,subset)
     if (strategy=='natural') fit = scr.natural(A,Time,status,Time_int,status_int,weights,subset)
@@ -105,7 +107,7 @@ scr.ICH <- function(A,Time,status,Time_int,status_int,strategy='composite',cov1=
     if (strategy=='whileon') fit = scr.whileon.eff(A,Time,status,Time_int,status_int,cov1,subset)
     if (strategy=='principal') fit = scr.principal.eff(A,Time,status,Time_int,status_int,cov1,subset)
   } else {
-    cat('Please specify a correct estimation method, either np or eff!\n')
+    cat('Please specify a correct estimation method, either np or ipw or eff!\n')
     return()
   }
   ate.list = c(fit,list(A=A,Time=Time,status=status,Time_int=Time_int,status_int=status_int,
