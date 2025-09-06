@@ -26,7 +26,7 @@
 #' }
 #'
 #'
-#' @seealso \code{\link[ICHe9r1]{surv.ICH}}, \code{\link[ICHe9r1]{scr.ICH}}
+#' @seealso \code{\link{surv.ICH}}, \code{\link{scr.ICH}}
 #'
 #'
 #' @export
@@ -70,4 +70,3 @@ surv.boot <- function(fit,nboot=0,seed=0){
   return(list(time=tt,cif1=cif1,cif0=cif0,ate=ate,se1=se1,se0=se0,se=se,
               strategy=fit$strategy,method=fit$method,dtype=fit$dtype))
 }
-
