@@ -31,8 +31,8 @@ header=NULL,
 footer=NULL,
 
 tabPanel(
-  "ICHe9r1",
-  headerPanel("ICHe9r1: Treatment effect estimation for time-to-event outcomes addressing intercurrent events (ICEs)"),
+  "tteICE",
+  headerPanel("tteICE: Treatment effect estimation for time-to-event outcomes with intercurrent events (ICEs)"),
   source("ui_data.R", local = TRUE, encoding = "UTF-8")$value,
   hr()
   )
