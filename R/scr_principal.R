@@ -1,7 +1,7 @@
 #' @title Fitting the cumulative incidence function using principal stratum strategy
 #'
 #' @description This function nonparametrically estimates the potential cumulative incidence function
-#' using primcipal stratum strategy (semicompeting risks data structure). The estimand is defined in a
+#' using principal stratum strategy (semicompeting risks data structure). The estimand is defined in a
 #' subpopulation where intercurrent events would never occur regardless of treatment conditions.
 #'
 #' @param A Treatment indicator, 1 for treatment and 0 for control.
@@ -44,9 +44,10 @@
 #' representing the difference in probabilities of experiencing primary outcome events during \eqn{(0,t)}
 #' under active treatment and placebo in the subpopulation that will not experience intercurrent events
 #' regardless of treatment during \eqn{(0,t)}. A principal ignorability assumption is made for identification.
+#' If the size of the target principal stratum is small, the results could be highly variable.
 #' }
 #'
-#' @seealso \code{\link[ICHe9r1]{scr.principal.eff}}, \code{\link[ICHe9r1]{scr.ICH}}
+#' @seealso \code{\link{scr.principal.eff}}, \code{\link{scr.ICH}}
 #'
 #'
 #' @export
@@ -57,5 +58,4 @@ scr.principal <- function(A,Time,status,Time_int,status_int,weights=rep(1,length
   cstatus[cstatus>2] = 2
   fit = surv.principal(A,Time,cstatus,weights,subset)
   return(fit)
-
 }
