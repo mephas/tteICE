@@ -18,8 +18,9 @@
 #'
 #' @param cov1 Baseline covariates.
 #'
-#' @param method Estimation method, \code{"np"} indicating nonparametric estimation, \code{"eff"}
-#' indicating semiparametrically efficient estimation based on efficient influence functions.
+#' @param method Estimation method, \code{"np"} indicating nonparametric estimation, \code{"np"} indicating inverse 
+#' treatment probability weighting, \code{"eff"} indicating semiparametrically efficient estimation based on efficient 
+#' influence functions.
 #'
 #' @param weights Weight for each subject.
 #'
@@ -71,18 +72,42 @@
 #' Cumulative incidences are model-free and collapsible, enjoying causal interpretations.}
 #' }
 #'
-#' @seealso \code{\link[ICHe9r1]{surv.boot}}
+#' @seealso \code{\link{surv.boot}}
 #'
 #'
 #' @export
 
-
 surv.ICH <- function(A,Time,cstatus,strategy='composite',cov1=NULL,method='np',
                      weights=NULL,subset=NULL){
+  if (!strategy %in% c('treatment','composite','natural','removed','whileon','principal')){
+    warning("Please choose a strategy from the following:\n treatment, composite, natural, removed, whileon, principal\n
+            composite variable strategy is used by default")
+    strategy = 'composite'
+  }
+  if (!method %in% c('np','ipw','eff')){
+    warning("Please choose a method from the following:\n np, ipw, eff\n
+            nonparametric estimation is used by default")
+    method = 'np'
+  }
   N = length(A)
   if (is.null(weights)) weights = rep(1,N)
-  #if (!is.null(cov1)) weights = weights*.ipscore(A,cov1)
-  if (method=='np') {
+  if (is.null(subset)) subset = rep(TRUE,N)
+  cc = complete.cases(data.frame(A,Time,cstatus,weights,subset,cov1))
+  A = A[cc]; Time = Time[cc]; cstatus = cstatus[cc]; subset = subset[cc]
+  if (!is.null(cov1)) cov1 = as.matrix(cov1)[cc,]
+  if (length(unique(A))!=2) {
+    warning('Treatment should be binary!')
+  } else {
+    A = as.numeric(A)
+    if (min(A)!=0 | max(A)!=1) {
+      A = as.numeric(A==max(A))
+      warning(paste0('Treatment should be either 0 or 1! A=1 if A=',max(A)))
+    }
+  }
+  if (method=='ipw') {
+    weights = weights*.ipscore(A,cov1)
+  }
+  if (method=='np' | method=='ipw') {
     if (strategy=='treatment') fit = surv.treatment(A,Time,cstatus,weights,subset)
     if (strategy=='composite') fit = surv.composite(A,Time,cstatus,weights,subset)
     if (strategy=='natural') fit = surv.natural(A,Time,cstatus,weights,subset)
@@ -96,13 +121,9 @@ surv.ICH <- function(A,Time,cstatus,strategy='composite',cov1=NULL,method='np',
     if (strategy=='removed') fit = surv.removed.eff(A,Time,cstatus,cov1,subset)
     if (strategy=='whileon') fit = surv.whileon.eff(A,Time,cstatus,cov1,subset)
     if (strategy=='principal') fit = surv.principal.eff(A,Time,cstatus,cov1,subset)
-  } else {
-    cat('Please specify a correct estimation method, either np or eff!\n')
-    return()
   }
   ate.list = c(fit,list(A=A,Time=Time,cstatus=cstatus,strategy=strategy,cov1=cov1,
                     method=method,weights=weights,subset=subset,dtype='cmprsk'))
-
   class(ate.list) = "ICH"
   return(ate.list)
 }
