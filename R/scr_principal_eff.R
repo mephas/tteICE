@@ -46,9 +46,10 @@
 #' representing the difference in probabilities of experiencing primary outcome events during \eqn{(0,t)}
 #' under active treatment and placebo in the subpopulation that will not experience intercurrent events
 #' regardless of treatment during \eqn{(0,t)}. A principal ignorability assumption is made for identification.
+#' If the size of the target principal stratum is small, the results could be highly variable.
 #' }
 #'
-#' @seealso \code{\link[ICHe9r1]{scr.principal}}, \code{\link[ICHe9r1]{scr.ICH}}
+#' @seealso \code{\link{scr.principal}}, \code{\link{scr.ICH}}
 #'
 #'
 #' @export
@@ -59,7 +60,6 @@ scr.principal.eff <- function(A,Time,status,Time_int,status_int,X=NULL,subset=NU
   cstatus[cstatus>2] = 2
   fit = surv.principal.eff(A,Time,cstatus,X,subset)
   return(fit)
-
 }
 
 
