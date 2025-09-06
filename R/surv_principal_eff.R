@@ -42,9 +42,10 @@
 #' representing the difference in probabilities of experiencing primary outcome events during \eqn{(0,t)}
 #' under active treatment and placebo in the subpopulation that will not experience intercurrent events
 #' regardless of treatment during \eqn{(0,t)}. A principal ignorability assumption is made for identification.
+#' If the size of the target principal stratum is small, the results could be highly variable.
 #' }
 #'
-#' @seealso \code{\link[ICHe9r1]{surv.principal}}, \code{\link[ICHe9r1]{surv.ICH}}
+#' @seealso \code{\link{surv.principal}}, \code{\link{surv.ICH}}
 #'
 #'
 #' @export
