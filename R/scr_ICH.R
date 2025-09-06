@@ -1,4 +1,4 @@
-#' @title Fitting the cumulative incidence function for time-to-event data under ICH E9 (R1)
+#' @title Fitting the cumulative incidence function for time-to-event data with intercurrent events (semicompeting risks data)
 #'
 #' @description This function estimates the potential cumulative incidence function
 #' for time-to event data under ICH E9 (R1) to address intercurrent events. The input data 
@@ -97,9 +97,12 @@ scr.ICH <- function(A,Time,status,Time_int,status_int,strategy='composite',cov1=
             nonparametric estimation is used by default")
     method = 'np'
   }
+  N = length(A)
   if (is.null(weights)) weights = rep(1,N)
+  if (is.null(subset)) subset = rep(TRUE,N)
   cc = complete.cases(data.frame(A,Time,status,Time_int,status_int,weights,subset,cov1))
   A = A[cc]; Time = Time[cc]; status = status[cc]; Time_int = Time_int[cc]; status_int = status_int[cc]
+  subset = subset[cc]
   if (!is.null(cov1)) cov1 = as.matrix(cov1)[cc,]
   if (length(unique(A))!=2) {
     warning('Treatment should be binary!')
