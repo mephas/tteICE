@@ -55,7 +55,7 @@
 #' the level under control.
 #' }
 #'
-#' @seealso \code{\link[ICHe9r1]{surv.natural}}, \code{\link[ICHe9r1]{surv.ICH}}
+#' @seealso \code{\link{surv.natural}}, \code{\link{surv.ICH}}
 #'
 #'
 #' @export
