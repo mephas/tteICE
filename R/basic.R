@@ -17,14 +17,16 @@
   return(newy)
 }
 
-.ipscore <- function(A, covA, standardize=TRUE){
-  fps = glm(A~covA,family='binomial')
-  ps = predict(fps,type='response')
+.ipscore <- function(A, covA, standardize=TRUE, weights, subset){
+  fps = glm(A~covA, family='binomial', weights=weights, subset=subset)
+  ps = predict(fps, type='response')
+  ips = rep(1, length(A))
   if (standardize){
-    ips = A/ps*mean(A/ps) + (1-A)/(1-ps)*mean((1-A)/(1-ps))
+    ips0 = A/ps*mean(A/ps) + (1-A)/(1-ps)*mean((1-A)/(1-ps))
   } else {
-    ips = A/ps + (1-A)/(1-ps)
+    ips0 = A/ps + (1-A)/(1-ps)
   }
+  ips[subset] = ips0
   return(ips)
 }
 
