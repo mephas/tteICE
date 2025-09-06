@@ -23,7 +23,8 @@
 #' @param cov1 Baseline covariates.
 #'
 #' @param method Estimation method, \code{"np"} indicating nonparametric estimation, \code{"ipw"} indicating invserse 
-#' treatment probability weighting, \code{"eff"} indicating semiparametrically efficient estimation based on efficient influence functions.
+#' treatment probability weighting, \code{"eff"} indicating semiparametrically efficient estimation based on efficient 
+#' influence functions.
 #'
 #' @param weights Weight for each subject.
 #'
@@ -84,7 +85,6 @@
 #'
 #' @export
 
-
 scr.ICH <- function(A,Time,status,Time_int,status_int,strategy='composite',cov1=NULL,method='np',
                      weights=NULL,subset=NULL){
   if (!strategy %in% c('treatment','composite','natural','removed','whileon','principal')){
@@ -114,7 +114,7 @@ scr.ICH <- function(A,Time,status,Time_int,status_int,strategy='composite',cov1=
     }
   }
   if (method=='ipw') {
-    weights = weights*.ipscore(A,cov1)
+    weights = weights*.ipscore(A,cov1,TRUE,weights,subset)
   }
   if (method=='np' | method=='ipw') {
     if (strategy=='treatment') fit = scr.treatment(A,Time,status,Time_int,status_int,weights,subset)
