@@ -52,7 +52,7 @@
 #' effect corresponds to the controlled direct effect with the intercurrent events removed.
 #' }
 #'
-#' @seealso \code{\link[ICHe9r1]{scr.removed.eff}}, \code{\link[ICHe9r1]{scr.ICH}}
+#' @seealso \code{\link{scr.removed.eff}}, \code{\link{scr.ICH}}
 #'
 #'
 #' @export
@@ -63,5 +63,4 @@ scr.removed <- function(A,Time,status,Time_int,status_int,weights=rep(1,length(A
   cstatus[cstatus>2] = 2
   fit = surv.removed(A,Time,cstatus,weights,subset)
   return(fit)
-
 }
