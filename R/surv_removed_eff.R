@@ -48,10 +48,9 @@
 #' absent in the hypothetical scenario for all individuals, so \eqn{\lambda_2'(t;0) = \Lambda_2'(t;1) = 0}.
 #' This hypothetical scenario leads to an estimand called the marginal cumulative incidence. The treatment
 #' effect corresponds to the controlled direct effect with the intercurrent events removed.
-
 #' }
 #'
-#' @seealso \code{\link[ICHe9r1]{surv.removed}}, \code{\link[ICHe9r1]{surv.ICH}}
+#' @seealso \code{\link{surv.removed}}, \code{\link{surv.ICH}}
 #'
 #'
 #' @export
