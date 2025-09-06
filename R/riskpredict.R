@@ -14,10 +14,10 @@
 #' @param seed Seed for bootstrapping.
 #' 
 #' @return A matrix. The meanings of each row are: time points, potential cumulative incidences (under 
-#' treated and under control), treatment effects, standard errors, P-values.
+#' treated and under control), treatment effects, standard errors, and P-values.
 #' 
 #'
-#' @seealso \code{\link[ICHe9r1]{scr.ICH}}, \code{\link[ICHe9r1]{surv.ICH}}, \code{\link[ICHe9r1]{surv.boot}}
+#' @seealso \code{\link{scr.ICH}}, \code{\link{surv.ICH}}, \code{\link{surv.boot}}
 #'
 #'
 #' @export
