@@ -1,6 +1,6 @@
-#' @title Shiny for ICHe9r1
+#' @title Shiny for tteICE
 #'
-#' @description This function opens the Rshiny app for ICHe9r1.
+#' @description This function opens the Rshiny app for tteICE.
 #'
 #' @return Rshiny inteface
 #' @import shiny shinythemes shinyWidgets
@@ -16,5 +16,5 @@
 #' @export
 
 ICHe9r1Shiny <- function(){
-  runApp(system.file("shiny", package = "ICHe9r1"))
+  runApp(system.file("shiny", package = "tteICE"))
 }
