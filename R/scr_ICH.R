@@ -87,8 +87,29 @@
 
 scr.ICH <- function(A,Time,status,Time_int,status_int,strategy='composite',cov1=NULL,method='np',
                      weights=NULL,subset=NULL){
-  N = length(A)
+  if (!strategy %in% c('treatment','composite','natural','removed','whileon','principal')){
+    warning("Please choose a strategy from the following:\n treatment, composite, natural, removed, whileon, principal\n
+            composite variable strategy is used by default")
+    strategy = 'composite'
+  }
+  if (!method %in% c('np','ipw','eff')){
+    warning("Please choose a method from the following:\n np, ipw, eff\n
+            nonparametric estimation is used by default")
+    method = 'np'
+  }
   if (is.null(weights)) weights = rep(1,N)
+  cc = complete.cases(data.frame(A,Time,status,Time_int,status_int,weights,subset,cov1))
+  A = A[cc]; Time = Time[cc]; status = status[cc]; Time_int = Time_int[cc]; status_int = status_int[cc]
+  if (!is.null(cov1)) cov1 = as.matrix(cov1)[cc,]
+  if (length(unique(A))!=2) {
+    warning('Treatment should be binary!')
+  } else {
+    A = as.numeric(A)
+    if (min(A)!=0 | max(A)!=1) {
+      A = as.numeric(A==max(A))
+      warning(paste0('Treatment should be either 0 or 1! A=1 if A=',max(A)))
+    }
+  }
   if (method=='ipw') {
     weights = weights*.ipscore(A,cov1)
   }
@@ -106,10 +127,7 @@ scr.ICH <- function(A,Time,status,Time_int,status_int,strategy='composite',cov1=
     if (strategy=='removed') fit = scr.removed.eff(A,Time,status,Time_int,status_int,cov1,subset)
     if (strategy=='whileon') fit = scr.whileon.eff(A,Time,status,Time_int,status_int,cov1,subset)
     if (strategy=='principal') fit = scr.principal.eff(A,Time,status,Time_int,status_int,cov1,subset)
-  } else {
-    cat('Please specify a correct estimation method, either np or ipw or eff!\n')
-    return()
-  }
+  } 
   ate.list = c(fit,list(A=A,Time=Time,status=status,Time_int=Time_int,status_int=status_int,
                     strategy=strategy,cov1=cov1,method=method,weights=weights,subset=subset,
                     dtype='smcmprsk'))
