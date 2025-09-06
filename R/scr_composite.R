@@ -47,7 +47,7 @@
 #' outcome events during \eqn{(0,t)} under active treatment and placebo.
 #' }
 #'
-#' @seealso \code{\link[ICHe9r1]{scr.composite.eff}}, \code{\link[ICHe9r1]{scr.ICH}}
+#' @seealso \code{\link{scr.composite.eff}}, \code{\link{scr.ICH}}
 #'
 #'
 #' @export
