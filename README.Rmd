@@ -144,9 +144,7 @@ plot_ate(fit1, nboot=200)
 We can also use inverse probability weighting to account for confounding.
 
 ```{r example_2}
-ps = predict(glm(A ~ X, family='binomial'), type='response')
-w = A/ps + (1-A)/(1-ps)
-fit2 = surv.ICH(A, bmt$t2, bmt$d4, "natural", weights=w)
+fit2 = surv.ICH(A, bmt$t2, bmt$d4, "natural", method='ipw')
 plot_inc(fit2, legend=c('AML','ALL'))
 p = fit2$p.val
 text(200, 0.8, paste0('P = ', round(p,3)))
@@ -181,9 +179,7 @@ plot_ate(fit4, nboot=200)
 We can also use inverse probability weighting to account for confounding.
 
 ```{r example_5}
-ps = predict(glm(A ~ X, family='binomial'), type='response')
-w = A/ps + (1-A)/(1-ps)
-fit5 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", weights=w)
+fit5 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", method='ipw')
 plot_inc(fit5, legend=c('AML','ALL'))
 p = fit5$p.val
 text(200, 0.8, paste0('P = ', round(p,3)))
