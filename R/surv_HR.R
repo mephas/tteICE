@@ -1,4 +1,4 @@
-#' @title Estimating the hazard ratio under ICH E9 (R1)
+#' @title Estimating the hazard ratio with intercurrent events
 #'
 #' @description This function estimates the hazard ratio
 #' for time-to event data under ICH E9 (R1) to address intercurrent events. Multiple
@@ -56,7 +56,7 @@
 #' ratio should only be treated as a descriptive or exploratory measure of the treatment effect.
 #' }
 #'
-#' @seealso \code{\link[ICHe9r1]{surv.ICH}}
+#' @seealso \code{\link{surv.ICH}}
 #'
 #'
 #' @export
