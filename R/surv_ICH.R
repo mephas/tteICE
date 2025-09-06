@@ -74,7 +74,6 @@
 #'
 #' @seealso \code{\link{surv.boot}}
 #'
-#'
 #' @export
 
 surv.ICH <- function(A,Time,cstatus,strategy='composite',cov1=NULL,method='np',
@@ -105,7 +104,7 @@ surv.ICH <- function(A,Time,cstatus,strategy='composite',cov1=NULL,method='np',
     }
   }
   if (method=='ipw') {
-    weights = weights*.ipscore(A,cov1)
+    weights = weights*.ipscore(A,cov1,TRUE,weights,subset)
   }
   if (method=='np' | method=='ipw') {
     if (strategy=='treatment') fit = surv.treatment(A,Time,cstatus,weights,subset)
