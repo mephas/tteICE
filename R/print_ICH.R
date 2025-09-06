@@ -1,10 +1,10 @@
-#' @title Print the main results of ICHe9r1
+#' @title Print the main results of tteICE
 #'
 #' @description This function summarize the results
 #'
 #' @param x A fitted object from \code{surv.ICH} or \code{scr.ICH}.
 #'
-#' @param digits The digits of results
+#' @param digits The digits of the results
 #'
 #' @param ... Other augments in function \code{\link{print.default}}
 #'
@@ -36,7 +36,7 @@
 
 print.ICH <- function(x, digits=3, ...){
 
-  if(!inherits(x, "ICH")) stop("Only valid for models by ICHe9r1.")
+  if(!inherits(x, "ICH")) stop("Only valid for models by tteICE.")
   # ate.q = round(quantile(x$ate, probs=c(0.25,0.5,0.75)), digits)
   if(is.null(x$p.val)) p=NA else p=x$p.val
   cat("The P-value of ATE by strategy", x$strategy, "using", x$method, "estimation method:", round(p, digits), "\n")
