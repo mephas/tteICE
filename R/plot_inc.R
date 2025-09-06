@@ -1,4 +1,4 @@
-#' @title Plotting the estimated cumulative incidence function
+#' @title Plotting the estimated cumulative incidence functions
 #'
 #' @description This function plots the estimated potential cumulative incidence function
 #' with pointwise confidence intervals.
