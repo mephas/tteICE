@@ -52,7 +52,7 @@
 #' effect corresponds to the controlled direct effect with the intercurrent events removed.
 #' }
 #'
-#' @seealso \code{\link{scr.removed.eff}}, \code{\link{scr.ICH}}
+#' @seealso \code{\link[tteICE]{scr.removed.eff}}, \code{\link[tteICE]{scr.ICH}}
 #'
 #'
 #' @export
