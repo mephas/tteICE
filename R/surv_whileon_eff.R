@@ -53,7 +53,7 @@
 #' treatment conditions under comparison is anticipated.
 #' }
 #'
-#' @seealso \code{\link{surv.whileon}}, \code{\link{surv.ICH}}
+#' @seealso \code{\link[tteICE]{surv.whileon}}, \code{\link[tteICE]{surv.ICH}}
 #'
 #'
 #' @export
