@@ -49,7 +49,7 @@
 #' If the size of the target principal stratum is small, the results could be highly variable.
 #' }
 #'
-#' @seealso \code{\link{scr.principal}}, \code{\link{scr.ICH}}
+#' @seealso \code{\link[tteICE]{scr.principal}}, \code{\link[tteICE]{scr.ICH}}
 #'
 #'
 #' @export
