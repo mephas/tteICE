@@ -50,9 +50,7 @@
 #' plot(fit, type="ate", ylim=c(0,1))
 #' }
 #'
-#' @seealso
-#' \code{\link{plot_ate}},
-#' \code{\link{plot_inc}}
+#' @seealso \code{\link[tteICE]{plot_ate}}, \code{\link[tteICE]{plot_inc}}
 #'
 #'
 #' @method plot ICH
