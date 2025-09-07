@@ -52,7 +52,7 @@
 #' \eqn{\tau(t) = P(T(1)) < t) - P(T(0) < t)} as the intention-to-treat analysis.
 #' }
 #'
-#' @seealso \code{\link{surv.treatment.eff}}, \code{\link{surv.ICH}}
+#' @seealso \code{\link[tteICE]{surv.treatment.eff}}, \code{\link[tteICE]{surv.ICH}}
 #'
 #'
 #' @export
