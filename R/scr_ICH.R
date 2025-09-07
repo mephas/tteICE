@@ -103,8 +103,9 @@ scr.ICH <- function(A,Time,status,Time_int,status_int,strategy='composite',cov1=
   }
   N = length(A)
   if (is.null(weights)) weights = rep(1,N)
-  if (is.null(subset)) subset = rep(TRUE,N)
+  if (is.null(subset)) subset = 1:N
   if (na.rm){
+    if (class(subset)!='logical') subset = (1:N)%in%subset
     cc = complete.cases(data.frame(A,Time,status,Time_int,status_int,weights,subset,cov1))
     A = A[cc]; Time = Time[cc]; status = status[cc]; Time_int = Time_int[cc]; status_int = status_int[cc]
     subset = subset[cc]
@@ -119,6 +120,7 @@ scr.ICH <- function(A,Time,status,Time_int,status_int,strategy='composite',cov1=
       warning(paste0('Treatment should be either 0 or 1! A=1 if A=',max(A)))
     }
   }
+  if (class(subset)=='logical') subset = (1:length(A))[subset]
   if (method=='ipw') {
     weights = weights*.ipscore(A,cov1,TRUE,weights,subset)
   }
