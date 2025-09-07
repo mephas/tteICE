@@ -17,7 +17,7 @@
 #' treated and under control), treatment effects, standard errors, and P-values.
 #' 
 #'
-#' @seealso \code{\link{scr.ICH}}, \code{\link{surv.ICH}}, \code{\link{surv.boot}}
+#' @seealso \code{\link[tteICE]{scr.ICH}}, \code{\link[tteICE]{surv.ICH}}, \code{\link[tteICE]{surv.boot}}
 #'
 #'
 #' @export
