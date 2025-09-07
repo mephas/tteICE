@@ -59,7 +59,9 @@
 #' @export
 
 surv.natural <- function(A,Time,cstatus,weights=rep(1,length(A)),subset=NULL){
-  if (is.null(subset)) subset = 1:length(A)
+  N = length(A)
+  if (is.null(subset)) subset = 1:N
+  if (is.logical(subset)) subset = (1:N)[subset]
   fit11 = survfit(Surv(Time,cstatus==1)~1, weights=weights, subset=subset[A[subset]==1])
   fit10 = survfit(Surv(Time,cstatus==1)~1, weights=weights, subset=subset[A[subset]==0])
   fit20 = survfit(Surv(Time,cstatus>1)~1, weights=weights, subset=subset[A[subset]==0])
