@@ -53,7 +53,7 @@
 #' the level under control.
 #' }
 #'
-#' @seealso \code{\link{surv.natural.eff}}, \code{\link{surv.ICH}}
+#' @seealso \code{\link[tteICE]{surv.natural.eff}}, \code{\link[tteICE]{surv.ICH}}
 #'
 #'
 #' @export
