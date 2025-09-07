@@ -15,6 +15,6 @@
 #'
 #' @export
 
-ICHe9r1Shiny <- function(){
+tteICEShiny <- function(){
   runApp(system.file("shiny", package = "tteICE"))
 }
