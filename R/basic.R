@@ -17,8 +17,8 @@
   return(newy)
 }
 
-.ipscore <- function(A, covA, standardize=TRUE, weights, subset){
-  fps = glm(A~covA, family='binomial', weights=weights, subset=subset)
+.ipscore <- function(A, X, standardize=TRUE, weights=rep(1,length(A)), subset=rep(TRUE,length(A))){
+  fps = glm(A~X, family='binomial', weights=weights, subset=subset)
   ps = predict(fps, type='response')
   ips = rep(1, length(A))
   if (standardize){
