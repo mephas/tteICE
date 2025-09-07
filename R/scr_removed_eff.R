@@ -55,7 +55,7 @@
 #' intercurrent events removed.
 #' }
 #'
-#' @seealso \code{\link{scr.removed}}, \code{\link{scr.ICH}}
+#' @seealso \code{\link[tteICE]{scr.removed}}, \code{\link[tteICE]{scr.ICH}}
 #'
 #'
 #' @export
