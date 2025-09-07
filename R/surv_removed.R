@@ -48,7 +48,7 @@
 #' effect corresponds to the controlled direct effect with the intercurrent events removed.
 #' }
 #'
-#' @seealso \code{\link{surv.removed.eff}}, \code{\link{surv.ICH}}
+#' @seealso \code{\link[tteICE]{surv.removed.eff}}, \code{\link[tteICE]{surv.ICH}}
 #'
 #'
 #' @export
