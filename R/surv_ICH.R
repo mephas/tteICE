@@ -26,6 +26,8 @@
 #'
 #' @param subset Subset, either numerical or logical.
 #'
+#' @param na.rm Whether to remove missing values.
+#'
 #'
 #' @return A list including the fitted object and input variables.
 #'
@@ -40,12 +42,14 @@
 #' fit1 = surv.ICH(A, bmt$t2, bmt$d4, "composite")
 #' ## Hypothetical strategy (natural effects), 
 #' ## nonparametric estimation with inverse probability weighting
+#' fit2 = surv.ICH(A, bmt$t2, bmt$d4, "natural", X, method='ipw')
+#' ## nonparametric estimation with weights as inverse propensity score
 #' ps = predict(glm(A ~ X, family='binomial'), type='response')
 #' w = A/ps + (1-A)/(1-ps)
-#' fit2 = surv.ICH(A, bmt$t2, bmt$d4, "natural", X, weights=w)
-#' ## Hypothetical strategy (natural effects),
+#' fit2 = surv.ICH(A, bmt$t2, bmt$d4, "natural", weights=w)
+#' ## Hypothetical strategy (removing intercurrent events),
 #' ## semiparametrically efficient estimation with covariates
-#' fit3 = surv.ICH(A, bmt$t2, bmt$d4, "natural", X, method='eff')
+#' fit3 = surv.ICH(A, bmt$t2, bmt$d4, "removed", X, method='eff')
 #'
 #' @details
 #' \describe{
@@ -72,12 +76,12 @@
 #' Cumulative incidences are model-free and collapsible, enjoying causal interpretations.}
 #' }
 #'
-#' @seealso \code{\link{surv.boot}}
+#' @seealso \code{\link[tteICE]{surv.boot}}, \code{\link[tteICE]{scr.ICH}}
 #'
 #' @export
 
 surv.ICH <- function(A,Time,cstatus,strategy='composite',cov1=NULL,method='np',
-                     weights=NULL,subset=NULL){
+                     weights=NULL,subset=NULL,na.rm=FALSE){
   if (!strategy %in% c('treatment','composite','natural','removed','whileon','principal')){
     warning("Please choose a strategy from the following:\n treatment, composite, natural, removed, whileon, principal\n
             composite variable strategy is used by default")
@@ -91,9 +95,11 @@ surv.ICH <- function(A,Time,cstatus,strategy='composite',cov1=NULL,method='np',
   N = length(A)
   if (is.null(weights)) weights = rep(1,N)
   if (is.null(subset)) subset = rep(TRUE,N)
-  cc = complete.cases(data.frame(A,Time,cstatus,weights,subset,cov1))
-  A = A[cc]; Time = Time[cc]; cstatus = cstatus[cc]; subset = subset[cc]
-  if (!is.null(cov1)) cov1 = as.matrix(cov1)[cc,]
+  if (na.rm){
+    cc = complete.cases(data.frame(A,Time,cstatus,weights,subset,cov1))
+    A = A[cc]; Time = Time[cc]; cstatus = cstatus[cc]; subset = subset[cc]
+    if (!is.null(cov1)) cov1 = as.matrix(cov1)[cc,]
+  }
   if (length(unique(A))!=2) {
     warning('Treatment should be binary!')
   } else {
