@@ -1,12 +1,12 @@
 #' @title Calculating the standard error for the estimated cumulative incidence function and treatment effect
 #'
 #' @description This function calculates the standard error for the estimated potential cumulative incidence function
-#' and treatment effect. Two methods to calculate the standard error are considered: asymptotic standard error
+#' and treatment effect. Two methods to calculate the standard error are considered: the asymptotic standard error
 #' based on the explicit formula and bootstrapping.
 #'
 #' @param fit A fitted object from \code{surv.ICH}.
 #'
-#' @param nboot Number of resamplings in the boostrapping method. If \code{nboot} is smaller than 1, then
+#' @param nboot Number of resamplings in the boostrapping method. If \code{nboot} is 0 or 1, then
 #' asymptotic standard error based on the explicit form is calculated instead of bootstrapping.
 #'
 #' @param seed Seed for bootstrapping.
@@ -26,7 +26,7 @@
 #' }
 #'
 #'
-#' @seealso \code{\link{surv.ICH}}, \code{\link{scr.ICH}}
+#' @seealso \code{\link[tteICE]{surv.ICH}}, \code{\link[tteICE]{scr.ICH}}
 #'
 #'
 #' @export
