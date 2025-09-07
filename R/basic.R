@@ -18,6 +18,9 @@
 }
 
 .ipscore <- function(A, X, standardize=TRUE, weights=rep(1,length(A)), subset=rep(TRUE,length(A))){
+  if (is.null(X)) {
+    return(rep(1, length(A)))
+  }
   fps = glm(A~X, family='binomial', weights=weights, subset=subset)
   ps = predict(fps, type='response')
   ips = rep(1, length(A))
