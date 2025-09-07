@@ -30,6 +30,8 @@
 #'
 #' @param subset Subset, either numerical or logical.
 #'
+#' @param na.rm Whether to remove missing values.
+#'
 #' @import survival
 #' @importFrom stats rbinom rweibull rexp runif pchisq sd pnorm na.omit glm predict
 #' @importFrom MASS ginv
@@ -106,8 +108,8 @@ scr.ICH <- function(A,Time,status,Time_int,status_int,strategy='composite',cov1=
     cc = complete.cases(data.frame(A,Time,status,Time_int,status_int,weights,subset,cov1))
     A = A[cc]; Time = Time[cc]; status = status[cc]; Time_int = Time_int[cc]; status_int = status_int[cc]
     subset = subset[cc]
+    if (!is.null(cov1)) cov1 = as.matrix(cov1)[cc,]
   }
-  if (!is.null(cov1)) cov1 = as.matrix(cov1)[cc,]
   if (length(unique(A))!=2) {
     warning('Treatment should be binary!')
   } else {
