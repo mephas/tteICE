@@ -57,7 +57,7 @@
 #' the level under control. Markovness is assumed in estimation.
 #' }
 #'
-#' @seealso \code{\link{scr.natural.eff}}, \code{\link{scr.ICH}}
+#' @seealso \code{\link[tteICE]{scr.natural.eff}}, \code[tteICE]{\link{scr.ICH}}
 #'
 #'
 #' @export
