@@ -27,11 +27,11 @@
 #' }
 #'
 #' @seealso
-#' \code{\link{surv.ICH}},
-#' \code{\link{scr.ICH}}
+#' \code{\link[tteICE]{surv.ICH}},
+#' \code{\link[tteICE]{scr.ICH}}
 #'
 #'
-#' @method print ICH
+#' @method print the summary of an ICH object
 #' @export
 
 print.ICH <- function(x, digits=3, ...){
