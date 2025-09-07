@@ -61,7 +61,9 @@
 #' @export
 
 surv.natural.eff <- function(A,Time,cstatus,X=NULL,subset=NULL){
-  if (is.null(subset)) subset = 1:length(A)
+  N = length(A)
+  if (is.null(subset)) subset = 1:N
+  if (is.logical(subset)) subset = (1:N)[subset]
   n = length(A[subset])
   if (is.null(X)){
     psfit = glm(A~NULL, family='binomial', subset=subset)
