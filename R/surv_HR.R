@@ -56,8 +56,6 @@
 #' ratio should only be treated as a descriptive or exploratory measure of the treatment effect.
 #' }
 #'
-#' @seealso \code{\link{surv.ICH}}
-#'
 #'
 #' @export
 
