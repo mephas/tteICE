@@ -57,7 +57,7 @@
 #' treatment conditions under comparison is anticipated.
 #' }
 #'
-#' @seealso \code{\link{scr.whileon}}, \code{\link{scr.ICH}}
+#' @seealso \code{\link[tteICE]{scr.whileon}}, \code{\link[tteICE]{scr.ICH}}
 #'
 #'
 #' @export
