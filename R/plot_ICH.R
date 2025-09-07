@@ -59,20 +59,15 @@
 plot.ICH <- function(x, type=c("ate","inc")[1],
   decrease=FALSE,conf.int=.95,nboot=0,seed=0, xlab='Time',xlim=NULL, ylim=NULL,
   legend.inc=c('Treated','Control'),col.inc=c('brown','darkcyan'), cex.legend=0.9,...){
-
   if(!inherits(x, "ICH")) stop("Only valid for models by tteICE.")
   type <- match.arg(type, c("ate", "inc"))
-
   if(type=="ate") {
     if(is.null(ylim)) ylim=c(-1,1)
     plot_ate(fit=x,decrease=decrease,conf.int=conf.int,nboot=nboot,seed=seed,xlab=xlab,xlim=xlim,ylim=ylim,...)
     }
-
   else {
     if(is.null(ylim)) ylim=c(0,1)
     plot_inc(fit=x,decrease=decrease,conf.int=conf.int,nboot=nboot,seed=seed,xlab=xlab, xlim=xlim,ylim=ylim,
       legend=legend.inc,col=col.inc,cex=cex.legend,...)
     }
-
-
 }
