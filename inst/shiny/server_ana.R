@@ -33,7 +33,7 @@ WEIGHT <- reactive({
   if(input$wgt==FALSE & length(input$weight_32)==0) NULL 
   if(input$wgt=="IPW") {
     ps = predict(glm(A_32() ~ COV2(), family='binomial'), type='response')
-    w = A_32()/ps + (1-A_32())/(1-ps)
+    w = A_32()/ps*mean(A_32()/ps) + (1-A_32())/(1-ps)*mean((1-A_32())/(1-ps))
   }
   if((input$wgt=="var") & !length(input$weight_32)==0) as.numeric(DF0()[,input$weight_32])
 })
