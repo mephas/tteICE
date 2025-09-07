@@ -2,7 +2,7 @@
 
 S3method(plot,ICH)
 S3method(print,ICH)
-export(ICHe9r1Shiny)
+export(tteICEShiny)
 export(plot_ate)
 export(plot_inc)
 export(riskpredict)
