@@ -36,7 +36,7 @@
 #' \code{\link[graphics]{plot.default}},
 #' \code{\link[graphics]{points}},
 #' \code{\link[graphics]{curve}},
-#' \code{\link{plot.ICH}}
+#' \code{\link[tteICE]{plot.ICH}}
 #'
 #' @examples
 #' ## load data and fit the model
