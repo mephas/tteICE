@@ -94,8 +94,9 @@ surv.ICH <- function(A,Time,cstatus,strategy='composite',cov1=NULL,method='np',
   }
   N = length(A)
   if (is.null(weights)) weights = rep(1,N)
-  if (is.null(subset)) subset = rep(TRUE,N)
+  if (is.null(subset)) subset = 1:N
   if (na.rm){
+    if (class(subset)!='logical') subset = (1:N)%in%subset
     cc = complete.cases(data.frame(A,Time,cstatus,weights,subset,cov1))
     A = A[cc]; Time = Time[cc]; cstatus = cstatus[cc]; subset = subset[cc]
     if (!is.null(cov1)) cov1 = as.matrix(cov1)[cc,]
@@ -112,6 +113,7 @@ surv.ICH <- function(A,Time,cstatus,strategy='composite',cov1=NULL,method='np',
   if (method=='ipw') {
     weights = weights*.ipscore(A,cov1,TRUE,weights,subset)
   }
+  if (class(subset)=='logical') subset = (1:length(A))[subset]
   if (method=='np' | method=='ipw') {
     if (strategy=='treatment') fit = surv.treatment(A,Time,cstatus,weights,subset)
     if (strategy=='composite') fit = surv.composite(A,Time,cstatus,weights,subset)
