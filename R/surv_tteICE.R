@@ -1,4 +1,4 @@
-#' @title Fitting the cumulative incidence function for time-to-event data with intercurrent events (competing risks data)
+#' @title Fit the CIF for time-to-event with intercurrent events for competing risks data
 #'
 #' @description This function estimates the potential cumulative incidence function
 #' for time-to event data under ICH E9 (R1) to address intercurrent events. The input data 
@@ -39,17 +39,17 @@
 #' X = as.matrix(bmt[,c('z1','z3','z5')])
 #' ## Composite variable strategy, 
 #' ## nonparametric estimation without covariates
-#' fit1 = surv.ICH(A, bmt$t2, bmt$d4, "composite")
+#' fit1 = surv.tteICE(A, bmt$t2, bmt$d4, "composite")
 #' ## Hypothetical strategy (natural effects), 
 #' ## nonparametric estimation with inverse probability weighting
-#' fit2 = surv.ICH(A, bmt$t2, bmt$d4, "natural", X, method='ipw')
+#' fit2 = surv.tteICE(A, bmt$t2, bmt$d4, "natural", X, method='ipw')
 #' ## nonparametric estimation with weights as inverse propensity score
 #' ps = predict(glm(A ~ X, family='binomial'), type='response')
 #' w = A/ps + (1-A)/(1-ps)
-#' fit2 = surv.ICH(A, bmt$t2, bmt$d4, "natural", weights=w)
+#' fit2 = surv.tteICE(A, bmt$t2, bmt$d4, "natural", weights=w)
 #' ## Hypothetical strategy (removing intercurrent events),
 #' ## semiparametrically efficient estimation with covariates
-#' fit3 = surv.ICH(A, bmt$t2, bmt$d4, "removed", X, method='eff')
+#' fit3 = surv.tteICE(A, bmt$t2, bmt$d4, "removed", X, method='eff')
 #'
 #' @details
 #' \describe{
@@ -76,11 +76,11 @@
 #' Cumulative incidences are model-free and collapsible, enjoying causal interpretations.}
 #' }
 #'
-#' @seealso \code{\link[tteICE]{surv.boot}}, \code{\link[tteICE]{scr.ICH}}
+#' @seealso \code{\link[tteICE]{surv.boot}}, \code{\link[tteICE]{scr.tteICE}}
 #'
 #' @export
 
-surv.ICH <- function(A,Time,cstatus,strategy='composite',cov1=NULL,method='np',
+surv.tteICE <- function(A,Time,cstatus,strategy='composite',cov1=NULL,method='np',
                      weights=NULL,subset=NULL,na.rm=FALSE){
   if (!strategy %in% c('treatment','composite','natural','removed','whileon','principal')){
     warning("Please choose a strategy from the following:\n treatment, composite, natural, removed, whileon, principal\n
@@ -96,7 +96,8 @@ surv.ICH <- function(A,Time,cstatus,strategy='composite',cov1=NULL,method='np',
   if (is.null(weights)) weights = rep(1,N)
   if (is.null(subset)) subset = 1:N
   if (na.rm){
-    if (class(subset)!='logical') subset = (1:N)%in%subset
+    # if (class(subset)!='logical') subset = (1:N)%in%subset
+    if (!inherits(subset, "logical")) subset = (1:N)%in%subset
     cc = complete.cases(data.frame(A,Time,cstatus,weights,subset,cov1))
     A = A[cc]; Time = Time[cc]; cstatus = cstatus[cc]; subset = subset[cc]
     if (!is.null(cov1)) cov1 = as.matrix(cov1)[cc,]
@@ -113,7 +114,8 @@ surv.ICH <- function(A,Time,cstatus,strategy='composite',cov1=NULL,method='np',
   if (method=='ipw') {
     weights = weights*.ipscore(A,cov1,TRUE,weights,subset)
   }
-  if (class(subset)=='logical') subset = (1:length(A))[subset]
+  # if (class(subset)=='logical') subset = (1:length(A))[subset]
+  if (inherits(subset, "logical")) subset = (1:length(A))[subset]
   if (method=='np' | method=='ipw') {
     if (strategy=='treatment') fit = surv.treatment(A,Time,cstatus,weights,subset)
     if (strategy=='composite') fit = surv.composite(A,Time,cstatus,weights,subset)
@@ -131,6 +133,6 @@ surv.ICH <- function(A,Time,cstatus,strategy='composite',cov1=NULL,method='np',
   }
   ate.list = c(fit,list(A=A,Time=Time,cstatus=cstatus,strategy=strategy,cov1=cov1,
                     method=method,weights=weights,subset=subset,dtype='cmprsk'))
-  class(ate.list) = "ICH"
+  class(ate.list) = "tteICE"
   return(ate.list)
 }

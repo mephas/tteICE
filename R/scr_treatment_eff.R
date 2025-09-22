@@ -1,4 +1,4 @@
-#' @title Fitting the cumulative incidence function using treatment policy strategy
+#' @title Fit the CIF using treatment policy strategy for semicompeting risks data, based on efficient influence functions
 #'
 #' @description This function estimates the potential cumulative incidence function based on efficient
 #' influence functions using treatment policy strategy (semicompeting risks data structure). Cox models are
@@ -58,7 +58,7 @@
 #' \eqn{\tau(t) = P(T(1)) < t) - P(T(0) < t)} as the intention-to-treat analysis.
 #' }
 #'
-#' @seealso \code{\link[tteICE]{scr.treatment}}, \code{\link[tteICE]{scr.ICH}}
+#' @seealso \code{\link[tteICE]{scr.treatment}}, \code{\link[tteICE]{scr.tteICE}}
 #'
 #'
 #' @export

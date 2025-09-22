@@ -2,7 +2,7 @@
 % Please edit documentation in R/scr_whileon_eff.R
 \name{scr.whileon.eff}
 \alias{scr.whileon.eff}
-\title{Fitting the cumulative incidence function using while on treatment strategy}
+\title{Fit the CIF using while on treatment strategy for semicompeting risks data, based on efficient influence functions}
 \usage{
 scr.whileon.eff(A, Time, status, Time_int, status_int, X = NULL, subset = NULL)
 }
@@ -58,13 +58,13 @@ function. \cr
 The while on treatment strategy is closely related to the competing risks model. However,
 for causal interpretations, it is worth emphasizing that the hazard of \eqn{R(1)} may differ
 from that of \eqn{R(0)}, leading to vast difference in the underlying features of individuals
-who have not experienced the primary outcome event between treatment conditions until any time
+who have not experienced the primary outcome event between treatment conditions at any time
 \eqn{t \in (0,t^*)}, where \eqn{t^*} is the end of study. When the scientific question of
 interest is the impact of treatment on the primary outcome event, the estimand \eqn{\tau(t)}
-is hard to interpret if systematic difference in the risks of intercurrent events between two
+is hard to interpret if a systematic difference in the risks of intercurrent events between two
 treatment conditions under comparison is anticipated.
 }
 }
 \seealso{
-\code{\link[ICHe9r1]{scr.whileon}}, \code{\link[ICHe9r1]{scr.ICH}}
+\code{\link[tteICE]{scr.whileon}}, \code{\link[tteICE]{scr.tteICE}}
 }

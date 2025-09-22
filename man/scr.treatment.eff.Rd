@@ -2,7 +2,7 @@
 % Please edit documentation in R/scr_treatment_eff.R
 \name{scr.treatment.eff}
 \alias{scr.treatment.eff}
-\title{Fitting the cumulative incidence function using treatment policy strategy}
+\title{Fit the CIF using treatment policy strategy for semicompeting risks data, based on efficient influence functions}
 \usage{
 scr.treatment.eff(
   A,
@@ -75,5 +75,5 @@ the notations \eqn{T(w, R(w)) = T(w)} in defining estimands. As such,
 }
 }
 \seealso{
-\code{\link[ICHe9r1]{scr.treatment}}, \code{\link[ICHe9r1]{scr.ICH}}
+\code{\link[tteICE]{scr.treatment}}, \code{\link[tteICE]{scr.tteICE}}
 }

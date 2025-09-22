@@ -2,7 +2,7 @@
 % Please edit documentation in R/surv_composite.R
 \name{surv.composite}
 \alias{surv.composite}
-\title{Fitting the cumulative incidence function using composite variable strategy}
+\title{Fit the CIF using composite variable strategy for competing risks data}
 \usage{
 surv.composite(A, Time, cstatus, weights = rep(1, length(A)), subset = NULL)
 }
@@ -53,5 +53,5 @@ outcome events during \eqn{(0,t)} under active treatment and placebo.
 }
 }
 \seealso{
-\code{\link[ICHe9r1]{surv.composite.eff}}, \code{\link[ICHe9r1]{surv.ICH}}
+\code{\link[tteICE]{surv.composite.eff}}, \code{\link[tteICE]{surv.tteICE}}
 }

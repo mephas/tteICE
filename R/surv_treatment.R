@@ -1,4 +1,4 @@
-#' @title Fitting the cumulative incidence function using treatment policy strategy
+#' @title Fit the CIF using treatment policy strategy for competing risks data
 #'
 #' @description This function nonparametrically estimates the potential cumulative incidence function
 #' using treatment policy strategy (competing risks data structure). This strategy ignores the intercurrent
@@ -52,7 +52,7 @@
 #' \eqn{\tau(t) = P(T(1)) < t) - P(T(0) < t)} as the intention-to-treat analysis.
 #' }
 #'
-#' @seealso \code{\link[tteICE]{surv.treatment.eff}}, \code{\link[tteICE]{surv.ICH}}
+#' @seealso \code{\link[tteICE]{surv.treatment.eff}}, \code{\link[tteICE]{surv.tteICE}}
 #'
 #'
 #' @export

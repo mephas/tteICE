@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_inc.R
 \name{plot_inc}
 \alias{plot_inc}
-\title{Plotting the estimated cumulative incidence function}
+\title{Plot the estimated cumulative incidence function (CIF)}
 \usage{
 plot_inc(
   fit,
@@ -13,59 +13,68 @@ plot_inc(
   xlab = "Time",
   xlim = NULL,
   ylim = c(0, 1),
-  legend = c("Treated", "Control"),
-  col = c("brown", "darkcyan"),
-  cex = 0.9,
+  plot.configs = list(ylab = NULL, main = NULL, cex = 0.9, lty = 1, lwd = 2, ci.lty = 5,
+    ci.lwd = 1.5, legend = c("Treated", "Control"), col = c("brown", "darkcyan"),
+    legend.cex = 0.9, show.p.value = TRUE),
   ...
 )
 }
 \arguments{
-\item{fit}{A fitted object from \code{surv.ICH}.}
+\item{fit}{A fitted object returned by the function \code{surv.tteICE} or \code{scr.tteICE}.}
 
-\item{decrease}{A logical variable indicating whether to display the cumulative incidence
-function (\code{decrease = FALSE}) or survival function (\code{decrease = TRUE}).}
+\item{decrease}{A logical variable indicating the type of curve to display. If \code{decrease = FALSE} (default), the function displays the cumulative incidence functions (CIFs). If \code{decrease = TRUE}, the function instead displays the survival functions.}
 
-\item{conf.int}{Level of the confidence interval. If \code{conf.int = NULL}, then the condifence
-interval will not be provided.}
+\item{conf.int}{Confidence level for the interval. If \code{conf.int = NULL}, no confidence interval is provided.}
 
-\item{nboot}{Number of resamplings in bootstrapping. Default \code{nboot = 0}, using the explicit
-formula of the standard error.}
+\item{nboot}{Number of resampling in bootstrapping. By default, \code{nboot = 0}, meaning no bootstrap is performed and the standard error is computed using the explicit analytical formula.}
 
-\item{seed}{Seed for bootstrapping.}
+\item{seed}{Sets the random seed used when generating bootstrap samples.}
 
 \item{xlab}{Label for x-axis.}
 
-\item{xlim}{Limit for x-axis.}
+\item{xlim}{A numeric vector of length 2 giving the limits of the x-axis. If \code{xlim=NULL} (default), the range is determined automatically from the data.}
 
-\item{ylim}{Limit for y-axis.}
+\item{ylim}{A numeric vector of length 2 giving the limits of the y-axis. Defaults to \code{ylim=c(-1, 1)}. If \code{NULL}, the range is determined automatically.}
 
-\item{legend}{Set the legend of plot.}
+\item{plot.configs}{A named \code{list} of additional plot configurations. Common entries include:
 
-\item{col}{Colors for each group.}
+\itemize{
+    \item \code{ylab}: character, label for the y-axis (Default: \code{ylab=NULL}, use the default label).
+    \item \code{main}: character, title for the plot (Default: \code{main=NULL}, use the default label).
+    \item \code{lty}: line type for the curve (default: 1).
+    \item \code{lwd}: line width for the curve (default: 2).
+    \item \code{ci.lty}: line type for confidence interval curves (default: 5).
+    \item \code{ci.lwd}: line width for confidence interval curves (default: 1.5).
+    \item \code{legend.cex}: font size for the legend (default: 0.9).
+  }}
 
-\item{cex}{Size of legend.}
-
-\item{...}{Other augments in function \code{\link{plot.default}} or function \code{\link{curve}}}
+\item{...}{Additional graphical arguments passed to function \code{\link{plot.default}} or function \code{\link{curve}}}
 }
 \description{
-This function plots the estimated potential cumulative incidence function
-with pointwise confidence intervals.
+This function plots the estimated potential cumulative incidence function, along with pointwise confidence intervals.
 }
 \examples{
 ## load data and fit the model
 data(bmt)
 bmt = transform(bmt, d4=d2+d3)
 A = as.numeric(bmt$group>1)
-fit = surv.ICH(A, bmt$t2, bmt$d4, 'composite')
+fit1 = surv.tteICE(A, bmt$t2, bmt$d4, 'treatment')
 ## plot asymptotic confidence intervals based on explicit formulas
-plot_inc(fit, legend=c('AML','ALL'), ylim=c(0,1))
+plot_inc(fit1, ylim=c(0,1), plot.configs=list(legend=c('AML','ALL'), show.p.value=FALSE) )
 ## plot bootstrap confidence intervals
-plot_inc(fit, nboot=200, legend=c('AML','ALL'), ylim=c(0,1))
+plot_inc(fit1, nboot=200, ylim=c(0,1), plot.configs=list(legend=c('AML','ALL')) )
+
+fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
+## plot asymptotic confidence intervals based on explicit formulas
+plot_inc(fit2, ylim=c(0,1), plot.configs=list(add.null.line=FALSE))
+## plot bootstrap confidence intervals
+plot_inc(fit2, nboot=200, ylim=c(0,1), plot.configs=list(lty=2, lwd=3,main="Title"))
+
 
 }
 \seealso{
 \code{\link[graphics]{plot.default}},
 \code{\link[graphics]{points}},
 \code{\link[graphics]{curve}},
-\code{\link{plot.ICH}}
+\code{\link[tteICE]{plot.tteICE}}
 }

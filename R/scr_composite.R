@@ -1,4 +1,4 @@
-#' @title Fitting the cumulative incidence function using composite variable strategy
+#' @title Fit the CIF using composite variable strategy for semicompeting risks data
 #'
 #' @description This function nonparametrically estimates the potential cumulative incidence function
 #' using composite variable strategy (semicompeting risks data structure). This strategy adopts the
@@ -47,7 +47,7 @@
 #' outcome events during \eqn{(0,t)} under active treatment and placebo.
 #' }
 #'
-#' @seealso \code{\link[tteICE]{scr.composite.eff}}, \code{\link[tteICE]{scr.ICH}}
+#' @seealso \code{\link[tteICE]{scr.composite.eff}}, \code{\link[tteICE]{scr.tteICE}}
 #'
 #'
 #' @export

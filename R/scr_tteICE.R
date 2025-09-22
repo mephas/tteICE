@@ -1,4 +1,4 @@
-#' @title Fitting the cumulative incidence function for time-to-event data with intercurrent events (semicompeting risks data)
+#' @title Fit the CIF for time-to-event data with intercurrent events for semicompeting risks data
 #'
 #' @description This function estimates the potential cumulative incidence function
 #' for time-to event data under ICH E9 (R1) to address intercurrent events. The input data 
@@ -33,7 +33,7 @@
 #' @param na.rm Whether to remove missing values.
 #'
 #' @import survival
-#' @importFrom stats rbinom rweibull rexp runif pchisq sd pnorm na.omit glm predict
+#' @importFrom stats rbinom rweibull rexp runif pchisq sd pnorm na.omit glm predict complete.cases
 #' @importFrom MASS ginv
 #' @importFrom cmprsk crr cuminc
 #'
@@ -47,17 +47,17 @@
 #' X = as.matrix(bmt[,c('z1','z3','z5')])
 #' ## Composite variable strategy,
 #' ## nonparametric estimation without covariates
-#' fit1 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
+#' fit1 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
 #' ## Hypothetical strategy (natural effects),
 #' ## nonparametric estimation with inverse probability weighting
-#' fit2 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='ipw')
+#' fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='ipw')
 #' ## nonparametric estimation with weights as non-standardized inverse probability score
 #' ps = predict(glm(A ~ X, family='binomial'), type='response')
 #' w = A/ps + (1-A)/(1-ps)
-#' fit2 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", weights=w)
+#' fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", weights=w)
 #' ## Hypothetical strategy (removing intercurrent events),
 #' ## semiparametrically efficient estimation with covariates
-#' fit3 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "removed", X, method='eff')
+#' fit3 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "removed", X, method='eff')
 #'
 #' @details
 #' \describe{
@@ -84,12 +84,12 @@
 #' Cumulative incidences are model-free and collapsible, enjoying causal interpretations.}
 #' }
 #'
-#' @seealso \code{\link[tteICE]{surv.boot}}, \code{\link[tteICE]{surv.ICH}}
+#' @seealso \code{\link[tteICE]{surv.boot}}, \code{\link[tteICE]{surv.tteICE}}
 #'
 #'
 #' @export
 
-scr.ICH <- function(A,Time,status,Time_int,status_int,strategy='composite',cov1=NULL,method='np',
+scr.tteICE <- function(A,Time,status,Time_int,status_int,strategy='composite',cov1=NULL,method='np',
                      weights=NULL,subset=NULL,na.rm=FALSE){
   if (!strategy %in% c('treatment','composite','natural','removed','whileon','principal')){
     warning("Please choose a strategy from the following:\n treatment, composite, natural, removed, whileon, principal\n
@@ -105,7 +105,8 @@ scr.ICH <- function(A,Time,status,Time_int,status_int,strategy='composite',cov1=
   if (is.null(weights)) weights = rep(1,N)
   if (is.null(subset)) subset = 1:N
   if (na.rm){
-    if (class(subset)!='logical') subset = (1:N)%in%subset
+    # if (class(subset)!='logical') subset = (1:N)%in%subset
+    if (!inherits(subset, "logical")) subset = (1:N)%in%subset
     cc = complete.cases(data.frame(A,Time,status,Time_int,status_int,weights,subset,cov1))
     A = A[cc]; Time = Time[cc]; status = status[cc]; Time_int = Time_int[cc]; status_int = status_int[cc]
     subset = subset[cc]
@@ -120,7 +121,8 @@ scr.ICH <- function(A,Time,status,Time_int,status_int,strategy='composite',cov1=
       warning(paste0('Treatment should be either 0 or 1! A=1 if A=',max(A)))
     }
   }
-  if (class(subset)=='logical') subset = (1:length(A))[subset]
+  # if (class(subset)=='logical') subset = (1:length(A))[subset]
+  if (inherits(subset, "logical")) subset = (1:length(A))[subset]
   if (method=='ipw') {
     weights = weights*.ipscore(A,cov1,TRUE,weights,subset)
   }
@@ -142,6 +144,6 @@ scr.ICH <- function(A,Time,status,Time_int,status_int,strategy='composite',cov1=
   ate.list = c(fit,list(A=A,Time=Time,status=status,Time_int=Time_int,status_int=status_int,
                     strategy=strategy,cov1=cov1,method=method,weights=weights,subset=subset,
                     dtype='smcmprsk'))
-  class(ate.list) = "ICH"
+  class(ate.list) = "tteICE"
   return(ate.list)
 }

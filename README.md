@@ -21,8 +21,8 @@
 
 <!-- badges: end -->
 
-The goal of the package “ICHe9r1” is to estimate the treatment effect
-for time-to-event outcomes with intercurrent events under ICH E9 (R1).
+The goal of the package “tteICE” is to estimate the treatment effect for
+time-to-event outcomes with intercurrent events.
 
 ## Randomized trials and observational studies
 
@@ -129,7 +129,7 @@ You can install the development version of ICHe9r1 from GitHub with:
 
 ``` r
 # install.packages("pak")
-pak::pak("mephas/ICHe9r1")
+pak::pak("mephas/tteICE")
 ```
 
 ## Example
@@ -144,7 +144,7 @@ indicator is d4=d2+d3, so that d4=1 if death occurs first, while d4=2 if
 relapse occurs first.
 
 ``` r
-library(ICHe9r1)
+library(tteICE)
 data(bmt)
 A = as.numeric(bmt$group>1)
 X = as.matrix(bmt[,c('z1','z3','z5')])
@@ -155,7 +155,7 @@ Suppose we would like to use the hypothetical strategy (natural
 effects). We fit the model by nonparametric estimation.
 
 ``` r
-fit1 = surv.ICH(A, bmt$t2, bmt$d4, "natural")
+fit1 = surv.tteICE(A, bmt$t2, bmt$d4, "natural")
 plot_inc(fit1, legend=c('AML','ALL'))
 p = fit1$p.val
 text(200, 0.8, paste0('P = ', round(p,3)))
@@ -180,9 +180,7 @@ We can also use inverse probability weighting to account for
 confounding.
 
 ``` r
-ps = predict(glm(A ~ X, family='binomial'), type='response')
-w = A/ps + (1-A)/(1-ps)
-fit2 = surv.ICH(A, bmt$t2, bmt$d4, "natural", weights=w)
+fit2 = surv.tteICE(A, bmt$t2, bmt$d4, "natural", X, method='ipw')
 plot_inc(fit2, legend=c('AML','ALL'))
 p = fit2$p.val
 text(200, 0.8, paste0('P = ', round(p,3)))
@@ -200,7 +198,7 @@ To increase efficiency, we use the efficient influence function
 (EIF)-based method.
 
 ``` r
-fit3 = surv.ICH(A, bmt$t2, bmt$d4, "natural", X, method='eff')
+fit3 = surv.tteICE(A, bmt$t2, bmt$d4, "natural", X, method='eff')
 plot_inc(fit3, legend=c('AML','ALL'))
 p = fit3$p.val
 text(200, 0.8, paste0('P = ', round(p,3)))
@@ -221,7 +219,7 @@ Note that the time to death (or censoring) is t1 and the time to relapse
 and fit the model nonparametrically.
 
 ``` r
-fit4 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural")
+fit4 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural")
 plot_inc(fit4, legend=c('AML','ALL'))
 p = fit4$p.val
 text(200, 0.8, paste0('P = ', round(p,3)))
@@ -246,9 +244,7 @@ We can also use inverse probability weighting to account for
 confounding.
 
 ``` r
-ps = predict(glm(A ~ X, family='binomial'), type='response')
-w = A/ps + (1-A)/(1-ps)
-fit5 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", weights=w)
+fit5 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='ipw')
 plot_inc(fit5, legend=c('AML','ALL'))
 p = fit5$p.val
 text(200, 0.8, paste0('P = ', round(p,3)))
@@ -266,7 +262,7 @@ To increase efficiency, we use the efficient influence function
 (EIF)-based method.
 
 ``` r
-fit6 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='eff')
+fit6 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='eff')
 plot_inc(fit6, legend=c('AML','ALL'))
 p = fit6$p.val
 text(200, 0.8, paste0('P = ', round(p,3)))

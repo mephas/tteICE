@@ -1,4 +1,4 @@
-#' @title Fitting the cumulative incidence function using principal stratum strategy
+#' @title Fit the CIF using principal stratum strategy for semicompeting risks data, based on efficient influence functions
 #'
 #' @description This function estimates the potential cumulative incidence function based on 
 #' efficient influence functions using principal stratum strategy (semicompeting risks data 
@@ -49,7 +49,7 @@
 #' If the size of the target principal stratum is small, the results could be highly variable.
 #' }
 #'
-#' @seealso \code{\link[tteICE]{scr.principal}}, \code{\link[tteICE]{scr.ICH}}
+#' @seealso \code{\link[tteICE]{scr.principal}}, \code{\link[tteICE]{scr.tteICE}}
 #'
 #'
 #' @export

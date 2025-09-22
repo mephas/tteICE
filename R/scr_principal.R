@@ -1,4 +1,4 @@
-#' @title Fitting the cumulative incidence function using principal stratum strategy
+#' @title Fit the CIF using principal stratum strategy for semicompeting risks data
 #'
 #' @description This function nonparametrically estimates the potential cumulative incidence function
 #' using principal stratum strategy (semicompeting risks data structure). The estimand is defined in a
@@ -47,7 +47,7 @@
 #' If the size of the target principal stratum is small, the results could be highly variable.
 #' }
 #'
-#' @seealso \code{\link[tteICE]{scr.principal.eff}}, \code{\link[tteICE]{scr.ICH}}
+#' @seealso \code{\link[tteICE]{scr.principal.eff}}, \code{\link[tteICE]{scr.tteICE}}
 #'
 #'
 #' @export

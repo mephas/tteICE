@@ -1,4 +1,4 @@
-#' @title Fitting the cumulative incidence function using composite variable strategy
+#' @title Fit the CIF using composite variable strategy for competing risks data, based on efficient influence functions
 #'
 #' @description This function estimates the potential cumulative incidence function based on
 #' efficient influence functions using composite variable strategy (competing risks data structure).
@@ -45,7 +45,7 @@
 #' outcome events during \eqn{(0,t)} under active treatment and placebo.
 #' }
 #'
-#' @seealso \code{\link[tteICE]{surv.composite}}, \code{\link[tteICE]{surv.ICH}}
+#' @seealso \code{\link[tteICE]{surv.composite}}, \code{\link[tteICE]{surv.tteICE}}
 #'
 #'
 #' @export

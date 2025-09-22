@@ -2,7 +2,7 @@
 % Please edit documentation in R/scr_removed.R
 \name{scr.removed}
 \alias{scr.removed}
-\title{Fitting the cumulative incidence function using hypothetical strategy (II)}
+\title{Fit the CIF using hypothetical strategy (II) for semicompeting risks data}
 \usage{
 scr.removed(
   A,
@@ -69,5 +69,5 @@ effect corresponds to the controlled direct effect with the intercurrent events 
 }
 }
 \seealso{
-\code{\link[ICHe9r1]{scr.removed.eff}}, \code{\link[ICHe9r1]{scr.ICH}}
+\code{\link[tteICE]{scr.removed.eff}}, \code{\link[tteICE]{scr.tteICE}}
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/surv_natural.R
 \name{surv.natural}
 \alias{surv.natural}
-\title{Fitting the cumulative incidence function using hypothetical strategy (I)}
+\title{Fit the CIF using hypothetical strategy (I) for competing risks data}
 \usage{
 surv.natural(A, Time, cstatus, weights = rep(1, length(A)), subset = NULL)
 }
@@ -62,5 +62,5 @@ the level under control.
 }
 }
 \seealso{
-\code{\link[ICHe9r1]{surv.natural.eff}}, \code{\link[ICHe9r1]{surv.ICH}}
+\code{\link[tteICE]{surv.natural.eff}}, \code{\link[tteICE]{surv.tteICE}}
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/scr_composite_eff.R
 \name{scr.composite.eff}
 \alias{scr.composite.eff}
-\title{Fitting the cumulative incidence function using composite variable strategy}
+\title{Fit the CIF using composite variable strategy for semicompeting risks data, based on efficient influence functions}
 \usage{
 scr.composite.eff(
   A,
@@ -66,5 +66,5 @@ outcome events during \eqn{(0,t)} under active treatment and placebo.
 }
 }
 \seealso{
-\code{\link[ICHe9r1]{scr.composite}}, \code{\link[ICHe9r1]{scr.ICH}}
+\code{\link[tteICE]{scr.composite}}, \code{\link[tteICE]{scr.tteICE}}
 }

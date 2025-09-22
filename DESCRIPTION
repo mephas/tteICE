@@ -11,7 +11,7 @@ Reference: Deng, Y., Han, S., & Zhou, X. H. (2025). Inference for Cumulative Inc
 License: GPL-3
 Encoding: UTF-8
 LazyData: True
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Imports: 
     cmprsk,
     MASS,

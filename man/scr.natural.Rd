@@ -2,7 +2,7 @@
 % Please edit documentation in R/scr_natural.R
 \name{scr.natural}
 \alias{scr.natural}
-\title{Fitting the cumulative incidence function using hypothetical strategy (I)}
+\title{Fit the CIF using hypothetical strategy (I) for semicompeting risks data}
 \usage{
 scr.natural(
   A,
@@ -74,5 +74,5 @@ the level under control. Markovness is assumed in estimation.
 }
 }
 \seealso{
-\code{\link[ICHe9r1]{scr.natural.eff}}, \code{\link[ICHe9r1]{scr.ICH}}
+\code{\link[tteICE]{scr.natural.eff}}, \code{\link[tteICE]{scr.tteICE}}
 }

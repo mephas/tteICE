@@ -2,14 +2,14 @@
 % Please edit documentation in R/surv_boot.R
 \name{surv.boot}
 \alias{surv.boot}
-\title{Calculating the standard error for the estimated cumulative incidence function and treatment effect}
+\title{Calculate the standard error for the estimated CIF and treatment effect}
 \usage{
 surv.boot(fit, nboot = 0, seed = 0)
 }
 \arguments{
-\item{fit}{A fitted object from \code{surv.ICH}.}
+\item{fit}{A fitted object from \code{surv.tteICE}.}
 
-\item{nboot}{Number of resamplings in the boostrapping method. If \code{nboot} is smaller than 1, then
+\item{nboot}{Number of resamplings in the boostrapping method. If \code{nboot} is 0 or 1, then
 asymptotic standard error based on the explicit form is calculated instead of bootstrapping.}
 
 \item{seed}{Seed for bootstrapping.}
@@ -30,9 +30,9 @@ A list including
 }
 \description{
 This function calculates the standard error for the estimated potential cumulative incidence function
-and treatment effect. Two methods to calculate the standard error are considered: asymptotic standard error
+and treatment effect. Two methods to calculate the standard error are considered: the asymptotic standard error
 based on the explicit formula and bootstrapping.
 }
 \seealso{
-\code{\link[ICHe9r1]{surv.ICH}}, \code{\link[ICHe9r1]{scr.ICH}}
+\code{\link[tteICE]{surv.tteICE}}, \code{\link[tteICE]{scr.tteICE}}
 }

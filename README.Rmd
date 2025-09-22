@@ -132,7 +132,7 @@ Suppose we would like to use the hypothetical strategy (natural effects).
 We fit the model by nonparametric estimation.
 
 ```{r example_1}
-fit1 = surv.ICH(A, bmt$t2, bmt$d4, "natural")
+fit1 = surv.tteICE(A, bmt$t2, bmt$d4, "natural")
 plot_inc(fit1, legend=c('AML','ALL'))
 p = fit1$p.val
 text(200, 0.8, paste0('P = ', round(p,3)))
@@ -144,7 +144,7 @@ plot_ate(fit1, nboot=200)
 We can also use inverse probability weighting to account for confounding.
 
 ```{r example_2}
-fit2 = surv.ICH(A, bmt$t2, bmt$d4, "natural", X, method='ipw')
+fit2 = surv.tteICE(A, bmt$t2, bmt$d4, "natural", X, method='ipw')
 plot_inc(fit2, legend=c('AML','ALL'))
 p = fit2$p.val
 text(200, 0.8, paste0('P = ', round(p,3)))
@@ -154,7 +154,7 @@ plot_ate(fit2)
 To increase efficiency, we use the efficient influence function (EIF)-based method.
 
 ```{r example_3}
-fit3 = surv.ICH(A, bmt$t2, bmt$d4, "natural", X, method='eff')
+fit3 = surv.tteICE(A, bmt$t2, bmt$d4, "natural", X, method='eff')
 plot_inc(fit3, legend=c('AML','ALL'))
 p = fit3$p.val
 text(200, 0.8, paste0('P = ', round(p,3)))
@@ -167,7 +167,7 @@ Note that the time to death (or censoring) is t1 and the time to relapse (or cen
 We use the hypothetical strategy (natural effects) and fit the model nonparametrically.
 
 ```{r example_4}
-fit4 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural")
+fit4 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural")
 plot_inc(fit4, legend=c('AML','ALL'))
 p = fit4$p.val
 text(200, 0.8, paste0('P = ', round(p,3)))
@@ -179,7 +179,7 @@ plot_ate(fit4, nboot=200)
 We can also use inverse probability weighting to account for confounding.
 
 ```{r example_5}
-fit5 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='ipw')
+fit5 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='ipw')
 plot_inc(fit5, legend=c('AML','ALL'))
 p = fit5$p.val
 text(200, 0.8, paste0('P = ', round(p,3)))
@@ -189,7 +189,7 @@ plot_ate(fit5)
 To increase efficiency, we use the efficient influence function (EIF)-based method.
 
 ```{r example_6}
-fit6 = scr.ICH(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='eff')
+fit6 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='eff')
 plot_inc(fit6, legend=c('AML','ALL'))
 p = fit6$p.val
 text(200, 0.8, paste0('P = ', round(p,3)))

@@ -1,4 +1,4 @@
-#' @title Fitting the cumulative incidence function using hypothetical strategy (I)
+#' @title Fit the CIF using hypothetical strategy (I) for competing risks data, based on efficient influence functions
 #'
 #' @description This function estimates the potential cumulative incidence function
 #' based on efficient influence functions using hypothetical strategy (competing risks
@@ -55,7 +55,7 @@
 #' the level under control.
 #' }
 #'
-#' @seealso \code{\link[tteICE]{surv.natural}}, \code{\link[tteICE]{surv.ICH}}
+#' @seealso \code{\link[tteICE]{surv.natural}}, \code{\link[tteICE]{surv.tteICE}}
 #'
 #'
 #' @export

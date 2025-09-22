@@ -1,4 +1,4 @@
-#' @title Fitting the cumulative incidence function using hypothetical strategy (II)
+#' @title Fit the CIF using hypothetical strategy (II) for competing risks data
 #'
 #' @description This function nonparametrically estimates the potential cumulative incidence function
 #' using hypothetical strategy (competing risks data structure). The intercurrent event is assumed to
@@ -48,7 +48,7 @@
 #' effect corresponds to the controlled direct effect with the intercurrent events removed.
 #' }
 #'
-#' @seealso \code{\link[tteICE]{surv.removed.eff}}, \code{\link[tteICE]{surv.ICH}}
+#' @seealso \code{\link[tteICE]{surv.removed.eff}}, \code{\link[tteICE]{surv.tteICE}}
 #'
 #'
 #' @export

@@ -1,4 +1,4 @@
-#' @title Fitting the cumulative incidence function using hypothetical strategy (II)
+#' @title Fit the CIF using hypothetical strategy (II) for semicompeting risks data, based on efficient influence functions
 #'
 #' @description This function estimates the potential cumulative incidence function based on
 #' efficient influence functions using hypothetical strategy (semicompeting risks data structure).
@@ -55,7 +55,7 @@
 #' intercurrent events removed.
 #' }
 #'
-#' @seealso \code{\link[tteICE]{scr.removed}}, \code{\link[tteICE]{scr.ICH}}
+#' @seealso \code{\link[tteICE]{scr.removed}}, \code{\link[tteICE]{scr.tteICE}}
 #'
 #'
 #' @export

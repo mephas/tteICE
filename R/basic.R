@@ -146,7 +146,7 @@
     betad = betar = 0
     Xbd = Xbr = rep(0,N)
   }
-  return(list(betad=betad, betar=betar, delta=delta_rd, 
+  return(list(betad=betad, betar=betar, delta=delta_rd,
               Xbd=Xbd, Xbr=Xbr, tt=tt, lamd=lamd, lamr=lamr))
 }
 
@@ -199,3 +199,185 @@
   }
   return(list(beta=beta, Xb=Xb, tt=tt, lam=lam))
 }
+
+
+.plot_ate_validate <- function(fit, decrease, conf.int, nboot, seed, xlab, xlim, ylim) {
+  # ---- fit ----
+  if (!inherits(fit, "tteICE"))
+    stop("`fit` must be an object returned by `surv.tteICE` or `scr.tteICE`.", call. = FALSE)
+  # needed <- c("time", "est_treat", "est_control")  # customize to your object
+  # missing_fields <- setdiff(needed, names(fit))
+  # if (length(missing_fields))
+  #   stop("`fit` is missing required components: ", paste(missing_fields, collapse = ", "), call. = FALSE)
+  # if (!is.numeric(fit$time) || !isTRUE(all(is.finite(fit$time))) || !is.unsorted(fit$time, strictly = TRUE))
+  #   stop("`fit$time` must be a strictly increasing numeric vector without NA/Inf.", call. = FALSE)
+
+  # ---- decrease ----
+  if (!(is.logical(decrease) && length(decrease) == 1 && !is.na(decrease)))
+    stop("`decrease` must be a single non-NA logical.", call. = FALSE)
+
+  # ---- conf.int ----
+  if (!is.null(conf.int)) {
+    if (!is.numeric(conf.int) || length(conf.int) != 1 || !is.finite(conf.int))
+      stop("`conf.int` must be NULL or a single finite numeric value.", call. = FALSE)
+
+    # Accept users passing 95 instead of 0.95
+    if (conf.int > 1 && conf.int <= 100) {
+      warning("Interpreting `conf.int = ", conf.int, "` as ", conf.int/100, ".")
+      conf.int <- conf.int / 100
+    }
+    if (conf.int <= 0 || conf.int >= 1)
+      stop("`conf.int` must be in (0, 1) when not NULL.", call. = FALSE)
+  }
+
+  # ---- nboot ----
+  if (!is.numeric(nboot) || length(nboot) != 1 || nboot < 0 || !is.finite(nboot) || nboot != as.integer(nboot))
+    stop("`nboot` must be a single nonnegative integer.", call. = FALSE)
+
+  if (nboot == 0 && !is.null(conf.int)) {
+    # Analytical SE intended; fine.
+    # No action.
+  }
+  if (nboot > 0 && is.null(conf.int)) {
+    warning("`nboot > 0` but `conf.int = NULL`. Bootstrap SEs will be computed but no CI will be drawn.")
+  }
+
+  # ---- seed ----
+  if (!is.null(seed)) {
+    if (!is.numeric(seed) || length(seed) != 1 || !is.finite(seed) || seed != as.integer(seed))
+      stop("`seed` must be NULL or a single integer.", call. = FALSE)
+    if (nboot == 0)
+      warning("`seed` is supplied but `nboot = 0`; seed will be ignored.")
+  }
+
+  # ---- labels & limits ----
+  if (!(is.character(xlab) && length(xlab) == 1 && !is.na(xlab)))
+    stop("`xlab` must be a single non-NA character string.", call. = FALSE)
+
+  if (!is.null(xlim)) {
+    if (!is.numeric(xlim) || length(xlim) != 2 || any(!is.finite(xlim)))
+      stop("`xlim` must be NULL or a numeric length-2 vector of finite values.", call. = FALSE)
+    if (!(xlim[1] < xlim[2]))
+      stop("`xlim[1]` must be strictly less than `xlim[2]`.", call. = FALSE)
+  }
+
+  if (!is.null(ylim)) {
+    if (!is.numeric(ylim) || length(ylim) != 2 || any(!is.finite(ylim)))
+      stop("`ylim` must be NULL or a numeric length-2 vector of finite values.", call. = FALSE)
+    if (!(ylim[1] < ylim[2]))
+      stop("`ylim[1]` must be strictly less than `ylim[2]`.", call. = FALSE)
+  }
+
+  # Optionally constrain CIF/S(t) difference range if that’s a design assumption:
+  # if (!is.null(ylim) && (ylim[1] < -1 || ylim[2] > 1))
+  #   warning("`ylim` extends beyond [-1, 1]; ensure this is intentional for difference curves.")
+
+  # Return possibly adjusted conf.int (e.g., 95 -> 0.95)
+  list(conf.int = conf.int)
+}
+
+
+.plot_inc_validate <- function(fit, decrease, conf.int, nboot, seed, xlab, xlim, ylim) {
+  # ---- fit ----
+  if (!inherits(fit, "tteICE"))
+    stop("`fit` must be an object returned by `surv.tteICE` or `scr.tteICE`.", call. = FALSE)
+  # needed <- c("time", "est_treat", "est_control")  # customize to your object
+  # missing_fields <- setdiff(needed, names(fit))
+  # if (length(missing_fields))
+  #   stop("`fit` is missing required components: ", paste(missing_fields, collapse = ", "), call. = FALSE)
+  # if (!is.numeric(fit$time) || !isTRUE(all(is.finite(fit$time))) || !is.unsorted(fit$time, strictly = TRUE))
+  #   stop("`fit$time` must be a strictly increasing numeric vector without NA/Inf.", call. = FALSE)
+
+  # ---- decrease ----
+  if (!(is.logical(decrease) && length(decrease) == 1 && !is.na(decrease)))
+    stop("`decrease` must be a single non-NA logical.", call. = FALSE)
+
+  # ---- conf.int ----
+  if (!is.null(conf.int)) {
+    if (!is.numeric(conf.int) || length(conf.int) != 1 || !is.finite(conf.int))
+      stop("`conf.int` must be NULL or a single finite numeric value.", call. = FALSE)
+
+    # Accept users passing 95 instead of 0.95
+    if (conf.int > 1 && conf.int <= 100) {
+      warning("Interpreting `conf.int = ", conf.int, "` as ", conf.int/100, ".")
+      conf.int <- conf.int / 100
+    }
+    if (conf.int <= 0 || conf.int >= 1)
+      stop("`conf.int` must be in (0, 1) when not NULL.", call. = FALSE)
+  }
+
+  # ---- nboot ----
+  if (!is.numeric(nboot) || length(nboot) != 1 || nboot < 0 || !is.finite(nboot) || nboot != as.integer(nboot))
+    stop("`nboot` must be a single nonnegative integer.", call. = FALSE)
+
+  if (nboot == 0 && !is.null(conf.int)) {
+    # Analytical SE intended; fine.
+    # No action.
+  }
+  if (nboot > 0 && is.null(conf.int)) {
+    warning("`nboot > 0` but `conf.int = NULL`. Bootstrap SEs will be computed but no CI will be drawn.")
+  }
+
+  # ---- seed ----
+  if (!is.null(seed)) {
+    if (!is.numeric(seed) || length(seed) != 1 || !is.finite(seed) || seed != as.integer(seed))
+      stop("`seed` must be NULL or a single integer.", call. = FALSE)
+    if (nboot == 0)
+      warning("`seed` is supplied but `nboot = 0`; seed will be ignored.")
+  }
+
+  # ---- labels & limits ----
+  if (!(is.character(xlab) && length(xlab) == 1 && !is.na(xlab)))
+    stop("`xlab` must be a single non-NA character string.", call. = FALSE)
+
+  if (!is.null(xlim)) {
+    if (!is.numeric(xlim) || length(xlim) != 2 || any(!is.finite(xlim)))
+      stop("`xlim` must be NULL or a numeric length-2 vector of finite values.", call. = FALSE)
+    if (!(xlim[1] < xlim[2]))
+      stop("`xlim[1]` must be strictly less than `xlim[2]`.", call. = FALSE)
+  }
+
+  if (!is.null(ylim)) {
+    if (!is.numeric(ylim) || length(ylim) != 2 || any(!is.finite(ylim)))
+      stop("`ylim` must be NULL or a numeric length-2 vector of finite values.", call. = FALSE)
+    if (!(ylim[1] < ylim[2]))
+      stop("`ylim[1]` must be strictly less than `ylim[2]`.", call. = FALSE)
+  }
+
+    if (!is.null(ylim) && (ylim[1] < 0 || ylim[2] > 1))
+    warning("`ylim` extends beyond [0, 1]; ensure this is intentional for the curves.")
+
+  # if (!is.character(legend) || length(legend) != 2)
+  #   stop("'legend' must be a character vector of length 2.")
+
+  # # col: character length 2
+  # if (!is.character(col) || length(col) != 2)
+  #   stop("'col' must be a character vector of length 2 (colors).")
+
+  list(conf.int = conf.int)
+}
+
+
+.riskpredict_validate <- function(fit, timeset, nboot, seed) {
+  # ---- fit ----
+  if (!inherits(fit, "tteICE"))
+    stop("`fit` must be an object returned by `surv.tteICE` or `scr.tteICE`.", call. = FALSE)
+
+  # ---- timeset ----
+  if (!is.null(timeset)) {
+    if (!is.numeric(timeset) || length(timeset) != 1 || !is.finite(timeset))
+      stop("`timeset` must be NULL or a single finite numeric value.", call. = FALSE)
+  }
+
+  # ---- nboot ----
+  if (!is.numeric(nboot) || length(nboot) != 1 || nboot < 0 || !is.finite(nboot) || nboot != as.integer(nboot))
+    stop("`nboot` must be a single nonnegative integer.", call. = FALSE)
+
+  # ---- seed ----
+  if (!is.null(seed)) {
+    if (!is.numeric(seed) || length(seed) != 1 || !is.finite(seed) || seed != as.integer(seed))
+      stop("`seed` must be NULL or a single integer.", call. = FALSE)
+    if (nboot == 0)
+      warning("`seed` is supplied but `nboot = 0`; seed will be ignored.")
+  }
+  }

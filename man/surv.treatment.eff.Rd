@@ -2,7 +2,7 @@
 % Please edit documentation in R/surv_treatment_eff.R
 \name{surv.treatment.eff}
 \alias{surv.treatment.eff}
-\title{Fitting the cumulative incidence function using treatment policy strategy}
+\title{Fit the CIF using treatment policy strategy for competing risks data, based on efficient influence functions}
 \usage{
 surv.treatment.eff(A, Time, cstatus, X = NULL, subset = NULL)
 }
@@ -63,5 +63,5 @@ the notations \eqn{T(w, R(w)) = T(w)} in defining estimands. As such,
 }
 }
 \seealso{
-\code{\link[ICHe9r1]{surv.treatment}}, \code{\link[ICHe9r1]{surv.ICH}}
+\code{\link[tteICE]{surv.treatment}}, \code{\link[tteICE]{surv.tteICE}}
 }

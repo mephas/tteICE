@@ -2,7 +2,7 @@
 % Please edit documentation in R/surv_principal.R
 \name{surv.principal}
 \alias{surv.principal}
-\title{Fitting the cumulative incidence function using principal stratum strategy}
+\title{Fit the CIF using principal stratum strategy for competing risks data}
 \usage{
 surv.principal(A, Time, cstatus, weights = rep(1, length(A)), subset = NULL)
 }
@@ -48,8 +48,9 @@ by \eqn{\{R(1)=R(0)=\infty\}}. The treatment effect is now defined within this s
 representing the difference in probabilities of experiencing primary outcome events during \eqn{(0,t)}
 under active treatment and placebo in the subpopulation that will not experience intercurrent events
 regardless of treatment during \eqn{(0,t)}. A principal ignorability assumption is made for identification.
+If the size of the target principal stratum is small, the results could be highly variable.
 }
 }
 \seealso{
-\code{\link[ICHe9r1]{surv.principal.eff}}, \code{\link[ICHe9r1]{surv.ICH}}
+\code{\link[tteICE]{surv.principal.eff}}, \code{\link[tteICE]{surv.tteICE}}
 }

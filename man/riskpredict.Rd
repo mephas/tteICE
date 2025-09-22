@@ -7,24 +7,23 @@
 riskpredict(fit, timeset = NULL, nboot = 0, seed = 0)
 }
 \arguments{
-\item{fit}{An ICH object.}
+\item{fit}{A fitted object returned by the function \code{surv.tteICE} or \code{scr.tteICE}.}
 
-\item{timeset}{Time at which to predict the risk. If \code{timeset=NULL}, risks will be predict at the 
+\item{timeset}{Time at which to predict the risk. If \code{timeset=NULL}, risks will be predict at the
 quartiles of the maximum follow-up time.}
 
-\item{nboot}{Number of resamplings in bootstrapping. Default \code{nboot = 0}, using the explicit
-formula of the standard error.}
+\item{nboot}{Number of resampling in bootstrapping. By default, \code{nboot = 0}, meaning no bootstrap is performed and the standard error is computed using the explicit analytical formula.}
 
-\item{seed}{Seed for bootstrapping.}
+\item{seed}{Sets the random seed used when generating bootstrap samples.}
 }
 \value{
-A matrix. The meanings of each row are: time points, potential cumulative incidences (under 
-treated and under control), treatment effects, standard errors, P-values.
+A matrix. The meanings of each row are: time points, potential cumulative incidences (under
+treated and under control), treatment effects, standard errors, and P-values.
 }
 \description{
 This function predicts the potential cumulative incidence function and treatment effect at
 specific time points.
 }
 \seealso{
-\code{\link[ICHe9r1]{scr.ICH}}, \code{\link[ICHe9r1]{surv.ICH}}, \code{\link[ICHe9r1]{surv.boot}}
+\code{\link[tteICE]{scr.tteICE}}, \code{\link[tteICE]{surv.tteICE}}, \code{\link[tteICE]{surv.boot}}
 }

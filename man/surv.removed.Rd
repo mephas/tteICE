@@ -2,7 +2,7 @@
 % Please edit documentation in R/surv_removed.R
 \name{surv.removed}
 \alias{surv.removed}
-\title{Fitting the cumulative incidence function using hypothetical strategy (II)}
+\title{Fit the CIF using hypothetical strategy (II) for competing risks data}
 \usage{
 surv.removed(A, Time, cstatus, weights = rep(1, length(A)), subset = NULL)
 }
@@ -57,5 +57,5 @@ effect corresponds to the controlled direct effect with the intercurrent events 
 }
 }
 \seealso{
-\code{\link[ICHe9r1]{surv.removed.eff}}, \code{\link[ICHe9r1]{surv.ICH}}
+\code{\link[tteICE]{surv.removed.eff}}, \code{\link[tteICE]{surv.tteICE}}
 }

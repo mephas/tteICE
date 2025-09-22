@@ -1,4 +1,4 @@
-#' @title Fitting the cumulative incidence function using while on treatment strategy
+#' @title Fit the CIF using while on treatment strategy for semicompeting risks data
 #'
 #' @description This function nonparametrically estimates the potential cumulative incidence function
 #' using while on treatment strategy (semicompeting risks data structure). This strategy can be understood
@@ -55,7 +55,7 @@
 #' treatment conditions under comparison is anticipated.
 #' }
 #'
-#' @seealso \code{\lin[tteICE]k{scr.whileon.eff}}, \code{\link[tteICE]{scr.ICH}}
+#' @seealso \code{\link[tteICE]{scr.whileon.eff}}, \code{\link[tteICE]{scr.tteICE}}
 #'
 #'
 #' @export

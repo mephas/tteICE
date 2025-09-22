@@ -1,10 +1,10 @@
-#' @title Calculating the standard error for the estimated cumulative incidence function and treatment effect
+#' @title Calculate the standard error for the estimated CIF and treatment effect
 #'
 #' @description This function calculates the standard error for the estimated potential cumulative incidence function
 #' and treatment effect. Two methods to calculate the standard error are considered: the asymptotic standard error
 #' based on the explicit formula and bootstrapping.
 #'
-#' @param fit A fitted object from \code{surv.ICH}.
+#' @param fit A fitted object from \code{surv.tteICE}.
 #'
 #' @param nboot Number of resamplings in the boostrapping method. If \code{nboot} is 0 or 1, then
 #' asymptotic standard error based on the explicit form is calculated instead of bootstrapping.
@@ -26,7 +26,7 @@
 #' }
 #'
 #'
-#' @seealso \code{\link[tteICE]{surv.ICH}}, \code{\link[tteICE]{scr.ICH}}
+#' @seealso \code{\link[tteICE]{surv.tteICE}}, \code{\link[tteICE]{scr.tteICE}}
 #'
 #'
 #' @export
@@ -51,10 +51,10 @@ surv.boot <- function(fit,nboot=0,seed=0){
     for(b in 1:nboot){
       subset = sample(1:N,replace=TRUE)
       if (fit$dtype=='cmprsk'){
-      fitb = surv.ICH(fit$A,fit$Time,fit$cstatus,fit$strategy,fit$cov1,fit$method,
+      fitb = surv.tteICE(fit$A,fit$Time,fit$cstatus,fit$strategy,fit$cov1,fit$method,
                       fit$weights,subset)
       } else {
-      fitb = scr.ICH(fit$A,fit$Time,fit$status,fit$Time_int,fit$status_int,fit$strategy,fit$cov1,fit$method,
+      fitb = scr.tteICE(fit$A,fit$Time,fit$status,fit$Time_int,fit$status_int,fit$strategy,fit$cov1,fit$method,
                         fit$weights,subset)
       }
       cifb1 = .matchy(fitb$cif1,fitb$time1,tt)

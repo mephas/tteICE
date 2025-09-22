@@ -2,7 +2,7 @@
 % Please edit documentation in R/surv_HR.R
 \name{surv.HR}
 \alias{surv.HR}
-\title{Estimating the hazard ratio under ICH E9 (R1)}
+\title{Estimate the hazard ratio with intercurrent events}
 \usage{
 surv.HR(
   A,
@@ -73,7 +73,4 @@ X = bmt[,c('z1','z3','z5')]
 fit = surv.HR(A, bmt$t2, bmt$d4, "whileon", cov1=X)
 
 
-}
-\seealso{
-\code{\link[ICHe9r1]{surv.ICH}}
 }
