@@ -82,14 +82,18 @@
 
 surv.tteICE <- function(A,Time,cstatus,strategy='composite',cov1=NULL,method='np',
                      weights=NULL,subset=NULL,na.rm=FALSE){
+
+  # strategy <- match.arg(strategy, c('treatment','composite','natural','removed','whileon','principal'))
+  # method <- match.arg(method, c('np','ipw','eff'))
+
   if (!strategy %in% c('treatment','composite','natural','removed','whileon','principal')){
     warning("Please choose a strategy from the following:\n treatment, composite, natural, removed, whileon, principal\n
-            composite variable strategy is used by default")
+            composite variable strategy is used by default", call. = FALSE)
     strategy = 'composite'
   }
   if (!method %in% c('np','ipw','eff')){
     warning("Please choose a method from the following:\n np, ipw, eff\n
-            nonparametric estimation is used by default")
+            nonparametric estimation is used by default", call. = FALSE)
     method = 'np'
   }
   N = length(A)
@@ -103,12 +107,12 @@ surv.tteICE <- function(A,Time,cstatus,strategy='composite',cov1=NULL,method='np
     if (!is.null(cov1)) cov1 = as.matrix(cov1)[cc,]
   }
   if (length(unique(A))!=2) {
-    warning('Treatment should be binary!')
+    stop('Treatment should be binary!', call. = FALSE)
   } else {
     A = as.numeric(A)
     if (min(A)!=0 | max(A)!=1) {
       A = as.numeric(A==max(A))
-      warning(paste0('Treatment should be either 0 or 1! A=1 if A=',max(A)))
+      stop(paste0('Treatment should be either 0 or 1! A=1 if A=',max(A)), call. = FALSE)
     }
   }
   if (method=='ipw') {

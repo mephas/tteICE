@@ -2,6 +2,8 @@
 output: 
   github_document:
     toc: true
+editor_options: 
+  chunk_output_type: console
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -16,8 +18,6 @@ knitr::opts_chunk$set(
   message = FALSE
 )
 ```
-
-# ICHe9r1
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -134,8 +134,7 @@ We fit the model by nonparametric estimation.
 ```{r example_1}
 fit1 = surv.tteICE(A, bmt$t2, bmt$d4, "natural")
 plot_inc(fit1, legend=c('AML','ALL'))
-p = fit1$p.val
-text(200, 0.8, paste0('P = ', round(p,3)))
+
 plot_ate(fit1)
 ## We can also use bootstrap confidence intervals
 plot_ate(fit1, nboot=200)
@@ -146,8 +145,7 @@ We can also use inverse probability weighting to account for confounding.
 ```{r example_2}
 fit2 = surv.tteICE(A, bmt$t2, bmt$d4, "natural", X, method='ipw')
 plot_inc(fit2, legend=c('AML','ALL'))
-p = fit2$p.val
-text(200, 0.8, paste0('P = ', round(p,3)))
+
 plot_ate(fit2)
 ```
 
@@ -156,8 +154,7 @@ To increase efficiency, we use the efficient influence function (EIF)-based meth
 ```{r example_3}
 fit3 = surv.tteICE(A, bmt$t2, bmt$d4, "natural", X, method='eff')
 plot_inc(fit3, legend=c('AML','ALL'))
-p = fit3$p.val
-text(200, 0.8, paste0('P = ', round(p,3)))
+
 plot_ate(fit3)
 ```
 
@@ -169,8 +166,7 @@ We use the hypothetical strategy (natural effects) and fit the model nonparametr
 ```{r example_4}
 fit4 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural")
 plot_inc(fit4, legend=c('AML','ALL'))
-p = fit4$p.val
-text(200, 0.8, paste0('P = ', round(p,3)))
+
 plot_ate(fit4)
 ## We can also use bootstrap confidence intervals
 plot_ate(fit4, nboot=200)
@@ -181,8 +177,7 @@ We can also use inverse probability weighting to account for confounding.
 ```{r example_5}
 fit5 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='ipw')
 plot_inc(fit5, legend=c('AML','ALL'))
-p = fit5$p.val
-text(200, 0.8, paste0('P = ', round(p,3)))
+
 plot_ate(fit5)
 ```
 
@@ -191,8 +186,7 @@ To increase efficiency, we use the efficient influence function (EIF)-based meth
 ```{r example_6}
 fit6 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='eff')
 plot_inc(fit6, legend=c('AML','ALL'))
-p = fit6$p.val
-text(200, 0.8, paste0('P = ', round(p,3)))
+
 plot_ate(fit6)
 ```
 

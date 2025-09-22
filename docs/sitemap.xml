@@ -11,13 +11,14 @@
 <url><loc>/reference/dat.html</loc></url>
 <url><loc>/reference/dot-phfit_d.html</loc></url>
 <url><loc>/reference/hello.html</loc></url>
-<url><loc>/reference/ICHe9r1Shiny.html</loc></url>
 <url><loc>/reference/index.html</loc></url>
 <url><loc>/reference/plot.ate.html</loc></url>
 <url><loc>/reference/plot.ICH.html</loc></url>
 <url><loc>/reference/plot.inc.html</loc></url>
+<url><loc>/reference/plot.tteICE.html</loc></url>
 <url><loc>/reference/plot_ate.html</loc></url>
 <url><loc>/reference/plot_inc.html</loc></url>
+<url><loc>/reference/print.tteICE.html</loc></url>
 <url><loc>/reference/riskpredict.html</loc></url>
 <url><loc>/reference/scr.composite.eff.html</loc></url>
 <url><loc>/reference/scr.composite.html</loc></url>
@@ -30,6 +31,7 @@
 <url><loc>/reference/scr.removed.html</loc></url>
 <url><loc>/reference/scr.treatment.eff.html</loc></url>
 <url><loc>/reference/scr.treatment.html</loc></url>
+<url><loc>/reference/scr.tteICE.html</loc></url>
 <url><loc>/reference/scr.whileon.eff.html</loc></url>
 <url><loc>/reference/scr.whileon.html</loc></url>
 <url><loc>/reference/surv.boot.html</loc></url>
@@ -45,7 +47,9 @@
 <url><loc>/reference/surv.removed.html</loc></url>
 <url><loc>/reference/surv.treatment.eff.html</loc></url>
 <url><loc>/reference/surv.treatment.html</loc></url>
+<url><loc>/reference/surv.tteICE.html</loc></url>
 <url><loc>/reference/surv.whileon.eff.html</loc></url>
 <url><loc>/reference/surv.whileon.html</loc></url>
+<url><loc>/reference/tteICEShiny.html</loc></url>
 </urlset>
 

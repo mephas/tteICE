@@ -139,6 +139,7 @@ plot_inc <- function(fit,decrease=FALSE,conf.int=.95,nboot=0,seed=0,
   }
 
   if(!plot.configs[["show.p.value"]]) legend(x,legend=plot.configs[["legend"]],cex=plot.configs[["legend.cex"]],col=c(col1,col0),lwd=rep(plot.configs[["lwd"]],2),lty=rep(plot.configs[["lty"]],2))
-    else legend(x,legend=c(plot.configs[["legend"]], paste0('P = ', round(p,3))),cex=plot.configs[["legend.cex"]],col=c(col1,col0),lwd=rep(plot.configs[["lwd"]],2),lty=rep(plot.configs[["lty"]],2))
+    else legend(x,legend=c(plot.configs[["legend"]], paste0('P = ', round(p,3))),cex=plot.configs[["legend.cex"]],
+                col=c(col1,col0, NA),lwd=c(rep(plot.configs[["lwd"]],2,),NA),lty=c(rep(plot.configs[["lty"]],2),NA))
 }
 

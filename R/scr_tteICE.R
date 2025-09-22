@@ -1,7 +1,7 @@
 #' @title Fit the CIF for time-to-event data with intercurrent events for semicompeting risks data
 #'
 #' @description This function estimates the potential cumulative incidence function
-#' for time-to event data under ICH E9 (R1) to address intercurrent events. The input data 
+#' for time-to event data under ICH E9 (R1) to address intercurrent events. The input data
 #' should be of a semicompeting risks structure.
 #'
 #' @param A Treatment indicator, 1 for treatment and 0 for control.
@@ -22,8 +22,8 @@
 #'
 #' @param cov1 Baseline covariates.
 #'
-#' @param method Estimation method, \code{"np"} indicating nonparametric estimation, \code{"ipw"} indicating invserse 
-#' treatment probability weighting, \code{"eff"} indicating semiparametrically efficient estimation based on efficient 
+#' @param method Estimation method, \code{"np"} indicating nonparametric estimation, \code{"ipw"} indicating invserse
+#' treatment probability weighting, \code{"eff"} indicating semiparametrically efficient estimation based on efficient
 #' influence functions.
 #'
 #' @param weights Weight for each subject.
@@ -48,9 +48,12 @@
 #' ## Composite variable strategy,
 #' ## nonparametric estimation without covariates
 #' fit1 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
+#' fit10 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "aa")
+#'
 #' ## Hypothetical strategy (natural effects),
 #' ## nonparametric estimation with inverse probability weighting
 #' fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='ipw')
+#'
 #' ## nonparametric estimation with weights as non-standardized inverse probability score
 #' ps = predict(glm(A ~ X, family='binomial'), type='response')
 #' w = A/ps + (1-A)/(1-ps)
@@ -91,14 +94,18 @@
 
 scr.tteICE <- function(A,Time,status,Time_int,status_int,strategy='composite',cov1=NULL,method='np',
                      weights=NULL,subset=NULL,na.rm=FALSE){
+
+  # strategy <- match.arg(strategy, c('treatment','composite','natural','removed','whileon','principal'))
+  # method <- match.arg(method, c('np','ipw','eff'))
+
   if (!strategy %in% c('treatment','composite','natural','removed','whileon','principal')){
     warning("Please choose a strategy from the following:\n treatment, composite, natural, removed, whileon, principal\n
-            composite variable strategy is used by default")
+            composite variable strategy is used by default", call. = FALSE)
     strategy = 'composite'
   }
   if (!method %in% c('np','ipw','eff')){
     warning("Please choose a method from the following:\n np, ipw, eff\n
-            nonparametric estimation is used by default")
+            nonparametric estimation is used by default", call. = FALSE)
     method = 'np'
   }
   N = length(A)
@@ -113,12 +120,12 @@ scr.tteICE <- function(A,Time,status,Time_int,status_int,strategy='composite',co
     if (!is.null(cov1)) cov1 = as.matrix(cov1)[cc,]
   }
   if (length(unique(A))!=2) {
-    warning('Treatment should be binary!')
+    stop('Treatment should be binary!', call. = FALSE)
   } else {
     A = as.numeric(A)
     if (min(A)!=0 | max(A)!=1) {
       A = as.numeric(A==max(A))
-      warning(paste0('Treatment should be either 0 or 1! A=1 if A=',max(A)))
+      stop(paste0('Treatment should be either 0 or 1! A=1 if A=',max(A)), call. = FALSE)
     }
   }
   # if (class(subset)=='logical') subset = (1:length(A))[subset]
@@ -140,7 +147,7 @@ scr.tteICE <- function(A,Time,status,Time_int,status_int,strategy='composite',co
     if (strategy=='removed') fit = scr.removed.eff(A,Time,status,Time_int,status_int,cov1,subset)
     if (strategy=='whileon') fit = scr.whileon.eff(A,Time,status,Time_int,status_int,cov1,subset)
     if (strategy=='principal') fit = scr.principal.eff(A,Time,status,Time_int,status_int,cov1,subset)
-  } 
+  }
   ate.list = c(fit,list(A=A,Time=Time,status=status,Time_int=Time_int,status_int=status_int,
                     strategy=strategy,cov1=cov1,method=method,weights=weights,subset=subset,
                     dtype='smcmprsk'))

@@ -37,8 +37,8 @@ scr.tteICE(
 
 \item{cov1}{Baseline covariates.}
 
-\item{method}{Estimation method, \code{"np"} indicating nonparametric estimation, \code{"ipw"} indicating invserse 
-treatment probability weighting, \code{"eff"} indicating semiparametrically efficient estimation based on efficient 
+\item{method}{Estimation method, \code{"np"} indicating nonparametric estimation, \code{"ipw"} indicating invserse
+treatment probability weighting, \code{"eff"} indicating semiparametrically efficient estimation based on efficient
 influence functions.}
 
 \item{weights}{Weight for each subject.}
@@ -52,7 +52,7 @@ A list including the fitted object and input variables.
 }
 \description{
 This function estimates the potential cumulative incidence function
-for time-to event data under ICH E9 (R1) to address intercurrent events. The input data 
+for time-to event data under ICH E9 (R1) to address intercurrent events. The input data
 should be of a semicompeting risks structure.
 }
 \details{
@@ -89,9 +89,12 @@ X = as.matrix(bmt[,c('z1','z3','z5')])
 ## Composite variable strategy,
 ## nonparametric estimation without covariates
 fit1 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
+fit10 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "aa")
+
 ## Hypothetical strategy (natural effects),
 ## nonparametric estimation with inverse probability weighting
 fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='ipw')
+
 ## nonparametric estimation with weights as non-standardized inverse probability score
 ps = predict(glm(A ~ X, family='binomial'), type='response')
 w = A/ps + (1-A)/(1-ps)

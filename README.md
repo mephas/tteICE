@@ -1,10 +1,9 @@
 
-- [ICHe9r1](#iche9r1)
-  - [Randomized trials and observational
-    studies](#randomized-trials-and-observational-studies)
-  - [Five strategies to deal with intercurrent
-    events](#five-strategies-to-deal-with-intercurrent-events)
-  - [Two types of data structures](#two-types-of-data-structures)
+- [Randomized trials and observational
+  studies](#randomized-trials-and-observational-studies)
+- [Five strategies to deal with intercurrent
+  events](#five-strategies-to-deal-with-intercurrent-events)
+- [Two types of data structures](#two-types-of-data-structures)
 - [About this package](#about-this-package)
   - [Installation](#installation)
   - [Example](#example)
@@ -14,8 +13,6 @@
   - [Remarks on methodology](#remarks-on-methodology)
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
-# ICHe9r1
 
 <!-- badges: start -->
 
@@ -157,13 +154,12 @@ effects). We fit the model by nonparametric estimation.
 ``` r
 fit1 = surv.tteICE(A, bmt$t2, bmt$d4, "natural")
 plot_inc(fit1, legend=c('AML','ALL'))
-p = fit1$p.val
-text(200, 0.8, paste0('P = ', round(p,3)))
 ```
 
 <img src="man/figures/README-example_1-1.png" width="100%" />
 
 ``` r
+
 plot_ate(fit1)
 ```
 
@@ -182,13 +178,12 @@ confounding.
 ``` r
 fit2 = surv.tteICE(A, bmt$t2, bmt$d4, "natural", X, method='ipw')
 plot_inc(fit2, legend=c('AML','ALL'))
-p = fit2$p.val
-text(200, 0.8, paste0('P = ', round(p,3)))
 ```
 
 <img src="man/figures/README-example_2-1.png" width="100%" />
 
 ``` r
+
 plot_ate(fit2)
 ```
 
@@ -200,13 +195,12 @@ To increase efficiency, we use the efficient influence function
 ``` r
 fit3 = surv.tteICE(A, bmt$t2, bmt$d4, "natural", X, method='eff')
 plot_inc(fit3, legend=c('AML','ALL'))
-p = fit3$p.val
-text(200, 0.8, paste0('P = ', round(p,3)))
 ```
 
 <img src="man/figures/README-example_3-1.png" width="100%" />
 
 ``` r
+
 plot_ate(fit3)
 ```
 
@@ -221,13 +215,12 @@ and fit the model nonparametrically.
 ``` r
 fit4 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural")
 plot_inc(fit4, legend=c('AML','ALL'))
-p = fit4$p.val
-text(200, 0.8, paste0('P = ', round(p,3)))
 ```
 
 <img src="man/figures/README-example_4-1.png" width="100%" />
 
 ``` r
+
 plot_ate(fit4)
 ```
 
@@ -246,13 +239,12 @@ confounding.
 ``` r
 fit5 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='ipw')
 plot_inc(fit5, legend=c('AML','ALL'))
-p = fit5$p.val
-text(200, 0.8, paste0('P = ', round(p,3)))
 ```
 
 <img src="man/figures/README-example_5-1.png" width="100%" />
 
 ``` r
+
 plot_ate(fit5)
 ```
 
@@ -264,13 +256,12 @@ To increase efficiency, we use the efficient influence function
 ``` r
 fit6 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='eff')
 plot_inc(fit6, legend=c('AML','ALL'))
-p = fit6$p.val
-text(200, 0.8, paste0('P = ', round(p,3)))
 ```
 
 <img src="man/figures/README-example_6-1.png" width="100%" />
 
 ``` r
+
 plot_ate(fit6)
 ```
 
