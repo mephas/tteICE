@@ -15,7 +15,10 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%",
   warning = FALSE, 
-  message = FALSE
+  message = FALSE,
+  fig.width = 6,
+  fig.height = 5,
+  fig.align = "center"
 )
 ```
 
@@ -131,9 +134,9 @@ bmt = transform(bmt, d4=d2+d3)
 Suppose we would like to use the hypothetical strategy (natural effects).
 We fit the model by nonparametric estimation.
 
-```{r example_1}
+```{r example_1, out.width="70%"}
 fit1 = surv.tteICE(A, bmt$t2, bmt$d4, "natural")
-plot_inc(fit1, legend=c('AML','ALL'))
+plot_inc(fit1, plot.configs=list(legend=c('AML','ALL')))
 
 plot_ate(fit1)
 ## We can also use bootstrap confidence intervals
@@ -142,18 +145,18 @@ plot_ate(fit1, nboot=200)
 
 We can also use inverse probability weighting to account for confounding.
 
-```{r example_2}
+```{r example_2, out.width="70%"}
 fit2 = surv.tteICE(A, bmt$t2, bmt$d4, "natural", X, method='ipw')
-plot_inc(fit2, legend=c('AML','ALL'))
+plot_inc(fit2, plot.configs=list(legend=c('AML','ALL')))
 
 plot_ate(fit2)
 ```
 
 To increase efficiency, we use the efficient influence function (EIF)-based method.
 
-```{r example_3}
+```{r example_3, out.width="70%"}
 fit3 = surv.tteICE(A, bmt$t2, bmt$d4, "natural", X, method='eff')
-plot_inc(fit3, legend=c('AML','ALL'))
+plot_inc(fit3, plot.configs=list(legend=c('AML','ALL')))
 
 plot_ate(fit3)
 ```
@@ -163,9 +166,9 @@ plot_ate(fit3)
 Note that the time to death (or censoring) is t1 and the time to relapse (or censoring) is t2.
 We use the hypothetical strategy (natural effects) and fit the model nonparametrically.
 
-```{r example_4}
+```{r example_4, out.width="70%"}
 fit4 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural")
-plot_inc(fit4, legend=c('AML','ALL'))
+plot_inc(fit4, plot.configs=list(legend=c('AML','ALL')))
 
 plot_ate(fit4)
 ## We can also use bootstrap confidence intervals
@@ -174,7 +177,7 @@ plot_ate(fit4, nboot=200)
 
 We can also use inverse probability weighting to account for confounding.
 
-```{r example_5}
+```{r example_5, out.width="70%"}
 fit5 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='ipw')
 plot_inc(fit5, legend=c('AML','ALL'))
 
@@ -183,9 +186,9 @@ plot_ate(fit5)
 
 To increase efficiency, we use the efficient influence function (EIF)-based method.
 
-```{r example_6}
+```{r example_6, out.width="70%"}
 fit6 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='eff')
-plot_inc(fit6, legend=c('AML','ALL'))
+plot_inc(fit6, plot.configs=list(legend=c('AML','ALL')))
 
 plot_ate(fit6)
 ```

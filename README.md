@@ -153,58 +153,58 @@ effects). We fit the model by nonparametric estimation.
 
 ``` r
 fit1 = surv.tteICE(A, bmt$t2, bmt$d4, "natural")
-plot_inc(fit1, legend=c('AML','ALL'))
+plot_inc(fit1, plot.configs=list(legend=c('AML','ALL')))
 ```
 
-<img src="man/figures/README-example_1-1.png" width="100%" />
+<img src="man/figures/README-example_1-1.png" width="70%" style="display: block; margin: auto;" />
 
 ``` r
 
 plot_ate(fit1)
 ```
 
-<img src="man/figures/README-example_1-2.png" width="100%" />
+<img src="man/figures/README-example_1-2.png" width="70%" style="display: block; margin: auto;" />
 
 ``` r
 ## We can also use bootstrap confidence intervals
 plot_ate(fit1, nboot=200)
 ```
 
-<img src="man/figures/README-example_1-3.png" width="100%" />
+<img src="man/figures/README-example_1-3.png" width="70%" style="display: block; margin: auto;" />
 
 We can also use inverse probability weighting to account for
 confounding.
 
 ``` r
 fit2 = surv.tteICE(A, bmt$t2, bmt$d4, "natural", X, method='ipw')
-plot_inc(fit2, legend=c('AML','ALL'))
+plot_inc(fit2, plot.configs=list(legend=c('AML','ALL')))
 ```
 
-<img src="man/figures/README-example_2-1.png" width="100%" />
+<img src="man/figures/README-example_2-1.png" width="70%" style="display: block; margin: auto;" />
 
 ``` r
 
 plot_ate(fit2)
 ```
 
-<img src="man/figures/README-example_2-2.png" width="100%" />
+<img src="man/figures/README-example_2-2.png" width="70%" style="display: block; margin: auto;" />
 
 To increase efficiency, we use the efficient influence function
 (EIF)-based method.
 
 ``` r
 fit3 = surv.tteICE(A, bmt$t2, bmt$d4, "natural", X, method='eff')
-plot_inc(fit3, legend=c('AML','ALL'))
+plot_inc(fit3, plot.configs=list(legend=c('AML','ALL')))
 ```
 
-<img src="man/figures/README-example_3-1.png" width="100%" />
+<img src="man/figures/README-example_3-1.png" width="70%" style="display: block; margin: auto;" />
 
 ``` r
 
 plot_ate(fit3)
 ```
 
-<img src="man/figures/README-example_3-2.png" width="100%" />
+<img src="man/figures/README-example_3-2.png" width="70%" style="display: block; margin: auto;" />
 
 ## Semicompeting risks data structure
 
@@ -214,24 +214,24 @@ and fit the model nonparametrically.
 
 ``` r
 fit4 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural")
-plot_inc(fit4, legend=c('AML','ALL'))
+plot_inc(fit4, plot.configs=list(legend=c('AML','ALL')))
 ```
 
-<img src="man/figures/README-example_4-1.png" width="100%" />
+<img src="man/figures/README-example_4-1.png" width="70%" style="display: block; margin: auto;" />
 
 ``` r
 
 plot_ate(fit4)
 ```
 
-<img src="man/figures/README-example_4-2.png" width="100%" />
+<img src="man/figures/README-example_4-2.png" width="70%" style="display: block; margin: auto;" />
 
 ``` r
 ## We can also use bootstrap confidence intervals
 plot_ate(fit4, nboot=200)
 ```
 
-<img src="man/figures/README-example_4-3.png" width="100%" />
+<img src="man/figures/README-example_4-3.png" width="70%" style="display: block; margin: auto;" />
 
 We can also use inverse probability weighting to account for
 confounding.
@@ -241,31 +241,31 @@ fit5 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='ipw')
 plot_inc(fit5, legend=c('AML','ALL'))
 ```
 
-<img src="man/figures/README-example_5-1.png" width="100%" />
+<img src="man/figures/README-example_5-1.png" width="70%" style="display: block; margin: auto;" />
 
 ``` r
 
 plot_ate(fit5)
 ```
 
-<img src="man/figures/README-example_5-2.png" width="100%" />
+<img src="man/figures/README-example_5-2.png" width="70%" style="display: block; margin: auto;" />
 
 To increase efficiency, we use the efficient influence function
 (EIF)-based method.
 
 ``` r
 fit6 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='eff')
-plot_inc(fit6, legend=c('AML','ALL'))
+plot_inc(fit6, plot.configs=list(legend=c('AML','ALL')))
 ```
 
-<img src="man/figures/README-example_6-1.png" width="100%" />
+<img src="man/figures/README-example_6-1.png" width="70%" style="display: block; margin: auto;" />
 
 ``` r
 
 plot_ate(fit6)
 ```
 
-<img src="man/figures/README-example_6-2.png" width="100%" />
+<img src="man/figures/README-example_6-2.png" width="70%" style="display: block; margin: auto;" />
 
 ## Remarks on methodology
 
