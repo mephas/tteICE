@@ -24,6 +24,18 @@ treated and under control), treatment effects, standard errors, and P-values.
 This function predicts the potential cumulative incidence function and treatment effect at
 specific time points.
 }
+\examples{
+## load data
+data(bmt)
+bmt = transform(bmt, d4=d2+d3)
+A = as.numeric(bmt$group>1)
+X = as.matrix(bmt[,c('z1','z3','z5')])
+## Composite variable strategy,
+## nonparametric estimation without covariates
+fit1 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
+riskpredict(fit1,timeset=c(670,2000))
+
+}
 \seealso{
 \code{\link[tteICE]{scr.tteICE}}, \code{\link[tteICE]{surv.tteICE}}, \code{\link[tteICE]{surv.boot}}
 }

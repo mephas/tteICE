@@ -5,11 +5,11 @@
 #' obtain results without writing R code directly.
 #'
 #' @return Rshiny inteface
-#' 
+#'
 #' @import shiny shinythemes shinyWidgets
-#' 
+#'
 #' @importFrom DT renderDT
-#' 
+#'
 #' @importFrom psych describe
 #'
 #' @examples
@@ -17,7 +17,7 @@
 #'   tteICEShiny()
 #' }
 #'
-#' 
+#'
 #' @export
 
 tteICEShiny <- function(){

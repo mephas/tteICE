@@ -363,11 +363,11 @@
   if (!inherits(fit, "tteICE"))
     stop("`fit` must be an object returned by `surv.tteICE` or `scr.tteICE`.", call. = FALSE)
 
-  # ---- timeset ----
-  if (!is.null(timeset)) {
-    if (!is.numeric(timeset) || length(timeset) != 1 || !is.finite(timeset))
-      stop("`timeset` must be NULL or a single finite numeric value.", call. = FALSE)
-  }
+  # # ---- timeset ----
+  # if (!is.null(timeset)) {
+  #   if (!is.numeric(timeset) || length(timeset) != 1 || !is.finite(timeset))
+  #     stop("`timeset` must be NULL or a single finite numeric value.", call. = FALSE)
+  # }
 
   # ---- nboot ----
   if (!is.numeric(nboot) || length(nboot) != 1 || nboot < 0 || !is.finite(nboot) || nboot != as.integer(nboot))
