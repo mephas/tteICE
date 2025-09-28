@@ -27,7 +27,7 @@
 #' ## Composite variable strategy,
 #' ## nonparametric estimation without covariates
 #' fit1 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
-#' riskpredict(fit1,timeset=c(670,2000))
+#' riskpredict(fit1, timeset=c(670,2000))
 #'
 #' @export
 

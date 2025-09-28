@@ -15,15 +15,14 @@
 #' data(bmt)
 #' bmt = transform(bmt, d4=d2+d3)
 #' A = as.numeric(bmt$group>1)
-#'
 #' ## print the results
 #' for (st in c('composite','natural','removed','whileon','principal')){
-#' fit = surv.tteICE(A, bmt$t2, bmt$d4, st)
-#' print(fit)
+#'  fit = surv.tteICE(A, bmt$t2, bmt$d4, st)
+#'  print(fit)
 #' }
 #' for (st in c('composite','natural','removed','whileon','principal')){
-#' fit = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, st)
-#' print(fit, digits=2)
+#'  fit = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, st)
+#'  print(fit, digits=2)
 #' }
 #'
 #' @seealso

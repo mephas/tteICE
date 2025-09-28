@@ -16,13 +16,13 @@
 #'
 #' @param xlim A numeric vector of length 2 giving the limits of the x-axis. If \code{xlim=NULL} (default), the range is determined automatically from the data.
 #'
-#' @param ylim A numeric vector of length 2 giving the limits of the y-axis. Defaults to \code{ylim=c(-1, 1)}. If \code{NULL}, the range is determined automatically.
+#' @param ylim A numeric vector of length 2 giving the limits of the y-axis. Defaults to \code{ylim=c(-1, 1)}. 
 #'
 #' @param plot.configs A named \code{list} of additional plot configurations. Common entries include:
 #'
 #' \itemize{
-#'     \item \code{ylab}: character, label for the y-axis (Default: \code{ylab=NULL}, use the default label).
-#'     \item \code{main}: character, title for the plot (Default: \code{main=NULL}, use the default label).
+#'     \item \code{ylab}: character, label for the y-axis (default: \code{ylab=NULL}, use the default label).
+#'     \item \code{main}: character, title for the plot (default: \code{main=NULL}, use the default label).
 #'     \item \code{lty}: line type for effect curve (default: 1).
 #'     \item \code{lwd}: line width for effect curve (default: 2).
 #'     \item \code{col}: line color for effect curve (default: "black").
@@ -45,21 +45,24 @@
 #' \code{\link[tteICE]{plot.tteICE}}
 #'
 #' @examples
-#' ## load data and fit the model
+#' ## Load data and fit the model
 #' data(bmt)
 #' bmt = transform(bmt, d4=d2+d3)
 #' A = as.numeric(bmt$group>1)
+#' ## Model with competing risk data
 #' fit1 = surv.tteICE(A, bmt$t2, bmt$d4, 'composite')
-#' ## plot asymptotic confidence intervals based on explicit formulas
+#' ## Plot asymptotic confidence intervals based on explicit formulas
 #' plot_ate(fit1, ylim=c(-0.4,0.4))
-#' ## plot bootstrap confidence intervals
+#' ## Plot bootstrap confidence intervals
 #' plot_ate(fit1, nboot=200, ylim=c(-0.4,0.4))
-#'
+#' ## Model with semicompeting risk data
 #' fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
-#' ## plot asymptotic confidence intervals based on explicit formulas
-#' plot_ate(fit2, ylim=c(-0.4,0.4), plot.configs=list(add.null.line=FALSE))
-#' ## plot bootstrap confidence intervals
-#' plot_ate(fit2, nboot=200, ylim=c(-0.4,0.4), plot.configs=list(add.null.line=FALSE, lty=2, main=""))
+#' ## Plot asymptotic confidence intervals based on explicit formulas
+#' plot_ate(fit2, ylim=c(-0.4,0.4), 
+#'          plot.configs=list(add.null.line=FALSE))
+#' ## Plot bootstrap confidence intervals
+#' plot_ate(fit2, nboot=200, ylim=c(-0.4,0.4), 
+#'          plot.configs=list(add.null.line=FALSE, lty=2, main=""))
 #'
 #' @export
 

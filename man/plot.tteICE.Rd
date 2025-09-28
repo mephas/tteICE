@@ -35,7 +35,7 @@
 
 \item{xlim}{A numeric vector of length 2 giving the limits of the x-axis. If \code{xlim=NULL} (default), the range is determined automatically from the data.}
 
-\item{ylim}{A numeric vector of length 2 giving the limits of the y-axis. Defaults to \code{ylim=c(-1, 1)}. If \code{NULL}, the range is determined automatically.}
+\item{ylim}{A numeric vector of length 2 giving the limits of the y-axis. If \code{ylim=NULL} (default), the range is determined automatically by the type of plot}
 
 \item{plot.configs}{A named \code{list} of additional plot configurations. See details in functions  \code{\link{plot_ate}} and \code{\link{plot_inc}}}
 
@@ -55,13 +55,15 @@ bmt = transform(bmt, d4=d2+d3)
 A = as.numeric(bmt$group>1)
 ## plot cumulative incidence functions with p-values
 for (st in c('composite','natural','removed','whileon','principal')){
-fit = surv.tteICE(A, bmt$t2, bmt$d4, st)
-plot(fit, type="inc", decrease=TRUE, ylim=c(0,1),plot.configs=list(show.p.value=TRUE))
+ fit = surv.tteICE(A, bmt$t2, bmt$d4, st)
+ plot(fit, type="inc", decrease=TRUE, ylim=c(0,1),
+      plot.configs=list(show.p.value=TRUE))
 }
 ## plot treatment effects for semicompeting risk data
 for (st in c('composite','natural','removed','whileon','principal')){
-fit = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, st)
-plot(fit, type="ate", ylim=c(-1,1), xlab="time", plot.configs=list(col="red"))
+ fit = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, st)
+ plot(fit, type="ate", ylim=c(-1,1), xlab="time", 
+      plot.configs=list(col="red"))
 }
 
 }

@@ -34,13 +34,13 @@ plot_inc(
 
 \item{xlim}{A numeric vector of length 2 giving the limits of the x-axis. If \code{xlim=NULL} (default), the range is determined automatically from the data.}
 
-\item{ylim}{A numeric vector of length 2 giving the limits of the y-axis. Defaults to \code{ylim=c(-1, 1)}. If \code{NULL}, the range is determined automatically.}
+\item{ylim}{A numeric vector of length 2 giving the limits of the y-axis. Defaults to \code{ylim=c(-1, 1)}.}
 
 \item{plot.configs}{A named \code{list} of additional plot configurations. Common entries include:
 
 \itemize{
-    \item \code{ylab}: character, label for the y-axis (Default: \code{ylab=NULL}, use the default label).
-    \item \code{main}: character, title for the plot (Default: \code{main=NULL}, use the default label).
+    \item \code{ylab}: character, label for the y-axis (default: \code{ylab=NULL}, use the default label).
+    \item \code{main}: character, title for the plot (default: \code{main=NULL}, use the default label).
     \item \code{lty}: line type for the curve (default: 1).
     \item \code{lwd}: line width for the curve (default: 2).
     \item \code{ci.lty}: line type for confidence interval curves (default: 5).
@@ -58,18 +58,21 @@ This function plots the estimated potential cumulative incidence function, along
 data(bmt)
 bmt = transform(bmt, d4=d2+d3)
 A = as.numeric(bmt$group>1)
+## Model with competing risk data
 fit1 = surv.tteICE(A, bmt$t2, bmt$d4, 'treatment')
 ## plot asymptotic confidence intervals based on explicit formulas
-plot_inc(fit1, ylim=c(0,1), plot.configs=list(legend=c('AML','ALL'), show.p.value=FALSE) )
+plot_inc(fit1, ylim=c(0,1), 
+         plot.configs=list(legend=c('AML','ALL'), show.p.value=FALSE) )
 ## plot bootstrap confidence intervals
-plot_inc(fit1, nboot=200, ylim=c(0,1), plot.configs=list(legend=c('AML','ALL')) )
-
+plot_inc(fit1, nboot=200, ylim=c(0,1), 
+         plot.configs=list(legend=c('AML','ALL')) )
+## Model with semicompeting risk data
 fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
 ## plot asymptotic confidence intervals based on explicit formulas
 plot_inc(fit2, ylim=c(0,1), plot.configs=list(add.null.line=FALSE))
 ## plot bootstrap confidence intervals
-plot_inc(fit2, nboot=200, ylim=c(0,1), plot.configs=list(lty=2, lwd=3,main="Title"))
-
+plot_inc(fit2, nboot=200, ylim=c(0,1), 
+         plot.configs=list(lty=2, lwd=3,main="Title"))
 
 }
 \seealso{

@@ -49,11 +49,9 @@
 #' ## nonparametric estimation without covariates
 #' fit1 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
 #' fit10 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "aa")
-#'
 #' ## Hypothetical strategy (natural effects),
 #' ## nonparametric estimation with inverse probability weighting
 #' fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='ipw')
-#'
 #' ## nonparametric estimation with weights as non-standardized inverse probability score
 #' ps = predict(glm(A ~ X, family='binomial'), type='response')
 #' w = A/ps + (1-A)/(1-ps)
@@ -64,7 +62,7 @@
 #'
 #' @details
 #' \describe{
-#'  \item{Background}{Intercurrent events refer to the events occurring after treatment initiation of clinical trials that
+#' \item{Background}{Intercurrent events refer to the events occurring after treatment initiation of clinical trials that
 #' affect either the interpretation of or the existence of the measurements associated with the clinical
 #' question of interest. The International Conference on Harmonization (ICH) E9 (R1) addendum proposed
 #' five strategies to address intercurrent events, namely, treatment policy strategy,
