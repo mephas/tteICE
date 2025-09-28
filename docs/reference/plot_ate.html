@@ -98,7 +98,7 @@
 
 
 <dt id="arg-ylim">ylim<a class="anchor" aria-label="anchor" href="#arg-ylim"></a></dt>
-<dd><p>A numeric vector of length 2 giving the limits of the y-axis. Defaults to <code>ylim=c(-1, 1)</code>. If <code>NULL</code>, the range is determined automatically.</p></dd>
+<dd><p>A numeric vector of length 2 giving the limits of the y-axis. Defaults to <code>ylim=c(-1, 1)</code>.</p></dd>
 
 
 <dt id="arg-xlim">xlim<a class="anchor" aria-label="anchor" href="#arg-xlim"></a></dt>
@@ -107,8 +107,8 @@
 
 <dt id="arg-plot-configs">plot.configs<a class="anchor" aria-label="anchor" href="#arg-plot-configs"></a></dt>
 <dd><p>A named <code>list</code> of additional plot configurations. Common entries include:</p>
-<ul><li><p><code>ylab</code>: character, label for the y-axis (Default: <code>ylab=NULL</code>, use the default label).</p></li>
-<li><p><code>main</code>: character, title for the plot (Default: <code>main=NULL</code>, use the default label).</p></li>
+<ul><li><p><code>ylab</code>: character, label for the y-axis (default: <code>ylab=NULL</code>, use the default label).</p></li>
+<li><p><code>main</code>: character, title for the plot (default: <code>main=NULL</code>, use the default label).</p></li>
 <li><p><code>lty</code>: line type for effect curve (default: 1).</p></li>
 <li><p><code>lwd</code>: line width for effect curve (default: 2).</p></li>
 <li><p><code>col</code>: line color for effect curve (default: "black").</p></li>
@@ -134,24 +134,27 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## load data and fit the model</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Load data and fit the model</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">bmt</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">bmt</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform</a></span><span class="op">(</span><span class="va">bmt</span>, d4<span class="op">=</span><span class="va">d2</span><span class="op">+</span><span class="va">d3</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">A</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">bmt</span><span class="op">$</span><span class="va">group</span><span class="op">&gt;</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Model with competing risk data</span></span></span>
 <span class="r-in"><span><span class="va">fit1</span> <span class="op">=</span> <span class="fu"><a href="surv.tteICE.html">surv.tteICE</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t2</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d4</span>, <span class="st">'composite'</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co">## plot asymptotic confidence intervals based on explicit formulas</span></span></span>
+<span class="r-in"><span><span class="co">## Plot asymptotic confidence intervals based on explicit formulas</span></span></span>
 <span class="r-in"><span><span class="fu">plot_ate</span><span class="op">(</span><span class="va">fit1</span>, ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.4</span>,<span class="fl">0.4</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot_ate-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="co">## plot bootstrap confidence intervals</span></span></span>
+<span class="r-in"><span><span class="co">## Plot bootstrap confidence intervals</span></span></span>
 <span class="r-in"><span><span class="fu">plot_ate</span><span class="op">(</span><span class="va">fit1</span>, nboot<span class="op">=</span><span class="fl">200</span>, ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.4</span>,<span class="fl">0.4</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot_ate-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Model with semicompeting risk data</span></span></span>
 <span class="r-in"><span><span class="va">fit2</span> <span class="op">=</span> <span class="fu"><a href="scr.tteICE.html">scr.tteICE</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t1</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d1</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t2</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d2</span>, <span class="st">"composite"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co">## plot asymptotic confidence intervals based on explicit formulas</span></span></span>
-<span class="r-in"><span><span class="fu">plot_ate</span><span class="op">(</span><span class="va">fit2</span>, ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.4</span>,<span class="fl">0.4</span><span class="op">)</span>, plot.configs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>add.null.line<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Plot asymptotic confidence intervals based on explicit formulas</span></span></span>
+<span class="r-in"><span><span class="fu">plot_ate</span><span class="op">(</span><span class="va">fit2</span>, ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.4</span>,<span class="fl">0.4</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>         plot.configs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>add.null.line<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot_ate-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="co">## plot bootstrap confidence intervals</span></span></span>
-<span class="r-in"><span><span class="fu">plot_ate</span><span class="op">(</span><span class="va">fit2</span>, nboot<span class="op">=</span><span class="fl">200</span>, ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.4</span>,<span class="fl">0.4</span><span class="op">)</span>, plot.configs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>add.null.line<span class="op">=</span><span class="cn">FALSE</span>, lty<span class="op">=</span><span class="fl">2</span>, main<span class="op">=</span><span class="st">""</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Plot bootstrap confidence intervals</span></span></span>
+<span class="r-in"><span><span class="fu">plot_ate</span><span class="op">(</span><span class="va">fit2</span>, nboot<span class="op">=</span><span class="fl">200</span>, ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.4</span>,<span class="fl">0.4</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>         plot.configs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>add.null.line<span class="op">=</span><span class="cn">FALSE</span>, lty<span class="op">=</span><span class="fl">2</span>, main<span class="op">=</span><span class="st">""</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot_ate-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

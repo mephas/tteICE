@@ -122,7 +122,7 @@ Time‐to‐Event Outcomes Under ICH E9 (R1). Statistics in Medicine.
 
 ## Installation
 
-You can install the development version of ICHe9r1 from GitHub with:
+You can install the development version of “tteICE” from GitHub with:
 
 ``` r
 # install.packages("pak")
@@ -131,8 +131,9 @@ pak::pak("mephas/tteICE")
 
 ## Example
 
-We use the bmt data to illustrate how to estimate the treatment effect.
-The primary event is death, and the intercurrent event is relapse.
+We use the `bmt` data to illustrate how to estimate the treatment
+effect. The primary event is death, and the intercurrent event is
+relapse.
 
 ## Competing risks data structure
 

@@ -4,6 +4,7 @@ Title: Treatment effect estimation for time-to-event data with intercurrent even
 Version: 1.0.0
 Authors@R: c(person(given = "Yuhao", family = "Deng", role = "aut"),
              person(given = "Yi", family = "Zhou", role = c("aut","cre"), email = "yzhou@pku.edu.cn"))
+Author: Yuhao Deng <dengyuhao@pku.edu.cn>
 Maintainer: Yi Zhou <yzhou@pku.edu.cn>
 Description: This package implements methods for estimating and inferring the cumulative incidence functions for time-to-event (tte) outcomes with intercurrent events (ICE) under thefive strategies outlined in the ICH E9 (R1) addendum. This package can be used for analyzing data from both randomized controlled trials and observational studies. In general, we have a primary outcome event and possibly an intercurrent event. Two data structures are allowed: competing risks, where only the time to the first event is recorded, and semicompeting risks, where the times to both the primary outcome event and intercurrent event (or censoring) are recorded. For estimation methods, users can choose nonparametric estimation (which does not use covariates) and semiparametrically efficient estimation.
 URL: https://github.com/mephas/tteICE
