@@ -5,7 +5,7 @@
 A_32 <- reactive({
   # as.numeric(DF0()[,input$a_32])
   a <- as.numeric(DF0()[,input$a_32])
-  if(max(a, na.rm = T)==2) a <- a-1
+  if(max(a, na.rm = TRUE)==2) a <- a-1
   return(a)
 })
 
@@ -25,7 +25,7 @@ CSTATUS_321 <- reactive({
 
 
 COV2 <- reactive({
-  if (length(input$cov1_32)==0) NULL else as.matrix(DF0()[,input$cov1_32, drop=F])
+  if (length(input$cov1_32)==0) NULL else as.matrix(DF0()[,input$cov1_32, drop=FALSE])
 })
 
 WEIGHT <- reactive({

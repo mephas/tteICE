@@ -2,7 +2,7 @@
 #'
 #' @description This function estimates the potential cumulative incidence function based on
 #' efficient influence functions using hypothetical strategy (semicompeting risks data structure).
-#' Cox models are employedfor survival models. The intercurrent event is assumed to be absent
+#' Cox models are employed for survival models. The intercurrent event is assumed to be absent
 #' in the hypothetical scenario.
 #'
 #' @param A Treatment indicator, 1 for treatment and 0 for control.

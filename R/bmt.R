@@ -11,7 +11,7 @@
 #'  \item{d2}{Relapse Indicator 1-Relapsed, 0-Disease Free}
 #'  \item{d3}{Disease Free Survival Indicator 1-Dead Or Relapsed, 0-Alive Disease Free)}
 #'  \item{ta}{Time To Acute Graft-Versus-Host Disease}
-#'  \item{da}{Acute GVHDIndicator 1-Developed Acute GVHD 0-Never Developed Acute GVHD)}
+#'  \item{da}{Acute GVHD Indicator 1-Developed Acute GVHD 0-Never Developed Acute GVHD)}
 #'  \item{tc}{Time To Chronic Graft-Versus-Host Disease}
 #'  \item{dc}{Chronic GVHD Indicator 1-Developed Chronic GVHD 0-Never Developed Chronic GVHD}
 #'  \item{tp}{Time To Platelet Recovery}

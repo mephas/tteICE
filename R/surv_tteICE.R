@@ -10,7 +10,7 @@
 #'
 #' @param cstatus Indicator of event, 1 for the primary event, 2 for the intercurrent event, 0 for censoring.
 #'
-#' @param strategy Stragety to address intercurrent events, \code{"treatment"} indicating treatment policy strategy,
+#' @param strategy Strategy to address intercurrent events, \code{"treatment"} indicating treatment policy strategy,
 #' \code{"composite"} indicating composite variable strategy, \code{"natural"} indicating hypothetical strategy
 #' (Scenario I, controlling the hazard of intercurrent events), \code{"removed"} indicating hypothetical strategy
 #' (Scenario II, removing intercurrent events), \code{"whileon"} indicating while on treatment strategy, and
@@ -76,6 +76,11 @@
 #' Cumulative incidences are model-free and collapsible, enjoying causal interpretations.}
 #' }
 #'
+#' @references
+#' Deng, Y., Han, S., & Zhou, X. H. (2025).
+#' Inference for Cumulative Incidences and Treatment Effects in Randomized Controlled Trials With Time-to-Event Outcomes Under ICH E9 (R1).
+#' \emph{Statistics in Medicine}. \doi{10.1002/sim.70091}
+#' 
 #' @seealso \code{\link[tteICE]{surv.boot}}, \code{\link[tteICE]{scr.tteICE}}
 #'
 #' @export

@@ -63,9 +63,11 @@ fit1 = surv.tteICE(A, bmt$t2, bmt$d4, 'treatment')
 ## plot asymptotic confidence intervals based on explicit formulas
 plot_inc(fit1, ylim=c(0,1), 
          plot.configs=list(legend=c('AML','ALL'), show.p.value=FALSE) )
-## plot bootstrap confidence intervals
+\dontrun{
+## plot bootstrap confidence intervals (may take some seconds)
 plot_inc(fit1, nboot=200, ylim=c(0,1), 
          plot.configs=list(legend=c('AML','ALL')) )
+}
 ## Model with semicompeting risk data
 fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
 ## plot asymptotic confidence intervals based on explicit formulas

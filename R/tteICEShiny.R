@@ -4,7 +4,7 @@
 #' basic analysis results. It provides a point-and-click interface, so users can
 #' obtain results without writing R code directly.
 #'
-#' @return Rshiny inteface
+#' @return Rshiny interface
 #'
 #' @import shiny shinythemes shinyWidgets
 #'
@@ -13,10 +13,11 @@
 #' @importFrom psych describe
 #'
 #' @examples
+#' \dontrun{
 #' if(interactive()){
 #'   tteICEShiny()
 #' }
-#'
+#'}
 #'
 #' @export
 

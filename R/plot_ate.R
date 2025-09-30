@@ -53,8 +53,10 @@
 #' fit1 = surv.tteICE(A, bmt$t2, bmt$d4, 'composite')
 #' ## Plot asymptotic confidence intervals based on explicit formulas
 #' plot_ate(fit1, ylim=c(-0.4,0.4))
-#' ## Plot bootstrap confidence intervals
+#' \dontrun{
+#' ## Plot bootstrap confidence intervals (may take some seconds)
 #' plot_ate(fit1, nboot=200, ylim=c(-0.4,0.4))
+#' }
 #' ## Model with semicompeting risk data
 #' fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
 #' ## Plot asymptotic confidence intervals based on explicit formulas

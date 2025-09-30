@@ -29,7 +29,7 @@ scr.tteICE(
 
 \item{status_int}{Indicator of the intercurrent event, 1 for event and 0 for censoring.}
 
-\item{strategy}{Stragety to address intercurrent events, \code{"treatment"} indicating treatment policy strategy,
+\item{strategy}{Strategy to address intercurrent events, \code{"treatment"} indicating treatment policy strategy,
 \code{"composite"} indicating composite variable strategy, \code{"natural"} indicating hypothetical strategy
 (Scenario I, controlling the hazard of intercurrent events), \code{"removed"} indicating hypothetical strategy
 (Scenario II, removing intercurrent events), \code{"whileon"} indicating while on treatment strategy, and
@@ -101,6 +101,11 @@ fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", weights=w)
 ## semiparametrically efficient estimation with covariates
 fit3 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "removed", X, method='eff')
 
+}
+\references{
+Deng, Y., Han, S., & Zhou, X. H. (2025).
+Inference for Cumulative Incidences and Treatment Effects in Randomized Controlled Trials With Time-to-Event Outcomes Under ICH E9 (R1).
+\emph{Statistics in Medicine}. \doi{10.1002/sim.70091}
 }
 \seealso{
 \code{\link[tteICE]{surv.boot}}, \code{\link[tteICE]{surv.tteICE}}

@@ -138,7 +138,7 @@ h3("Step 3. Choose strategy"),
 prettyCheckbox(
    inputId = "tbd_treatment",
    label = "1: Treatment policy strategy", 
-    value = T,
+    value = TRUE,
     icon = icon("check"), 
     bigger = TRUE,
     status = "danger"
@@ -146,7 +146,7 @@ prettyCheckbox(
 prettyCheckbox(
    inputId = "tbd_composite",
    label = "2: Composite variable strategy", 
-    value = T,
+    value = TRUE,
     icon = icon("check"), 
     bigger = TRUE,
     status = "danger"
@@ -154,7 +154,7 @@ prettyCheckbox(
 prettyCheckbox(
    inputId = "tbd_natural",
    label = "3: Hypothetical strategy (I, natural ICEs)", 
-    value = T,
+    value = TRUE,
     icon = icon("check"), 
     bigger = TRUE,
     status = "danger"
@@ -162,7 +162,7 @@ prettyCheckbox(
 prettyCheckbox(
    inputId = "tbd_removed",
    label = "4: Hypothetical strategy (II, removing ICEs)", 
-    value = T,
+    value = TRUE,
     icon = icon("check"), 
     bigger = TRUE,
     status = "danger"
@@ -170,7 +170,7 @@ prettyCheckbox(
 prettyCheckbox(
    inputId = "tbd_whileon",
    label = "5: While on treatment strategy", 
-    value = T,
+    value = TRUE,
     icon = icon("check"), 
     bigger = TRUE,
     status = "danger"
@@ -178,7 +178,7 @@ prettyCheckbox(
 prettyCheckbox(
    inputId = "tbd_principal",
    label = "6: Principal stratum strategy", 
-    value = T,
+    value = TRUE,
     icon = icon("check"), 
     bigger = TRUE,
     status = "danger"
