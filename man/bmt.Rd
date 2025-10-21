@@ -42,7 +42,7 @@ bmt
 The \code{bmt} data frame has 137 rows and 22 columns.
 }
 \examples{
-## data(bmt)
+data(bmt)
 
 }
 \keyword{datasets}

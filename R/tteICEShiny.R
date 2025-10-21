@@ -13,11 +13,11 @@
 #' @importFrom psych describe
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' if(interactive()){
 #'   tteICEShiny()
 #' }
-#'}
+#' }
 #'
 #' @export
 

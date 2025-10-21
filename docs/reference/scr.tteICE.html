@@ -19,7 +19,7 @@ should be of a semicompeting risks structure."><!-- mathjax --><script src="http
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tteICE</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
       </span>
     </div>
 
@@ -184,6 +184,10 @@ Inference for Cumulative Incidences and Treatment Effects in Randomized Controll
 <span class="r-in"><span><span class="co">## nonparametric estimation without covariates</span></span></span>
 <span class="r-in"><span><span class="va">fit1</span> <span class="op">=</span> <span class="fu">scr.tteICE</span><span class="op">(</span><span class="va">A</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t1</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d1</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t2</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d2</span>, <span class="st">"composite"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">fit10</span> <span class="op">=</span> <span class="fu">scr.tteICE</span><span class="op">(</span><span class="va">A</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t1</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d1</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t2</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d2</span>, <span class="st">"aa"</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Please choose a strategy from the following:</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>  treatment, composite, natural, removed, whileon, principal</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>             composite variable strategy is used by default</span>
 <span class="r-in"><span><span class="co">## Hypothetical strategy (natural effects),</span></span></span>
 <span class="r-in"><span><span class="co">## nonparametric estimation with inverse probability weighting</span></span></span>
 <span class="r-in"><span><span class="va">fit2</span> <span class="op">=</span> <span class="fu">scr.tteICE</span><span class="op">(</span><span class="va">A</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t1</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d1</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t2</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d2</span>, <span class="st">"natural"</span>, <span class="va">X</span>, method<span class="op">=</span><span class="st">'ipw'</span><span class="op">)</span></span></span>

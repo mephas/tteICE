@@ -53,6 +53,9 @@ plot_ate(
 
 \item{...}{Additional graphical arguments passed to function \code{\link{plot.default}} or function \code{\link{curve}}}
 }
+\value{
+Plot the averaget treatment effect (ATE) results from a tteICE object
+}
 \description{
 This function plots the estimated treatment effect, defined as the difference in potential cumulative incidences under treated and control groups, along with pointwise confidence intervals.
 }
@@ -65,17 +68,17 @@ A = as.numeric(bmt$group>1)
 fit1 = surv.tteICE(A, bmt$t2, bmt$d4, 'composite')
 ## Plot asymptotic confidence intervals based on explicit formulas
 plot_ate(fit1, ylim=c(-0.4,0.4))
-\dontrun{
+\donttest{
 ## Plot bootstrap confidence intervals (may take some seconds)
 plot_ate(fit1, nboot=200, ylim=c(-0.4,0.4))
 }
 ## Model with semicompeting risk data
 fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
 ## Plot asymptotic confidence intervals based on explicit formulas
-plot_ate(fit2, ylim=c(-0.4,0.4), 
+plot_ate(fit2, ylim=c(-0.4,0.4),
          plot.configs=list(add.null.line=FALSE))
 ## Plot bootstrap confidence intervals
-plot_ate(fit2, nboot=200, ylim=c(-0.4,0.4), 
+plot_ate(fit2, nboot=200, ylim=c(-0.4,0.4),
          plot.configs=list(add.null.line=FALSE, lty=2, main=""))
 
 }

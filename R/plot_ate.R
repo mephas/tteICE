@@ -16,7 +16,7 @@
 #'
 #' @param xlim A numeric vector of length 2 giving the limits of the x-axis. If \code{xlim=NULL} (default), the range is determined automatically from the data.
 #'
-#' @param ylim A numeric vector of length 2 giving the limits of the y-axis. Defaults to \code{ylim=c(-1, 1)}. 
+#' @param ylim A numeric vector of length 2 giving the limits of the y-axis. Defaults to \code{ylim=c(-1, 1)}.
 #'
 #' @param plot.configs A named \code{list} of additional plot configurations. Common entries include:
 #'
@@ -53,19 +53,20 @@
 #' fit1 = surv.tteICE(A, bmt$t2, bmt$d4, 'composite')
 #' ## Plot asymptotic confidence intervals based on explicit formulas
 #' plot_ate(fit1, ylim=c(-0.4,0.4))
-#' \dontrun{
+#' \donttest{
 #' ## Plot bootstrap confidence intervals (may take some seconds)
 #' plot_ate(fit1, nboot=200, ylim=c(-0.4,0.4))
 #' }
 #' ## Model with semicompeting risk data
 #' fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
 #' ## Plot asymptotic confidence intervals based on explicit formulas
-#' plot_ate(fit2, ylim=c(-0.4,0.4), 
+#' plot_ate(fit2, ylim=c(-0.4,0.4),
 #'          plot.configs=list(add.null.line=FALSE))
 #' ## Plot bootstrap confidence intervals
-#' plot_ate(fit2, nboot=200, ylim=c(-0.4,0.4), 
+#' plot_ate(fit2, nboot=200, ylim=c(-0.4,0.4),
 #'          plot.configs=list(add.null.line=FALSE, lty=2, main=""))
 #'
+#' @return Plot the averaget treatment effect (ATE) results from a tteICE object
 #' @export
 
 plot_ate <- function(fit,decrease=FALSE,conf.int=.95,nboot=0,seed=0,
