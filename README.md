@@ -16,7 +16,7 @@
 
 <!-- badges: start -->
 <!-- badges: start -->
-`r lifecycle::badge("maturing")`
+<!-- `r lifecycle::badge("maturing")` -->
 [![CRAN status](https://www.r-pkg.org/badges/version/tteICE)](https://CRAN.R-project.org/package=tteICE)
 <!-- [![R-CMD-check](https://github.com/you/mypkg/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mephas/tteICE?branch=master) -->
 [![dev status](https://img.shields.io/badge/dev_status-active-blue)](https://github.com/mephas/tteICE/actions)
