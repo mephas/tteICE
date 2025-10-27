@@ -15,6 +15,12 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 <!-- badges: start -->
+<!-- badges: start -->
+`r lifecycle::badge("maturing")`
+[![CRAN status](https://www.r-pkg.org/badges/version/tteICE)](https://CRAN.R-project.org/package=tteICE)
+<!-- [![R-CMD-check](https://github.com/you/mypkg/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mephas/tteICE?branch=master) -->
+[![dev status](https://img.shields.io/badge/dev_status-active-blue)](https://github.com/mephas/tteICE/actions)
+<!-- badges: end -->
 
 <!-- badges: end -->
 
@@ -127,6 +133,12 @@ You can install the development version of “tteICE” from GitHub with:
 ``` r
 # install.packages("pak")
 pak::pak("mephas/tteICE")
+```
+
+Alternatively, you can install “tteICE” from R CRAN with:
+
+``` r
+install.packages("tteICE")
 ```
 
 ## Example

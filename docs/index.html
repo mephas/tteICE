@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Treatment Effect Estimation for Time-to-Event Data with Intercurrent Events • tteICE</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -81,7 +81,9 @@
 </ul>
 </li>
 </ul>
-<!-- README.md is generated from README.Rmd. Please edit that file --><!-- badges: start --><!-- badges: end --><p>The goal of the package “tteICE” is to estimate the treatment effect for time-to-event outcomes with intercurrent events.</p>
+<!-- README.md is generated from README.Rmd. Please edit that file --><!-- badges: start --><!-- badges: start -->
+<!-- badges: end -->
+<p>The goal of the package “tteICE” is to estimate the treatment effect for time-to-event outcomes with intercurrent events.</p>
 <div class="section level2">
 <h2 id="randomized-trials-and-observational-studies">Randomized trials and observational studies<a class="anchor" aria-label="anchor" href="#randomized-trials-and-observational-studies"></a>
 </h2>
@@ -131,6 +133,9 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu">pak</span><span class="op">(</span><span class="st">"mephas/tteICE"</span><span class="op">)</span></span></code></pre></div>
+<p>Alternatively, you can install “tteICE” from R CRAN with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"tteICE"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
@@ -141,40 +146,40 @@
 <h2 id="competing-risks-data-structure">Competing risks data structure<a class="anchor" aria-label="anchor" href="#competing-risks-data-structure"></a>
 </h2>
 <p>The time to the first event (either death or relapse) is t2. The event indicator is d4=d2+d3, so that d4=1 if death occurs first, while d4=2 if relapse occurs first.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mephas/tteICE" class="external-link">tteICE</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">bmt</span><span class="op">)</span></span>
 <span><span class="va">A</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">bmt</span><span class="op">$</span><span class="va">group</span><span class="op">&gt;</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">X</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">bmt</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'z1'</span>,<span class="st">'z3'</span>,<span class="st">'z5'</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="va">bmt</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform</a></span><span class="op">(</span><span class="va">bmt</span>, d4<span class="op">=</span><span class="va">d2</span><span class="op">+</span><span class="va">d3</span><span class="op">)</span></span></code></pre></div>
 <p>Suppose we would like to use the hypothetical strategy (natural effects). We fit the model by nonparametric estimation.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fit1</span> <span class="op">=</span> <span class="fu"><a href="reference/surv.tteICE.html">surv.tteICE</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t2</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d4</span>, <span class="st">"natural"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/plot_inc.html">plot_inc</a></span><span class="op">(</span><span class="va">fit1</span>, plot.configs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'AML'</span>,<span class="st">'ALL'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example_1-1.png" width="70%" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="reference/plot_ate.html">plot_ate</a></span><span class="op">(</span><span class="va">fit1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example_1-2.png" width="70%" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## We can also use bootstrap confidence intervals</span></span>
 <span><span class="fu"><a href="reference/plot_ate.html">plot_ate</a></span><span class="op">(</span><span class="va">fit1</span>, nboot<span class="op">=</span><span class="fl">200</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example_1-3.png" width="70%" style="display: block; margin: auto;"></p>
 <p>We can also use inverse probability weighting to account for confounding.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fit2</span> <span class="op">=</span> <span class="fu"><a href="reference/surv.tteICE.html">surv.tteICE</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t2</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d4</span>, <span class="st">"natural"</span>, <span class="va">X</span>, method<span class="op">=</span><span class="st">'ipw'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/plot_inc.html">plot_inc</a></span><span class="op">(</span><span class="va">fit2</span>, plot.configs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'AML'</span>,<span class="st">'ALL'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example_2-1.png" width="70%" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="reference/plot_ate.html">plot_ate</a></span><span class="op">(</span><span class="va">fit2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example_2-2.png" width="70%" style="display: block; margin: auto;"></p>
 <p>To increase efficiency, we use the efficient influence function (EIF)-based method.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fit3</span> <span class="op">=</span> <span class="fu"><a href="reference/surv.tteICE.html">surv.tteICE</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t2</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d4</span>, <span class="st">"natural"</span>, <span class="va">X</span>, method<span class="op">=</span><span class="st">'eff'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/plot_inc.html">plot_inc</a></span><span class="op">(</span><span class="va">fit3</span>, plot.configs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'AML'</span>,<span class="st">'ALL'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example_3-1.png" width="70%" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="reference/plot_ate.html">plot_ate</a></span><span class="op">(</span><span class="va">fit3</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example_3-2.png" width="70%" style="display: block; margin: auto;"></p>
@@ -183,33 +188,33 @@
 <h2 id="semicompeting-risks-data-structure">Semicompeting risks data structure<a class="anchor" aria-label="anchor" href="#semicompeting-risks-data-structure"></a>
 </h2>
 <p>Note that the time to death (or censoring) is t1 and the time to relapse (or censoring) is t2. We use the hypothetical strategy (natural effects) and fit the model nonparametrically.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fit4</span> <span class="op">=</span> <span class="fu"><a href="reference/scr.tteICE.html">scr.tteICE</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t1</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d1</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t2</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d2</span>, <span class="st">"natural"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/plot_inc.html">plot_inc</a></span><span class="op">(</span><span class="va">fit4</span>, plot.configs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'AML'</span>,<span class="st">'ALL'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example_4-1.png" width="70%" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="reference/plot_ate.html">plot_ate</a></span><span class="op">(</span><span class="va">fit4</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example_4-2.png" width="70%" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## We can also use bootstrap confidence intervals</span></span>
 <span><span class="fu"><a href="reference/plot_ate.html">plot_ate</a></span><span class="op">(</span><span class="va">fit4</span>, nboot<span class="op">=</span><span class="fl">200</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example_4-3.png" width="70%" style="display: block; margin: auto;"></p>
 <p>We can also use inverse probability weighting to account for confounding.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fit5</span> <span class="op">=</span> <span class="fu"><a href="reference/scr.tteICE.html">scr.tteICE</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t1</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d1</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t2</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d2</span>, <span class="st">"natural"</span>, <span class="va">X</span>, method<span class="op">=</span><span class="st">'ipw'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/plot_inc.html">plot_inc</a></span><span class="op">(</span><span class="va">fit5</span>, legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'AML'</span>,<span class="st">'ALL'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example_5-1.png" width="70%" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="reference/plot_ate.html">plot_ate</a></span><span class="op">(</span><span class="va">fit5</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example_5-2.png" width="70%" style="display: block; margin: auto;"></p>
 <p>To increase efficiency, we use the efficient influence function (EIF)-based method.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fit6</span> <span class="op">=</span> <span class="fu"><a href="reference/scr.tteICE.html">scr.tteICE</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t1</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d1</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t2</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d2</span>, <span class="st">"natural"</span>, <span class="va">X</span>, method<span class="op">=</span><span class="st">'eff'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/plot_inc.html">plot_inc</a></span><span class="op">(</span><span class="va">fit6</span>, plot.configs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'AML'</span>,<span class="st">'ALL'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example_6-1.png" width="70%" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="reference/plot_ate.html">plot_ate</a></span><span class="op">(</span><span class="va">fit6</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example_6-2.png" width="70%" style="display: block; margin: auto;"></p>
@@ -237,6 +242,7 @@
     <div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
+<li><a href="https://cloud.r-project.org/package=tteICE" class="external-link">View on CRAN</a></li>
 <li><a href="https://github.com/mephas/tteICE/" class="external-link">Browse source code</a></li>
 <li><a href="https://github.com/mephas/tteICE/issues" class="external-link">Report a bug</a></li>
 </ul>
@@ -265,7 +271,13 @@
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://CRAN.R-project.org/package=tteICE" class="external-link"><img src="https://www.r-pkg.org/badges/version/tteICE" alt="CRAN status"></a></li>
+<li><a href="https://github.com/mephas/tteICE/actions" class="external-link"><img src="https://img.shields.io/badge/dev_status-active-blue" alt="dev status"></a></li>
+</ul>
+</div>
 
   </div>
 </div>

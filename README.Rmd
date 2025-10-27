@@ -113,6 +113,12 @@ You can install the development version of "tteICE" from GitHub with:
 pak::pak("mephas/tteICE")
 ```
 
+Alternatively, you can install "tteICE" from R CRAN with:
+
+``` r
+install.packages("tteICE")
+```
+
 ## Example
 
 We use the `bmt` data to illustrate how to estimate the treatment effect. The primary event is death, 
