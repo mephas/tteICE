@@ -1,3 +1,3 @@
-# tteICE 1.0.0
+# tteICE 1.0.1
 
-* Initial CRAN submission.
+* 2025-10-20 Initial CRAN submission and release.

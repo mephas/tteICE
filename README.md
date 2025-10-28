@@ -18,8 +18,11 @@
 <!-- badges: start -->
 <!-- `r lifecycle::badge("maturing")` -->
 [![CRAN status](https://www.r-pkg.org/badges/version/tteICE)](https://CRAN.R-project.org/package=tteICE)
-<!-- [![R-CMD-check](https://github.com/you/mypkg/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mephas/tteICE?branch=master) -->
+<!-- [![R-CMD-check](https://github.com/mephas/tteICE/actions/workflows/R-CMD-check.yaml/badge.svg?branch=main)](https://cran.r-project.org/package=tteICE) -->
+<!-- [![R-CMD-check](https://github.com/mephas/tteICE/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mephas/tteICE/actions/workflows/R-CMD-check.yaml) -->
 [![dev status](https://img.shields.io/badge/dev_status-active-blue)](https://github.com/mephas/tteICE/actions)
+[![Total downloads](https://cranlogs.r-pkg.org/badges/grand-total/tteICE)](https://cran.r-project.org/package=tteICE)
+[![Downloads last month](https://cranlogs.r-pkg.org/badges/last-month/tteICE)](https://cran.r-project.org/package=tteICE)
 <!-- badges: end -->
 
 <!-- badges: end -->
