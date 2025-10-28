@@ -1,4 +1,6 @@
 
+# tteICE: An R Package for Estimating Treatment Effects on Time-to-Event Outcomes with Intercurrent Events
+
 - [Randomized trials and observational
   studies](#randomized-trials-and-observational-studies)
 - [Five strategies to deal with intercurrent
