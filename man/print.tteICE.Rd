@@ -34,6 +34,13 @@ for (st in c('composite','natural','removed','whileon','principal')){
  print(fit, digits=2)
 }
 
+fit2 = tteICE(Surv.ice(t2, d4)~A, data=bmt,
+strategy="composite", cov.formula=~z1+z3+z5, method='eff')
+print(fit2)
+fit3 = tteICE(Surv.ice(t1, d1, t2, d2)~A, data=bmt,
+strategy="composite", cov.formula=~z1+z3+z5, method='eff')
+print(fit3)
+
 }
 \seealso{
 \code{\link[tteICE]{surv.tteICE}},

@@ -25,6 +25,13 @@
 #'  print(fit, digits=2)
 #' }
 #'
+#' fit2 = tteICE(Surv.ice(t2, d4)~A, data=bmt,
+#' strategy="composite", cov.formula=~z1+z3+z5, method='eff')
+#' print(fit2)
+#' fit3 = tteICE(Surv.ice(t1, d1, t2, d2)~A, data=bmt,
+#' strategy="composite", cov.formula=~z1+z3+z5, method='eff')
+#' print(fit3)
+#'
 #' @seealso
 #' \code{\link[tteICE]{surv.tteICE}},
 #' \code{\link[tteICE]{scr.tteICE}}
@@ -38,10 +45,10 @@ print.tteICE <- function(x, digits=4, ...){
   if(is.null(x$p.val)) p=NA else p=x$p.val
   dtype = c(cmprsk="competing risks", smcmprsk="semicompeting risks")
   strat = c(treatment="treatment policy strategy", composite="composite variable strategy",
-           natural="hypothetical strategy (controlling the hazard of ICEs)", 
+           natural="hypothetical strategy (controlling the hazard of ICEs)",
            removed="hypothetical strategy (removing ICEs)",
            whileon="while on treatment strategy", principal="principal stratum strategy")
-  meth = c(np="nonparametric estimation", eff="semiparametrically efficient estimation", 
+  meth = c(np="nonparametric estimation", eff="semiparametrically efficient estimation",
            ipw="inverse probability weighting")
   cat("Data type:", dtype[x$dtype], "\n")
   cat("Strategy:", strat[x$strategy], "\n")

@@ -48,22 +48,22 @@
 #' ## Composite variable strategy,
 #' ## nonparametric estimation without covariates
 #'
-#' fit1 = tteICE(Surv(t2, d4, type = "mstate")~A, data=bmt, 
+#' fit1 = tteICE2(Surv(t2, d4, type = "mstate")~A, data=bmt, 
 #' strategy="composite", method='eff')
-#' fit2 = tteICE(Surv(t2, d4, type = "mstate")~A, data=bmt, 
+#' fit2 = tteICE2(Surv(t2, d4, type = "mstate")~A, data=bmt, 
 #' strategy="composite", cov.formula=~z1+z3+z5, method='eff')
-#' fit20 = tteICE(Surv(t2, d4)~A, data=bmt, 
-#' strategy="composite", cov.formula=~z1+z3+z5, method='eff')
-#'
-#' fit3 = tteICE(cbind(Surv(t1, d1),Surv(t2,d2))~A, data=bmt, 
+#' fit20 = tteICE2(Surv(t2, d4)~A, data=bmt, 
 #' strategy="composite", cov.formula=~z1+z3+z5, method='eff')
 #'
-#' fit3 = tteICE(cbind(Surv(t2, d2), Surv(t1,d1))~A, data=bmt, 
+#' fit3 = tteICE2(cbind(Surv(t1, d1),Surv(t2,d2))~A, data=bmt, 
+#' strategy="composite", cov.formula=~z1+z3+z5, method='eff')
+#'
+#' fit3 = tteICE2(cbind(Surv(t2, d2), Surv(t1,d1))~A, data=bmt, 
 #' strategy="composite", cov.formula=~z1+z3+z5, method='eff') ## same results??
 #'
-#' fit4 = tteICE(Surv(t2, d2)~A, data=bmt, 
+#' fit4 = tteICE2(Surv(t2, d2)~A, data=bmt, 
 #' strategy="composite", cov.formula=~z1+z3+z5, method='eff')
-#' fit5 = tteICE(cbind(t1, d1,t2, d2)~A, data=bmt, 
+#' fit5 = tteICE2(cbind(t1, d1,t2, d2)~A, data=bmt, 
 #' strategy="composite", cov.formula=~z1+z3+z5, method='eff')  ## also work
 #'
 #'
@@ -111,7 +111,7 @@
 #' @importFrom survival Surv
 #' @export
 
-tteICE <- function(formula, data, strategy='composite', method='np', cov.formula=NULL,
+tteICE2 <- function(formula, data, strategy='composite', method='np', cov.formula=NULL,
                      weights=NULL,subset=NULL,na.rm=FALSE,nboot=0,seed=0){
 
   # extract A, Time, cstatus

@@ -47,17 +47,17 @@
 #' ## Composite variable strategy,
 #' ## nonparametric estimation without covariates
 #'
-#' fit1 = tteICE2(Surv.ice(t2, d4)~A, data=bmt,
+#' fit1 = tteICE(Surv.ice(t2, d4)~A, data=bmt,
 #' strategy="composite", method='eff')
-#' fit2 = tteICE2(Surv.ice(t2, d4)~A, data=bmt,
+#' fit2 = tteICE(Surv.ice(t2, d4)~A, data=bmt,
 #' strategy="composite", cov.formula=~z1+z3+z5, method='eff')
-#' fit20 = tteICE2(Surv.ice(t1, d1)~A, data=bmt,
+#' fit20 = tteICE(Surv.ice(t1, d1)~A, data=bmt,
 #' strategy="composite", cov.formula=~z1+z3+z5, method='eff') ## survival??
 #'
-#' fit3 = tteICE2(Surv.ice(t1,d1,t2,d2)~A, data=bmt,
+#' fit3 = tteICE(Surv.ice(t1,d1,t2,d2)~A, data=bmt,
 #' strategy="composite", cov.formula=~z1+z3+z5, method='eff')
 #'
-#' fit30 = tteICE2(Surv.ice(t2,d2,t1,d1)~A, data=bmt,
+#' fit30 = tteICE(Surv.ice(t2,d2,t1,d1)~A, data=bmt,
 #' strategy="composite", cov.formula=~z1+z3+z5, method='eff') ## same results??
 #'
 #'
@@ -105,7 +105,7 @@
 #' @importFrom survival Surv
 #' @export
 
-tteICE2 <- function(formula, data, strategy='composite', method='np', cov.formula=NULL,
+tteICE <- function(formula, data, strategy='composite', method='np', cov.formula=NULL,
                      weights=NULL,subset=NULL,na.rm=FALSE,nboot=0,seed=0){
 
   # extract A, Time, cstatus
@@ -131,7 +131,8 @@ tteICE2 <- function(formula, data, strategy='composite', method='np', cov.formul
   # extract treatment variable
   tt <- terms(mf, data = data)
   rhs_vars <- attr(tt, "term.labels")  # e.g. c("A", "X1", "X2")
-  if (length(rhs_vars) < 1) stop("Formula must include at least one treatment variable.")
+  if (length(rhs_vars) < 1) stop("Formula must include one treatment variable.")
+  if (length(rhs_vars) > 1) stop("Set covariates in `cov.formula=`. Only the first variable is used as treatment variable.")
   A_name <- rhs_vars[1]        # first term is A
   A <- mf[[A_name]]
   # cov1 <- cov1

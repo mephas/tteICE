@@ -9,7 +9,7 @@
 \arguments{
 \item{object}{A fitted object returned by the function \code{surv.tteICE} or \code{scr.tteICE}.}
 
-\item{...}{Other augments in function \code{\link{print.default}}}
+\item{...}{Other augments in function \code{\link{summary}}}
 }
 \value{
 A list that consists of summaries of a tteICE object: data type, strategy, estimation method, maximum follow-up time,
@@ -24,8 +24,14 @@ data(bmt)
 bmt = transform(bmt, d4=d2+d3)
 A = as.numeric(bmt$group>1)
 ## summarize the results
-fit = surv.tteICE(A, bmt$t2, bmt$d4, 'natural')
-summary(fit)
+fit1 = surv.tteICE(A, bmt$t2, bmt$d4, 'natural')
+summary(fit1)
+fit2 = tteICE(Surv.ice(t2, d4)~A, data=bmt,
+strategy="composite", cov.formula=~z1+z3+z5, method='eff')
+summary(fit2)
+fit3 = tteICE(Surv.ice(t1, d1, t2, d2)~A, data=bmt,
+strategy="composite", cov.formula=~z1+z3+z5, method='eff')
+summary(fit3)
 
 }
 \seealso{

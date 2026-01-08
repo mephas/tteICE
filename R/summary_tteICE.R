@@ -3,8 +3,8 @@
 #' @description This function summarizes the results
 #'
 #' @param object A fitted object returned by the function \code{surv.tteICE} or \code{scr.tteICE}.
-#' 
-#' @param ... Other augments in function \code{\link{print.default}}
+#'
+#' @param ... Other augments in function \code{\link{summary}}
 #'
 #' @importFrom stats quantile
 #'
@@ -14,8 +14,14 @@
 #' bmt = transform(bmt, d4=d2+d3)
 #' A = as.numeric(bmt$group>1)
 #' ## summarize the results
-#' fit = surv.tteICE(A, bmt$t2, bmt$d4, 'natural')
-#' summary(fit)
+#' fit1 = surv.tteICE(A, bmt$t2, bmt$d4, 'natural')
+#' summary(fit1)
+#' fit2 = tteICE(Surv.ice(t2, d4)~A, data=bmt,
+#' strategy="composite", cov.formula=~z1+z3+z5, method='eff')
+#' summary(fit2)
+#' fit3 = tteICE(Surv.ice(t1, d1, t2, d2)~A, data=bmt,
+#' strategy="composite", cov.formula=~z1+z3+z5, method='eff')
+#' summary(fit3)
 #'
 #' @seealso
 #' \code{\link[tteICE]{surv.tteICE}},
@@ -29,9 +35,8 @@
 
 summary.tteICE <- function(object, ...) {
 
-  fit<- object
-  res = list(dtype=fit$dtype, strategy=fit$strategy, method=fit$method, maxt=max(fit$time),
-             n=fit$n, n1=fit$n1, n0=fit$n0, p.val=fit$p.val, est=riskpredict(fit))
+  res = list(dtype=object$dtype, strategy=object$strategy, method=object$method, maxt=max(object$time),
+             n=object$n, n1=object$n1, n0=object$n0, p.val=object$p.val, est=riskpredict(object))
   class(res) <- "summary.tteICE"
   res
 }
