@@ -137,7 +137,7 @@ You can install the development version of “tteICE” from GitHub with:
 
 ``` r
 # install.packages("pak")
-pak::pak("mephas/tteICE")
+# pak::pak("mephas/tteICE")
 ```
 
 Alternatively, you can install “tteICE” from R CRAN with:
