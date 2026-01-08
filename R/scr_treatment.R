@@ -16,8 +16,6 @@
 #'
 #' @param weights Weight for each subject.
 #'
-#' @param subset Subset, either numerical or logical.
-#'
 #'
 #' @return A list including
 #' \describe{
@@ -61,7 +59,7 @@
 #'
 #' @export
 
-scr.treatment <- function(A,Time,status,Time_int,status_int,weights=rep(1,length(A)),subset=NULL){
-  fit = surv.treatment(A,Time,status,weights,subset)
+scr.treatment <- function(A,Time,status,Time_int,status_int,weights=rep(1,length(A))){
+  fit = surv.treatment(A,Time,status,weights)
   return(fit)
 }

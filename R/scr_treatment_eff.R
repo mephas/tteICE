@@ -17,8 +17,6 @@
 #'
 #' @param X Baseline covariates.
 #'
-#' @param subset Subset, either numerical or logical.
-#'
 #'
 #' @return A list including
 #' \describe{
@@ -63,7 +61,7 @@
 #'
 #' @export
 
-scr.treatment.eff <- function(A,Time,status,Time_int,status_int,X=NULL,subset=NULL){
-  fit = surv.treatment.eff(A,Time,status,X,subset)
+scr.treatment.eff <- function(A,Time,status,Time_int,status_int,X=NULL){
+  fit = surv.treatment.eff(A,Time,status,X)
   return(fit)
 }

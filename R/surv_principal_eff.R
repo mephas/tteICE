@@ -13,8 +13,6 @@
 #'
 #' @param X Baseline covariates.
 #'
-#' @param subset Subset, either numerical or logical.
-#'
 #'
 #' @return A list including
 #' \describe{
@@ -50,46 +48,31 @@
 #'
 #' @export
 
-surv.principal.eff <- function(A,Time,cstatus,X=NULL,subset=NULL){
-  N = length(A)
-  if (is.null(subset)) subset = 1:N
-  if (is.logical(subset)) subset = (1:N)[subset]
-  n = length(A[subset])
+surv.principal.eff <- function(A,Time,cstatus,X=NULL){
+  n = length(A)
   if (is.null(X)){
-    psfit = glm(A~NULL, family='binomial', subset=subset)
-    fit11 = coxph(Surv(Time,cstatus==1)~NULL, subset=subset[A[subset]==1])
-    fit10 = coxph(Surv(Time,cstatus==1)~NULL, subset=subset[A[subset]==0])
-    fit21 = coxph(Surv(Time,cstatus>1)~NULL, subset=subset[A[subset]==1])
-    fit20 = coxph(Surv(Time,cstatus>1)~NULL, subset=subset[A[subset]==0])
-    fit1c = coxph(Surv(Time,cstatus==0)~NULL, subset=subset[A[subset]==1])
-    fit0c = coxph(Surv(Time,cstatus==0)~NULL, subset=subset[A[subset]==0])
-  } else {
-    X = as.matrix(scale(X))
-    psfit = glm(A~X, family='binomial', subset=subset)
-    fit11 = coxph(Surv(Time,cstatus==1)~X, subset=subset[A[subset]==1])
-    fit10 = coxph(Surv(Time,cstatus==1)~X, subset=subset[A[subset]==0])
-    fit21 = coxph(Surv(Time,cstatus>1)~X, subset=subset[A[subset]==1])
-    fit20 = coxph(Surv(Time,cstatus>1)~X, subset=subset[A[subset]==0])
-    fit1c = coxph(Surv(Time,cstatus==0)~X, subset=subset[A[subset]==1])
-    fit0c = coxph(Surv(Time,cstatus==0)~X, subset=subset[A[subset]==0])
-  }
-  ps = predict(psfit, type='response')
+    return(surv.principal(A,Time,cstatus))
+  } 
+  X = as.matrix(scale(X))
+  ips = .ipscore(A,X)
+  fit11 = coxph(Surv(Time,cstatus==1)~X, subset=(A==1))
+  fit10 = coxph(Surv(Time,cstatus==1)~X, subset=(A==0))
+  fit21 = coxph(Surv(Time,cstatus>1)~X, subset=(A==1))
+  fit20 = coxph(Surv(Time,cstatus>1)~X, subset=(A==0))
+  fit1c = coxph(Surv(Time,cstatus==0)~X, subset=(A==1))
+  fit0c = coxph(Surv(Time,cstatus==0)~X, subset=(A==0))
   tt11 = c(0,basehaz(fit11)$time)
   tt10 = c(0,basehaz(fit10)$time)
   tt21 = c(0,basehaz(fit21)$time)
   tt20 = c(0,basehaz(fit20)$time)
   tt = sort(unique(c(tt11,tt10,tt21,tt20)))
   K = length(tt)
-  if (!is.null(X)){
-    Xb11 = as.numeric(as.matrix(X[subset,])%*%fit11$coefficients)
-    Xb10 = as.numeric(as.matrix(X[subset,])%*%fit10$coefficients)
-    Xb21 = as.numeric(as.matrix(X[subset,])%*%fit21$coefficients)
-    Xb20 = as.numeric(as.matrix(X[subset,])%*%fit20$coefficients)
-    Xb1c = as.numeric(as.matrix(X[subset,])%*%fit1c$coefficients)
-    Xb0c = as.numeric(as.matrix(X[subset,])%*%fit0c$coefficients)
-  } else {
-    Xb11 = Xb10 = Xb21 = Xb20 = Xb1c = Xb0c = rep(0,n)
-  }
+  Xb11 = X%*%fit11$coefficients
+  Xb10 = X%*%fit10$coefficients
+  Xb21 = X%*%fit21$coefficients
+  Xb20 = X%*%fit20$coefficients
+  Xb1c = X%*%fit1c$coefficients
+  Xb0c = X%*%fit0c$coefficients
   cumhaz11 = .matchy(c(0,basehaz(fit11,centered=FALSE)$hazard),tt11,tt)
   cumhaz11 = exp(Xb11)%*%t(cumhaz11)
   cumhaz10 = .matchy(c(0,basehaz(fit10,centered=FALSE)$hazard),tt10,tt)
@@ -104,9 +87,9 @@ surv.principal.eff <- function(A,Time,cstatus,X=NULL,subset=NULL){
   cumhaz0c = exp(Xb0c)%*%t(cumhaz0c)
   cumhaz1 = cbind(0,cumhaz11+cumhaz21)[,1:K]
   cumhaz0 = cbind(0,cumhaz10+cumhaz20)[,1:K]
-  dN1 = sapply(tt, function(l) (Time[subset]==l)*(cstatus[subset]==1))
-  dN2 = sapply(tt, function(l) (Time[subset]==l)*(cstatus[subset]>1))
-  Y = sapply(tt, function(l) as.numeric(Time[subset]>=l))
+  dN1 = sapply(tt, function(l) (Time==l)*(cstatus==1))
+  dN2 = sapply(tt, function(l) (Time==l)*(cstatus>1))
+  Y = sapply(tt, function(l) as.numeric(Time>=l))
   lam11 = t(apply(cbind(0,cumhaz11),1,diff))
   lam10 = t(apply(cbind(0,cumhaz10),1,diff))
   lam21 = t(apply(cbind(0,cumhaz21),1,diff))
@@ -119,18 +102,18 @@ surv.principal.eff <- function(A,Time,cstatus,X=NULL,subset=NULL){
   dMP20 = (dN2-Y*lam20)/S0
   cif11 = t(apply(exp(-cumhaz1)*lam11,1,cumsum))
   cif10 = t(apply(exp(-cumhaz0)*lam10,1,cumsum))
-  cif1x = A[subset]/ps*t(apply(exp(-cumhaz1)*dMP11,1,cumsum))-
-    A[subset]/ps*cif11*t(apply(dMP11+dMP21,1,cumsum))+
-    A[subset]/ps*t(apply(cif11*(dMP11+dMP21),1,cumsum))+cif11
-  cif0x = (1-A[subset])/(1-ps)*t(apply(exp(-cumhaz0)*dMP10,1,cumsum))-
-    (1-A[subset])/(1-ps)*cif10*t(apply(dMP10+dMP20,1,cumsum))+
-    (1-A[subset])/(1-ps)*t(apply(cif10*(dMP10+dMP20),1,cumsum))+cif10
+  cif1x = A*ips*t(apply(exp(-cumhaz1)*dMP11,1,cumsum))-
+    A*ips*cif11*t(apply(dMP11+dMP21,1,cumsum))+
+    A*ips*t(apply(cif11*(dMP11+dMP21),1,cumsum))+cif11
+  cif0x = (1-A)*ips*t(apply(exp(-cumhaz0)*dMP10,1,cumsum))-
+    (1-A)*ips*cif10*t(apply(dMP10+dMP20,1,cumsum))+
+    (1-A)*ips*t(apply(cif10*(dMP10+dMP20),1,cumsum))+cif10
   cif.wo1 = colMeans(cif1x,na.rm=TRUE)
   cif.wo0 = colMeans(cif0x,na.rm=TRUE)
   if.wo1 = t(t(cif1x)-cif.wo1)
   if.wo0 = t(t(cif0x)-cif.wo0)
-  cif1x = A[subset]/ps*exp(-cumhaz1)*t(apply(dMP11+dMP21,1,cumsum))+1-exp(-cumhaz1)
-  cif0x = (1-A[subset])/(1-ps)*exp(-cumhaz0)*t(apply(dMP10+dMP20,1,cumsum))+1-exp(-cumhaz0)
+  cif1x = A*ips*exp(-cumhaz1)*t(apply(dMP11+dMP21,1,cumsum))+1-exp(-cumhaz1)
+  cif0x = (1-A)*ips*exp(-cumhaz0)*t(apply(dMP10+dMP20,1,cumsum))+1-exp(-cumhaz0)
   cif.cv1 = colMeans(cif1x,na.rm=TRUE)
   cif.cv0 = colMeans(cif0x,na.rm=TRUE)
   if.cv1 = t(t(cif1x)-cif.cv1)

@@ -4,17 +4,13 @@
 \alias{riskpredict}
 \title{Risk prediction at specific time points}
 \usage{
-riskpredict(fit, timeset = NULL, nboot = 0, seed = 0)
+riskpredict(fit, timeset = NULL)
 }
 \arguments{
 \item{fit}{A fitted object returned by the function \code{surv.tteICE} or \code{scr.tteICE}.}
 
 \item{timeset}{Time at which to predict the risk. If \code{timeset=NULL}, risks will be predict at the
 quartiles of the maximum follow-up time.}
-
-\item{nboot}{Number of resampling in bootstrapping. By default, \code{nboot = 0}, meaning no bootstrap is performed and the standard error is computed using the explicit analytical formula.}
-
-\item{seed}{Sets the random seed used when generating bootstrap samples.}
 }
 \value{
 A matrix. The meanings of each row are: time points, potential cumulative incidences (under

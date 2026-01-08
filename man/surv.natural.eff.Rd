@@ -4,7 +4,7 @@
 \alias{surv.natural.eff}
 \title{Fit the CIF using hypothetical strategy (I) for competing risks data, based on efficient influence functions}
 \usage{
-surv.natural.eff(A, Time, cstatus, X = NULL, subset = NULL)
+surv.natural.eff(A, Time, cstatus, X = NULL)
 }
 \arguments{
 \item{A}{Treatment indicator, 1 for treatment and 0 for control.}
@@ -14,8 +14,6 @@ surv.natural.eff(A, Time, cstatus, X = NULL, subset = NULL)
 \item{cstatus}{Indicator of event, 1 for the primary event, 2 for the intercurrent event, 0 for censoring.}
 
 \item{X}{Baseline covariates.}
-
-\item{subset}{Subset, either numerical or logical.}
 }
 \value{
 A list including

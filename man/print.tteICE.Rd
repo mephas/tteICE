@@ -4,7 +4,7 @@
 \alias{print.tteICE}
 \title{Print a short summary of the estimated treatment effect}
 \usage{
-\method{print}{tteICE}(x, digits = 3, ...)
+\method{print}{tteICE}(x, digits = 4, ...)
 }
 \arguments{
 \item{x}{A fitted object returned by the function \code{surv.tteICE} or \code{scr.tteICE}.}
@@ -17,7 +17,7 @@
 Print the summary of a tteICE object
 }
 \description{
-This function summarize the results
+This function summarizes the results
 }
 \examples{
 ## load data

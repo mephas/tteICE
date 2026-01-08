@@ -16,8 +16,6 @@
 #'
 #' @param weights Weight for each subject.
 #'
-#' @param subset Subset, either numerical or logical.
-#'
 #'
 #' @return A list including
 #' \describe{
@@ -62,14 +60,9 @@
 #'
 #' @export
 
-scr.natural <- function(A,Time,status,Time_int,status_int,weights=rep(1,length(A)),subset=NULL){
+scr.natural <- function(A,Time,status,Time_int,status_int,weights=rep(1,length(A))){
   Td = Time; Dd = status
   Tr = Time_int; Dr = status_int
-  if (!is.null(subset)){
-    Td = Td[subset]; Dd = Dd[subset]
-    Tr = Tr[subset]; Dr = Dr[subset]
-    A = A[subset]; weights = weights[subset]
-  }
   tseq = sort(unique(c(Td[Dd==1],Tr[Dr==1])))
   K = length(tseq)
   haz1.1 = haz2.1 = haz3.1 = haz1t.1 = haz2t.1 = haz3t.1 = 0
@@ -200,7 +193,7 @@ scr.natural <- function(A,Time,status,Time_int,status_int,weights=rep(1,length(A
   }
   tseq = c(0,tseq)
   surv_diff = survdiff(Surv(Td,Dd)~A)
-  p = 1 - pchisq(surv_diff$chisq, length(surv_diff$n)-1)
+  p = pchisq(surv_diff$chisq, length(surv_diff$n)-1, lower.tail=FALSE)
   return(list(time1=tseq,time0=tseq,cif1=cif2,cif0=cif0,se1=se2,se0=se0,
               time=tseq,ate=ate,se=se,p.val=p))
 }

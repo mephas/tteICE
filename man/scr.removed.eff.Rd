@@ -4,7 +4,7 @@
 \alias{scr.removed.eff}
 \title{Fit the CIF using hypothetical strategy (II) for semicompeting risks data, based on efficient influence functions}
 \usage{
-scr.removed.eff(A, Time, status, Time_int, status_int, X = NULL, subset = NULL)
+scr.removed.eff(A, Time, status, Time_int, status_int, X = NULL)
 }
 \arguments{
 \item{A}{Treatment indicator, 1 for treatment and 0 for control.}
@@ -18,8 +18,6 @@ scr.removed.eff(A, Time, status, Time_int, status_int, X = NULL, subset = NULL)
 \item{status_int}{Indicator of the intercurrent event, 1 for event and 0 for censoring.}
 
 \item{X}{Baseline covariates.}
-
-\item{subset}{Subset, either numerical or logical.}
 }
 \value{
 A list including

@@ -4,15 +4,7 @@
 \alias{scr.whileon}
 \title{Fit the CIF using while on treatment strategy for semicompeting risks data}
 \usage{
-scr.whileon(
-  A,
-  Time,
-  status,
-  Time_int,
-  status_int,
-  weights = rep(1, length(A)),
-  subset = NULL
-)
+scr.whileon(A, Time, status, Time_int, status_int, weights = rep(1, length(A)))
 }
 \arguments{
 \item{A}{Treatment indicator, 1 for treatment and 0 for control.}
@@ -26,8 +18,6 @@ scr.whileon(
 \item{status_int}{Indicator of the intercurrent event, 1 for event and 0 for censoring.}
 
 \item{weights}{Weight for each subject.}
-
-\item{subset}{Subset, either numerical or logical.}
 }
 \value{
 A list including

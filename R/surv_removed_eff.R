@@ -13,8 +13,6 @@
 #'
 #' @param X Baseline covariates.
 #'
-#' @param subset Subset, either numerical or logical.
-#'
 #'
 #' @return A list including
 #' \describe{
@@ -55,44 +53,29 @@
 #'
 #' @export
 
-surv.removed.eff <- function(A,Time,cstatus,X=NULL,subset=NULL){
-  N = length(A)
-  if (is.null(subset)) subset = 1:N
-  if (is.logical(subset)) subset = (1:N)[subset]
-  n = length(A[subset])
+surv.removed.eff <- function(A,Time,cstatus,X=NULL){
+  n = length(A)
   if (is.null(X)){
-    psfit = glm(A~NULL, family='binomial', subset=subset)
-    fit11 = coxph(Surv(Time,cstatus==1)~NULL, subset=subset[A[subset]==1])
-    fit10 = coxph(Surv(Time,cstatus==1)~NULL, subset=subset[A[subset]==0])
-    fit21 = coxph(Surv(Time,cstatus>1)~NULL, subset=subset[A[subset]==1])
-    fit20 = coxph(Surv(Time,cstatus>1)~NULL, subset=subset[A[subset]==0])
-    fit1c = coxph(Surv(Time,cstatus==0)~NULL, subset=subset[A[subset]==1])
-    fit0c = coxph(Surv(Time,cstatus==0)~NULL, subset=subset[A[subset]==0])
-  } else {
-    X = as.matrix(scale(X))
-    psfit = glm(A~X, family='binomial', subset=subset)
-    fit11 = coxph(Surv(Time,cstatus==1)~X, subset=subset[A[subset]==1])
-    fit10 = coxph(Surv(Time,cstatus==1)~X, subset=subset[A[subset]==0])
-    fit21 = coxph(Surv(Time,cstatus>1)~X, subset=subset[A[subset]==1])
-    fit20 = coxph(Surv(Time,cstatus>1)~X, subset=subset[A[subset]==0])
-    fit1c = coxph(Surv(Time,cstatus==0)~X, subset=subset[A[subset]==1])
-    fit0c = coxph(Surv(Time,cstatus==0)~X, subset=subset[A[subset]==0])
-  }
-  ps = predict(psfit, type='response')
+    return(surv.removed(A,Time,cstatus))
+  } 
+  X = as.matrix(scale(X))
+  ips = .ipscore(A,X)
+  fit11 = coxph(Surv(Time,cstatus==1)~X, subset=(A==1))
+  fit10 = coxph(Surv(Time,cstatus==1)~X, subset=(A==0))
+  fit21 = coxph(Surv(Time,cstatus>1)~X, subset=(A==1))
+  fit20 = coxph(Surv(Time,cstatus>1)~X, subset=(A==0))
+  fit1c = coxph(Surv(Time,cstatus==0)~X, subset=(A==1))
+  fit0c = coxph(Surv(Time,cstatus==0)~X, subset=(A==0))
   tt1 = c(0,basehaz(fit11)$time)
   tt0 = c(0,basehaz(fit10)$time)
   tt = sort(unique(c(tt1,tt0)))
   K = length(tt)
-  if (!is.null(X)){
-    Xb11 = as.numeric(as.matrix(X[subset,])%*%fit11$coefficients)
-    Xb10 = as.numeric(as.matrix(X[subset,])%*%fit10$coefficients)
-    Xb21 = as.numeric(as.matrix(X[subset,])%*%fit21$coefficients)
-    Xb20 = as.numeric(as.matrix(X[subset,])%*%fit20$coefficients)
-    Xb1c = as.numeric(as.matrix(X[subset,])%*%fit1c$coefficients)
-    Xb0c = as.numeric(as.matrix(X[subset,])%*%fit0c$coefficients)
-  } else {
-    Xb11 = Xb10 = Xb21 = Xb20 = Xb1c = Xb0c = rep(0,n)
-  }
+  Xb11 = X%*%fit11$coefficients
+  Xb10 = X%*%fit10$coefficients
+  Xb21 = X%*%fit21$coefficients
+  Xb20 = X%*%fit20$coefficients
+  Xb1c = X%*%fit1c$coefficients
+  Xb0c = X%*%fit0c$coefficients
   cumhaz11 = .matchy(c(0,basehaz(fit11,centered=FALSE)$hazard),tt1,tt)
   cumhaz11 = exp(Xb11)%*%t(cumhaz11)
   cumhaz10 = .matchy(c(0,basehaz(fit10,centered=FALSE)$hazard),tt0,tt)
@@ -105,16 +88,16 @@ surv.removed.eff <- function(A,Time,cstatus,X=NULL,subset=NULL){
   cumhaz0c = .matchy(c(0,basehaz(fit0c,centered=FALSE)$hazard),c(0,basehaz(fit0c)$time),tt)
   cumhaz1c = exp(Xb1c)%*%t(cumhaz1c)
   cumhaz0c = exp(Xb0c)%*%t(cumhaz0c)
-  dN = sapply(tt, function(l) (Time[subset]==l)*(cstatus[subset]==1))
-  Y = sapply(tt, function(l) as.numeric(Time[subset]>=l))
+  dN = sapply(tt, function(l) (Time==l)*(cstatus==1))
+  Y = sapply(tt, function(l) as.numeric(Time>=l))
   lam1 = t(apply(cbind(0,cumhaz11),1,diff))
   lam0 = t(apply(cbind(0,cumhaz10),1,diff))
   S1 = cbind(1,exp(-cumhaz11-cumhaz21-cumhaz1c))[,1:K]
   S0 = cbind(1,exp(-cumhaz10-cumhaz20-cumhaz0c))[,1:K]
   dMP1 = (dN-Y*lam1)/S1
   dMP0 = (dN-Y*lam0)/S0
-  cif1x = A[subset]/ps*exp(-cumhaz11)*t(apply(dMP1,1,cumsum))+1-exp(-cumhaz11)
-  cif0x = (1-A[subset])/(1-ps)*exp(-cumhaz10)*t(apply(dMP0,1,cumsum))+1-exp(-cumhaz10)
+  cif1x = A*ips*exp(-cumhaz11)*t(apply(dMP1,1,cumsum))+1-exp(-cumhaz11)
+  cif0x = (1-A)*ips*exp(-cumhaz10)*t(apply(dMP0,1,cumsum))+1-exp(-cumhaz10)
   cif1 = colMeans(cif1x,na.rm=TRUE)
   cif0 = colMeans(cif0x,na.rm=TRUE)
   se1 = apply(cif1x,2,sd,na.rm=TRUE)/sqrt(n)

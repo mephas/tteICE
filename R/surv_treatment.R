@@ -12,8 +12,6 @@
 #'
 #' @param weights Weight for each subject.
 #'
-#' @param subset Subset, either numerical or logical.
-#'
 #'
 #' @return A list including
 #' \describe{
@@ -57,20 +55,20 @@
 #'
 #' @export
 
-surv.treatment <- function(A,Time,cstatus,weights=rep(1,length(A)),subset=NULL){
-  N = length(A)
-  if (is.null(subset)) subset = 1:N
-  if (is.logical(subset)) subset = (1:N)[subset]
-  fit1 = survfit(Surv(Time,cstatus==1)~1, weights=weights, subset=subset[A[subset]==1])
-  fit0 = survfit(Surv(Time,cstatus==1)~1, weights=weights, subset=subset[A[subset]==0])
+surv.treatment <- function(A,Time,cstatus,weights=rep(1,length(A))){
+  n = length(A)
+  s1 = (A==1); n1 = sum(s1)
+  s0 = (A==0); n0 = sum(s0)
+  fit1 = survfitKM(factor(rep(1,n1)), Surv(Time,cstatus==1)[s1], weights=weights[s1])
+  fit0 = survfitKM(factor(rep(0,n0)), Surv(Time,cstatus==1)[s0], weights=weights[s0])
   cif1 = c(0, 1 - exp(-fit1$cumhaz))
   cif0 = c(0, 1 - exp(-fit0$cumhaz))
   se1 = c(0, fit1$std.err * fit1$surv)
   se0 = c(0, fit0$std.err * fit0$surv)
   se1[is.na(se1)] = rev(na.omit(se1))[1]
   se0[is.na(se0)] = rev(na.omit(se0))[1]
-  surv_diff = survdiff(Surv(Time,cstatus==1)~A,subset=subset)
-  p = 1 - pchisq(surv_diff$chisq, length(surv_diff$n)-1)
+  surv_diff = survdiff(Surv(Time,cstatus==1)~A)
+  p = pchisq(surv_diff$chisq, length(surv_diff$n)-1, lower.tail=FALSE)
   tt1 = c(0,fit1$time)
   tt0 = c(0,fit0$time)
   tt = sort(unique(c(tt1,tt0)))

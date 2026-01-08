@@ -9,8 +9,6 @@
   type = c("ate", "inc")[1],
   decrease = FALSE,
   conf.int = 0.95,
-  nboot = 0,
-  seed = 0,
   xlab = "Time",
   xlim = NULL,
   ylim = NULL,
@@ -26,10 +24,6 @@
 \item{decrease}{A logical variable indicating the type of curve to display. If \code{decrease = FALSE} (default), the function displays the cumulative incidence functions (CIFs) or their differences. If \code{decrease = TRUE}, the function instead displays the survival functions or their differences.}
 
 \item{conf.int}{Confidence level for the interval. If \code{conf.int = NULL}, no confidence interval is provided.}
-
-\item{nboot}{Number of resampling in bootstrapping. By default, \code{nboot = 0}, meaning no bootstrap is performed and the standard error is computed using the explicit analytical formula.}
-
-\item{seed}{Sets the random seed used when generating bootstrap samples.}
 
 \item{xlab}{Label for x-axis.}
 
@@ -62,7 +56,7 @@ for (st in c('composite','natural','removed','whileon','principal')){
 ## plot treatment effects for semicompeting risk data
 for (st in c('composite','natural','removed','whileon','principal')){
  fit = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, st)
- plot(fit, type="ate", ylim=c(-1,1), xlab="time", 
+ plot(fit, type="ate", ylim=c(-1,1), xlab="time",
       plot.configs=list(col="red"))
 }
 

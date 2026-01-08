@@ -28,6 +28,11 @@
 #'
 #' @param na.rm Whether to remove missing values.
 #'
+#' @param nboot Number of resamplings in the boostrapping method. If \code{nboot} is 0 or 1, then
+#' asymptotic standard error based on the explicit form is calculated instead of bootstrapping.
+#'
+#' @param seed Seed for bootstrapping.
+#'
 #'
 #' @return A list including the fitted object and input variables.
 #'
@@ -86,7 +91,7 @@
 #' @export
 
 surv.tteICE <- function(A,Time,cstatus,strategy='composite',cov1=NULL,method='np',
-                     weights=NULL,subset=NULL,na.rm=FALSE){
+                     weights=NULL,subset=NULL,na.rm=FALSE,nboot=0,seed=0){
 
   # strategy <- match.arg(strategy, c('treatment','composite','natural','removed','whileon','principal'))
   # method <- match.arg(method, c('np','ipw','eff'))
@@ -103,13 +108,12 @@ surv.tteICE <- function(A,Time,cstatus,strategy='composite',cov1=NULL,method='np
   }
   N = length(A)
   if (is.null(weights)) weights = rep(1,N)
-  if (is.null(subset)) subset = 1:N
+  if (is.null(subset)) subset = rep(TRUE,N)
+  if (inherits(subset,"logical")) subset = (1:N)[subset]
   if (na.rm){
-    # if (class(subset)!='logical') subset = (1:N)%in%subset
-    if (!inherits(subset, "logical")) subset = (1:N)%in%subset
     cc = complete.cases(data.frame(A,Time,cstatus,weights,subset,cov1))
-    A = A[cc]; Time = Time[cc]; cstatus = cstatus[cc]; subset = subset[cc]
-    if (!is.null(cov1)) cov1 = as.matrix(cov1)[cc,]
+    cc = (1:N)[cc]
+    subset = subset[subset%in%cc]
   }
   if (length(unique(A))!=2) {
     stop('Treatment should be binary!', call. = FALSE)
@@ -117,31 +121,39 @@ surv.tteICE <- function(A,Time,cstatus,strategy='composite',cov1=NULL,method='np
     A = as.numeric(A)
     if (min(A)!=0 | max(A)!=1) {
       A = as.numeric(A==max(A))
-      stop(paste0('Treatment should be either 0 or 1! A=1 if A=',max(A)), call. = FALSE)
+      warning(paste0('Treatment should be either 0 or 1! A=1 if A=',max(A)), call. = FALSE)
     }
   }
+  
+  A = A[subset]
+  Time = Time[subset]
+  cstatus = cstatus[subset]
+  weights = weights[subset]
+  if (!is.null(cov1)) cov1 = as.matrix(cov1)[subset,]
+  
   if (method=='ipw') {
-    weights = weights*.ipscore(A,cov1,TRUE,weights,subset)
+    weights = weights*.ipscore(A,cov1,TRUE,weights)
   }
-  # if (class(subset)=='logical') subset = (1:length(A))[subset]
-  if (inherits(subset, "logical")) subset = (1:length(A))[subset]
   if (method=='np' | method=='ipw') {
-    if (strategy=='treatment') fit = surv.treatment(A,Time,cstatus,weights,subset)
-    if (strategy=='composite') fit = surv.composite(A,Time,cstatus,weights,subset)
-    if (strategy=='natural') fit = surv.natural(A,Time,cstatus,weights,subset)
-    if (strategy=='removed') fit = surv.removed(A,Time,cstatus,weights,subset)
-    if (strategy=='whileon') fit = surv.whileon(A,Time,cstatus,weights,subset)
-    if (strategy=='principal') fit = surv.principal(A,Time,cstatus,weights,subset)
+    if (strategy=='treatment') fit = surv.treatment(A,Time,cstatus,weights)
+    if (strategy=='composite') fit = surv.composite(A,Time,cstatus,weights)
+    if (strategy=='natural') fit = surv.natural(A,Time,cstatus,weights)
+    if (strategy=='removed') fit = surv.removed(A,Time,cstatus,weights)
+    if (strategy=='whileon') fit = surv.whileon(A,Time,cstatus,weights)
+    if (strategy=='principal') fit = surv.principal(A,Time,cstatus,weights)
   } else if (method=='eff') {
-    if (strategy=='treatment') fit = surv.treatment.eff(A,Time,cstatus,cov1,subset)
-    if (strategy=='composite') fit = surv.composite.eff(A,Time,cstatus,cov1,subset)
-    if (strategy=='natural') fit = surv.natural.eff(A,Time,cstatus,cov1,subset)
-    if (strategy=='removed') fit = surv.removed.eff(A,Time,cstatus,cov1,subset)
-    if (strategy=='whileon') fit = surv.whileon.eff(A,Time,cstatus,cov1,subset)
-    if (strategy=='principal') fit = surv.principal.eff(A,Time,cstatus,cov1,subset)
+    if (strategy=='treatment') fit = surv.treatment.eff(A,Time,cstatus,cov1)
+    if (strategy=='composite') fit = surv.composite.eff(A,Time,cstatus,cov1)
+    if (strategy=='natural') fit = surv.natural.eff(A,Time,cstatus,cov1)
+    if (strategy=='removed') fit = surv.removed.eff(A,Time,cstatus,cov1)
+    if (strategy=='whileon') fit = surv.whileon.eff(A,Time,cstatus,cov1)
+    if (strategy=='principal') fit = surv.principal.eff(A,Time,cstatus,cov1)
   }
-  ate.list = c(fit,list(A=A,Time=Time,cstatus=cstatus,strategy=strategy,cov1=cov1,
-                    method=method,weights=weights,subset=subset,dtype='cmprsk'))
-  class(ate.list) = "tteICE"
-  return(ate.list)
+  fit = c(fit,list(A=A,Time=Time,cstatus=cstatus,strategy=strategy,cov1=cov1,
+                    method=method,weights=weights,na.rm=FALSE,dtype='cmprsk'))
+  if (nboot>-1) fit = surv.boot(fit,nboot,seed)
+  n = length(A); n1 = sum(A==1); n0 = sum(A==0)
+  fit = c(fit, list(n=n, n1=n1, n0=n0))
+  class(fit) = "tteICE"
+  return(fit)
 }

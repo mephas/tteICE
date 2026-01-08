@@ -8,10 +8,6 @@
 #' @param timeset Time at which to predict the risk. If \code{timeset=NULL}, risks will be predict at the
 #' quartiles of the maximum follow-up time.
 #'
-#' @param nboot Number of resampling in bootstrapping. By default, \code{nboot = 0}, meaning no bootstrap is performed and the standard error is computed using the explicit analytical formula.
-#'
-#' @param seed Sets the random seed used when generating bootstrap samples.
-#'
 #' @return A matrix. The meanings of each row are: time points, potential cumulative incidences (under
 #' treated and under control), treatment effects, standard errors, and P-values.
 #'
@@ -31,12 +27,9 @@
 #'
 #' @export
 
-riskpredict <- function(fit, timeset=NULL, nboot=0, seed=0){
+riskpredict <- function(fit, timeset=NULL){
 
-
-  .riskpredict_validate(fit, timeset, nboot, seed)
-
-  fit = surv.boot(fit, nboot, seed)
+  .riskpredict_validate(fit, timeset)
   if (is.null(timeset)) {
     maxt = max(fit$time)
     timeset = c(0.25,0.5,0.75,1)*maxt

@@ -17,8 +17,6 @@
 #'
 #' @param X Baseline covariates.
 #'
-#' @param subset Subset, either numerical or logical.
-#'
 #'
 #' @return A list including
 #' \describe{
@@ -54,10 +52,10 @@
 #'
 #' @export
 
-scr.composite.eff <- function(A,Time,status,Time_int,status_int,X=NULL,subset=NULL){
+scr.composite.eff <- function(A,Time,status,Time_int,status_int,X=NULL){
   Time = (Time + Time_int - abs(Time-Time_int))/2
   cstatus = status + 2*status_int
   cstatus[cstatus>2] = 2
-  fit = surv.composite.eff(A,Time,cstatus,X,subset)
+  fit = surv.composite.eff(A,Time,cstatus,X)
   return(fit)
 }

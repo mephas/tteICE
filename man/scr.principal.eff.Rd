@@ -4,15 +4,7 @@
 \alias{scr.principal.eff}
 \title{Fit the CIF using principal stratum strategy for semicompeting risks data, based on efficient influence functions}
 \usage{
-scr.principal.eff(
-  A,
-  Time,
-  status,
-  Time_int,
-  status_int,
-  X = NULL,
-  subset = NULL
-)
+scr.principal.eff(A, Time, status, Time_int, status_int, X = NULL)
 }
 \arguments{
 \item{A}{Treatment indicator, 1 for treatment and 0 for control.}
@@ -26,8 +18,6 @@ scr.principal.eff(
 \item{status_int}{Indicator of the intercurrent event, 1 for event and 0 for censoring.}
 
 \item{X}{Baseline covariates.}
-
-\item{subset}{Subset, either numerical or logical.}
 }
 \value{
 A list including
@@ -46,9 +36,9 @@ the restricted mean survival time lost by the end of study.}
 }
 }
 \description{
-This function estimates the potential cumulative incidence function based on 
-efficient influence functions using principal stratum strategy (semicompeting risks data 
-structure). Cox models are employed for survival models. The estimand is defined in a subpopulation 
+This function estimates the potential cumulative incidence function based on
+efficient influence functions using principal stratum strategy (semicompeting risks data
+structure). Cox models are employed for survival models. The estimand is defined in a subpopulation
 where intercurrent events would never occur regardless of treatment conditions.
 }
 \details{

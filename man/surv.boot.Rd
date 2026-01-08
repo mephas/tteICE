@@ -4,7 +4,7 @@
 \alias{surv.boot}
 \title{Calculate the standard error for the estimated CIF and treatment effect}
 \usage{
-surv.boot(fit, nboot = 0, seed = 0)
+surv.boot(fit, nboot = 0, seed = NULL)
 }
 \arguments{
 \item{fit}{A fitted object from \code{surv.tteICE}.}

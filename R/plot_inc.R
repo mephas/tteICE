@@ -8,10 +8,6 @@
 #'
 #' @param conf.int Confidence level for the interval. If \code{conf.int = NULL}, no confidence interval is provided.
 #'
-#' @param nboot Number of resampling in bootstrapping. By default, \code{nboot = 0}, meaning no bootstrap is performed and the standard error is computed using the explicit analytical formula.
-#'
-#' @param seed Sets the random seed used when generating bootstrap samples.
-#'
 #' @param xlab Label for x-axis.
 #'
 #' @param xlim A numeric vector of length 2 giving the limits of the x-axis. If \code{xlim=NULL} (default), the range is determined automatically from the data.
@@ -52,8 +48,9 @@
 #' plot_inc(fit1, ylim=c(0,1),
 #'          plot.configs=list(legend=c('AML','ALL'), show.p.value=FALSE) )
 #' \donttest{
-#' ## plot bootstrap confidence intervals (may take some seconds)
-#' plot_inc(fit1, nboot=200, ylim=c(0,1),
+#' ## plot bootstrap confidence intervals
+#' fit1 = surv.tteICE(A, bmt$t2, bmt$d4, 'treatment', nboot=200)
+#' plot_inc(fit1, ylim=c(0,1),
 #'          plot.configs=list(legend=c('AML','ALL')) )
 #' }
 #' ## Model with semicompeting risk data
@@ -61,13 +58,14 @@
 #' ## plot asymptotic confidence intervals based on explicit formulas
 #' plot_inc(fit2, ylim=c(0,1), plot.configs=list(add.null.line=FALSE))
 #' ## plot bootstrap confidence intervals
-#' plot_inc(fit2, nboot=200, ylim=c(0,1),
+#' fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite", nboot=200)
+#' plot_inc(fit2, ylim=c(0,1),
 #'          plot.configs=list(lty=2, lwd=3,main="Title"))
 #'
 #' @return Plot the cumulative incidence function results from a tteICE object
 #' @export
 
-plot_inc <- function(fit,decrease=FALSE,conf.int=.95,nboot=0,seed=0,
+plot_inc <- function(fit,decrease=FALSE,conf.int=.95,
   xlab='Time',xlim=NULL,ylim=c(0,1),
   plot.configs=list(ylab=NULL, main=NULL, cex=0.9,
                     lty=1, lwd=2,
@@ -79,7 +77,7 @@ plot_inc <- function(fit,decrease=FALSE,conf.int=.95,nboot=0,seed=0,
                     ),...){
 
   #---- validate input ----#
-  adj <- .plot_inc_validate(fit, decrease, conf.int, nboot, seed, xlab, xlim, ylim)
+  adj <- .plot_inc_validate(fit, decrease, conf.int, xlab, xlim, ylim)
   conf.int <- adj$conf.int
 
    #---- set configurations ----#
@@ -104,7 +102,6 @@ plot_inc <- function(fit,decrease=FALSE,conf.int=.95,nboot=0,seed=0,
 
   if(is.null(fit$p.val)) p=NA else p = fit$p.val
 
-  fit = surv.boot(fit,nboot,seed)
   tt = fit$time
   if (decrease==TRUE){
     cif1 = 1-fit$cif1

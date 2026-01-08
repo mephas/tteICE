@@ -8,8 +8,6 @@ plot_ate(
   fit,
   decrease = FALSE,
   conf.int = 0.95,
-  nboot = 0,
-  seed = 0,
   xlab = "Time",
   ylim = c(-1, 1),
   xlim = NULL,
@@ -26,10 +24,6 @@ plot_ate(
 
 \item{conf.int}{Confidence level for the interval. If \code{conf.int = NULL}, no confidence interval is provided.}
 
-\item{nboot}{Number of resampling in bootstrapping. By default, \code{nboot = 0}, meaning no bootstrap is performed and the standard error is computed using the explicit analytical formula.}
-
-\item{seed}{Sets the random seed used when generating bootstrap samples.}
-
 \item{xlab}{Label for x-axis.}
 
 \item{ylim}{A numeric vector of length 2 giving the limits of the y-axis. Defaults to \code{ylim=c(-1, 1)}.}
@@ -39,22 +33,22 @@ plot_ate(
 \item{plot.configs}{A named \code{list} of additional plot configurations. Common entries include:
 
 \itemize{
-    \item \code{ylab}: character, label for the y-axis (default: \code{ylab=NULL}, use the default label).
-    \item \code{main}: character, title for the plot (default: \code{main=NULL}, use the default label).
-    \item \code{lty}: line type for effect curve (default: 1).
-    \item \code{lwd}: line width for effect curve (default: 2).
-    \item \code{col}: line color for effect curve (default: "black").
-    \item \code{add.null.line}: logical, whether to draw a horizontal line at 0 (default: TRUE).
-    \item \code{null.line.lty}: line type for horizontal line at 0 (default: 2).
-    \item \code{ci.lty}: line type for confidence interval curves (default: 5).
-    \item \code{ci.lwd}: line width for confidence interval curves (default: 1.5).
-    \item \code{ci.col}: line color for confidence interval curves (default: "darkgrey").
-  }}
+\item \code{ylab}: character, label for the y-axis (default: \code{ylab=NULL}, use the default label).
+\item \code{main}: character, title for the plot (default: \code{main=NULL}, use the default label).
+\item \code{lty}: line type for effect curve (default: 1).
+\item \code{lwd}: line width for effect curve (default: 2).
+\item \code{col}: line color for effect curve (default: "black").
+\item \code{add.null.line}: logical, whether to draw a horizontal line at 0 (default: TRUE).
+\item \code{null.line.lty}: line type for horizontal line at 0 (default: 2).
+\item \code{ci.lty}: line type for confidence interval curves (default: 5).
+\item \code{ci.lwd}: line width for confidence interval curves (default: 1.5).
+\item \code{ci.col}: line color for confidence interval curves (default: "darkgrey").
+}}
 
 \item{...}{Additional graphical arguments passed to function \code{\link{plot.default}} or function \code{\link{curve}}}
 }
 \value{
-Plot the averaget treatment effect (ATE) results from a tteICE object
+Plot the average treatment effect (ATE) results from a tteICE object
 }
 \description{
 This function plots the estimated treatment effect, defined as the difference in potential cumulative incidences under treated and control groups, along with pointwise confidence intervals.
@@ -69,8 +63,9 @@ fit1 = surv.tteICE(A, bmt$t2, bmt$d4, 'composite')
 ## Plot asymptotic confidence intervals based on explicit formulas
 plot_ate(fit1, ylim=c(-0.4,0.4))
 \donttest{
-## Plot bootstrap confidence intervals (may take some seconds)
-plot_ate(fit1, nboot=200, ylim=c(-0.4,0.4))
+## Plot bootstrap confidence intervals
+fit1 = surv.tteICE(A, bmt$t2, bmt$d4, 'composite', nboot=200)
+plot_ate(fit1, ylim=c(-0.4,0.4))
 }
 ## Model with semicompeting risk data
 fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
@@ -78,7 +73,8 @@ fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
 plot_ate(fit2, ylim=c(-0.4,0.4),
          plot.configs=list(add.null.line=FALSE))
 ## Plot bootstrap confidence intervals
-plot_ate(fit2, nboot=200, ylim=c(-0.4,0.4),
+fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite", nboot=200)
+plot_ate(fit2, ylim=c(-0.4,0.4),
          plot.configs=list(add.null.line=FALSE, lty=2, main=""))
 
 }

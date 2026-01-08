@@ -12,8 +12,6 @@
 #'
 #' @param weights Weight for each subject.
 #'
-#' @param subset Subset, either numerical or logical.
-#'
 #'
 #' @return A list including
 #' \describe{
@@ -58,13 +56,13 @@
 #'
 #' @export
 
-surv.natural <- function(A,Time,cstatus,weights=rep(1,length(A)),subset=NULL){
-  N = length(A)
-  if (is.null(subset)) subset = 1:N
-  if (is.logical(subset)) subset = (1:N)[subset]
-  fit11 = survfit(Surv(Time,cstatus==1)~1, weights=weights, subset=subset[A[subset]==1])
-  fit10 = survfit(Surv(Time,cstatus==1)~1, weights=weights, subset=subset[A[subset]==0])
-  fit20 = survfit(Surv(Time,cstatus>1)~1, weights=weights, subset=subset[A[subset]==0])
+surv.natural <- function(A,Time,cstatus,weights=rep(1,length(A))){
+  n = length(A)
+  s1 = (A==1); n1 = sum(s1)
+  s0 = (A==0); n0 = sum(s0)
+  fit11 = survfitKM(factor(rep(1,n1)), Surv(Time,cstatus==1)[s1], weights=weights[s1])
+  fit10 = survfitKM(factor(rep(0,n0)), Surv(Time,cstatus==1)[s0], weights=weights[s0])
+  fit20 = survfitKM(factor(rep(0,n0)), Surv(Time,cstatus>1)[s0], weights=weights[s0])
   time = c(0, unique(sort(c(fit11$time,fit10$time,fit20$time))))
   fit11 = .matchy(rbind(0,cbind(fit11$cumhaz,fit11$std.err)),c(0,fit11$time),time)
   fit10 = .matchy(rbind(0,cbind(fit10$cumhaz,fit10$std.err)),c(0,fit10$time),time)
@@ -93,8 +91,8 @@ surv.natural <- function(A,Time,cstatus,weights=rep(1,length(A)),subset=NULL){
   dcif = cif1-cif0
   G0 = cumsum(M0)*dcif^2 + cumsum(M0*dcif^2) - 2*dcif*cumsum(M0*dcif)
   se = sqrt(G11+G10+G0)
-  surv_diff = survdiff(Surv(Time,cstatus==1)~A,subset=subset)
-  p = 1 - pchisq(surv_diff$chisq, length(surv_diff$n)-1)
+  surv_diff = survdiff(Surv(Time,cstatus==1)~A)
+  p = pchisq(surv_diff$chisq, length(surv_diff$n)-1, lower.tail=FALSE)
   ate = cif1-cif0
   return(list(time1=time,time0=time,cif1=cif1,cif0=cif0,se1=se1,se0=se0,
               time=time,ate=ate,se=se,p.val=p))

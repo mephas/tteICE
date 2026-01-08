@@ -8,8 +8,6 @@ plot_inc(
   fit,
   decrease = FALSE,
   conf.int = 0.95,
-  nboot = 0,
-  seed = 0,
   xlab = "Time",
   xlim = NULL,
   ylim = c(0, 1),
@@ -26,10 +24,6 @@ plot_inc(
 
 \item{conf.int}{Confidence level for the interval. If \code{conf.int = NULL}, no confidence interval is provided.}
 
-\item{nboot}{Number of resampling in bootstrapping. By default, \code{nboot = 0}, meaning no bootstrap is performed and the standard error is computed using the explicit analytical formula.}
-
-\item{seed}{Sets the random seed used when generating bootstrap samples.}
-
 \item{xlab}{Label for x-axis.}
 
 \item{xlim}{A numeric vector of length 2 giving the limits of the x-axis. If \code{xlim=NULL} (default), the range is determined automatically from the data.}
@@ -39,14 +33,14 @@ plot_inc(
 \item{plot.configs}{A named \code{list} of additional plot configurations. Common entries include:
 
 \itemize{
-    \item \code{ylab}: character, label for the y-axis (default: \code{ylab=NULL}, use the default label).
-    \item \code{main}: character, title for the plot (default: \code{main=NULL}, use the default label).
-    \item \code{lty}: line type for the curve (default: 1).
-    \item \code{lwd}: line width for the curve (default: 2).
-    \item \code{ci.lty}: line type for confidence interval curves (default: 5).
-    \item \code{ci.lwd}: line width for confidence interval curves (default: 1.5).
-    \item \code{legend.cex}: font size for the legend (default: 0.9).
-  }}
+\item \code{ylab}: character, label for the y-axis (default: \code{ylab=NULL}, use the default label).
+\item \code{main}: character, title for the plot (default: \code{main=NULL}, use the default label).
+\item \code{lty}: line type for the curve (default: 1).
+\item \code{lwd}: line width for the curve (default: 2).
+\item \code{ci.lty}: line type for confidence interval curves (default: 5).
+\item \code{ci.lwd}: line width for confidence interval curves (default: 1.5).
+\item \code{legend.cex}: font size for the legend (default: 0.9).
+}}
 
 \item{...}{Additional graphical arguments passed to function \code{\link{plot.default}} or function \code{\link{curve}}}
 }
@@ -67,8 +61,9 @@ fit1 = surv.tteICE(A, bmt$t2, bmt$d4, 'treatment')
 plot_inc(fit1, ylim=c(0,1),
          plot.configs=list(legend=c('AML','ALL'), show.p.value=FALSE) )
 \donttest{
-## plot bootstrap confidence intervals (may take some seconds)
-plot_inc(fit1, nboot=200, ylim=c(0,1),
+## plot bootstrap confidence intervals
+fit1 = surv.tteICE(A, bmt$t2, bmt$d4, 'treatment', nboot=200)
+plot_inc(fit1, ylim=c(0,1),
          plot.configs=list(legend=c('AML','ALL')) )
 }
 ## Model with semicompeting risk data
@@ -76,7 +71,8 @@ fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
 ## plot asymptotic confidence intervals based on explicit formulas
 plot_inc(fit2, ylim=c(0,1), plot.configs=list(add.null.line=FALSE))
 ## plot bootstrap confidence intervals
-plot_inc(fit2, nboot=200, ylim=c(0,1),
+fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite", nboot=200)
+plot_inc(fit2, ylim=c(0,1),
          plot.configs=list(lty=2, lwd=3,main="Title"))
 
 }

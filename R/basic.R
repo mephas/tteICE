@@ -17,17 +17,19 @@
   return(newy)
 }
 
-.ipscore <- function(A, X, standardize=TRUE, weights=rep(1,length(A)), subset=rep(TRUE,length(A))){
+.ipscore <- function(A, X=NULL, standardize=TRUE, weights=rep(1,length(A)), subset=rep(TRUE,length(A))){
+  As = A[subset]
   if (is.null(X)) {
-    return(rep(1, length(A)))
+    ps = mean(A)
+  } else {
+    fps = glm.fit(cbind(1,X)[subset,], As, family='binomial'(link='logit'), weights=weights)
+    ps = fitted(fps)
   }
-  fps = glm(A~X, family='binomial', weights=weights, subset=subset)
-  ps = predict(fps, type='response')
   ips = rep(1, length(A))
   if (standardize){
-    ips0 = A/ps*mean(A/ps) + (1-A)/(1-ps)*mean((1-A)/(1-ps))
+    ips0 = As/ps*mean(As/ps) + (1-As)/(1-ps)*mean((1-As)/(1-ps))
   } else {
-    ips0 = A/ps + (1-A)/(1-ps)
+    ips0 = As/ps + (1-As)/(1-ps)
   }
   ips[subset] = ips0
   return(ips)
@@ -61,147 +63,7 @@
   return(list(Z=A,T=T,R=R,dT=dT,dR=dR,Time=Time,cstatus=cstatus,X=X))
 }
 
-.phfit <- function(Tr,Dr,Td,Dd,A,X,a){
-  X0 = X
-  Tr = Tr[A==a]
-  Td = Td[A==a]
-  Dr = Dr[A==a]
-  Dd = Dd[A==a]
-  Dr[Tr==max(Tr)] = 0
-  Dd[Td==max(Td)] = 0
-  tt = sort(unique(c(Td,Tr[Dr==1])))
-  maxt = max(tt)*0.9
-  L = length(tt)
-  N = length(Td)
-  if (!is.null(X)) {
-    X = as.matrix(as.matrix(X)[A==a,])
-    p = ncol(X)
-    betad = rep(0, p)
-    betar = rep(0, p)
-  } else {
-    p = 0
-    betad = betar = 0
-  }
-  lamd = rep(1/L, L)
-  lamr = rep(1/L, L)
-  # d
-  eXb = rep(1, N)
-  delta_r = 0
-  iter = 0; tol = 1
-  while(iter<100){
-    iter = iter+1
-    est0 = c(betad,delta_r,lamd[tt<maxt])
-    S0 = sapply(Td, function(l) sum((Td>=l)*eXb*exp(delta_r*Dr*(Tr<l))))
-    if (!is.null(X)){
-      S1 = t(sapply(Td, function(l) colSums((Td>=l)*eXb*exp(delta_r*Dr*(Tr<l))*X)))
-      S2 = t(sapply(Td, function(l) t(X)%*%diag((Td>=l)*eXb*exp(delta_r*Dr*(Tr<l)))%*%X))
-      if (p==1) {S1=t(S1);S2=t(S2)}
-      dbeta = as.numeric(t(X-S1/S0)%*%Dd)
-      ddbeta = t(S1/S0)%*%diag(Dd)%*%(S1/S0) - matrix(colSums(Dd*S2/S0),p,p)
-      betad = betad - ginv(ddbeta) %*% dbeta
-      eXb = exp(as.numeric(X%*%betad))
-    }
-    if (sum(Dd*(Tr<Td))>0) {
-      S1 = sapply(Td, function(l) sum((Td>=l)*eXb*exp(delta_r*Dr*(Tr<l))*Dr*(Tr<l)))
-      ddelta_r = sum(Dd*((Td>Tr)*Dr-S1/S0))
-      dddelta_r = sum(Dd*(S1/S0)^2) - sum(Dd*S1/S0)
-      delta_r = delta_r - ddelta_r/dddelta_r
-    }
-    delta_r = sign(delta_r)*min(abs(delta_r),5)
-    lamd = sapply(tt, function(t) sum(Dd*(Td==t))/sum((Td>=t)*eXb*exp((Tr<t)*delta_r)))
-    lamd[is.nan(lamd)] = 0
-    est = c(betad,delta_r,lamd[tt<maxt])
-    tol = max(abs(est-est0))
-    if (tol<0.00001) break
-  }
-  delta_rd = delta_r
-  # r
-  eXb = rep(1, N)
-  iter = 0; tol = 1
-  while(iter<100){
-    iter = iter+1
-    est0 = c(betar,lamr[tt<maxt])
-    S0 = sapply(Tr, function(l) sum((Tr>=l)*eXb))
-    if (!is.null(X)){
-      S1 = t(sapply(Tr, function(l) colSums((Tr>=l)*eXb*X)))
-      S2 = t(sapply(Tr, function(l) t(X)%*%diag((Tr>=l)*eXb)%*%X))
-      if (p==1) {S1=t(S1);S2=t(S2)}
-      dbeta = as.numeric(t(X-S1/S0)%*%Dr)
-      ddbeta = t(S1/S0)%*%diag(Dr)%*%(S1/S0) - matrix(colSums(Dr*S2/S0),p,p)
-      betar = betar - ginv(ddbeta) %*% dbeta
-      eXb = exp(as.numeric(X%*%betar))
-    }
-    lamr = sapply(tt, function(t) sum(Dr*(Tr==t))/sum((Tr>=t)*eXb))
-    lamr[is.nan(lamr)] = 0
-    est = c(betar,lamr[tt<maxt])
-    tol = max(abs(est-est0))
-    if (tol<0.00001) break
-  }
-  if (!is.null(X)){
-    betad = as.numeric(betad)
-    betar = as.numeric(betar)
-    Xbd = as.numeric(X0%*%betad)
-    Xbr = as.numeric(X0%*%betar)
-  } else {
-    betad = betar = 0
-    Xbd = Xbr = rep(0,N)
-  }
-  return(list(betad=betad, betar=betar, delta=delta_rd,
-              Xbd=Xbd, Xbr=Xbr, tt=tt, lamd=lamd, lamr=lamr))
-}
-
-.phfit_c <- function(Tr,Dr,Td,Dd,A,X,a){
-  X0 = X
-  Td = Td[A==a]
-  Dd = Dd[A==a]
-  Dd[Td==max(Td)] = 1
-  Dc = 1 - Dd
-  tt = sort(unique(Td[Dc==1]))
-  maxt = max(tt)*0.9
-  L = length(tt)
-  N = length(Td)
-  if (!is.null(X)) {
-    X = as.matrix(as.matrix(X)[A==a,])
-    p = ncol(X)
-    beta = rep(0, p)
-  } else {
-    p = 0
-    beta = 0
-  }
-  lam = rep(1/L, L)
-  eXb = rep(1, N)
-  iter = 0; tol = 1
-  while(iter<100){
-    iter = iter+1
-    est0 = c(beta,lam[tt<maxt])
-    S0 = sapply(Td, function(l) sum((Td>=l)*eXb))
-    if (!is.null(X)){
-      S1 = t(sapply(Td, function(l) colSums((Td>=l)*eXb*X)))
-      S2 = t(sapply(Td, function(l) t(X)%*%diag((Td>=l)*eXb)%*%X))
-      if (p==1) {S1=t(S1);S2=t(S2)}
-      dbeta = as.numeric(t(X-S1/S0)%*%Dc)
-      ddbeta = t(S1/S0)%*%diag(Dc)%*%(S1/S0) - matrix(colSums(Dc*S2/S0),p,p)
-      beta = beta - ginv(ddbeta) %*% dbeta
-      eXb = exp(as.numeric(X%*%beta))
-    }
-    lam = sapply(tt, function(t) sum(Dc*(Td==t))/sum((Td>=t)*eXb))
-    lam[is.nan(lam)] = 0
-    est = c(beta,lam[tt<maxt])
-    tol = max(abs(est-est0))
-    if (tol<0.00001) break
-  }
-  if (!is.null(X)){
-    beta = as.numeric(beta)
-    Xb = as.numeric(X0%*%beta)
-  } else {
-    beta = 0
-    Xb = rep(0,N)
-  }
-  return(list(beta=beta, Xb=Xb, tt=tt, lam=lam))
-}
-
-
-.plot_ate_validate <- function(fit, decrease, conf.int, nboot, seed, xlab, xlim, ylim) {
+.plot_ate_validate <- function(fit, decrease, conf.int, xlab, xlim, ylim) {
   # ---- fit ----
   if (!inherits(fit, "tteICE"))
     stop("`fit` must be an object returned by `surv.tteICE` or `scr.tteICE`.", call. = FALSE)
@@ -228,26 +90,6 @@
     }
     if (conf.int <= 0 || conf.int >= 1)
       stop("`conf.int` must be in (0, 1) when not NULL.", call. = FALSE)
-  }
-
-  # ---- nboot ----
-  if (!is.numeric(nboot) || length(nboot) != 1 || nboot < 0 || !is.finite(nboot) || nboot != as.integer(nboot))
-    stop("`nboot` must be a single nonnegative integer.", call. = FALSE)
-
-  if (nboot == 0 && !is.null(conf.int)) {
-    # Analytical SE intended; fine.
-    # No action.
-  }
-  if (nboot > 0 && is.null(conf.int)) {
-    warning("`nboot > 0` but `conf.int = NULL`. Bootstrap SEs will be computed but no CI will be drawn.")
-  }
-
-  # ---- seed ----
-  if (!is.null(seed)) {
-    if (!is.numeric(seed) || length(seed) != 1 || !is.finite(seed) || seed != as.integer(seed))
-      stop("`seed` must be NULL or a single integer.", call. = FALSE)
-    if (nboot == 0)
-      warning("`seed` is supplied but `nboot = 0`; seed will be ignored.")
   }
 
   # ---- labels & limits ----
@@ -277,7 +119,7 @@
 }
 
 
-.plot_inc_validate <- function(fit, decrease, conf.int, nboot, seed, xlab, xlim, ylim) {
+.plot_inc_validate <- function(fit, decrease, conf.int, xlab, xlim, ylim) {
   # ---- fit ----
   if (!inherits(fit, "tteICE"))
     stop("`fit` must be an object returned by `surv.tteICE` or `scr.tteICE`.", call. = FALSE)
@@ -304,26 +146,6 @@
     }
     if (conf.int <= 0 || conf.int >= 1)
       stop("`conf.int` must be in (0, 1) when not NULL.", call. = FALSE)
-  }
-
-  # ---- nboot ----
-  if (!is.numeric(nboot) || length(nboot) != 1 || nboot < 0 || !is.finite(nboot) || nboot != as.integer(nboot))
-    stop("`nboot` must be a single nonnegative integer.", call. = FALSE)
-
-  if (nboot == 0 && !is.null(conf.int)) {
-    # Analytical SE intended; fine.
-    # No action.
-  }
-  if (nboot > 0 && is.null(conf.int)) {
-    warning("`nboot > 0` but `conf.int = NULL`. Bootstrap SEs will be computed but no CI will be drawn.")
-  }
-
-  # ---- seed ----
-  if (!is.null(seed)) {
-    if (!is.numeric(seed) || length(seed) != 1 || !is.finite(seed) || seed != as.integer(seed))
-      stop("`seed` must be NULL or a single integer.", call. = FALSE)
-    if (nboot == 0)
-      warning("`seed` is supplied but `nboot = 0`; seed will be ignored.")
   }
 
   # ---- labels & limits ----
@@ -358,7 +180,7 @@
 }
 
 
-.riskpredict_validate <- function(fit, timeset, nboot, seed) {
+.riskpredict_validate <- function(fit, timeset) {
   # ---- fit ----
   if (!inherits(fit, "tteICE"))
     stop("`fit` must be an object returned by `surv.tteICE` or `scr.tteICE`.", call. = FALSE)
@@ -368,16 +190,17 @@
   #   if (!is.numeric(timeset) || length(timeset) != 1 || !is.finite(timeset))
   #     stop("`timeset` must be NULL or a single finite numeric value.", call. = FALSE)
   # }
-
-  # ---- nboot ----
-  if (!is.numeric(nboot) || length(nboot) != 1 || nboot < 0 || !is.finite(nboot) || nboot != as.integer(nboot))
-    stop("`nboot` must be a single nonnegative integer.", call. = FALSE)
-
-  # ---- seed ----
-  if (!is.null(seed)) {
-    if (!is.numeric(seed) || length(seed) != 1 || !is.finite(seed) || seed != as.integer(seed))
-      stop("`seed` must be NULL or a single integer.", call. = FALSE)
-    if (nboot == 0)
-      warning("`seed` is supplied but `nboot = 0`; seed will be ignored.")
   }
-  }
+
+
+#' Internal wrapper of survival:::event
+#' @noRd
+.event <- function(time, value=NULL, censor=NULL) {
+        x <- list(time=time, value=value, censor=censor); 
+        class(x) <-"event"; x}
+
+#' Internal wrapper of survival:::tdc
+#' @noRd
+.tdc <- function(time, value=NULL, init=NULL) {
+        x <- list(time=time, value=value, default= init); 
+        class(x) <- "tdc"; x}

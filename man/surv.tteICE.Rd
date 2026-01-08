@@ -13,7 +13,9 @@ surv.tteICE(
   method = "np",
   weights = NULL,
   subset = NULL,
-  na.rm = FALSE
+  na.rm = FALSE,
+  nboot = 0,
+  seed = 0
 )
 }
 \arguments{
@@ -31,8 +33,8 @@ surv.tteICE(
 
 \item{cov1}{Baseline covariates.}
 
-\item{method}{Estimation method, \code{"np"} indicating nonparametric estimation, \code{"np"} indicating inverse 
-treatment probability weighting, \code{"eff"} indicating semiparametrically efficient estimation based on efficient 
+\item{method}{Estimation method, \code{"np"} indicating nonparametric estimation, \code{"np"} indicating inverse
+treatment probability weighting, \code{"eff"} indicating semiparametrically efficient estimation based on efficient
 influence functions.}
 
 \item{weights}{Weight for each subject.}
@@ -40,13 +42,18 @@ influence functions.}
 \item{subset}{Subset, either numerical or logical.}
 
 \item{na.rm}{Whether to remove missing values.}
+
+\item{nboot}{Number of resamplings in the boostrapping method. If \code{nboot} is 0 or 1, then
+asymptotic standard error based on the explicit form is calculated instead of bootstrapping.}
+
+\item{seed}{Seed for bootstrapping.}
 }
 \value{
 A list including the fitted object and input variables.
 }
 \description{
 This function estimates the potential cumulative incidence function
-for time-to event data under ICH E9 (R1) to address intercurrent events. The input data 
+for time-to event data under ICH E9 (R1) to address intercurrent events. The input data
 should be of a competing risks structure.
 }
 \details{

@@ -17,8 +17,6 @@
 #'
 #' @param X Baseline covariates.
 #'
-#' @param subset Subset, either numerical or logical.
-#'
 #'
 #' @return A list including
 #' \describe{
@@ -58,62 +56,57 @@
 #' effect corresponds to the natural direct effect, with the hazard of intercurrent events set at
 #' the level under control. Markovness is assumed in estimation.
 #' }
-#'
+#' 
 #' @seealso \code{\link[tteICE]{scr.natural}}, \code{\link[tteICE]{scr.tteICE}}
 #'
 #'
 #' @export
-scr.natural.eff <- function(A,Time,status,Time_int,status_int,X=NULL,subset=NULL){
-  Td = Time; Dd = status
-  Tr = Time_int; Dr = status_int
-  if (!is.null(subset)) {
-    A = A[subset]
-    Td = Td[subset]; Dd = Dd[subset]; Tr = Tr[subset]; Dr = Dr[subset]
-    if (!is.null(X)) X = as.matrix(X)[subset,]
-  }
+scr.natural.eff <- function(A,Time,status,Time_int,status_int,X=NULL){
   n = length(A)
-  if (!is.null(X)) X = as.matrix(scale(X))
-  tt = sort(unique(c(Tr,Td)))
-  l = length(tt)
-  fit1 = .phfit(Tr,Dr,Td,Dd,A,X,a=1)
-  fit0 = .phfit(Tr,Dr,Td,Dd,A,X,a=0)
-  # hazard of d
-  Xb = fit1$Xbd
-  delta_r = fit1$delta
-  lam_d = .matchy(fit1$lamd, fit1$tt, tt, TRUE)
-  lam_od1 = sapply(1:l, function(t) lam_d[t]*exp(Xb))
-  lam_ord1 = lam_od1 * exp(delta_r)
-  Xb = fit0$Xbd
-  delta_r = fit0$delta
-  lam_d = .matchy(fit0$lamd, fit0$tt, tt, TRUE)
-  lam_od0 = sapply(1:l, function(t) lam_d[t]*exp(Xb))
-  lam_ord0 = lam_od0 * exp(delta_r)
-  # hazard of r
-  Xb = fit1$Xbr
-  lam_r = .matchy(fit1$lamr, fit1$tt, tt, TRUE)
-  lam_or1 = sapply(1:l, function(t) lam_r[t]*exp(Xb))
-  Xb = fit0$Xbr
-  lam_r = .matchy(fit0$lamr, fit0$tt, tt, TRUE)
-  lam_or0 = sapply(1:l, function(t) lam_r[t]*exp(Xb))
-  # hazard of c
-  fit_c = .phfit_c(Tr,Dr,Td,Dd,A,X,a=1)
-  Xb = fit_c$Xb
-  lam_c = .matchy(fit_c$lam, fit_c$tt, tt, TRUE)
-  lam_c1 = sapply(1:l, function(t) lam_c[t]*exp(Xb))
-  fit_c = .phfit_c(Tr,Dr,Td,Dd,A,X,a=0)
-  Xb = fit_c$Xb
-  lam_c = .matchy(fit_c$lam, fit_c$tt, tt, TRUE)
-  lam_c0 = sapply(1:l, function(t) lam_c[t]*exp(Xb))
-
-  if (!is.null(X)){
-    fit = glm(A~X, family='binomial')
-  } else {
-    fit = glm(A~1, family='binomial')
+  if (is.null(X)) {
+    return(scr.natural(A,Time,status,Time_int,status_int))
   }
-  ps = matrix(1,nrow=n,ncol=2)
-  pscore = predict(fit, type='response')
-  ps[,1] = (1 - pscore) * mean((1-A)/(1-pscore))
-  ps[,2] = pscore * mean(A/pscore)
+  X = as.matrix(scale(X))
+  df = data.frame(id=1:n, Td=Time, Dd=status, Tr=Time_int, Dr=status_int, X=X, A=A)
+  mg = tmerge(data1=df, data2=df, id=df$id, event=.event(df$Td,df$Dd))
+  mg = tmerge(mg, df, id=df$id, Revent = .tdc(df$Tr))
+  xvars = grep("^X", names(mg), value=TRUE)
+  cox_formula = reformulate(c("Revent",xvars), response="Surv(tstart,tstop,event)")
+  tt = sort(unique(c(Time,Time_int)))
+  l = length(tt)
+  fit11 = coxph(cox_formula, data=mg, cluster=mg$id, subset=(A==1))
+  time1 = basehaz(fit11,centered=FALSE)$time
+  lamd = diff(c(0,basehaz(fit11,centered=FALSE)$hazard))
+  lam_d = .matchy(lamd, time1, tt, TRUE)
+  lam_od1 = sapply(1:l, function(t) lam_d[t]*exp( X%*%fit11$coefficients[-1]))
+  lam_ord1 = lam_od1 * exp(fit11$coefficients[1])
+  fit10 = coxph(cox_formula, data=mg, cluster=mg$id, subset=(A==0))
+  time0 = basehaz(fit10,centered=FALSE)$time
+  lamd = diff(c(0,basehaz(fit10,centered=FALSE)$hazard))
+  lam_d = .matchy(lamd, time0, tt, TRUE)
+  lam_od0 = sapply(1:l, function(t) lam_d[t]*exp(X%*%fit10$coefficients[-1]))
+  lam_ord0 = lam_od0 * exp(fit10$coefficients[1])
+  fit21 = coxph(Surv(Time_int,status_int)~X, subset=(A==1))
+  time1 = basehaz(fit21,centered=FALSE)$time
+  lamr = diff(c(0,basehaz(fit21,centered=FALSE)$hazard))
+  lam_r = .matchy(lamr, time1, tt, TRUE)
+  lam_or1 = sapply(1:l, function(t) lam_r[t]*exp(X%*%fit21$coefficients))
+  fit20 = coxph(Surv(Time_int,status_int)~X, subset=(A==0))
+  time0 = basehaz(fit20,centered=FALSE)$time
+  lamr = diff(c(0,basehaz(fit20,centered=FALSE)$hazard))
+  lam_r = .matchy(lamr, time0, tt, TRUE)
+  lam_or0 = sapply(1:l, function(t) lam_r[t]*exp(X%*%fit20$coefficients))
+  fit1c = coxph(Surv(Time,status==0)~X, subset=(A==1))
+  time1 = basehaz(fit1c,centered=FALSE)$time
+  lamc = diff(c(0,basehaz(fit1c,centered=FALSE)$hazard))
+  lam_c = .matchy(lamc, time1, tt, TRUE)
+  lam_c1 = sapply(1:l, function(t) lam_c[t]*exp(X%*%fit1c$coefficients))
+  fit0c = coxph(Surv(Time,status==0)~X, subset=(A==0))
+  time0 = basehaz(fit0c,centered=FALSE)$time
+  lamc = diff(c(0,basehaz(fit0c,centered=FALSE)$hazard))
+  lam_c = .matchy(lamc, time0, tt, TRUE)
+  lam_c0 = sapply(1:l, function(t) lam_c[t]*exp(X%*%fit0c$coefficients))
+  ips = .ipscore(A,X)
 
   # observable incidence
   lam_od_A = A*lam_od1 + (1-A)*lam_od0
@@ -123,7 +116,7 @@ scr.natural.eff <- function(A,Time,status,Time_int,status_int,X=NULL,subset=NULL
   Lam_or_A = t(apply(lam_ord_A, 1, cumsum))
   lam_c_A = A*lam_c1 + (1-A)*lam_c0
   Lam_c_A = t(apply(lam_c_A, 1, cumsum))
-  SC = 1 - t(apply(exp(-Lam_c_A)*lam_c_A, 1, cumsum))
+  SC = exp(-Lam_c_A)
 
   dF_or_A = exp(-Lam_o_A)*lam_or_A
   dF_od_A = exp(-Lam_o_A)*lam_od_A
@@ -151,12 +144,12 @@ scr.natural.eff <- function(A,Time,status,Time_int,status_int,X=NULL,subset=NULL
   Fd = F_od_a + F_ord_a
 
   # od
-  Y_o = sapply(tt, function(t) (Td>=t)*(Tr>=t))
+  Y_o = sapply(tt, function(t) (Time>=t)*(Time_int>=t))
   PY_o = (1-F_or_A-F_od_A) * SC
-  dM_od = sapply(tt, function(t) (Td==t)*Dd*(Tr>=t)) - Y_o*lam_od_A
-  dQ_od = dM_od * (A==a[1])/ps[,a[1]+1] /PY_o
-  dM_or = sapply(tt, function(t) (Tr==t)*Dr*(Td>=t)) - Y_o*lam_or_A
-  dQ_or = dM_or * (A==a[2])/ps[,a[2]+1] / PY_o
+  dM_od = sapply(tt, function(t) (Time==t)*status*(Time_int>=t)) - Y_o*lam_od_A
+  dQ_od = dM_od * (A==a[1])*ips /PY_o
+  dM_or = sapply(tt, function(t) (Time_int==t)*status_int*(Time>=t)) - Y_o*lam_or_A
+  dQ_or = dM_or * (A==a[2])*ips / PY_o
   dQ_od[PY_o==0] = 0
   dQ_or[PY_o==0] = 0
   Q_or = t(apply(dQ_or,1,cumsum))
@@ -164,10 +157,10 @@ scr.natural.eff <- function(A,Time,status,Time_int,status_int,X=NULL,subset=NULL
   G1_od = dQ_od - (Q_od+Q_or)*lam_od_a
   G_od = t(apply(G1_od*exp(-Lam_o_a), 1, cumsum))
   # ord
-  Y_or = sapply(tt, function(t) (Td>=t)*(Tr<=t)*Dr)
+  Y_or = sapply(tt, function(t) (Time>=t)*(Time_int<=t)*status_int)
   PY_or = (F_or_A - F_ord_A) * SC
-  dM_ord = sapply(tt, function(t) (Td==t)*Dd*Dr*(Tr<=t)) - Y_or*lam_ord_A
-  dQ_ord = dM_ord * (A==a[3])/ps[,a[3]+1] / PY_or
+  dM_ord = sapply(tt, function(t) (Time==t)*status*status_int*(Time_int<=t)) - Y_or*lam_ord_A
+  dQ_ord = dM_ord * (A==a[3])*ips / PY_or
   dQ_ord[PY_or==0] = 0
   Q_ord = t(apply(dQ_ord,1,cumsum))
   G1_or = dQ_or - (Q_od+Q_or)*lam_or_a
@@ -198,12 +191,12 @@ scr.natural.eff <- function(A,Time,status,Time_int,status_int,X=NULL,subset=NULL
   Fd = F_od_a + F_ord_a
 
   # od
-  Y_o = sapply(tt, function(t) (Td>=t)*(Tr>=t))
+  Y_o = sapply(tt, function(t) (Time>=t)*(Time_int>=t))
   PY_o = (1-F_or_A-F_od_A) * SC
-  dM_od = sapply(tt, function(t) (Td==t)*Dd*(Tr>=t)) - Y_o*lam_od_A
-  dQ_od = dM_od * (A==a[1])/ps[,a[1]+1] /PY_o
-  dM_or = sapply(tt, function(t) (Tr==t)*Dr*(Td>=t)) - Y_o*lam_or_A
-  dQ_or = dM_or * (A==a[2])/ps[,a[2]+1] / PY_o
+  dM_od = sapply(tt, function(t) (Time==t)*status*(Time_int>=t)) - Y_o*lam_od_A
+  dQ_od = dM_od * (A==a[1])*ips /PY_o
+  dM_or = sapply(tt, function(t) (Time_int==t)*status_int*(Time>=t)) - Y_o*lam_or_A
+  dQ_or = dM_or * (A==a[2])*ips / PY_o
   dQ_od[PY_o==0] = 0
   dQ_or[PY_o==0] = 0
   Q_or = t(apply(dQ_or,1,cumsum))
@@ -211,10 +204,10 @@ scr.natural.eff <- function(A,Time,status,Time_int,status_int,X=NULL,subset=NULL
   G1_od = dQ_od - (Q_od+Q_or)*lam_od_a
   G_od = t(apply(G1_od*exp(-Lam_o_a), 1, cumsum))
   # ord
-  Y_or = sapply(tt, function(t) (Td>=t)*(Tr<=t)*Dr)
+  Y_or = sapply(tt, function(t) (Time>=t)*(Time_int<=t)*status_int)
   PY_or = (F_or_A - F_ord_A) * SC
-  dM_ord = sapply(tt, function(t) (Td==t)*Dd*Dr*(Tr<=t)) - Y_or*lam_ord_A
-  dQ_ord = dM_ord * (A==a[3])/ps[,a[3]+1] / PY_or
+  dM_ord = sapply(tt, function(t) (Time==t)*status*status_int*(Time_int<=t)) - Y_or*lam_ord_A
+  dQ_ord = dM_ord * (A==a[3])*ips / PY_or
   dQ_ord[PY_or==0] = 0
   Q_ord = t(apply(dQ_ord,1,cumsum))
   G1_or = dQ_or - (Q_od+Q_or)*lam_or_a

@@ -22,7 +22,7 @@ RoxygenNote: 7.3.3
 Imports: 
     cmprsk,
     MASS,
-    survival,
+    survival (>= 3.8-3),
     shiny,
     shinythemes,
     shinyWidgets,

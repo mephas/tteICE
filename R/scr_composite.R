@@ -16,8 +16,6 @@
 #'
 #' @param weights Weight for each subject.
 #'
-#' @param subset Subset, either numerical or logical.
-#'
 #'
 #' @return A list including
 #' \describe{
@@ -52,10 +50,10 @@
 #'
 #' @export
 
-scr.composite <- function(A,Time,status,Time_int,status_int,weights=rep(1,length(A)),subset=NULL){
+scr.composite <- function(A,Time,status,Time_int,status_int,weights=rep(1,length(A))){
   Time = (Time + Time_int - abs(Time-Time_int))/2
   cstatus = status + 2*status_int
   cstatus[cstatus>2] = 2
-  fit = surv.composite(A,Time,cstatus,weights,subset)
+  fit = surv.composite(A,Time,cstatus,weights)
   return(fit)
 }

@@ -8,10 +8,6 @@
 #'
 #' @param conf.int Confidence level for the interval. If \code{conf.int = NULL}, no confidence interval is provided.
 #'
-#' @param nboot Number of resampling in bootstrapping. By default, \code{nboot = 0}, meaning no bootstrap is performed and the standard error is computed using the explicit analytical formula.
-#'
-#' @param seed Sets the random seed used when generating bootstrap samples.
-#'
 #' @param xlab Label for x-axis.
 #'
 #' @param xlim A numeric vector of length 2 giving the limits of the x-axis. If \code{xlim=NULL} (default), the range is determined automatically from the data.
@@ -37,7 +33,8 @@
 #'
 #' @importFrom graphics plot abline points legend
 #' @importFrom stats qnorm
-#'
+#' @importFrom stats binomial fitted glm.fit reformulate
+#' 
 #' @seealso
 #' \code{\link[graphics]{plot.default}},
 #' \code{\link[graphics]{points}},
@@ -54,8 +51,9 @@
 #' ## Plot asymptotic confidence intervals based on explicit formulas
 #' plot_ate(fit1, ylim=c(-0.4,0.4))
 #' \donttest{
-#' ## Plot bootstrap confidence intervals (may take some seconds)
-#' plot_ate(fit1, nboot=200, ylim=c(-0.4,0.4))
+#' ## Plot bootstrap confidence intervals
+#' fit1 = surv.tteICE(A, bmt$t2, bmt$d4, 'composite', nboot=200)
+#' plot_ate(fit1, ylim=c(-0.4,0.4))
 #' }
 #' ## Model with semicompeting risk data
 #' fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
@@ -63,13 +61,14 @@
 #' plot_ate(fit2, ylim=c(-0.4,0.4),
 #'          plot.configs=list(add.null.line=FALSE))
 #' ## Plot bootstrap confidence intervals
-#' plot_ate(fit2, nboot=200, ylim=c(-0.4,0.4),
+#' fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite", nboot=200)
+#' plot_ate(fit2, ylim=c(-0.4,0.4),
 #'          plot.configs=list(add.null.line=FALSE, lty=2, main=""))
 #'
-#' @return Plot the averaget treatment effect (ATE) results from a tteICE object
+#' @return Plot the average treatment effect (ATE) results from a tteICE object
 #' @export
 
-plot_ate <- function(fit,decrease=FALSE,conf.int=.95,nboot=0,seed=0,
+plot_ate <- function(fit,decrease=FALSE,conf.int=.95,
   xlab='Time',ylim=c(-1,1),xlim=NULL,
   plot.configs=list(ylab=NULL, main=NULL,
                     lty=1, lwd=2, col="black",
@@ -77,7 +76,7 @@ plot_ate <- function(fit,decrease=FALSE,conf.int=.95,nboot=0,seed=0,
                     ci.lty=5, ci.lwd=1.5, ci.col="darkgrey"),...){
 
   #---- validate input ----#
-  adj <- .plot_ate_validate(fit, decrease, conf.int, nboot, seed, xlab, xlim, ylim)
+  adj <- .plot_ate_validate(fit, decrease, conf.int, xlab, xlim, ylim)
   conf.int <- adj$conf.int
 
   #---- set configurations ----#
@@ -96,15 +95,14 @@ plot_ate <- function(fit,decrease=FALSE,conf.int=.95,nboot=0,seed=0,
   if (fit$strategy=='removed') stname = 'Hypothetical II (removed) strategy'
   if (fit$strategy=='whileon') stname = 'While on treatment strategy'
   if (fit$strategy=='principal') stname = 'Principal stratum strategy'
-} else stname=plot.configs[["main"]]
+} else {stname=plot.configs[["main"]]}
 
-  fit.b = surv.boot(fit,nboot=nboot,seed=seed)
-  tt = fit.b$time
-  dcif = fit.b$ate
-  se = fit.b$se
+  tt = fit$time
+  dcif = fit$ate
+  se = fit$se
   ciu = dcif - qnorm((1-conf.int)/2)*se
   cil = dcif + qnorm((1-conf.int)/2)*se
-  if(is.null(plot.configs[["ylab"]])) ylab = 'Difference in CIFs' else ylab=plot.configs[["ylab"]]
+  if (is.null(plot.configs[["ylab"]])) ylab = 'Difference in CIFs' else ylab=plot.configs[["ylab"]]
 
   if (decrease==TRUE){
     dcif = -dcif
