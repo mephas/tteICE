@@ -19,7 +19,7 @@ should be of a competing risks structure."><!-- mathjax --><script src="https://
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tteICE</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
       </span>
     </div>
 
@@ -66,7 +66,9 @@ should be of a competing risks structure.</p>
 <span>  method <span class="op">=</span> <span class="st">"np"</span>,</span>
 <span>  weights <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  subset <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  nboot <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  seed <span class="op">=</span> <span class="fl">0</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -114,6 +116,15 @@ influence functions.</p></dd>
 
 <dt id="arg-na-rm">na.rm<a class="anchor" aria-label="anchor" href="#arg-na-rm"></a></dt>
 <dd><p>Whether to remove missing values.</p></dd>
+
+
+<dt id="arg-nboot">nboot<a class="anchor" aria-label="anchor" href="#arg-nboot"></a></dt>
+<dd><p>Number of resamplings in the boostrapping method. If <code>nboot</code> is 0 or 1, then
+asymptotic standard error based on the explicit form is calculated instead of bootstrapping.</p></dd>
+
+
+<dt id="arg-seed">seed<a class="anchor" aria-label="anchor" href="#arg-seed"></a></dt>
+<dd><p>Seed for bootstrapping.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -198,7 +209,7 @@ Inference for Cumulative Incidences and Treatment Effects in Randomized Controll
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
       </footer></div>

@@ -1,9 +1,4 @@
 url: https://mephas.github.io/tteICE/
-destination: docs
 template:
-  params:
-    bootswatch: flatly
-navbar:
-  structure:
-    left:  [home, reference, articles, news]
-    right: [github]
+  bootstrap: 5
+
