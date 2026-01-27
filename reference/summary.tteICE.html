@@ -73,14 +73,17 @@ sample size, treated sample size, controlled sample size, p-value, and predicted
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">bmt</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">bmt</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform</a></span><span class="op">(</span><span class="va">bmt</span>, d4<span class="op">=</span><span class="va">d2</span><span class="op">+</span><span class="va">d3</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">A</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">bmt</span><span class="op">$</span><span class="va">group</span><span class="op">&gt;</span><span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co">## summarize the results</span></span></span>
-<span class="r-in"><span><span class="va">fit1</span> <span class="op">=</span> <span class="fu"><a href="surv.tteICE.html">surv.tteICE</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t2</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d4</span>, <span class="st">'natural'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">bmt</span><span class="op">$</span><span class="va">A</span> <span class="op">=</span> <span class="va">A</span></span></span>
+<span class="r-in"><span><span class="va">X</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">bmt</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'z1'</span>,<span class="st">'z3'</span>,<span class="st">'z5'</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Composite variable strategy,</span></span></span>
+<span class="r-in"><span><span class="co">## nonparametric estimation without covariates</span></span></span>
+<span class="r-in"><span><span class="va">fit1</span> <span class="op">=</span> <span class="fu"><a href="scr.tteICE.html">scr.tteICE</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t1</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d1</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t2</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d2</span>, <span class="st">"composite"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dtype</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "cmprsk"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "smcmprsk"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $strategy</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "natural"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "composite"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $method</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "np"</span>
@@ -98,64 +101,27 @@ sample size, treated sample size, controlled sample size, p-value, and predicted
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 38</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $p.val</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6382412</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5906978</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $est</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               660        1320        1980        2640</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CIF1   0.23655610  0.27785687  0.27785687 0.317272930</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se1    0.04373288  0.04733443  0.04733443 0.062647625</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CIF0   0.31083347  0.31083347  0.31083347 0.310833467</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se0    0.07781834  0.07781834  0.07781834 0.077818342</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ATE   -0.07427737 -0.03297659 -0.03297659 0.006439462</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se     0.08631459  0.08699188  0.08699188 0.095135528</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> p.val  0.38949010  0.70463092  0.70463092 0.946034598</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               660        1320        1980         2640</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CIF1   0.53226259  0.58641246  0.58641246  0.629905604</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> se1    0.05012612  0.04988569  0.04988569  0.061748891</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CIF0   0.60870186  0.63767315  0.63767315  0.637673151</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> se0    0.08026005  0.07929563  0.07929563  0.079295626</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ATE   -0.07643926 -0.05126070 -0.05126070 -0.007767547</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> se     0.09462718  0.09368233  0.09368233  0.100502347</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> p.val  0.41920919  0.58425802  0.58425802  0.938395060</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "summary.tteICE"</span>
-<span class="r-in"><span><span class="va">fit2</span> <span class="op">=</span> <span class="fu"><a href="tteICE.html">tteICE</a></span><span class="op">(</span><span class="fu"><a href="Surv.ice.html">Surv.ice</a></span><span class="op">(</span><span class="va">t2</span>, <span class="va">d4</span><span class="op">)</span><span class="op">~</span><span class="va">A</span>, data<span class="op">=</span><span class="va">bmt</span>,</span></span>
-<span class="r-in"><span>strategy<span class="op">=</span><span class="st">"composite"</span>, cov.formula<span class="op">=</span><span class="op">~</span><span class="va">z1</span><span class="op">+</span><span class="va">z3</span><span class="op">+</span><span class="va">z5</span>, method<span class="op">=</span><span class="st">'eff'</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/therneau/survival" class="external-link">survival</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fit2</span> <span class="op">=</span> <span class="fu"><a href="tteICE.html">tteICE</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">t2</span>, <span class="va">d4</span>, type <span class="op">=</span> <span class="st">"mstate"</span><span class="op">)</span><span class="op">~</span><span class="va">A</span><span class="op">|</span><span class="va">z1</span><span class="op">+</span><span class="va">z3</span><span class="op">+</span><span class="va">z5</span>, </span></span>
+<span class="r-in"><span> data<span class="op">=</span><span class="va">bmt</span>, strategy<span class="op">=</span><span class="st">"composite"</span>, method<span class="op">=</span><span class="st">'eff'</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dtype</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "cmprsk"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $strategy</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "composite"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $method</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "eff"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $maxt</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2640</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $n</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 137</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $n1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 99</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $n0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 38</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $p.val</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1365913</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $est</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               660        1320        1980        2640</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CIF1   0.52459066  0.58362684  0.58362684  0.63470334</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se1    0.05140949  0.05108944  0.05108944  0.05874485</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CIF0   0.67836383  0.70103992  0.70103992  0.70103992</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se0    0.06623568  0.06510731  0.06510731  0.06510731</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ATE   -0.15377316 -0.11741308 -0.11741308 -0.06633659</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se     0.08384570  0.08275925  0.08275925  0.08769219</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> p.val  0.06665373  0.15597758  0.15597758  0.44936692</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "summary.tteICE"</span>
-<span class="r-in"><span><span class="va">fit3</span> <span class="op">=</span> <span class="fu"><a href="tteICE.html">tteICE</a></span><span class="op">(</span><span class="fu"><a href="Surv.ice.html">Surv.ice</a></span><span class="op">(</span><span class="va">t1</span>, <span class="va">d1</span>, <span class="va">t2</span>, <span class="va">d2</span><span class="op">)</span><span class="op">~</span><span class="va">A</span>, data<span class="op">=</span><span class="va">bmt</span>,</span></span>
-<span class="r-in"><span>strategy<span class="op">=</span><span class="st">"composite"</span>, cov.formula<span class="op">=</span><span class="op">~</span><span class="va">z1</span><span class="op">+</span><span class="va">z3</span><span class="op">+</span><span class="va">z5</span>, method<span class="op">=</span><span class="st">'eff'</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit3</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $dtype</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "smcmprsk"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $strategy</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "composite"</span>

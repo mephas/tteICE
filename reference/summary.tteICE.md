@@ -41,14 +41,17 @@ risks at quartiles
 data(bmt)
 bmt = transform(bmt, d4=d2+d3)
 A = as.numeric(bmt$group>1)
-## summarize the results
-fit1 = surv.tteICE(A, bmt$t2, bmt$d4, 'natural')
+bmt$A = A
+X = as.matrix(bmt[,c('z1','z3','z5')])
+## Composite variable strategy,
+## nonparametric estimation without covariates
+fit1 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
 summary(fit1)
 #> $dtype
-#> [1] "cmprsk"
+#> [1] "smcmprsk"
 #> 
 #> $strategy
-#> [1] "natural"
+#> [1] "composite"
 #> 
 #> $method
 #> [1] "np"
@@ -66,64 +69,27 @@ summary(fit1)
 #> [1] 38
 #> 
 #> $p.val
-#> [1] 0.6382412
+#> [1] 0.5906978
 #> 
 #> $est
-#>               660        1320        1980        2640
-#> CIF1   0.23655610  0.27785687  0.27785687 0.317272930
-#> se1    0.04373288  0.04733443  0.04733443 0.062647625
-#> CIF0   0.31083347  0.31083347  0.31083347 0.310833467
-#> se0    0.07781834  0.07781834  0.07781834 0.077818342
-#> ATE   -0.07427737 -0.03297659 -0.03297659 0.006439462
-#> se     0.08631459  0.08699188  0.08699188 0.095135528
-#> p.val  0.38949010  0.70463092  0.70463092 0.946034598
+#>               660        1320        1980         2640
+#> CIF1   0.53226259  0.58641246  0.58641246  0.629905604
+#> se1    0.05012612  0.04988569  0.04988569  0.061748891
+#> CIF0   0.60870186  0.63767315  0.63767315  0.637673151
+#> se0    0.08026005  0.07929563  0.07929563  0.079295626
+#> ATE   -0.07643926 -0.05126070 -0.05126070 -0.007767547
+#> se     0.09462718  0.09368233  0.09368233  0.100502347
+#> p.val  0.41920919  0.58425802  0.58425802  0.938395060
 #> 
 #> attr(,"class")
 #> [1] "summary.tteICE"
-fit2 = tteICE(Surv.ice(t2, d4)~A, data=bmt,
-strategy="composite", cov.formula=~z1+z3+z5, method='eff')
+
+library(survival)
+fit2 = tteICE(Surv(t2, d4, type = "mstate")~A|z1+z3+z5, 
+ data=bmt, strategy="composite", method='eff')
 summary(fit2)
 #> $dtype
 #> [1] "cmprsk"
-#> 
-#> $strategy
-#> [1] "composite"
-#> 
-#> $method
-#> [1] "eff"
-#> 
-#> $maxt
-#> [1] 2640
-#> 
-#> $n
-#> [1] 137
-#> 
-#> $n1
-#> [1] 99
-#> 
-#> $n0
-#> [1] 38
-#> 
-#> $p.val
-#> [1] 0.1365913
-#> 
-#> $est
-#>               660        1320        1980        2640
-#> CIF1   0.52459066  0.58362684  0.58362684  0.63470334
-#> se1    0.05140949  0.05108944  0.05108944  0.05874485
-#> CIF0   0.67836383  0.70103992  0.70103992  0.70103992
-#> se0    0.06623568  0.06510731  0.06510731  0.06510731
-#> ATE   -0.15377316 -0.11741308 -0.11741308 -0.06633659
-#> se     0.08384570  0.08275925  0.08275925  0.08769219
-#> p.val  0.06665373  0.15597758  0.15597758  0.44936692
-#> 
-#> attr(,"class")
-#> [1] "summary.tteICE"
-fit3 = tteICE(Surv.ice(t1, d1, t2, d2)~A, data=bmt,
-strategy="composite", cov.formula=~z1+z3+z5, method='eff')
-summary(fit3)
-#> $dtype
-#> [1] "smcmprsk"
 #> 
 #> $strategy
 #> [1] "composite"

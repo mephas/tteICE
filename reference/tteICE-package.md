@@ -22,7 +22,7 @@ Main functions:
 - [`summary.tteICE`](https://mephas.github.io/tteICE/reference/summary.tteICE.md)
   Summary of tteICE
 
-- [`riskpredict`](https://mephas.github.io/tteICE/reference/riskpredict.md)
+- [`predict.tteICE`](https://mephas.github.io/tteICE/reference/predict.tteICE.md)
   Risk prediction at specific time points
 
 - [`tteICEShiny`](https://mephas.github.io/tteICE/reference/tteICEShiny.md)

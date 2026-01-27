@@ -50,6 +50,7 @@ treatment effects, standard errors, and P-values.
 data(bmt)
 bmt = transform(bmt, d4=d2+d3)
 A = as.numeric(bmt$group>1)
+bmt$A = A
 X = as.matrix(bmt[,c('z1','z3','z5')])
 ## Composite variable strategy,
 ## nonparametric estimation without covariates
@@ -64,8 +65,9 @@ predict(fit1, timeset=c(670,2000))
 #> se     0.09381057  0.09368233
 #> p.val  0.26116016  0.58425802
 
-fit2 = tteICE(Surv.ice(t2, d4)~A, data=bmt,
-strategy="composite", cov.formula=~z1+z3+z5, method='eff')
+library(survival)
+fit2 = tteICE(Surv(t2, d4, type = "mstate")~A|z1+z3+z5, 
+ data=bmt, strategy="composite", method='eff')
 predict(fit2, timeset=c(670,2000))
 #>               670        2000
 #> CIF1   0.52459066  0.58362684

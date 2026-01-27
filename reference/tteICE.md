@@ -9,10 +9,10 @@ input data should be of a competing risks structure.
 ``` r
 tteICE(
   formula,
+  add.scr,
   data,
   strategy = "composite",
   method = "np",
-  cov.formula = NULL,
   weights = NULL,
   subset = NULL,
   na.rm = FALSE,
@@ -28,6 +28,12 @@ tteICE(
   An object of class "formula" (or one that can be coerced to that
   class): a symbolic description of the model to be fitted. The details
   of model specification are given under ‘Details’.
+
+- add.scr:
+
+  An object of class "Surv" (or one that can be coerced to that class).
+  For example, `add.scr=~Surv(time.intercurrent, status.intercurrent)`.
+  The details of model specification are given under ‘Details’.
 
 - data:
 
@@ -50,11 +56,6 @@ tteICE(
   indicating inverse treatment probability weighting, `"eff"` indicating
   semiparametrically efficient estimation based on efficient influence
   functions.
-
-- cov.formula:
-
-  Baseline covariates in an object of "formula". The details of model
-  specification are given under ‘Details’.
 
 - weights:
 
@@ -124,17 +125,25 @@ A list including the fitted object and input variables.
   potential cumulative incidences. Cumulative incidences are model-free
   and collapsible, enjoying causal interpretations.
 
-- Formula specifications in the function:
+- Formula specifications:
 
-  A typical model has the form `Surv(time, status, type = "mstate")~ A`,
-  where `status=0,1,2` (1 for the primary event, 2 for the intercurrent
-  event, and 0 for censoring), `A` is the treatment indicator (1 for
-  treatment and 0 for control). An alternative model has the form
-  `cbind(Surv(time1, status1), Surv(time2, status2))~ A`, where
-  `Surv(time1, status1)` defines the time and status of primary
-  (terminal) event, and `Surv(time2, status2)` defines the time and
-  status of intercurrent event. Baseline covariates can be added by the
-  model in the form `~ x1+x2`
+  The formula should be set as the following two ways.
+
+  When data are take format of competing risk data, set the first
+  argument
+  `formula = Surv(time, status, type="mstate") ~ treatment | covariate1+covariate2`
+  or `formula = Surv(time, status)~ A` without any baseline covariates,
+  where `status`=0,1,2 (1 for the primary event, 2 for the intercurrent
+  event, and 0 for censoring).
+
+  When data take the format of semicompeting risk data, set the first
+  argument
+  `formula = Surv(time, status) ~ treatment | covariate1+covariate2` or
+  `formula = Surv(time, status)~ A` without any baseline covariates,
+  where `status`=0,1 (1 for the primary event and 0 for censoring). In
+  addition, the second argument
+  `add.scr = ~ Surv(time.intercurrent, status.intercurrent)` is
+  required.
 
 ## References
 
@@ -157,20 +166,94 @@ bmt = transform(bmt, d4=d2+d3)
 A = as.numeric(bmt$group>1)
 X = as.matrix(bmt[,c('z1','z3','z5')])
 bmt$A = A
+library(survival)
+## Composite variable strategy,
+## nonparametric estimation without covariates
 ## Composite variable strategy,
 ## nonparametric estimation without covariates
 
-fit1 = tteICE(Surv.ice(t2, d4)~A, data=bmt,
-strategy="composite", method='eff')
-fit2 = tteICE(Surv.ice(t2, d4)~A, data=bmt,
-strategy="composite", cov.formula=~z1+z3+z5, method='eff')
-fit20 = tteICE(Surv.ice(t1, d1)~A, data=bmt,
-strategy="composite", cov.formula=~z1+z3+z5, method='eff') ## survival??
+fit1 = tteICE(Surv(t2, d4, type = "mstate")~A, 
+ data=bmt, strategy="composite", method='eff')
+print(fit1)
+#> Data type: competing risks 
+#> Strategy: composite variable strategy 
+#> Estimation method: semiparametrically efficient estimation 
+#> Observations: 137 (including 99 treated and 38 control)
+#> Maximum follow-up time: 2640 
+#> P-value of the average treatment effect: 0.5907 
+#> -----------------------------------------------------------------------
+#> The estimated cumulative incidences and treatment effects at quartiles:
+#>           660    1320    1980    2640
+#> CIF1   0.5323  0.5864  0.5864  0.6299
+#> se1    0.0501  0.0499  0.0499  0.0617
+#> CIF0   0.6087  0.6377  0.6377  0.6377
+#> se0    0.0803  0.0793  0.0793  0.0793
+#> ATE   -0.0764 -0.0513 -0.0513 -0.0078
+#> se     0.0946  0.0937  0.0937  0.1005
+#> p.val  0.4192  0.5843  0.5843  0.9384
+#> 
 
-fit3 = tteICE(Surv.ice(t1,d1,t2,d2)~A, data=bmt,
-strategy="composite", cov.formula=~z1+z3+z5, method='eff')
+fit2 = tteICE(Surv(t2, d4, type = "mstate")~A|z1+z3+z5, 
+ data=bmt, strategy="composite", method='eff')
+print(fit2)
+#> Data type: competing risks 
+#> Strategy: composite variable strategy 
+#> Estimation method: semiparametrically efficient estimation 
+#> Observations: 137 (including 99 treated and 38 control)
+#> Maximum follow-up time: 2640 
+#> P-value of the average treatment effect: 0.1366 
+#> -----------------------------------------------------------------------
+#> The estimated cumulative incidences and treatment effects at quartiles:
+#>           660    1320    1980    2640
+#> CIF1   0.5246  0.5836  0.5836  0.6347
+#> se1    0.0514  0.0511  0.0511  0.0587
+#> CIF0   0.6784  0.7010  0.7010  0.7010
+#> se0    0.0662  0.0651  0.0651  0.0651
+#> ATE   -0.1538 -0.1174 -0.1174 -0.0663
+#> se     0.0838  0.0828  0.0828  0.0877
+#> p.val  0.0667  0.1560  0.1560  0.4494
+#> 
 
-fit30 = tteICE(Surv.ice(t2,d2,t1,d1)~A, data=bmt,
-strategy="composite", cov.formula=~z1+z3+z5, method='eff') ## same results??
+fitscr1 = tteICE(Surv(t1, d1)~A, ~Surv(t2, d2), 
+ data=bmt, strategy="composite", method='eff')
+print(fitscr1)
+#> Data type: semicompeting risks 
+#> Strategy: composite variable strategy 
+#> Estimation method: semiparametrically efficient estimation 
+#> Observations: 137 (including 99 treated and 38 control)
+#> Maximum follow-up time: 2640 
+#> P-value of the average treatment effect: 0.5907 
+#> -----------------------------------------------------------------------
+#> The estimated cumulative incidences and treatment effects at quartiles:
+#>           660    1320    1980    2640
+#> CIF1   0.5323  0.5864  0.5864  0.6299
+#> se1    0.0501  0.0499  0.0499  0.0617
+#> CIF0   0.6087  0.6377  0.6377  0.6377
+#> se0    0.0803  0.0793  0.0793  0.0793
+#> ATE   -0.0764 -0.0513 -0.0513 -0.0078
+#> se     0.0946  0.0937  0.0937  0.1005
+#> p.val  0.4192  0.5843  0.5843  0.9384
+#> 
+
+fitscr2 = tteICE(Surv(t1, d1)~A|z1+z3+z5, ~Surv(t2, d2), 
+ data=bmt, strategy="composite", method='eff')
+print(fitscr2)
+#> Data type: semicompeting risks 
+#> Strategy: composite variable strategy 
+#> Estimation method: semiparametrically efficient estimation 
+#> Observations: 137 (including 99 treated and 38 control)
+#> Maximum follow-up time: 2640 
+#> P-value of the average treatment effect: 0.1366 
+#> -----------------------------------------------------------------------
+#> The estimated cumulative incidences and treatment effects at quartiles:
+#>           660    1320    1980    2640
+#> CIF1   0.5246  0.5836  0.5836  0.6347
+#> se1    0.0514  0.0511  0.0511  0.0587
+#> CIF0   0.6784  0.7010  0.7010  0.7010
+#> se0    0.0662  0.0651  0.0651  0.0651
+#> ATE   -0.1538 -0.1174 -0.1174 -0.0663
+#> se     0.0838  0.0828  0.0828  0.0877
+#> p.val  0.0667  0.1560  0.1560  0.4494
+#> 
 
 ```

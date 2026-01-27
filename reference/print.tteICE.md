@@ -41,6 +41,7 @@ Print the summary of a tteICE object
 data(bmt)
 bmt = transform(bmt, d4=d2+d3)
 A = as.numeric(bmt$group>1)
+bmt$A = A
 ## print the results
 for (st in c('composite','natural','removed','whileon','principal')){
  fit = surv.tteICE(A, bmt$t2, bmt$d4, st)
@@ -221,44 +222,25 @@ for (st in c('composite','natural','removed','whileon','principal')){
 #> p.val  0.32  0.65  0.65 0.97
 #> 
 
-fit2 = tteICE(Surv.ice(t2, d4)~A, data=bmt,
-strategy="composite", cov.formula=~z1+z3+z5, method='eff')
-print(fit2)
-#> Data type: competing risks 
-#> Strategy: composite variable strategy 
-#> Estimation method: semiparametrically efficient estimation 
-#> Observations: 137 (including 99 treated and 38 control)
-#> Maximum follow-up time: 2640 
-#> P-value of the average treatment effect: 0.1366 
-#> -----------------------------------------------------------------------
-#> The estimated cumulative incidences and treatment effects at quartiles:
-#>           660    1320    1980    2640
-#> CIF1   0.5246  0.5836  0.5836  0.6347
-#> se1    0.0514  0.0511  0.0511  0.0587
-#> CIF0   0.6784  0.7010  0.7010  0.7010
-#> se0    0.0662  0.0651  0.0651  0.0651
-#> ATE   -0.1538 -0.1174 -0.1174 -0.0663
-#> se     0.0838  0.0828  0.0828  0.0877
-#> p.val  0.0667  0.1560  0.1560  0.4494
-#> 
-fit3 = tteICE(Surv.ice(t1, d1, t2, d2)~A, data=bmt,
-strategy="composite", cov.formula=~z1+z3+z5, method='eff')
-print(fit3)
+library(survival)
+fit2 = tteICE(Surv(t2, d4, type = "mstate")~A|z1+z3+z5, 
+  data=bmt, strategy="composite", method='eff')
+print(fit, digits=2)
 #> Data type: semicompeting risks 
-#> Strategy: composite variable strategy 
-#> Estimation method: semiparametrically efficient estimation 
+#> Strategy: principal stratum strategy 
+#> Estimation method: nonparametric estimation 
 #> Observations: 137 (including 99 treated and 38 control)
 #> Maximum follow-up time: 2640 
-#> P-value of the average treatment effect: 0.1366 
+#> P-value of the average treatment effect: NA 
 #> -----------------------------------------------------------------------
 #> The estimated cumulative incidences and treatment effects at quartiles:
-#>           660    1320    1980    2640
-#> CIF1   0.5246  0.5836  0.5836  0.6347
-#> se1    0.0514  0.0511  0.0511  0.0587
-#> CIF0   0.6784  0.7010  0.7010  0.7010
-#> se0    0.0662  0.0651  0.0651  0.0651
-#> ATE   -0.1538 -0.1174 -0.1174 -0.0663
-#> se     0.0838  0.0828  0.0828  0.0877
-#> p.val  0.0667  0.1560  0.1560  0.4494
+#>         660  1320  1980 2640
+#> CIF1   0.34  0.41  0.41 0.47
+#> se1    0.06  0.06  0.06 0.08
+#> CIF0   0.46  0.46  0.46 0.46
+#> se0    0.10  0.10  0.10 0.10
+#> ATE   -0.12 -0.05 -0.05 0.00
+#> se     0.12  0.12  0.12 0.13
+#> p.val  0.32  0.65  0.65 0.97
 #> 
 ```
