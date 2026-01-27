@@ -68,8 +68,9 @@ scr.natural.eff <- function(A,Time,status,Time_int,status_int,X=NULL){
   }
   X = as.matrix(scale(X))
   df = data.frame(id=1:n, Td=Time, Dd=status, Tr=Time_int, Dr=status_int, X=X, A=A)
-  mg = tmerge(data1=df, data2=df, id=df$id, event=.event(df$Td,df$Dd))
-  mg = tmerge(mg, df, id=df$id, Revent = .tdc(df$Tr))
+  id <- df$id
+  mg = tmerge(data1=df, data2=df, id=id, event=.event(df$Td,df$Dd))
+  mg = tmerge(mg, df, id=id, Revent = .tdc(df$Tr))
   xvars = grep("^X", names(mg), value=TRUE)
   cox_formula = reformulate(c("Revent",xvars), response="Surv(tstart,tstop,event)")
   tt = sort(unique(c(Time,Time_int)))

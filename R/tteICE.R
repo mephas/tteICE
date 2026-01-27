@@ -4,21 +4,21 @@
 #' for time-to event data under ICH E9 (R1) to address intercurrent events. The input data
 #' should be of a competing risks structure.
 #'
-#' @param formula An object of class "formula" (or one that can be coerced to that class): 
-#' a symbolic description of the model to be fitted. 
+#' @param formula An object of class "formula" (or one that can be coerced to that class):
+#' a symbolic description of the model to be fitted.
 #' The details of model specification are given under ‘Details’.
 #'
-#' @param data An optional data frame, list or environment (or object coercible by as.data.frame to a data frame) 
-#' containing the variables in the model. 
+#' @param add.scr An object of class "Surv" (or one that can be coerced to that class). For example, \code{add.scr=~Surv(time.intercurrent, status.intercurrent)}.
+#' The details of model specification are given under ‘Details’.
+#'
+#' @param data An optional data frame, list or environment (or object coercible by as.data.frame to a data frame)
+#' containing the variables in the model.
 #'
 #' @param strategy Strategy to address intercurrent events, \code{"treatment"} indicating treatment policy strategy,
 #' \code{"composite"} indicating composite variable strategy, \code{"natural"} indicating hypothetical strategy
 #' (Scenario I, controlling the hazard of intercurrent events), \code{"removed"} indicating hypothetical strategy
 #' (Scenario II, removing intercurrent events), \code{"whileon"} indicating while on treatment strategy, and
 #' \code{"principal"} indicating principal stratum strategy.
-#'
-#' @param cov.formula Baseline covariates in an object of "formula".
-#' The details of model specification are given under ‘Details’.
 #'
 #' @param method Estimation method, \code{"np"} indicating nonparametric estimation, \code{"np"} indicating inverse
 #' treatment probability weighting, \code{"eff"} indicating semiparametrically efficient estimation based on efficient
@@ -47,24 +47,24 @@
 #' library(survival)
 #' ## Composite variable strategy,
 #' ## nonparametric estimation without covariates
+#' ## Composite variable strategy,
+#' ## nonparametric estimation without covariates
 #'
-#' fit1 = tteICE2(Surv(t2, d4, type = "mstate")~A, data=bmt, 
-#' strategy="composite", method='eff')
-#' fit2 = tteICE2(Surv(t2, d4, type = "mstate")~A, data=bmt, 
-#' strategy="composite", cov.formula=~z1+z3+z5, method='eff')
-#' fit20 = tteICE2(Surv(t2, d4)~A, data=bmt, 
-#' strategy="composite", cov.formula=~z1+z3+z5, method='eff')
+#' fit1 = tteICE(Surv(t2, d4, type = "mstate")~A, 
+#'  data=bmt, strategy="composite", method='eff')
+#' print(fit1)
+#' 
+#' fit2 = tteICE(Surv(t2, d4, type = "mstate")~A|z1+z3+z5, 
+#'  data=bmt, strategy="composite", method='eff')
+#' print(fit2)
 #'
-#' fit3 = tteICE2(cbind(Surv(t1, d1),Surv(t2,d2))~A, data=bmt, 
-#' strategy="composite", cov.formula=~z1+z3+z5, method='eff')
+#' fitscr1 = tteICE(Surv(t1, d1)~A, ~Surv(t2, d2), 
+#'  data=bmt, strategy="composite", method='eff')
+#' print(fitscr1)
 #'
-#' fit3 = tteICE2(cbind(Surv(t2, d2), Surv(t1,d1))~A, data=bmt, 
-#' strategy="composite", cov.formula=~z1+z3+z5, method='eff') ## same results??
-#'
-#' fit4 = tteICE2(Surv(t2, d2)~A, data=bmt, 
-#' strategy="composite", cov.formula=~z1+z3+z5, method='eff')
-#' fit5 = tteICE2(cbind(t1, d1,t2, d2)~A, data=bmt, 
-#' strategy="composite", cov.formula=~z1+z3+z5, method='eff')  ## also work
+#' fitscr2 = tteICE(Surv(t1, d1)~A|z1+z3+z5, ~Surv(t2, d2), 
+#'  data=bmt, strategy="composite", method='eff')
+#' print(fitscr2)
 #'
 #'
 #' @details
@@ -90,14 +90,16 @@
 #' Potential cumulative incidences describe the probability of time-to-event outcomes occurring at each
 #' time point. We define the treatment effect as the contrast of two potential cumulative incidences.
 #' Cumulative incidences are model-free and collapsible, enjoying causal interpretations.}
-#' \item{Formula specifications in the function}{
-#' A typical model has the form \code{Surv(time, status, type = "mstate")~ A}, 
-#' where \code{status=0,1,2} (1 for the primary event, 2 for the intercurrent event, and 0 for censoring), 
-#' \code{A} is the treatment indicator (1 for treatment and 0 for control). 
-#' An alternative model has the form \code{cbind(Surv(time1, status1), Surv(time2, status2))~ A}, 
-#' where \code{Surv(time1, status1)} defines the time and status of primary (terminal) event, and
-#' \code{Surv(time2, status2)} defines the time and status of intercurrent event.
-#' Baseline covariates can be added by the model in the form \code{~ x1+x2}}
+#' \item{Formula specifications}{
+#' The formula should be set as the following two ways.
+#'  
+#' When data take format of competing risk data, set the first argument \code{formula = Surv(time, status, type="mstate") ~ treatment | covariate1+covariate2}
+#' or \code{formula = Surv(time, status)~ A} without any baseline covariates, where \code{status}=0,1,2 (1 for the primary event, 2 for the intercurrent event, and 0 for censoring).
+#' 
+#' When data take the format of semicompeting risk data, set the first argument \code{formula = Surv(time, status) ~ treatment | covariate1+covariate2}
+#' or \code{formula = Surv(time, status)~ A} without any baseline covariates, where \code{status}=0,1 (1 for the primary event and 0 for censoring). 
+#' In addition, the second argument \code{add.scr = ~ Surv(time.intercurrent, status.intercurrent)} is required.
+#' }
 #' }
 #'
 #' @references
@@ -107,54 +109,76 @@
 #'
 #' @seealso \code{\link[tteICE]{surv.boot}}, \code{\link[tteICE]{scr.tteICE}}
 #'
-#' @importFrom stats model.frame model.response terms
+#' @importFrom stats model.frame model.response terms as.formula
 #' @importFrom survival Surv
 #' @export
 
-tteICE2 <- function(formula, data, strategy='composite', method='np', cov.formula=NULL,
+tteICE <- function(formula, add.scr, data, strategy='composite', method='np',
                      weights=NULL,subset=NULL,na.rm=FALSE,nboot=0,seed=0){
 
   # extract A, Time, cstatus
-  if (missing(formula)) stop("`formula` is required, e.g. `formula=Surv.ice(time, status, type = 'mstate') ~ A`, or `formula=cbind(Surv(time1, status1),Surv(time2, status2)) ~ A`")
+  if (missing(formula)) stop("`formula` is required,
+    e.g. competing risk data type: `formula = Surv(time, status, type = 'mstate') ~ X | A`,
+    or semicompeting risk data type: `formula = Surv(time.p, status.p) ~ X |A , add.scr = ~Surv(time.i, status.i)`")
+
+  # if (missing(treatment)) stop("`treatment` is required.")
   if (missing(data)) stop("`data` is required.")
 
-  mf <- model.frame(formula, data = data)
-  Y  <- model.response(mf)
-  if (ncol(Y)==2) {
-    if (!inherits(Y, "Surv")) stop("Use `Surv(time, status, type = 'mstate')` as dependent variable")
-  } else if (ncol(Y)==4) {
-    if (!inherits(Surv(Y[,1],Y[,2]), "Surv")) stop("Use `cbind(Surv(time1, status1),Surv(time2, status2))` as dependent variable") ## not quite work? only guarantee the order of vars??
-    if (!inherits(Surv(Y[,3],Y[,4]), "Surv")) stop("Use `cbind(Surv(time1, status1),Surv(time2, status2))` as dependent variable")
-    Time_int   <- Y[, 3]
-    status_int <- Y[, 4]
-  } else stop("Use `Surv(time, status, type = 'mstate')`, or `cbind(Surv(time1, status1),Surv(time2, status2))` as dependent variable")
+  fm <- model.frame(formula, data = data)
 
-  Time   <- Y[, 1]
-  cstatus <- Y[, 2]
+  ## extract outcomes
+  Yp  <- model.response(fm)
+  if (!inherits(Yp, "Surv")) stop("Use `Surv(time, status, type = 'mstate')` or `Surv(time, status)` as dependent variable")
+  Time   <- Yp[, 1]
+  cstatus <- Yp[, 2]
 
-  # if(!all(cstatus %in% c(0,1,2))) stop("The value of status should be set as `0/1` or `0/1/2`")
+ if(!missing(add.scr)) {
+  Y2 = stats::model.frame(add.scr, data = data)[[1]]
+  if (!inherits(Y2,"Surv")) stop("Use `~Surv(time, status)` ")
+    Time_int   <- Y2[, 1]
+    status_int <- Y2[, 2]
+ }
 
-  # extract treatment variable
-  tt <- terms(mf, data = data)
-  rhs_vars <- attr(tt, "term.labels")  # e.g. c("A", "X1", "X2")
-  if (length(rhs_vars) < 1) stop("Formula must include at least one treatment variable.")
-  A_name <- rhs_vars[1]        # first term is A
-  A <- mf[[A_name]]
+# extract variables
+rhs <- deparse(formula[[3]])
+# treatment
+parts <- strsplit(rhs, "\\|")[[1]]
+A_name <- trimws(parts[1])
+# A <- data$A_name
+if ((length(A_name) < 1) || !A_name %in% names(data)) stop("Check the treatment variable.")
+A <- unlist(subset(data, select=A_name),use.names = FALSE)
+
+## covariates
+if (length(parts) > 1) {
+  rhs2 <- trimws(parts[2])
+  cov <- all.vars(as.formula(paste("~", rhs2)))
+  # cov1 <- data[,cov, drop = FALSE]
+  cov1 <- subset(data, select=cov)
+  } else cov1 <- NULL
+
+  # tt <- terms(fm, data = data)
+  # rhs_vars <- attr(tt, "term.labels")  # e.g. c("X1", "X2")
+  # # if (length(rhs_vars) < 1) stop("Formula must include at least one treatment variable.")
+  # X_name <- rhs_vars        # first term is A
+  # X <- mf[,X_name]
+
+  # if(missing(A)) stop("Must include at least one treatment variable.")
+  # A <- treatment
   # cov1 <- cov1
 
 
   # strategy <- match.arg(strategy, c('treatment','composite','natural','removed','whileon','principal'))
   # method <- match.arg(method, c('np','ipw','eff'))
-    if(!is.null(cov.formula)){
-    if (!inherits(cov.formula, "formula") || length(cov.formula) != 2) {
-    stop("`cov.formula` must be a one-sided formula like ~ X1 + X2 + X3")
-  }
-    mf.cov <- model.frame(cov.formula, data = data)
-    tt <- terms(mf.cov, data = data)
-    rhs <- attr(tt, "term.labels")
-    cov1 <-data[,rhs, drop = FALSE]
-    cov1 <- as.matrix(cov1)[subset,]
-  } else cov1 <- NULL
+  #   if(!is.null(cov.formula)){
+  #   if (!inherits(cov.formula, "formula") || length(cov.formula) != 2) {
+  #   stop("`cov.formula` must be a one-sided formula like ~ X1 + X2 + X3")
+  # }
+  #   mf.cov <- model.frame(cov.formula, data = data)
+  #   tt <- terms(mf.cov, data = data)
+  #   rhs <- attr(tt, "term.labels")
+  #   cov1 <-data[,rhs, drop = FALSE]
+  #   cov1 <- as.matrix(cov1)[subset,]
+  # } else cov1 <- NULL
 
 
   if (!strategy %in% c('treatment','composite','natural','removed','whileon','principal')){
@@ -191,27 +215,28 @@ tteICE2 <- function(formula, data, strategy='composite', method='np', cov.formul
   Time = Time[subset]
   cstatus = cstatus[subset]
   weights = weights[subset]
-  if (ncol(Y)==4){
+  if (!missing(add.scr)){
     Time_int = Time_int[subset]
     status_int = status_int[subset]
   }
-  # if (!is.null(cov1)) cov1 = as.matrix(cov1)[subset,]
+  if (!is.null(cov1)) cov1 = as.matrix(cov1)[subset,]
 
   # extract covariates
-  if(!is.null(cov.formula)){
-    if (!inherits(cov.formula, "formula") || length(cov.formula) != 2) {
-    stop("`cov.formula` must be a one-sided formula like ~ X1 + X2 + X3")
-  }
-    mf.cov <- model.frame(cov.formula, data = data)
-    tt <- terms(mf.cov, data = data)
-    rhs <- attr(tt, "term.labels")
-    cov1 = data[,rhs, drop = FALSE]
-    cov1 = as.matrix(cov1)[subset,]
-  }
+  # if covariates exist
+  # if(!if(0 %in% dim(X))){
+  # #   if (!inherits(cov.formula, "formula") || length(cov.formula) != 2) {
+  # #   stop("`cov.formula` must be a one-sided formula like ~ X1 + X2 + X3")
+  # # }
+  #   # mf.cov <- model.frame(cov.formula, data = data)
+  #   # tt <- terms(mf.cov, data = data)
+  #   # rhs <- attr(tt, "term.labels")
+  #   # cov1 = data[,rhs, drop = FALSE]
+  #   cov1 = as.matrix(cov1)[subset,]
+  # }
 
 
   ## estimation
-  if(ncol(Y)==2){
+  if(missing(add.scr)){
     if (method=='ipw') {
         weights = weights*.ipscore(A,cov1,TRUE,weights)
       }
@@ -263,3 +288,4 @@ tteICE2 <- function(formula, data, strategy='composite', method='np', cov.formul
 
   return(fit)
 }
+

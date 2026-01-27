@@ -31,14 +31,16 @@ specific time points.
 data(bmt)
 bmt = transform(bmt, d4=d2+d3)
 A = as.numeric(bmt$group>1)
+bmt$A = A
 X = as.matrix(bmt[,c('z1','z3','z5')])
 ## Composite variable strategy,
 ## nonparametric estimation without covariates
 fit1 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
 predict(fit1, timeset=c(670,2000))
 
-fit2 = tteICE(Surv.ice(t2, d4)~A, data=bmt,
-strategy="composite", cov.formula=~z1+z3+z5, method='eff')
+library(survival)
+fit2 = tteICE(Surv(t2, d4, type = "mstate")~A|z1+z3+z5, 
+ data=bmt, strategy="composite", method='eff')
 predict(fit2, timeset=c(670,2000))
 predict(fit2)
 

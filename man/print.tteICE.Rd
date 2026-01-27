@@ -24,6 +24,7 @@ This function summarizes the results
 data(bmt)
 bmt = transform(bmt, d4=d2+d3)
 A = as.numeric(bmt$group>1)
+bmt$A = A
 ## print the results
 for (st in c('composite','natural','removed','whileon','principal')){
  fit = surv.tteICE(A, bmt$t2, bmt$d4, st)
@@ -34,12 +35,10 @@ for (st in c('composite','natural','removed','whileon','principal')){
  print(fit, digits=2)
 }
 
-fit2 = tteICE(Surv.ice(t2, d4)~A, data=bmt,
-strategy="composite", cov.formula=~z1+z3+z5, method='eff')
-print(fit2)
-fit3 = tteICE(Surv.ice(t1, d1, t2, d2)~A, data=bmt,
-strategy="composite", cov.formula=~z1+z3+z5, method='eff')
-print(fit3)
+library(survival)
+fit2 = tteICE(Surv(t2, d4, type = "mstate")~A|z1+z3+z5, 
+  data=bmt, strategy="composite", method='eff')
+print(fit, digits=2)
 
 }
 \seealso{

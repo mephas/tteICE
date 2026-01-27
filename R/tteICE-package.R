@@ -8,7 +8,7 @@
 #' 	 \item \code{\link[tteICE]{plot.tteICE}} Graphical results of tteICE
 #'   \item \code{\link[tteICE]{print.tteICE}} Print a short summary of the estimated treatment effect
 #'   \item \code{\link[tteICE]{summary.tteICE}} Summary of tteICE
-#'   \item \code{\link[tteICE]{riskpredict}} Risk prediction at specific time points
+#'   \item \code{\link[tteICE]{predict.tteICE}} Risk prediction at specific time points
 #'   \item \code{\link[tteICE]{tteICEShiny}} Interactive Shiny app for tteICE
 #' }
 #' Example data:
