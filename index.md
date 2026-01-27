@@ -11,6 +11,11 @@
   - [Competing risks data structure](#competing-risks-data-structure)
   - [Semicompeting risks data
     structure](#semicompeting-risks-data-structure)
+  - [Using formula to fit the model](#using-formula-to-fit-the-model)
+    - [Competing risks data
+      structure](#competing-risks-data-structure-1)
+    - [Semicompeting risks data
+      structure](#semicompeting-risks-data-structure-1)
   - [Remarks on methodology](#remarks-on-methodology)
 
 The goal of the package “tteICE” is to estimate the treatment effect for
@@ -119,6 +124,11 @@ You can install the development version of “tteICE” from GitHub with:
 
 **(We are updaing the package)**
 
+``` r
+# install.packages("pak")
+pak::pak("mephas/tteICE")
+```
+
 Alternatively, you can install “tteICE” from R CRAN with:
 
 ``` r
@@ -143,6 +153,7 @@ data(bmt)
 A = as.numeric(bmt$group>1)
 X = as.matrix(bmt[,c('z1','z3','z5')])
 bmt = transform(bmt, d4=d2+d3)
+bmt$A = A
 ```
 
 Suppose we would like to use the hypothetical strategy (natural
@@ -247,10 +258,97 @@ To increase efficiency, we use the efficient influence function
 (EIF)-based method.
 
 ``` r
-# fit6 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='eff') ??
-# plot_inc(fit6, plot.configs=list(legend=c('AML','ALL')))
+fit6 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='eff') ## warnings
+plot_inc(fit6, plot.configs=list(legend=c('AML','ALL')))
+```
 
-# plot_ate(fit6)
+![](reference/figures/README-example_6-1.png)
+
+``` r
+
+plot_ate(fit6)
+```
+
+![](reference/figures/README-example_6-2.png)
+
+## Using formula to fit the model
+
+### Competing risks data structure
+
+``` r
+library(survival) ## need this package
+fit7 = tteICE(Surv(t2, d4, type = "mstate")~A|z1+z3+z5, data=bmt, strategy="natural", method='eff')
+plot(fit7, type="inc", plot.configs=list(legend=c('AML','ALL')))
+```
+
+![](reference/figures/README-example_7-1.png)
+
+``` r
+print(fit7)
+#> Data type: competing risks 
+#> Strategy: hypothetical strategy (controlling the hazard of ICEs) 
+#> Estimation method: semiparametrically efficient estimation 
+#> Observations: 137 (including 99 treated and 38 control)
+#> Maximum follow-up time: 2640 
+#> P-value of the average treatment effect: 0.4562 
+#> -----------------------------------------------------------------------
+#> The estimated cumulative incidences and treatment effects at quartiles:
+#>           660    1320    1980    2640
+#> CIF1   0.2107  0.2386  0.2386  0.2855
+#> se1    0.0432  0.0461  0.0461  0.0607
+#> CIF0   0.3058  0.3058  0.3058  0.3058
+#> se0    0.0703  0.0703  0.0703  0.0703
+#> ATE   -0.0951 -0.0672 -0.0672 -0.0204
+#> se     0.0784  0.0788  0.0788  0.0863
+#> p.val  0.2250  0.3937  0.3937  0.8132
+predict(fit7)
+#>               660        1320        1980        2640
+#> CIF1   0.21074266  0.23860240  0.23860240  0.28547077
+#> se1    0.04315013  0.04605499  0.04605499  0.06066512
+#> CIF0   0.30584925  0.30584925  0.30584925  0.30584925
+#> se0    0.07026486  0.07026486  0.07026486  0.07026486
+#> ATE   -0.09510659 -0.06724685 -0.06724685 -0.02037848
+#> se     0.07837881  0.07884710  0.07884710  0.08625633
+#> p.val  0.22496844  0.39372770  0.39372770  0.81323485
+```
+
+### Semicompeting risks data structure
+
+``` r
+
+fit8 = tteICE(Surv(t1, d1)~A|z1+z3+z5, add.scr=~Surv(t2,d2), data=bmt, strategy="natural", method='eff')
+plot(fit8, type="inc", plot.configs=list(legend=c('AML','ALL')))
+```
+
+![](reference/figures/README-example_8-1.png)
+
+``` r
+print(fit8)
+#> Data type: semicompeting risks 
+#> Strategy: hypothetical strategy (controlling the hazard of ICEs) 
+#> Estimation method: semiparametrically efficient estimation 
+#> Observations: 137 (including 99 treated and 38 control)
+#> Maximum follow-up time: 2640 
+#> P-value of the average treatment effect: 0.8945 
+#> -----------------------------------------------------------------------
+#> The estimated cumulative incidences and treatment effects at quartiles:
+#>           660    1320    1980   2640
+#> CIF1   0.5344  0.6028  0.6028 0.6520
+#> se1    0.0553  0.0569  0.0569 0.0603
+#> CIF0   0.5597  0.6079  0.6079 0.6079
+#> se0    0.0664  0.0622  0.0622 0.0622
+#> ATE   -0.0254 -0.0052 -0.0052 0.0441
+#> se     0.0685  0.0655  0.0655 0.0711
+#> p.val  0.7112  0.9373  0.9373 0.5356
+predict(fit8)
+#>               660        1320        1980       2640
+#> CIF1   0.53436338  0.60278356  0.60278356 0.65201552
+#> se1    0.05527063  0.05685682  0.05685682 0.06031028
+#> CIF0   0.55974502  0.60794149  0.60794149 0.60794149
+#> se0    0.06643936  0.06218743  0.06218743 0.06218743
+#> ATE   -0.02538164 -0.00515793 -0.00515793 0.04407403
+#> se     0.06854998  0.06552374  0.06552374 0.07113865
+#> p.val  0.71118529  0.93725654  0.93725654 0.53555338
 ```
 
 ## Remarks on methodology
