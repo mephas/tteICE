@@ -4,14 +4,17 @@
 #' for time-to event data under ICH E9 (R1) to address intercurrent events. The input data
 #' should be of a competing risks structure.
 #'
-#' @param formula An object of class "formula" (or one that can be coerced to that class):
-#' a symbolic description of the model to be fitted.
+#' @param formula An object of class "formula" (or one that can be coerced to that class).
+#' A symbolic description of the model to be fitted.
+#' For example, \code{formula=Surv(time, status, type="mstate")~treatment | baseline.covariate}.
 #' The details of model specification are given under ‘Details’.
 #'
-#' @param add.scr An object of class "Surv" (or one that can be coerced to that class). For example, \code{add.scr=~Surv(time.intercurrent, status.intercurrent)}.
+#' @param add.scr Required for semicompeting data.
+#' An object of class "Surv" (or one that can be coerced to that class). 
+#' For example, \code{add.scr=~Surv(time.intercurrent, status.intercurrent)}.
 #' The details of model specification are given under ‘Details’.
 #'
-#' @param data An optional data frame, list or environment (or object coercible by as.data.frame to a data frame)
+#' @param data Data or object coercible by as.data.frame to a data frame,
 #' containing the variables in the model.
 #'
 #' @param strategy Strategy to address intercurrent events, \code{"treatment"} indicating treatment policy strategy,
@@ -44,25 +47,36 @@
 #' A = as.numeric(bmt$group>1)
 #' X = as.matrix(bmt[,c('z1','z3','z5')])
 #' bmt$A = A
+#' 
 #' library(survival)
 #' ## Composite variable strategy,
 #' ## nonparametric estimation without covariates
 #' ## Composite variable strategy,
 #' ## nonparametric estimation without covariates
 #'
-#' fit1 = tteICE(Surv(t2, d4, type = "mstate")~A, 
+#' ## model fitting for competing risk data without covariates
+#' fit1 = tteICE(Surv(t2, d4, type = "mstate")~A,
 #'  data=bmt, strategy="composite", method='eff')
 #' print(fit1)
-#' 
-#' fit2 = tteICE(Surv(t2, d4, type = "mstate")~A|z1+z3+z5, 
+#'
+#' ## model fitting for competing risk data without covariates 
+#' ## with bootstrap confidence intervals
+#' fit.bt1 = tteICE(Surv(t2, d4, type = "mstate")~A,
+#'  data=bmt, strategy="composite", method='eff', nboot=20, seed=2)
+#' print(fit.bt1)
+#'
+#' ## model fitting for competing risk data with covariates
+#' fit2 = tteICE(Surv(t2, d4, type = "mstate")~A|z1+z3+z5,
 #'  data=bmt, strategy="composite", method='eff')
 #' print(fit2)
 #'
-#' fitscr1 = tteICE(Surv(t1, d1)~A, ~Surv(t2, d2), 
+#' ## model fitting for semicompeting risk data without covariates
+#' fitscr1 = tteICE(Surv(t1, d1)~A, ~Surv(t2, d2),
 #'  data=bmt, strategy="composite", method='eff')
 #' print(fitscr1)
 #'
-#' fitscr2 = tteICE(Surv(t1, d1)~A|z1+z3+z5, ~Surv(t2, d2), 
+#' ## model fitting for semicompeting risk data without covariates
+#' fitscr2 = tteICE(Surv(t1, d1)~A|z1+z3+z5, ~Surv(t2, d2),
 #'  data=bmt, strategy="composite", method='eff')
 #' print(fitscr2)
 #'
@@ -92,12 +106,12 @@
 #' Cumulative incidences are model-free and collapsible, enjoying causal interpretations.}
 #' \item{Formula specifications}{
 #' The formula should be set as the following two ways.
-#'  
+#'
 #' When data take format of competing risk data, set the first argument \code{formula = Surv(time, status, type="mstate") ~ treatment | covariate1+covariate2}
 #' or \code{formula = Surv(time, status)~ A} without any baseline covariates, where \code{status}=0,1,2 (1 for the primary event, 2 for the intercurrent event, and 0 for censoring).
-#' 
+#'
 #' When data take the format of semicompeting risk data, set the first argument \code{formula = Surv(time, status) ~ treatment | covariate1+covariate2}
-#' or \code{formula = Surv(time, status)~ A} without any baseline covariates, where \code{status}=0,1 (1 for the primary event and 0 for censoring). 
+#' or \code{formula = Surv(time, status)~ A} without any baseline covariates, where \code{status}=0,1 (1 for the primary event and 0 for censoring).
 #' In addition, the second argument \code{add.scr = ~ Surv(time.intercurrent, status.intercurrent)} is required.
 #' }
 #' }
@@ -110,7 +124,7 @@
 #' @seealso \code{\link[tteICE]{surv.boot}}, \code{\link[tteICE]{scr.tteICE}}
 #'
 #' @importFrom stats model.frame model.response terms as.formula
-#' @importFrom survival Surv
+# ' @importFrom survival Surv
 #' @export
 
 tteICE <- function(formula, add.scr=NULL, data, strategy='composite', method='np',

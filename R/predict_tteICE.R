@@ -1,20 +1,27 @@
-#' @title Risk prediction at specific time points
+#' @title
+#' Risk prediction at specific time points
 #'
-#' @description This function predicts the potential cumulative incidence function and treatment effect at
+#' @description
+#' This function predicts the potential cumulative incidence function and treatment effect at
 #' specific time points.
 #'
-#' @param object A fitted object returned by the function \code{surv.tteICE} or \code{scr.tteICE}.
+#' @param object
+#' A fitted object returned by the function \code{tteICE}, \code{surv.tteICE}, or \code{scr.tteICE}.
 #'
-#' @param timeset Time at which to predict the risk. If \code{timeset=NULL}, risks will be predict at the
-#' quartiles of the maximum follow-up time.
+#' @param timeset
+#' Time at which to predict the risk.
+#' If \code{timeset=NULL}, risks will be predict at the quartiles of the maximum follow-up time.
 #'
-#' @param ... Other augments in function \code{\link[stats]{predict}}
+#' @param ... Other arguments in function \code{\link[stats]{predict}}
 #'
-#' @return A matrix. The meanings of each row are: time points, potential cumulative incidences (under
+#' @return
+#' A matrix with each row being time points, potential cumulative incidences (under
 #' treated and under control), treatment effects, standard errors, and P-values.
 #'
 #'
-#' @seealso \code{\link[tteICE]{scr.tteICE}}, \code{\link[tteICE]{surv.tteICE}}, \code{\link[tteICE]{surv.boot}}
+#' @seealso 
+#' \code{\link[tteICE]{scr.tteICE}}, \code{\link[tteICE]{surv.tteICE}}, \code{\link[tteICE]{tteICE}}
+#' \code{\link[tteICE]{surv.boot}}
 #'
 #' @examples
 #' ## load data
@@ -23,18 +30,29 @@
 #' A = as.numeric(bmt$group>1)
 #' bmt$A = A
 #' X = as.matrix(bmt[,c('z1','z3','z5')])
-#' ## Composite variable strategy,
-#' ## nonparametric estimation without covariates
+#'
+#' ## predict results at specified time points
+#' ## model fitting using semicompeting risk data
 #' fit1 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
 #' predict(fit1, timeset=c(670,2000))
-#'
-#' library(survival)
-#' fit2 = tteICE(Surv(t2, d4, type = "mstate")~A|z1+z3+z5, 
-#'  data=bmt, strategy="composite", method='eff')
-#' predict(fit2, timeset=c(670,2000))
+#' 
+#' ## predict results without specifying any time points
+#' ## model fitting using competing risk data
+#' fit2 = surv.tteICE(A, bmt$t2, bmt$d4, "composite")
 #' predict(fit2)
 #'
+#' ## a simpler way
+#' library(survival)
+#' fit3 = tteICE(Surv(t2, d4, type = "mstate")~A|z1+z3+z5,
+#'               data=bmt, strategy="composite", method='eff')
+#' predict(fit3, timeset=c(670,2000))
+#' predict(fit3)
 #'
+#'
+#' @seealso 
+#' \code{\link[tteICE]{surv.tteICE}}, \code{\link[tteICE]{scr.tteICE}}, 
+#' \code{\link[tteICE]{tteICE}}
+#' 
 #' @method predict tteICE
 #' @return predict a tteICE object.
 #' The meanings of each row are: time points, potential cumulative incidences (under

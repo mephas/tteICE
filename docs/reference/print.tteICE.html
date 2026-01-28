@@ -48,7 +48,7 @@
 
 
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
-<dd><p>A fitted object returned by the function <code>surv.tteICE</code> or <code>scr.tteICE</code>.</p></dd>
+<dd><p>A fitted object returned by the function <code>tteICE</code>, <code>surv.tteICE</code>, or <code>scr.tteICE</code>.</p></dd>
 
 
 <dt id="arg-digits">digits<a class="anchor" aria-label="anchor" href="#arg-digits"></a></dt>
@@ -56,7 +56,7 @@
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Other augments in function <code><a href="https://rdrr.io/r/base/print.default.html" class="external-link">print.default</a></code></p></dd>
+<dd><p>Other arguments in function <code><a href="https://rdrr.io/r/base/print.default.html" class="external-link">print.default</a></code></p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -66,7 +66,8 @@
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="surv.tteICE.html">surv.tteICE</a></code>,
-<code><a href="scr.tteICE.html">scr.tteICE</a></code></p></div>
+<code><a href="scr.tteICE.html">scr.tteICE</a></code>,
+<code><a href="tteICE.html">tteICE</a></code></p></div>
     </div>
 
     <div class="section level2">
@@ -76,11 +77,13 @@
 <span class="r-in"><span><span class="va">bmt</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform</a></span><span class="op">(</span><span class="va">bmt</span>, d4<span class="op">=</span><span class="va">d2</span><span class="op">+</span><span class="va">d3</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">A</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">bmt</span><span class="op">$</span><span class="va">group</span><span class="op">&gt;</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">bmt</span><span class="op">$</span><span class="va">A</span> <span class="op">=</span> <span class="va">A</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## print the results</span></span></span>
-<span class="r-in"><span><span class="kw">for</span> <span class="op">(</span><span class="va">st</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'composite'</span>,<span class="st">'natural'</span>,<span class="st">'removed'</span>,<span class="st">'whileon'</span>,<span class="st">'principal'</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
-<span class="r-in"><span> <span class="va">fit</span> <span class="op">=</span> <span class="fu"><a href="surv.tteICE.html">surv.tteICE</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t2</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d4</span>, <span class="va">st</span><span class="op">)</span></span></span>
-<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span> <span class="va">fit1</span> <span class="op">=</span> <span class="fu"><a href="surv.tteICE.html">surv.tteICE</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t2</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d4</span>, <span class="st">"composite"</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">fit1</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Input:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> surv.tteICE(A = A, Time = bmt$t2, cstatus = bmt$d4, strategy = "composite")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -----------------------------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Data type: competing risks </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Strategy: composite variable strategy </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimation method: nonparametric estimation </span>
@@ -98,78 +101,13 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> se     0.0946  0.0937  0.0937  0.1005</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> p.val  0.4192  0.5843  0.5843  0.9384</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Data type: competing risks </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Strategy: hypothetical strategy (controlling the hazard of ICEs) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation method: nonparametric estimation </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Observations: 137 (including 99 treated and 38 control)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Maximum follow-up time: 2640 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> P-value of the average treatment effect: 0.6382 </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span> <span class="va">fit2</span> <span class="op">=</span> <span class="fu"><a href="scr.tteICE.html">scr.tteICE</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t1</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d1</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t2</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d2</span>, <span class="st">"composite"</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">fit2</span>, digits<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Input:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> scr.tteICE(A = A, Time = bmt$t1, status = bmt$d1, Time_int = bmt$t2, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     status_int = bmt$d2, strategy = "composite")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -----------------------------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> The estimated cumulative incidences and treatment effects at quartiles:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           660    1320    1980   2640</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CIF1   0.2366  0.2779  0.2779 0.3173</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se1    0.0437  0.0473  0.0473 0.0626</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CIF0   0.3108  0.3108  0.3108 0.3108</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se0    0.0778  0.0778  0.0778 0.0778</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ATE   -0.0743 -0.0330 -0.0330 0.0064</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se     0.0863  0.0870  0.0870 0.0951</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> p.val  0.3895  0.7046  0.7046 0.9460</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Data type: competing risks </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Strategy: hypothetical strategy (removing ICEs) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation method: nonparametric estimation </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Observations: 137 (including 99 treated and 38 control)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Maximum follow-up time: 2640 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> P-value of the average treatment effect: 0.6382 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -----------------------------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> The estimated cumulative incidences and treatment effects at quartiles:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           660    1320    1980   2640</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CIF1   0.2795  0.3483  0.3483 0.4168</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se1    0.0497  0.0559  0.0559 0.0842</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CIF0   0.4044  0.4044  0.4044 0.4044</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se0    0.0936  0.0936  0.0936 0.0936</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ATE   -0.1248 -0.0561 -0.0561 0.0125</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se     0.1060  0.1090  0.1090 0.1259</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> p.val  0.2389  0.6070  0.6070 0.9211</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Data type: competing risks </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Strategy: while on treatment strategy </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation method: nonparametric estimation </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Observations: 137 (including 99 treated and 38 control)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Maximum follow-up time: 2640 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> P-value of the average treatment effect: 0.7138 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -----------------------------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> The estimated cumulative incidences and treatment effects at quartiles:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           660    1320    1980   2640</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CIF1   0.2389  0.2824  0.2824 0.3235</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se1    0.0432  0.0462  0.0462 0.0617</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CIF0   0.3108  0.3108  0.3108 0.3108</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se0    0.0778  0.0778  0.0778 0.0778</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ATE   -0.0719 -0.0284 -0.0284 0.0127</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se     0.0890  0.0905  0.0905 0.0993</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> p.val  0.4189  0.7535  0.7535 0.8982</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Data type: competing risks </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Strategy: principal stratum strategy </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation method: nonparametric estimation </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Observations: 137 (including 99 treated and 38 control)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Maximum follow-up time: 2640 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> P-value of the average treatment effect: NA </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -----------------------------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> The estimated cumulative incidences and treatment effects at quartiles:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           660    1320    1980   2640</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CIF1   0.3444  0.4072  0.4072 0.4664</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se1    0.0578  0.0606  0.0606 0.0832</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CIF0   0.4618  0.4618  0.4618 0.4618</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se0    0.1030  0.1030  0.1030 0.1030</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ATE   -0.1174 -0.0546 -0.0546 0.0047</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se     0.1181  0.1195  0.1195 0.1325</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> p.val  0.3205  0.6479  0.6479 0.9718</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="kw">for</span> <span class="op">(</span><span class="va">st</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'composite'</span>,<span class="st">'natural'</span>,<span class="st">'removed'</span>,<span class="st">'whileon'</span>,<span class="st">'principal'</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
-<span class="r-in"><span> <span class="va">fit</span> <span class="op">=</span> <span class="fu"><a href="scr.tteICE.html">scr.tteICE</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t1</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d1</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t2</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d2</span>, <span class="va">st</span><span class="op">)</span></span></span>
-<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">fit</span>, digits<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Data type: semicompeting risks </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Strategy: composite variable strategy </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimation method: nonparametric estimation </span>
@@ -187,95 +125,31 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> se     0.09  0.09  0.09  0.10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> p.val  0.42  0.58  0.58  0.94</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Data type: semicompeting risks </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Strategy: hypothetical strategy (controlling the hazard of ICEs) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation method: nonparametric estimation </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Observations: 137 (including 99 treated and 38 control)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Maximum follow-up time: 2204 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> P-value of the average treatment effect: 0.5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -----------------------------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> The estimated cumulative incidences and treatment effects at quartiles:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         551  1102  1653  2204</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CIF1   0.46  0.55  0.57  0.62</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se1    0.06  0.06  0.06  0.07</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CIF0   0.55  0.61  0.64  0.64</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se0    0.08  0.08  0.08  0.08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ATE   -0.09 -0.06 -0.07 -0.01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se     0.08  0.08  0.08  0.08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> p.val  0.27  0.46  0.34  0.86</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Data type: semicompeting risks </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Strategy: hypothetical strategy (removing ICEs) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation method: nonparametric estimation </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Observations: 137 (including 99 treated and 38 control)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Maximum follow-up time: 2640 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> P-value of the average treatment effect: 0.64 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -----------------------------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> The estimated cumulative incidences and treatment effects at quartiles:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         660  1320  1980 2640</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CIF1   0.28  0.35  0.35 0.42</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se1    0.05  0.06  0.06 0.08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CIF0   0.40  0.40  0.40 0.40</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se0    0.09  0.09  0.09 0.09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ATE   -0.12 -0.06 -0.06 0.01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se     0.11  0.11  0.11 0.13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> p.val  0.24  0.61  0.61 0.92</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Data type: semicompeting risks </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Strategy: while on treatment strategy </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation method: nonparametric estimation </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Observations: 137 (including 99 treated and 38 control)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Maximum follow-up time: 2640 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> P-value of the average treatment effect: 0.71 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -----------------------------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> The estimated cumulative incidences and treatment effects at quartiles:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         660  1320  1980 2640</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CIF1   0.24  0.28  0.28 0.32</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se1    0.04  0.05  0.05 0.06</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CIF0   0.31  0.31  0.31 0.31</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se0    0.08  0.08  0.08 0.08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ATE   -0.07 -0.03 -0.03 0.01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se     0.09  0.09  0.09 0.10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> p.val  0.42  0.75  0.75 0.90</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Data type: semicompeting risks </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Strategy: principal stratum strategy </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation method: nonparametric estimation </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Observations: 137 (including 99 treated and 38 control)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Maximum follow-up time: 2640 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> P-value of the average treatment effect: NA </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -----------------------------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> The estimated cumulative incidences and treatment effects at quartiles:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         660  1320  1980 2640</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CIF1   0.34  0.41  0.41 0.47</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se1    0.06  0.06  0.06 0.08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CIF0   0.46  0.46  0.46 0.46</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se0    0.10  0.10  0.10 0.10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ATE   -0.12 -0.05 -0.05 0.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se     0.12  0.12  0.12 0.13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> p.val  0.32  0.65  0.65 0.97</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/therneau/survival" class="external-link">survival</a></span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">fit2</span> <span class="op">=</span> <span class="fu"><a href="tteICE.html">tteICE</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">t2</span>, <span class="va">d4</span>, type <span class="op">=</span> <span class="st">"mstate"</span><span class="op">)</span><span class="op">~</span><span class="va">A</span><span class="op">|</span><span class="va">z1</span><span class="op">+</span><span class="va">z3</span><span class="op">+</span><span class="va">z5</span>, </span></span>
-<span class="r-in"><span>  data<span class="op">=</span><span class="va">bmt</span>, strategy<span class="op">=</span><span class="st">"composite"</span>, method<span class="op">=</span><span class="st">'eff'</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">fit</span>, digits<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Data type: semicompeting risks </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Strategy: principal stratum strategy </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation method: nonparametric estimation </span>
+<span class="r-in"><span><span class="va">fit3</span> <span class="op">=</span> <span class="fu"><a href="tteICE.html">tteICE</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">t2</span>, <span class="va">d4</span>, type <span class="op">=</span> <span class="st">"mstate"</span><span class="op">)</span><span class="op">~</span><span class="va">A</span>,</span></span>
+<span class="r-in"><span>              data<span class="op">=</span><span class="va">bmt</span>, strategy<span class="op">=</span><span class="st">"composite"</span>, method<span class="op">=</span><span class="st">'eff'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">fit3</span>, digits<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Input:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> tteICE(formula = Surv(t2, d4, type = "mstate") ~ A, data = bmt, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     strategy = "composite", method = "eff")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -----------------------------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Data type: competing risks </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Strategy: composite variable strategy </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation method: semiparametrically efficient estimation </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Observations: 137 (including 99 treated and 38 control)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Maximum follow-up time: 2640 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> P-value of the average treatment effect: NA </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> P-value of the average treatment effect: 0.591 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -----------------------------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> The estimated cumulative incidences and treatment effects at quartiles:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         660  1320  1980 2640</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CIF1   0.34  0.41  0.41 0.47</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se1    0.06  0.06  0.06 0.08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CIF0   0.46  0.46  0.46 0.46</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se0    0.10  0.10  0.10 0.10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ATE   -0.12 -0.05 -0.05 0.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> se     0.12  0.12  0.12 0.13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> p.val  0.32  0.65  0.65 0.97</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          660   1320   1980   2640</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CIF1   0.532  0.586  0.586  0.630</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> se1    0.050  0.050  0.050  0.062</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CIF0   0.609  0.638  0.638  0.638</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> se0    0.080  0.079  0.079  0.079</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ATE   -0.076 -0.051 -0.051 -0.008</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> se     0.095  0.094  0.094  0.101</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> p.val  0.419  0.584  0.584  0.938</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

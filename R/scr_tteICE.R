@@ -49,17 +49,23 @@
 #' bmt = transform(bmt, d4=d2+d3)
 #' A = as.numeric(bmt$group>1)
 #' X = as.matrix(bmt[,c('z1','z3','z5')])
+#'
 #' ## Composite variable strategy,
 #' ## nonparametric estimation without covariates
 #' fit1 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
+#' \donttest{
 #' fit10 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "aa") ## warning message
+#' }
+#'
 #' ## Hypothetical strategy (natural effects),
 #' ## nonparametric estimation with inverse probability weighting
 #' fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='ipw')
+#'
 #' ## nonparametric estimation with weights as non-standardized inverse probability score
 #' ps = predict(glm(A ~ X, family='binomial'), type='response')
 #' w = A/ps + (1-A)/(1-ps)
 #' fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", weights=w)
+#'
 #' ## Hypothetical strategy (removing intercurrent events),
 #' ## semiparametrically efficient estimation with covariates
 #' fit3 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "removed", X, method='eff')
@@ -164,7 +170,8 @@ scr.tteICE <- function(A,Time,status,Time_int,status_int,strategy='composite',co
                     weights=weights,na.rm=FALSE,dtype='smcmprsk'))
   if (nboot>-1) fit = surv.boot(fit,nboot,seed)
   n = length(A); n1 = sum(A==1); n0 = sum(A==0)
-  fit = c(fit, list(n=n, n1=n1, n0=n0))
+  fit = c(fit, list(n=n, n1=n1, n0=n0, call= match.call()))
+
   class(fit) = "tteICE"
   return(fit)
 }

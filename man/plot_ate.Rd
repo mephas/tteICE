@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_ate.R
 \name{plot_ate}
 \alias{plot_ate}
-\title{Plot the estimated treatment effect}
+\title{Plot estimated treatment effects}
 \usage{
 plot_ate(
   fit,
@@ -18,31 +18,37 @@ plot_ate(
 )
 }
 \arguments{
-\item{fit}{A fitted object returned by the function \code{surv.tteICE} or \code{scr.tteICE}.}
+\item{fit}{A fitted object returned by the function \code{tteICE}, \code{surv.tteICE}, or \code{scr.tteICE}.}
 
-\item{decrease}{A logical variable indicating the type of curve difference to display. If \code{decrease = FALSE} (default), the function displays the difference in cumulative incidence functions (CIFs). If \code{decrease = TRUE}, the function instead displays the difference in survival functions.}
+\item{decrease}{A logical value indicating the type of curve difference to display.
+If \code{decrease = FALSE} (default), the difference in cumulative
+incidence functions (CIFs) is plotted. If \code{decrease = TRUE},
+the difference in survival functions is plotted instead.}
 
-\item{conf.int}{Confidence level for the interval. If \code{conf.int = NULL}, no confidence interval is provided.}
+\item{conf.int}{Confidence level for the pointwise confidence intervals
+If \code{conf.int = NULL}, no confidence intervals are provided.}
 
-\item{xlab}{Label for x-axis.}
+\item{xlab}{Label for the x-axis.}
 
-\item{ylim}{A numeric vector of length 2 giving the limits of the y-axis. Defaults to \code{ylim=c(-1, 1)}.}
+\item{ylim}{A numeric vector of length 2 specifying the limits of the y-axis.
+Defaults to \code{ylim = c(-1, 1)}.}
 
-\item{xlim}{A numeric vector of length 2 giving the limits of the x-axis. If \code{xlim=NULL} (default), the range is determined automatically from the data.}
+\item{xlim}{A numeric vector of length 2 specifying the limits of the x-axis.
+If \code{xlim = NULL} (default), the limits are determined automatically from the data.}
 
 \item{plot.configs}{A named \code{list} of additional plot configurations. Common entries include:
 
 \itemize{
 \item \code{ylab}: character, label for the y-axis (default: \code{ylab=NULL}, use the default label).
 \item \code{main}: character, title for the plot (default: \code{main=NULL}, use the default label).
-\item \code{lty}: line type for effect curve (default: 1).
-\item \code{lwd}: line width for effect curve (default: 2).
-\item \code{col}: line color for effect curve (default: "black").
-\item \code{add.null.line}: logical, whether to draw a horizontal line at 0 (default: TRUE).
-\item \code{null.line.lty}: line type for horizontal line at 0 (default: 2).
-\item \code{ci.lty}: line type for confidence interval curves (default: 5).
-\item \code{ci.lwd}: line width for confidence interval curves (default: 1.5).
-\item \code{ci.col}: line color for confidence interval curves (default: "darkgrey").
+\item \code{lty}: line type for effect curve (default: \code{lty=1}).
+\item \code{lwd}: line width for effect curve (default: \code{lwd=2}).
+\item \code{col}: line color for effect curve (default: \code{col="black"}).
+\item \code{add.null.line}: logical, whether to draw a horizontal line at 0 (default: \code{add.null.line=TRUE}, add the null line).
+\item \code{null.line.lty}: line type for horizontal line at 0 (default: \code{null.line.lty=2}.
+\item \code{ci.lty}: line type for confidence interval curves (default: \code{ci.lty=5}).
+\item \code{ci.lwd}: line width for confidence interval curves (default: \code{ci.lwd=1.5}).
+\item \code{ci.col}: line color for confidence interval curves (default: \code{ci.col="darkgrey"}).
 }}
 
 \item{...}{Additional graphical arguments passed to function \code{\link{plot.default}} or function \code{\link{curve}}}
@@ -51,30 +57,44 @@ plot_ate(
 Plot the average treatment effect (ATE) results from a tteICE object
 }
 \description{
-This function plots the estimated treatment effect, defined as the difference in potential cumulative incidences under treated and control groups, along with pointwise confidence intervals.
+This function plots the estimated treatment effect,
+defined as the difference in potential cumulative incidences under treated and control groups,
+along with pointwise confidence intervals.
 }
 \examples{
-## Load data and fit the model
+## Load data
 data(bmt)
 bmt = transform(bmt, d4=d2+d3)
 A = as.numeric(bmt$group>1)
-## Model with competing risk data
+bmt$A = A
+
+## simple model fitting and plotting
+library(survival)
+fit = tteICE(Surv(t2,d4,type = "mstate")~A, data=bmt)
+plot_ate(fit)
+
+## model fitting using competing risk data
 fit1 = surv.tteICE(A, bmt$t2, bmt$d4, 'composite')
+
 ## Plot asymptotic confidence intervals based on explicit formulas
 plot_ate(fit1, ylim=c(-0.4,0.4))
-\donttest{
+
 ## Plot bootstrap confidence intervals
-fit1 = surv.tteICE(A, bmt$t2, bmt$d4, 'composite', nboot=200)
-plot_ate(fit1, ylim=c(-0.4,0.4))
-}
+fit2 = surv.tteICE(A, bmt$t2, bmt$d4, 'natural', nboot=50) ## SE=0??
+plot_ate(fit2, ylim=c(-0.4,0.4))
+
 ## Model with semicompeting risk data
-fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
+fit3 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
+
 ## Plot asymptotic confidence intervals based on explicit formulas
-plot_ate(fit2, ylim=c(-0.4,0.4),
+plot_ate(fit3, ylim=c(-0.4,0.4),
          plot.configs=list(add.null.line=FALSE))
+
 ## Plot bootstrap confidence intervals
-fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite", nboot=200)
-plot_ate(fit2, ylim=c(-0.4,0.4),
+fit4 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2,
+                  "composite", nboot=50)           ## SE=0??
+
+plot_ate(fit4, ylim=c(-0.4,0.4),
          plot.configs=list(add.null.line=FALSE, lty=2, main=""))
 
 }

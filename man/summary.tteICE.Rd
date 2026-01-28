@@ -7,9 +7,9 @@
 \method{summary}{tteICE}(object, ...)
 }
 \arguments{
-\item{object}{A fitted object returned by the function \code{surv.tteICE} or \code{scr.tteICE}.}
+\item{object}{A fitted object returned by the function \code{tteICE}, \code{surv.tteICE}, or \code{scr.tteICE}.}
 
-\item{...}{Other augments in function \code{\link{summary}}}
+\item{...}{Other arguments in function \code{\link{summary}}}
 }
 \value{
 A list that consists of summaries of a tteICE object: data type, strategy, estimation method, maximum follow-up time,
@@ -25,19 +25,24 @@ bmt = transform(bmt, d4=d2+d3)
 A = as.numeric(bmt$group>1)
 bmt$A = A
 X = as.matrix(bmt[,c('z1','z3','z5')])
+
 ## Composite variable strategy,
 ## nonparametric estimation without covariates
 fit1 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
 summary(fit1)
 
+fit2 = surv.tteICE(A, bmt$t2, bmt$d4, "composite")
+predict(fit2)
+
 library(survival)
-fit2 = tteICE(Surv(t2, d4, type = "mstate")~A|z1+z3+z5, 
- data=bmt, strategy="composite", method='eff')
-summary(fit2)
+fit3 = tteICE(Surv(t2, d4, type = "mstate")~A|z1+z3+z5, 
+              data=bmt, strategy="composite", method='eff')
+summary(fit3)
 
 }
 \seealso{
 \code{\link[tteICE]{surv.tteICE}},
 \code{\link[tteICE]{scr.tteICE}},
+\code{\link[tteICE]{tteICE}},
 \code{\link[tteICE]{print.tteICE}}
 }

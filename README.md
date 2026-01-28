@@ -20,10 +20,16 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 <!-- badges: start -->
-[![CRAN status](https://www.r-pkg.org/badges/version/tteICE)](https://cran.r-project.org/package=tteICE)
-[![CRAN downloads total](https://cranlogs.r-pkg.org/badges/grand-total/tteICE)](https://cran.r-project.org/package=tteICE)
-[![CRAN downloads last month](https://cranlogs.r-pkg.org/badges/last-month/tteICE)](https://cran.r-project.org/package=tteICE)
-<!--[![R-CMD-check](https://github.com/mephas/tteICE/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mephas/tteICE/actions/workflows/R-CMD-check.yaml)
+
+<!-- [![R-CMD-check](https://github.com/mephas/tteICE/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mephas/tteICE/actions/workflows/R-CMD-check.yaml) -->
+
+[![CRAN
+status](https://www.r-pkg.org/badges/version/tteICE)](https://cran.r-project.org/package=tteICE)
+[![CRAN downloads
+total](https://cranlogs.r-pkg.org/badges/grand-total/tteICE)](https://cran.r-project.org/package=tteICE)
+[![CRAN downloads last
+month](https://cranlogs.r-pkg.org/badges/last-month/tteICE)](https://cran.r-project.org/package=tteICE)
+
 <!-- badges: end -->
 
 The goal of the package “tteICE” is to estimate the treatment effect for
@@ -295,6 +301,10 @@ plot(fit7, type="inc", plot.configs=list(legend=c('AML','ALL')))
 
 ``` r
 print(fit7)
+#> Input:
+#> tteICE(formula = Surv(t2, d4, type = "mstate") ~ A | z1 + z3 + 
+#>     z5, data = bmt, strategy = "natural", method = "eff")
+#> -----------------------------------------------------------------------
 #> Data type: competing risks 
 #> Strategy: hypothetical strategy (controlling the hazard of ICEs) 
 #> Estimation method: semiparametrically efficient estimation 
@@ -334,6 +344,10 @@ plot(fit8, type="inc", plot.configs=list(legend=c('AML','ALL')))
 
 ``` r
 print(fit8)
+#> Input:
+#> tteICE(formula = Surv(t1, d1) ~ A | z1 + z3 + z5, add.scr = ~Surv(t2, 
+#>     d2), data = bmt, strategy = "natural", method = "eff")
+#> -----------------------------------------------------------------------
 #> Data type: semicompeting risks 
 #> Strategy: hypothetical strategy (controlling the hazard of ICEs) 
 #> Estimation method: semiparametrically efficient estimation 

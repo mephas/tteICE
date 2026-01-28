@@ -4,9 +4,11 @@
 #' and treatment effect. Two methods to calculate the standard error are considered: the asymptotic standard error
 #' based on the explicit formula and bootstrapping.
 #'
-#' @param fit A fitted object from \code{surv.tteICE}.
+#' @param fit 
+#' A fitted object returned by the function \code{tteICE}, \code{surv.tteICE}, or \code{scr.tteICE}.
 #'
-#' @param nboot Number of resamplings in the boostrapping method. If \code{nboot} is 0 or 1, then
+#' @param nboot 
+#' Number of resamplings in the boostrapping method. If \code{nboot} is 0 or 1, then
 #' asymptotic standard error based on the explicit form is calculated instead of bootstrapping.
 #'
 #' @param seed Seed for bootstrapping.
@@ -26,8 +28,9 @@
 #' }
 #'
 #'
-#' @seealso \code{\link[tteICE]{surv.tteICE}}, \code{\link[tteICE]{scr.tteICE}}
-#'
+#' @seealso 
+#' \code{\link[tteICE]{surv.tteICE}}, \code{\link[tteICE]{scr.tteICE}}, 
+#' \code{\link[tteICE]{tteICE}}
 #'
 #' @export
 

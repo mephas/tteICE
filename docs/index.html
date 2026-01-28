@@ -68,7 +68,8 @@
 </ul>
 </li>
 </ul>
-<!-- README.md is generated from README.Rmd. Please edit that file --><!-- badges: start -->
+<!-- README.md is generated from README.Rmd. Please edit that file --><!-- badges: start --><!-- [![R-CMD-check](https://github.com/mephas/tteICE/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mephas/tteICE/actions/workflows/R-CMD-check.yaml) -->
+<!-- badges: end -->
 <p>The goal of the package “tteICE” is to estimate the treatment effect for time-to-event outcomes with intercurrent events.</p>
 <div class="section level2">
 <h2 id="randomized-trials-and-observational-studies">Randomized trials and observational studies<a class="anchor" aria-label="anchor" href="#randomized-trials-and-observational-studies"></a>
@@ -218,6 +219,10 @@
 <p><img src="reference/figures/README-example_7-1.png" alt="" width="70%" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">fit7</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Input:</span></span>
+<span><span class="co">#&gt; tteICE(formula = Surv(t2, d4, type = "mstate") ~ A | z1 + z3 + </span></span>
+<span><span class="co">#&gt;     z5, data = bmt, strategy = "natural", method = "eff")</span></span>
+<span><span class="co">#&gt; -----------------------------------------------------------------------</span></span>
 <span><span class="co">#&gt; Data type: competing risks </span></span>
 <span><span class="co">#&gt; Strategy: hypothetical strategy (controlling the hazard of ICEs) </span></span>
 <span><span class="co">#&gt; Estimation method: semiparametrically efficient estimation </span></span>
@@ -254,6 +259,10 @@
 <p><img src="reference/figures/README-example_8-1.png" alt="" width="70%" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">fit8</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Input:</span></span>
+<span><span class="co">#&gt; tteICE(formula = Surv(t1, d1) ~ A | z1 + z3 + z5, add.scr = ~Surv(t2, </span></span>
+<span><span class="co">#&gt;     d2), data = bmt, strategy = "natural", method = "eff")</span></span>
+<span><span class="co">#&gt; -----------------------------------------------------------------------</span></span>
 <span><span class="co">#&gt; Data type: semicompeting risks </span></span>
 <span><span class="co">#&gt; Strategy: hypothetical strategy (controlling the hazard of ICEs) </span></span>
 <span><span class="co">#&gt; Estimation method: semiparametrically efficient estimation </span></span>

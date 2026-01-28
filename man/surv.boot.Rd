@@ -7,7 +7,7 @@
 surv.boot(fit, nboot = 0, seed = NULL)
 }
 \arguments{
-\item{fit}{A fitted object from \code{surv.tteICE}.}
+\item{fit}{A fitted object returned by the function \code{tteICE}, \code{surv.tteICE}, or \code{scr.tteICE}.}
 
 \item{nboot}{Number of resamplings in the boostrapping method. If \code{nboot} is 0 or 1, then
 asymptotic standard error based on the explicit form is calculated instead of bootstrapping.}
@@ -34,5 +34,6 @@ and treatment effect. Two methods to calculate the standard error are considered
 based on the explicit formula and bootstrapping.
 }
 \seealso{
-\code{\link[tteICE]{surv.tteICE}}, \code{\link[tteICE]{scr.tteICE}}
+\code{\link[tteICE]{surv.tteICE}}, \code{\link[tteICE]{scr.tteICE}},
+\code{\link[tteICE]{tteICE}}
 }

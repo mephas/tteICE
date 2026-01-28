@@ -18,14 +18,17 @@ tteICE(
 )
 }
 \arguments{
-\item{formula}{An object of class "formula" (or one that can be coerced to that class):
-a symbolic description of the model to be fitted.
+\item{formula}{An object of class "formula" (or one that can be coerced to that class).
+A symbolic description of the model to be fitted.
+For example, \code{formula=Surv(time, status, type="mstate")~treatment | baseline.covariate}.
 The details of model specification are given under ‘Details’.}
 
-\item{add.scr}{An object of class "Surv" (or one that can be coerced to that class). For example, \code{add.scr=~Surv(time.intercurrent, status.intercurrent)}.
+\item{add.scr}{Required for semicompeting data.
+An object of class "Surv" (or one that can be coerced to that class).
+For example, \code{add.scr=~Surv(time.intercurrent, status.intercurrent)}.
 The details of model specification are given under ‘Details’.}
 
-\item{data}{An optional data frame, list or environment (or object coercible by as.data.frame to a data frame)
+\item{data}{Data or object coercible by as.data.frame to a data frame,
 containing the variables in the model.}
 
 \item{strategy}{Strategy to address intercurrent events, \code{"treatment"} indicating treatment policy strategy,
@@ -99,25 +102,36 @@ bmt = transform(bmt, d4=d2+d3)
 A = as.numeric(bmt$group>1)
 X = as.matrix(bmt[,c('z1','z3','z5')])
 bmt$A = A
+
 library(survival)
 ## Composite variable strategy,
 ## nonparametric estimation without covariates
 ## Composite variable strategy,
 ## nonparametric estimation without covariates
 
-fit1 = tteICE(Surv(t2, d4, type = "mstate")~A, 
+## model fitting for competing risk data without covariates
+fit1 = tteICE(Surv(t2, d4, type = "mstate")~A,
  data=bmt, strategy="composite", method='eff')
 print(fit1)
 
-fit2 = tteICE(Surv(t2, d4, type = "mstate")~A|z1+z3+z5, 
+## model fitting for competing risk data without covariates 
+## with bootstrap confidence intervals
+fit.bt1 = tteICE(Surv(t2, d4, type = "mstate")~A,
+ data=bmt, strategy="composite", method='eff', nboot=20, seed=2)
+print(fit.bt1)
+
+## model fitting for competing risk data with covariates
+fit2 = tteICE(Surv(t2, d4, type = "mstate")~A|z1+z3+z5,
  data=bmt, strategy="composite", method='eff')
 print(fit2)
 
-fitscr1 = tteICE(Surv(t1, d1)~A, ~Surv(t2, d2), 
+## model fitting for semicompeting risk data without covariates
+fitscr1 = tteICE(Surv(t1, d1)~A, ~Surv(t2, d2),
  data=bmt, strategy="composite", method='eff')
 print(fitscr1)
 
-fitscr2 = tteICE(Surv(t1, d1)~A|z1+z3+z5, ~Surv(t2, d2), 
+## model fitting for semicompeting risk data without covariates
+fitscr2 = tteICE(Surv(t1, d1)~A|z1+z3+z5, ~Surv(t2, d2),
  data=bmt, strategy="composite", method='eff')
 print(fitscr2)
 
