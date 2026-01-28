@@ -45,8 +45,8 @@ A = as.numeric(bmt$group>1)
 bmt$A = A
 
 ## print the results
- fit1 = surv.tteICE(A, bmt$t2, bmt$d4, "composite")
- print(fit1)
+fit1 = surv.tteICE(A, bmt$t2, bmt$d4, "composite")
+print(fit1)
 #> Input:
 #> surv.tteICE(A = A, Time = bmt$t2, cstatus = bmt$d4, strategy = "composite")
 #> -----------------------------------------------------------------------
@@ -68,8 +68,8 @@ bmt$A = A
 #> p.val  0.4192  0.5843  0.5843  0.9384
 #> 
 
- fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
- print(fit2, digits=2)
+fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
+print(fit2, digits=2)
 #> Input:
 #> scr.tteICE(A = A, Time = bmt$t1, status = bmt$d1, Time_int = bmt$t2, 
 #>     status_int = bmt$d2, strategy = "composite")
