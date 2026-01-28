@@ -20,8 +20,9 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 <!-- badges: start -->
-[![CRAN downloads](https://cranlogs.r-pkg.org/badges/grand-total/tteICE)](https://cran.r-project.org/package=tteICE)
-
+[![CRAN status](https://www.r-pkg.org/badges/version/tteICE)](https://cran.r-project.org/package=tteICE)
+[![CRAN downloads total](https://cranlogs.r-pkg.org/badges/grand-total/tteICE)](https://cran.r-project.org/package=tteICE)
+[![CRAN downloads last month](https://cranlogs.r-pkg.org/badges/last-month/tteICE)](https://cran.r-project.org/package=tteICE)
 <!--[![R-CMD-check](https://github.com/mephas/tteICE/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mephas/tteICE/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
