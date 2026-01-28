@@ -5,7 +5,7 @@
 #' @param x
 #' A fitted object returned by the function \code{tteICE}, \code{surv.tteICE}, or \code{scr.tteICE}.
 #'
-#' @param digits 
+#' @param digits
 #' The digits of the results
 #'
 #' @param ... Other arguments in function \code{\link{print.default}}
@@ -18,14 +18,14 @@
 #' bmt = transform(bmt, d4=d2+d3)
 #' A = as.numeric(bmt$group>1)
 #' bmt$A = A
-#' 
+#'
 #' ## print the results
-#'  fit1 = surv.tteICE(A, bmt$t2, bmt$d4, "composite")
-#'  print(fit1)
-#' 
-#'  fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
-#'  print(fit2, digits=2)
-#' 
+#' fit1 = surv.tteICE(A, bmt$t2, bmt$d4, "composite")
+#' print(fit1)
+#'
+#' fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
+#' print(fit2, digits=2)
+#'
 #' library(survival)
 #' fit3 = tteICE(Surv(t2, d4, type = "mstate")~A,
 #'               data=bmt, strategy="composite", method='eff')
@@ -52,7 +52,7 @@ print.tteICE <- function(x, digits=4, ...){
            ipw="inverse probability weighting")
   if(!is.null(x$call)){
    cat("Input:\n")
-  print(x$call) 
+  print(x$call)
   }
   cat("-----------------------------------------------------------------------\n")
   cat("Data type:", dtype[x$dtype], "\n")

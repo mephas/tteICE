@@ -6,9 +6,13 @@ cvs_32 <- eventReactive(input$B_32_surv,{
 
 if (input$tbd_composite){
   if(!input$scr) 
-    fit1 <- surv.tteICE(A=A_32(), Time=TIME_32(), cstatus=CSTATUS_32(), strategy='composite', cov1=COV2(), method = input$meth, weights = WEIGHT()) 
+    fit1 <- surv.tteICE(A=A_32(), Time=TIME_32(), cstatus=CSTATUS_32(), 
+      strategy='composite', cov1=COV2(), method = input$meth, weights = WEIGHT(), 
+      nboot = input$bs_320, seed = 0)
   else
-    fit1 <- scr.tteICE(A=A_32(), Time=TIME_32(), status=CSTATUS_32(), Time_int=TIME_321(), status_int=CSTATUS_321(), strategy='composite', cov1=COV2(), method = input$meth, weights = WEIGHT()) 
+    fit1 <- scr.tteICE(A=A_32(), Time=TIME_32(), status=CSTATUS_32(), Time_int=TIME_321(), status_int=CSTATUS_321(), 
+      strategy='composite', cov1=COV2(), method = input$meth, weights = WEIGHT(), 
+      nboot = input$bs_320, seed = 0)
 
 } else {fit1 <- NULL}
 
@@ -16,12 +20,12 @@ return(fit1)
 })
 
 cvs_32_plot1 <- eventReactive(input$B_32_surv,{
-  if(length(cvs_32())!=0) plot(cvs_32(), type="ate", decrease = as.logical(input$d_320), conf.int = input$conf, nboot = input$bs_320, seed = 0, ylim=input$yrange)
+  if(length(cvs_32())!=0) plot(cvs_32(), type="ate", decrease = as.logical(input$d_320), conf.int = input$conf, ylim=input$yrange)
 })
 cvs_32_plot2 <- eventReactive(input$B_32_surv,{
   if(length(cvs_32())!=0) {
-    plot(cvs_32(), type="inc", decrease = as.logical(input$d_320), conf.int = input$conf, nboot = input$bs_320, seed = 0, ylim=input$yrangecif,
-      plot.configs=list(legend=c(input$t1, input$t0), show.p.value=input$adp)) 
+    plot(cvs_32(), type="inc", decrease = as.logical(input$d_320), conf.int = input$conf, ylim=input$yrangecif,
+      plot.configs=list(legend=c(input$t1, input$t0), col=c(input$col1,input$col0), show.p.value=input$adp)) 
     # if(input$adp) {
     #   p = cvs_32()$p.val
     #   if(is.null(p)) p=NA
@@ -40,7 +44,7 @@ if((length(cvs_32())!=0)){
 
 fit <- cvs_32()
 time.point <- as.numeric(input$num6)
-tab <- riskpredict(fit, timeset=time.point, nboot=input$bs_320, seed=0)
+tab <- predict(fit, timeset=time.point)
 ate <- tab[5]
 ate.sd <- tab[6]
 cil = ate + qnorm((1-input$conf)/2)*ate.sd

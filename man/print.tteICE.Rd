@@ -27,11 +27,11 @@ A = as.numeric(bmt$group>1)
 bmt$A = A
 
 ## print the results
- fit1 = surv.tteICE(A, bmt$t2, bmt$d4, "composite")
- print(fit1)
+fit1 = surv.tteICE(A, bmt$t2, bmt$d4, "composite")
+print(fit1)
 
- fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
- print(fit2, digits=2)
+fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
+print(fit2, digits=2)
 
 library(survival)
 fit3 = tteICE(Surv(t2, d4, type = "mstate")~A,
