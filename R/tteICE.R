@@ -113,7 +113,7 @@
 #' @importFrom survival Surv
 #' @export
 
-tteICE <- function(formula, add.scr, data, strategy='composite', method='np',
+tteICE <- function(formula, add.scr=NULL, data, strategy='composite', method='np',
                      weights=NULL,subset=NULL,na.rm=FALSE,nboot=0,seed=0){
 
   # extract A, Time, cstatus
@@ -132,7 +132,7 @@ tteICE <- function(formula, add.scr, data, strategy='composite', method='np',
   Time   <- Yp[, 1]
   cstatus <- Yp[, 2]
 
- if(!missing(add.scr)) {
+ if(!is.null(add.scr)) {
   Y2 = stats::model.frame(add.scr, data = data)[[1]]
   if (!inherits(Y2,"Surv")) stop("Use `~Surv(time, status)` ")
     Time_int   <- Y2[, 1]
@@ -215,7 +215,7 @@ if (length(parts) > 1) {
   Time = Time[subset]
   cstatus = cstatus[subset]
   weights = weights[subset]
-  if (!missing(add.scr)){
+  if (!is.null(add.scr)){
     Time_int = Time_int[subset]
     status_int = status_int[subset]
   }
@@ -236,7 +236,7 @@ if (length(parts) > 1) {
 
 
   ## estimation
-  if(missing(add.scr)){
+  if(is.null(add.scr)){
     if (method=='ipw') {
         weights = weights*.ipscore(A,cov1,TRUE,weights)
       }

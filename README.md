@@ -20,8 +20,9 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 <!-- badges: start -->
+[![CRAN downloads](https://cranlogs.r-pkg.org/badges/grand-total/tteICE)](https://cran.r-project.org/package=tteICE)
 
-[![R-CMD-check](https://github.com/mephas/tteICE/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mephas/tteICE/actions/workflows/R-CMD-check.yaml)
+<!--[![R-CMD-check](https://github.com/mephas/tteICE/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mephas/tteICE/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of the package “tteICE” is to estimate the treatment effect for
