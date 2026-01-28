@@ -15,7 +15,8 @@ surv.boot(fit, nboot = 0, seed = NULL)
 
 - fit:
 
-  A fitted object from `surv.tteICE`.
+  A fitted object returned by the function `tteICE`, `surv.tteICE`, or
+  `scr.tteICE`.
 
 - nboot:
 
@@ -73,4 +74,5 @@ A list including
 ## See also
 
 [`surv.tteICE`](https://mephas.github.io/tteICE/reference/surv.tteICE.md),
-[`scr.tteICE`](https://mephas.github.io/tteICE/reference/scr.tteICE.md)
+[`scr.tteICE`](https://mephas.github.io/tteICE/reference/scr.tteICE.md),
+[`tteICE`](https://mephas.github.io/tteICE/reference/tteICE.md)

@@ -156,21 +156,27 @@ data(bmt)
 bmt = transform(bmt, d4=d2+d3)
 A = as.numeric(bmt$group>1)
 X = as.matrix(bmt[,c('z1','z3','z5')])
+
 ## Composite variable strategy,
 ## nonparametric estimation without covariates
 fit1 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
+# \donttest{
 fit10 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "aa") ## warning message
 #> Warning: Please choose a strategy from the following:
 #>  treatment, composite, natural, removed, whileon, principal
 #> 
 #>             composite variable strategy is used by default
+# }
+
 ## Hypothetical strategy (natural effects),
 ## nonparametric estimation with inverse probability weighting
 fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='ipw')
+
 ## nonparametric estimation with weights as non-standardized inverse probability score
 ps = predict(glm(A ~ X, family='binomial'), type='response')
 w = A/ps + (1-A)/(1-ps)
 fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", weights=w)
+
 ## Hypothetical strategy (removing intercurrent events),
 ## semiparametrically efficient estimation with covariates
 fit3 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "removed", X, method='eff')

@@ -13,12 +13,12 @@ summary(object, ...)
 
 - object:
 
-  A fitted object returned by the function `surv.tteICE` or
+  A fitted object returned by the function `tteICE`, `surv.tteICE`, or
   `scr.tteICE`.
 
 - ...:
 
-  Other augments in function
+  Other arguments in function
   [`summary`](https://rdrr.io/r/base/summary.html)
 
 ## Value
@@ -32,6 +32,7 @@ risks at quartiles
 
 [`surv.tteICE`](https://mephas.github.io/tteICE/reference/surv.tteICE.md),
 [`scr.tteICE`](https://mephas.github.io/tteICE/reference/scr.tteICE.md),
+[`tteICE`](https://mephas.github.io/tteICE/reference/tteICE.md),
 [`print.tteICE`](https://mephas.github.io/tteICE/reference/print.tteICE.md)
 
 ## Examples
@@ -43,6 +44,7 @@ bmt = transform(bmt, d4=d2+d3)
 A = as.numeric(bmt$group>1)
 bmt$A = A
 X = as.matrix(bmt[,c('z1','z3','z5')])
+
 ## Composite variable strategy,
 ## nonparametric estimation without covariates
 fit1 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
@@ -84,10 +86,21 @@ summary(fit1)
 #> attr(,"class")
 #> [1] "summary.tteICE"
 
+fit2 = surv.tteICE(A, bmt$t2, bmt$d4, "composite")
+predict(fit2)
+#>               660        1320        1980         2640
+#> CIF1   0.53226259  0.58641246  0.58641246  0.629905604
+#> se1    0.05012612  0.04988569  0.04988569  0.061748891
+#> CIF0   0.60870186  0.63767315  0.63767315  0.637673151
+#> se0    0.08026005  0.07929563  0.07929563  0.079295626
+#> ATE   -0.07643926 -0.05126070 -0.05126070 -0.007767547
+#> se     0.09462718  0.09368233  0.09368233  0.100502347
+#> p.val  0.41920919  0.58425802  0.58425802  0.938395060
+
 library(survival)
-fit2 = tteICE(Surv(t2, d4, type = "mstate")~A|z1+z3+z5, 
- data=bmt, strategy="composite", method='eff')
-summary(fit2)
+fit3 = tteICE(Surv(t2, d4, type = "mstate")~A|z1+z3+z5, 
+              data=bmt, strategy="composite", method='eff')
+summary(fit3)
 #> $dtype
 #> [1] "cmprsk"
 #> 

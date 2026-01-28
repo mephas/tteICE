@@ -61,39 +61,44 @@ with pointwise confidence intervals.</p>
 
 
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
-<dd><p>A fitted object returned by the function <code>surv.tteICE</code> or <code>scr.tteICE</code>.</p></dd>
+<dd><p>A fitted object returned by the function <code>tteICE</code>, <code>surv.tteICE</code>, or <code>scr.tteICE</code>.</p></dd>
 
 
 <dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
-<dd><p>Which plot to create: <code>ate</code> indicates to plot the estimated treatment effect; <code>inc</code> indicates to plot the estimated cumulative incidence function.</p></dd>
+<dd><p>Which plot to create: <code>type="ate"</code> indicates to plot the estimated treatment effects;
+<code>type="inc"</code> indicates to plot the estimated cumulative incidence functions (CIFs).</p></dd>
 
 
 <dt id="arg-decrease">decrease<a class="anchor" aria-label="anchor" href="#arg-decrease"></a></dt>
-<dd><p>A logical variable indicating the type of curve to display. If <code>decrease = FALSE</code> (default), the function displays the cumulative incidence functions (CIFs) or their differences. If <code>decrease = TRUE</code>, the function instead displays the survival functions or their differences.</p></dd>
+<dd><p>Corresponds to the argument in <code><a href="plot_ate.html">plot_ate</a></code> and <code><a href="plot_inc.html">plot_inc</a></code>.</p></dd>
 
 
 <dt id="arg-conf-int">conf.int<a class="anchor" aria-label="anchor" href="#arg-conf-int"></a></dt>
-<dd><p>Confidence level for the interval. If <code>conf.int = NULL</code>, no confidence interval is provided.</p></dd>
+<dd><p>#' Confidence level for the pointwise confidence intervals
+If <code>conf.int = NULL</code>, no confidence intervals are provided.</p></dd>
 
 
 <dt id="arg-xlab">xlab<a class="anchor" aria-label="anchor" href="#arg-xlab"></a></dt>
-<dd><p>Label for x-axis.</p></dd>
+<dd><p>Label for the x-axis.</p></dd>
 
 
 <dt id="arg-xlim">xlim<a class="anchor" aria-label="anchor" href="#arg-xlim"></a></dt>
-<dd><p>A numeric vector of length 2 giving the limits of the x-axis. If <code>xlim=NULL</code> (default), the range is determined automatically from the data.</p></dd>
+<dd><p>A numeric vector of length 2 specifying the limits of the x-axis.
+If <code>xlim=NULL</code> (default), the range is determined automatically from the data.</p></dd>
 
 
 <dt id="arg-ylim">ylim<a class="anchor" aria-label="anchor" href="#arg-ylim"></a></dt>
-<dd><p>A numeric vector of length 2 giving the limits of the y-axis. If <code>ylim=NULL</code> (default), the range is determined automatically by the type of plot</p></dd>
+<dd><p>A numeric vector of length 2 giving the limits of the y-axis.
+If <code>ylim=NULL</code> (default), the range is determined automatically by the type of plot,
+corresponding to the argument in <code><a href="plot_ate.html">plot_ate</a></code> and <code><a href="plot_inc.html">plot_inc</a></code>.</p></dd>
 
 
 <dt id="arg-plot-configs">plot.configs<a class="anchor" aria-label="anchor" href="#arg-plot-configs"></a></dt>
-<dd><p>A named <code>list</code> of additional plot configurations. See details in functions  <code><a href="plot_ate.html">plot_ate</a></code> and <code><a href="plot_inc.html">plot_inc</a></code></p></dd>
+<dd><p>A named <code>list</code> of additional plot configurations. See details in <code><a href="plot_ate.html">plot_ate</a></code> and <code><a href="plot_inc.html">plot_inc</a></code></p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Other augments in function <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot.default</a></code> or function <code><a href="https://rdrr.io/r/graphics/curve.html" class="external-link">curve</a></code></p></dd>
+<dd><p>Other arguments in function <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot.default</a></code> or function <code><a href="https://rdrr.io/r/graphics/curve.html" class="external-link">curve</a></code></p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -102,7 +107,9 @@ with pointwise confidence intervals.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="plot_ate.html">plot_ate</a></code>, <code><a href="plot_inc.html">plot_inc</a></code></p></div>
+    <div class="dont-index"><p><code><a href="plot_ate.html">plot_ate</a></code>, <code><a href="plot_inc.html">plot_inc</a></code>,
+<code><a href="surv.tteICE.html">surv.tteICE</a></code>, <code><a href="scr.tteICE.html">scr.tteICE</a></code>,
+<code><a href="tteICE.html">tteICE</a></code></p></div>
     </div>
 
     <div class="section level2">
@@ -111,28 +118,29 @@ with pointwise confidence intervals.</p>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">bmt</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">bmt</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform</a></span><span class="op">(</span><span class="va">bmt</span>, d4<span class="op">=</span><span class="va">d2</span><span class="op">+</span><span class="va">d3</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">A</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">bmt</span><span class="op">$</span><span class="va">group</span><span class="op">&gt;</span><span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co">## plot cumulative incidence functions with p-values</span></span></span>
-<span class="r-in"><span><span class="kw">for</span> <span class="op">(</span><span class="va">st</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'composite'</span>,<span class="st">'natural'</span>,<span class="st">'removed'</span>,<span class="st">'whileon'</span>,<span class="st">'principal'</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
-<span class="r-in"><span> <span class="va">fit</span> <span class="op">=</span> <span class="fu"><a href="surv.tteICE.html">surv.tteICE</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t2</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d4</span>, <span class="va">st</span><span class="op">)</span></span></span>
-<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, type<span class="op">=</span><span class="st">"inc"</span>, decrease<span class="op">=</span><span class="cn">TRUE</span>, ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>      plot.configs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>show.p.value<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="va">bmt</span><span class="op">$</span><span class="va">A</span> <span class="op">=</span> <span class="va">A</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## simple model fitting and plotting</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/therneau/survival" class="external-link">survival</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fit1</span> <span class="op">=</span> <span class="fu"><a href="tteICE.html">tteICE</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">t2</span>,<span class="va">d4</span>,type <span class="op">=</span> <span class="st">"mstate"</span><span class="op">)</span><span class="op">~</span><span class="va">A</span>, data<span class="op">=</span><span class="va">bmt</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit1</span>, type<span class="op">=</span><span class="st">"ate"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot.tteICE-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit1</span>, type<span class="op">=</span><span class="st">"inc"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot.tteICE-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## plot cumulative incidence functions with p-values</span></span></span>
+<span class="r-in"><span><span class="va">fit2</span> <span class="op">=</span> <span class="fu"><a href="surv.tteICE.html">surv.tteICE</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t2</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d4</span>, <span class="st">"composite"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit2</span>, type<span class="op">=</span><span class="st">"inc"</span>, decrease<span class="op">=</span><span class="cn">TRUE</span>, ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>     plot.configs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>show.p.value<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot.tteICE-3.png" alt="" width="700" height="433"></span>
-<span class="r-plt img"><img src="plot.tteICE-4.png" alt="" width="700" height="433"></span>
-<span class="r-plt img"><img src="plot.tteICE-5.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## plot treatment effects for semicompeting risk data</span></span></span>
-<span class="r-in"><span><span class="kw">for</span> <span class="op">(</span><span class="va">st</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'composite'</span>,<span class="st">'natural'</span>,<span class="st">'removed'</span>,<span class="st">'whileon'</span>,<span class="st">'principal'</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
-<span class="r-in"><span> <span class="va">fit</span> <span class="op">=</span> <span class="fu"><a href="scr.tteICE.html">scr.tteICE</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t1</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d1</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t2</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d2</span>, <span class="va">st</span><span class="op">)</span></span></span>
-<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, type<span class="op">=</span><span class="st">"ate"</span>, ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, xlab<span class="op">=</span><span class="st">"time"</span>,</span></span>
-<span class="r-in"><span>      plot.configs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col<span class="op">=</span><span class="st">"red"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-plt img"><img src="plot.tteICE-6.png" alt="" width="700" height="433"></span>
-<span class="r-plt img"><img src="plot.tteICE-7.png" alt="" width="700" height="433"></span>
-<span class="r-plt img"><img src="plot.tteICE-8.png" alt="" width="700" height="433"></span>
-<span class="r-plt img"><img src="plot.tteICE-9.png" alt="" width="700" height="433"></span>
-<span class="r-plt img"><img src="plot.tteICE-10.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="va">fit3</span> <span class="op">=</span> <span class="fu"><a href="scr.tteICE.html">scr.tteICE</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t1</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d1</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t2</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d2</span>, <span class="st">"composite"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit3</span>, type<span class="op">=</span><span class="st">"ate"</span>, ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, xlab<span class="op">=</span><span class="st">"time"</span>,</span></span>
+<span class="r-in"><span>     plot.configs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col<span class="op">=</span><span class="st">"red"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot.tteICE-4.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

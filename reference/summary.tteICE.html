@@ -48,11 +48,11 @@
 
 
 <dl><dt id="arg-object">object<a class="anchor" aria-label="anchor" href="#arg-object"></a></dt>
-<dd><p>A fitted object returned by the function <code>surv.tteICE</code> or <code>scr.tteICE</code>.</p></dd>
+<dd><p>A fitted object returned by the function <code>tteICE</code>, <code>surv.tteICE</code>, or <code>scr.tteICE</code>.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Other augments in function <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></code></p></dd>
+<dd><p>Other arguments in function <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></code></p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -64,6 +64,7 @@ sample size, treated sample size, controlled sample size, p-value, and predicted
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="surv.tteICE.html">surv.tteICE</a></code>,
 <code><a href="scr.tteICE.html">scr.tteICE</a></code>,
+<code><a href="tteICE.html">tteICE</a></code>,
 <code><a href="print.tteICE.html">print.tteICE</a></code></p></div>
     </div>
 
@@ -75,6 +76,7 @@ sample size, treated sample size, controlled sample size, p-value, and predicted
 <span class="r-in"><span><span class="va">A</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">bmt</span><span class="op">$</span><span class="va">group</span><span class="op">&gt;</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">bmt</span><span class="op">$</span><span class="va">A</span> <span class="op">=</span> <span class="va">A</span></span></span>
 <span class="r-in"><span><span class="va">X</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">bmt</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'z1'</span>,<span class="st">'z3'</span>,<span class="st">'z5'</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Composite variable strategy,</span></span></span>
 <span class="r-in"><span><span class="co">## nonparametric estimation without covariates</span></span></span>
 <span class="r-in"><span><span class="va">fit1</span> <span class="op">=</span> <span class="fu"><a href="scr.tteICE.html">scr.tteICE</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t1</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d1</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t2</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d2</span>, <span class="st">"composite"</span><span class="op">)</span></span></span>
@@ -116,10 +118,21 @@ sample size, treated sample size, controlled sample size, p-value, and predicted
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "summary.tteICE"</span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">fit2</span> <span class="op">=</span> <span class="fu"><a href="surv.tteICE.html">surv.tteICE</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">t2</span>, <span class="va">bmt</span><span class="op">$</span><span class="va">d4</span>, <span class="st">"composite"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">fit2</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               660        1320        1980         2640</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CIF1   0.53226259  0.58641246  0.58641246  0.629905604</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> se1    0.05012612  0.04988569  0.04988569  0.061748891</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CIF0   0.60870186  0.63767315  0.63767315  0.637673151</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> se0    0.08026005  0.07929563  0.07929563  0.079295626</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ATE   -0.07643926 -0.05126070 -0.05126070 -0.007767547</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> se     0.09462718  0.09368233  0.09368233  0.100502347</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> p.val  0.41920919  0.58425802  0.58425802  0.938395060</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/therneau/survival" class="external-link">survival</a></span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">fit2</span> <span class="op">=</span> <span class="fu"><a href="tteICE.html">tteICE</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">t2</span>, <span class="va">d4</span>, type <span class="op">=</span> <span class="st">"mstate"</span><span class="op">)</span><span class="op">~</span><span class="va">A</span><span class="op">|</span><span class="va">z1</span><span class="op">+</span><span class="va">z3</span><span class="op">+</span><span class="va">z5</span>, </span></span>
-<span class="r-in"><span> data<span class="op">=</span><span class="va">bmt</span>, strategy<span class="op">=</span><span class="st">"composite"</span>, method<span class="op">=</span><span class="st">'eff'</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fit3</span> <span class="op">=</span> <span class="fu"><a href="tteICE.html">tteICE</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">t2</span>, <span class="va">d4</span>, type <span class="op">=</span> <span class="st">"mstate"</span><span class="op">)</span><span class="op">~</span><span class="va">A</span><span class="op">|</span><span class="va">z1</span><span class="op">+</span><span class="va">z3</span><span class="op">+</span><span class="va">z5</span>, </span></span>
+<span class="r-in"><span>              data<span class="op">=</span><span class="va">bmt</span>, strategy<span class="op">=</span><span class="st">"composite"</span>, method<span class="op">=</span><span class="st">'eff'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dtype</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "cmprsk"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>

@@ -285,6 +285,10 @@ plot(fit7, type="inc", plot.configs=list(legend=c('AML','ALL')))
 
 ``` r
 print(fit7)
+#> Input:
+#> tteICE(formula = Surv(t2, d4, type = "mstate") ~ A | z1 + z3 + 
+#>     z5, data = bmt, strategy = "natural", method = "eff")
+#> -----------------------------------------------------------------------
 #> Data type: competing risks 
 #> Strategy: hypothetical strategy (controlling the hazard of ICEs) 
 #> Estimation method: semiparametrically efficient estimation 
@@ -324,6 +328,10 @@ plot(fit8, type="inc", plot.configs=list(legend=c('AML','ALL')))
 
 ``` r
 print(fit8)
+#> Input:
+#> tteICE(formula = Surv(t1, d1) ~ A | z1 + z3 + z5, add.scr = ~Surv(t2, 
+#>     d2), data = bmt, strategy = "natural", method = "eff")
+#> -----------------------------------------------------------------------
 #> Data type: semicompeting risks 
 #> Strategy: hypothetical strategy (controlling the hazard of ICEs) 
 #> Estimation method: semiparametrically efficient estimation 

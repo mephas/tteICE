@@ -24,35 +24,34 @@ plot(
 
 - x:
 
-  A fitted object returned by the function `surv.tteICE` or
+  A fitted object returned by the function `tteICE`, `surv.tteICE`, or
   `scr.tteICE`.
 
 - type:
 
-  Which plot to create: `ate` indicates to plot the estimated treatment
-  effect; `inc` indicates to plot the estimated cumulative incidence
-  function.
+  Which plot to create: `type="ate"` indicates to plot the estimated
+  treatment effects; `type="inc"` indicates to plot the estimated
+  cumulative incidence functions (CIFs).
 
 - decrease:
 
-  A logical variable indicating the type of curve to display. If
-  `decrease = FALSE` (default), the function displays the cumulative
-  incidence functions (CIFs) or their differences. If `decrease = TRUE`,
-  the function instead displays the survival functions or their
-  differences.
+  Corresponds to the argument in
+  [`plot_ate`](https://mephas.github.io/tteICE/reference/plot_ate.md)
+  and
+  [`plot_inc`](https://mephas.github.io/tteICE/reference/plot_inc.md).
 
 - conf.int:
 
-  Confidence level for the interval. If `conf.int = NULL`, no confidence
-  interval is provided.
+  \#' Confidence level for the pointwise confidence intervals If
+  `conf.int = NULL`, no confidence intervals are provided.
 
 - xlab:
 
-  Label for x-axis.
+  Label for the x-axis.
 
 - xlim:
 
-  A numeric vector of length 2 giving the limits of the x-axis. If
+  A numeric vector of length 2 specifying the limits of the x-axis. If
   `xlim=NULL` (default), the range is determined automatically from the
   data.
 
@@ -60,19 +59,21 @@ plot(
 
   A numeric vector of length 2 giving the limits of the y-axis. If
   `ylim=NULL` (default), the range is determined automatically by the
-  type of plot
+  type of plot, corresponding to the argument in
+  [`plot_ate`](https://mephas.github.io/tteICE/reference/plot_ate.md)
+  and
+  [`plot_inc`](https://mephas.github.io/tteICE/reference/plot_inc.md).
 
 - plot.configs:
 
   A named `list` of additional plot configurations. See details in
-  functions
   [`plot_ate`](https://mephas.github.io/tteICE/reference/plot_ate.md)
   and
   [`plot_inc`](https://mephas.github.io/tteICE/reference/plot_inc.md)
 
 - ...:
 
-  Other augments in function
+  Other arguments in function
   [`plot.default`](https://rdrr.io/r/graphics/plot.default.html) or
   function [`curve`](https://rdrr.io/r/graphics/curve.html)
 
@@ -83,7 +84,10 @@ Plot the results from a tteICE object
 ## See also
 
 [`plot_ate`](https://mephas.github.io/tteICE/reference/plot_ate.md),
-[`plot_inc`](https://mephas.github.io/tteICE/reference/plot_inc.md)
+[`plot_inc`](https://mephas.github.io/tteICE/reference/plot_inc.md),
+[`surv.tteICE`](https://mephas.github.io/tteICE/reference/surv.tteICE.md),
+[`scr.tteICE`](https://mephas.github.io/tteICE/reference/scr.tteICE.md),
+[`tteICE`](https://mephas.github.io/tteICE/reference/tteICE.md)
 
 ## Examples
 
@@ -92,26 +96,27 @@ Plot the results from a tteICE object
 data(bmt)
 bmt = transform(bmt, d4=d2+d3)
 A = as.numeric(bmt$group>1)
+bmt$A = A
+
+## simple model fitting and plotting
+library(survival)
+fit1 = tteICE(Surv(t2,d4,type = "mstate")~A, data=bmt)
+plot(fit1, type="ate")
+
+plot(fit1, type="inc")
+
+
+
 ## plot cumulative incidence functions with p-values
-for (st in c('composite','natural','removed','whileon','principal')){
- fit = surv.tteICE(A, bmt$t2, bmt$d4, st)
- plot(fit, type="inc", decrease=TRUE, ylim=c(0,1),
-      plot.configs=list(show.p.value=TRUE))
-}
-
-
-
+fit2 = surv.tteICE(A, bmt$t2, bmt$d4, "composite")
+plot(fit2, type="inc", decrease=TRUE, ylim=c(0,1),
+     plot.configs=list(show.p.value=TRUE))
 
 
 ## plot treatment effects for semicompeting risk data
-for (st in c('composite','natural','removed','whileon','principal')){
- fit = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, st)
- plot(fit, type="ate", ylim=c(-1,1), xlab="time",
-      plot.configs=list(col="red"))
-}
-
-
-
+fit3 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
+plot(fit3, type="ate", ylim=c(-1,1), xlab="time",
+     plot.configs=list(col="red"))
 
 
 ```

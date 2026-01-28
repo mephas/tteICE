@@ -7,9 +7,9 @@
 - [`plot(`*`<tteICE>`*`)`](https://mephas.github.io/tteICE/reference/plot.tteICE.md)
   : Graphical results of tteICE
 - [`plot_ate()`](https://mephas.github.io/tteICE/reference/plot_ate.md)
-  : Plot the estimated treatment effect
+  : Plot estimated treatment effects
 - [`plot_inc()`](https://mephas.github.io/tteICE/reference/plot_inc.md)
-  : Plot the estimated cumulative incidence function (CIF)
+  : Plot estimated cumulative incidence functions (CIFs)
 - [`predict(`*`<tteICE>`*`)`](https://mephas.github.io/tteICE/reference/predict.tteICE.md)
   : Risk prediction at specific time points
 - [`print(`*`<tteICE>`*`)`](https://mephas.github.io/tteICE/reference/print.tteICE.md)

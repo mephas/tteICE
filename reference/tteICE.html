@@ -64,18 +64,21 @@ should be of a competing risks structure.</p>
 
 
 <dl><dt id="arg-formula">formula<a class="anchor" aria-label="anchor" href="#arg-formula"></a></dt>
-<dd><p>An object of class "formula" (or one that can be coerced to that class):
-a symbolic description of the model to be fitted.
+<dd><p>An object of class "formula" (or one that can be coerced to that class).
+A symbolic description of the model to be fitted.
+For example, <code>formula=Surv(time, status, type="mstate")~treatment | baseline.covariate</code>.
 The details of model specification are given under ‘Details’.</p></dd>
 
 
 <dt id="arg-add-scr">add.scr<a class="anchor" aria-label="anchor" href="#arg-add-scr"></a></dt>
-<dd><p>An object of class "Surv" (or one that can be coerced to that class). For example, <code>add.scr=~Surv(time.intercurrent, status.intercurrent)</code>.
+<dd><p>Required for semicompeting data.
+An object of class "Surv" (or one that can be coerced to that class).
+For example, <code>add.scr=~Surv(time.intercurrent, status.intercurrent)</code>.
 The details of model specification are given under ‘Details’.</p></dd>
 
 
 <dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
-<dd><p>An optional data frame, list or environment (or object coercible by as.data.frame to a data frame)
+<dd><p>Data or object coercible by as.data.frame to a data frame,
 containing the variables in the model.</p></dd>
 
 
@@ -177,15 +180,21 @@ Inference for Cumulative Incidences and Treatment Effects in Randomized Controll
 <span class="r-in"><span><span class="va">A</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">bmt</span><span class="op">$</span><span class="va">group</span><span class="op">&gt;</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">X</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">bmt</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'z1'</span>,<span class="st">'z3'</span>,<span class="st">'z5'</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">bmt</span><span class="op">$</span><span class="va">A</span> <span class="op">=</span> <span class="va">A</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/therneau/survival" class="external-link">survival</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co">## Composite variable strategy,</span></span></span>
 <span class="r-in"><span><span class="co">## nonparametric estimation without covariates</span></span></span>
 <span class="r-in"><span><span class="co">## Composite variable strategy,</span></span></span>
 <span class="r-in"><span><span class="co">## nonparametric estimation without covariates</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">fit1</span> <span class="op">=</span> <span class="fu">tteICE</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">t2</span>, <span class="va">d4</span>, type <span class="op">=</span> <span class="st">"mstate"</span><span class="op">)</span><span class="op">~</span><span class="va">A</span>, </span></span>
+<span class="r-in"><span><span class="co">## model fitting for competing risk data without covariates</span></span></span>
+<span class="r-in"><span><span class="va">fit1</span> <span class="op">=</span> <span class="fu">tteICE</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">t2</span>, <span class="va">d4</span>, type <span class="op">=</span> <span class="st">"mstate"</span><span class="op">)</span><span class="op">~</span><span class="va">A</span>,</span></span>
 <span class="r-in"><span> data<span class="op">=</span><span class="va">bmt</span>, strategy<span class="op">=</span><span class="st">"composite"</span>, method<span class="op">=</span><span class="st">'eff'</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">fit1</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Input:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> tteICE(formula = Surv(t2, d4, type = "mstate") ~ A, data = bmt, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     strategy = "composite", method = "eff")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -----------------------------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Data type: competing risks </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Strategy: composite variable strategy </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimation method: semiparametrically efficient estimation </span>
@@ -204,9 +213,41 @@ Inference for Cumulative Incidences and Treatment Effects in Randomized Controll
 <span class="r-out co"><span class="r-pr">#&gt;</span> p.val  0.4192  0.5843  0.5843  0.9384</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">fit2</span> <span class="op">=</span> <span class="fu">tteICE</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">t2</span>, <span class="va">d4</span>, type <span class="op">=</span> <span class="st">"mstate"</span><span class="op">)</span><span class="op">~</span><span class="va">A</span><span class="op">|</span><span class="va">z1</span><span class="op">+</span><span class="va">z3</span><span class="op">+</span><span class="va">z5</span>, </span></span>
+<span class="r-in"><span><span class="co">## model fitting for competing risk data without covariates </span></span></span>
+<span class="r-in"><span><span class="co">## with bootstrap confidence intervals</span></span></span>
+<span class="r-in"><span><span class="va">fit.bt1</span> <span class="op">=</span> <span class="fu">tteICE</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">t2</span>, <span class="va">d4</span>, type <span class="op">=</span> <span class="st">"mstate"</span><span class="op">)</span><span class="op">~</span><span class="va">A</span>,</span></span>
+<span class="r-in"><span> data<span class="op">=</span><span class="va">bmt</span>, strategy<span class="op">=</span><span class="st">"composite"</span>, method<span class="op">=</span><span class="st">'eff'</span>, nboot<span class="op">=</span><span class="fl">20</span>, seed<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">fit.bt1</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Input:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> tteICE(formula = Surv(t2, d4, type = "mstate") ~ A, data = bmt, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     strategy = "composite", method = "eff", nboot = 20, seed = 2)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -----------------------------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Data type: competing risks </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Strategy: composite variable strategy </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimation method: semiparametrically efficient estimation </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Observations: 137 (including 99 treated and 38 control)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Maximum follow-up time: 2640 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> P-value of the average treatment effect: 0.5907 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -----------------------------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> The estimated cumulative incidences and treatment effects at quartiles:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           660    1320    1980    2640</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CIF1   0.5323  0.5864  0.5864  0.6299</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> se1    0.0000  0.0000  0.0000  0.0000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CIF0   0.6087  0.6377  0.6377  0.6377</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> se0    0.0000  0.0000  0.0000  0.0000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ATE   -0.0764 -0.0513 -0.0513 -0.0078</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> se     0.0000  0.0000  0.0000  0.0000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> p.val  0.0000  0.0000  0.0000  0.0000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## model fitting for competing risk data with covariates</span></span></span>
+<span class="r-in"><span><span class="va">fit2</span> <span class="op">=</span> <span class="fu">tteICE</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">t2</span>, <span class="va">d4</span>, type <span class="op">=</span> <span class="st">"mstate"</span><span class="op">)</span><span class="op">~</span><span class="va">A</span><span class="op">|</span><span class="va">z1</span><span class="op">+</span><span class="va">z3</span><span class="op">+</span><span class="va">z5</span>,</span></span>
 <span class="r-in"><span> data<span class="op">=</span><span class="va">bmt</span>, strategy<span class="op">=</span><span class="st">"composite"</span>, method<span class="op">=</span><span class="st">'eff'</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">fit2</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Input:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> tteICE(formula = Surv(t2, d4, type = "mstate") ~ A | z1 + z3 + </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     z5, data = bmt, strategy = "composite", method = "eff")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -----------------------------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Data type: competing risks </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Strategy: composite variable strategy </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimation method: semiparametrically efficient estimation </span>
@@ -225,9 +266,14 @@ Inference for Cumulative Incidences and Treatment Effects in Randomized Controll
 <span class="r-out co"><span class="r-pr">#&gt;</span> p.val  0.0667  0.1560  0.1560  0.4494</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">fitscr1</span> <span class="op">=</span> <span class="fu">tteICE</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">t1</span>, <span class="va">d1</span><span class="op">)</span><span class="op">~</span><span class="va">A</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">t2</span>, <span class="va">d2</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span><span class="co">## model fitting for semicompeting risk data without covariates</span></span></span>
+<span class="r-in"><span><span class="va">fitscr1</span> <span class="op">=</span> <span class="fu">tteICE</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">t1</span>, <span class="va">d1</span><span class="op">)</span><span class="op">~</span><span class="va">A</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">t2</span>, <span class="va">d2</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span> data<span class="op">=</span><span class="va">bmt</span>, strategy<span class="op">=</span><span class="st">"composite"</span>, method<span class="op">=</span><span class="st">'eff'</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">fitscr1</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Input:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> tteICE(formula = Surv(t1, d1) ~ A, add.scr = ~Surv(t2, d2), data = bmt, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     strategy = "composite", method = "eff")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -----------------------------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Data type: semicompeting risks </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Strategy: composite variable strategy </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimation method: semiparametrically efficient estimation </span>
@@ -246,9 +292,14 @@ Inference for Cumulative Incidences and Treatment Effects in Randomized Controll
 <span class="r-out co"><span class="r-pr">#&gt;</span> p.val  0.4192  0.5843  0.5843  0.9384</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">fitscr2</span> <span class="op">=</span> <span class="fu">tteICE</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">t1</span>, <span class="va">d1</span><span class="op">)</span><span class="op">~</span><span class="va">A</span><span class="op">|</span><span class="va">z1</span><span class="op">+</span><span class="va">z3</span><span class="op">+</span><span class="va">z5</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">t2</span>, <span class="va">d2</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span><span class="co">## model fitting for semicompeting risk data without covariates</span></span></span>
+<span class="r-in"><span><span class="va">fitscr2</span> <span class="op">=</span> <span class="fu">tteICE</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">t1</span>, <span class="va">d1</span><span class="op">)</span><span class="op">~</span><span class="va">A</span><span class="op">|</span><span class="va">z1</span><span class="op">+</span><span class="va">z3</span><span class="op">+</span><span class="va">z5</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">t2</span>, <span class="va">d2</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span> data<span class="op">=</span><span class="va">bmt</span>, strategy<span class="op">=</span><span class="st">"composite"</span>, method<span class="op">=</span><span class="st">'eff'</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">fitscr2</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Input:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> tteICE(formula = Surv(t1, d1) ~ A | z1 + z3 + z5, add.scr = ~Surv(t2, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     d2), data = bmt, strategy = "composite", method = "eff")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -----------------------------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Data type: semicompeting risks </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Strategy: composite variable strategy </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimation method: semiparametrically efficient estimation </span>

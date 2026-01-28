@@ -285,6 +285,10 @@ plot(fit7, type="inc", plot.configs=list(legend=c('AML','ALL')))
 
 ``` r
 print(fit7)
+#> Input:
+#> tteICE(formula = Surv(t2, d4, type = "mstate") ~ A | z1 + z3 + 
+#>     z5, data = bmt, strategy = "natural", method = "eff")
+#> -----------------------------------------------------------------------
 #> Data type: competing risks 
 #> Strategy: hypothetical strategy (controlling the hazard of ICEs) 
 #> Estimation method: semiparametrically efficient estimation 
@@ -324,6 +328,10 @@ plot(fit8, type="inc", plot.configs=list(legend=c('AML','ALL')))
 
 ``` r
 print(fit8)
+#> Input:
+#> tteICE(formula = Surv(t1, d1) ~ A | z1 + z3 + z5, add.scr = ~Surv(t2, 
+#>     d2), data = bmt, strategy = "natural", method = "eff")
+#> -----------------------------------------------------------------------
 #> Data type: semicompeting risks 
 #> Strategy: hypothetical strategy (controlling the hazard of ICEs) 
 #> Estimation method: semiparametrically efficient estimation 
@@ -417,9 +425,9 @@ before the primary outcome events.
 - [`plot(`*`<tteICE>`*`)`](https://mephas.github.io/tteICE/reference/plot.tteICE.md)
   : Graphical results of tteICE
 - [`plot_ate()`](https://mephas.github.io/tteICE/reference/plot_ate.md)
-  : Plot the estimated treatment effect
+  : Plot estimated treatment effects
 - [`plot_inc()`](https://mephas.github.io/tteICE/reference/plot_inc.md)
-  : Plot the estimated cumulative incidence function (CIF)
+  : Plot estimated cumulative incidence functions (CIFs)
 - [`predict(`*`<tteICE>`*`)`](https://mephas.github.io/tteICE/reference/predict.tteICE.md)
   : Risk prediction at specific time points
 - [`print(`*`<tteICE>`*`)`](https://mephas.github.io/tteICE/reference/print.tteICE.md)

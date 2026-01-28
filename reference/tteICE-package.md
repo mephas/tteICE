@@ -2,15 +2,17 @@
 
 Main functions:
 
-- [`tteICE`](https://mephas.github.io/tteICE/reference/tteICE.md) Fit
-  the CIF for time-to-event data using formula
+- [`tteICE`](https://mephas.github.io/tteICE/reference/tteICE.md) Using
+  formula to fit the cumulative incidence functions (CIFs) for
+  time-to-event data with intercurrent events for competing or
+  semicompeting risks data
 
 - [`scr.tteICE`](https://mephas.github.io/tteICE/reference/scr.tteICE.md)
-  Fit the CIF for time-to-event data with intercurrent events for
+  Fit the CIFs for time-to-event data with intercurrent events for
   semicompeting risks data
 
 - [`surv.tteICE`](https://mephas.github.io/tteICE/reference/surv.tteICE.md)
-  Fit the CIF for time-to-event with intercurrent events for competing
+  Fit the CIFs for time-to-event with intercurrent events for competing
   risks data
 
 - [`plot.tteICE`](https://mephas.github.io/tteICE/reference/plot.tteICE.md)
@@ -20,13 +22,16 @@ Main functions:
   Print a short summary of the estimated treatment effect
 
 - [`summary.tteICE`](https://mephas.github.io/tteICE/reference/summary.tteICE.md)
-  Summary of tteICE
+  Summary of a tteICE object
 
 - [`predict.tteICE`](https://mephas.github.io/tteICE/reference/predict.tteICE.md)
   Risk prediction at specific time points
 
 - [`tteICEShiny`](https://mephas.github.io/tteICE/reference/tteICEShiny.md)
   Interactive Shiny app for tteICE
+
+- [`surv.HR`](https://mephas.github.io/tteICE/reference/surv.HR.md)
+  Estimate the hazard ratio with intercurrent events
 
 Example data:
 

@@ -26,19 +26,21 @@ tteICE(
 - formula:
 
   An object of class "formula" (or one that can be coerced to that
-  class): a symbolic description of the model to be fitted. The details
-  of model specification are given under ‘Details’.
+  class). A symbolic description of the model to be fitted. For example,
+  `formula=Surv(time, status, type="mstate")~treatment | baseline.covariate`.
+  The details of model specification are given under ‘Details’.
 
 - add.scr:
 
-  An object of class "Surv" (or one that can be coerced to that class).
-  For example, `add.scr=~Surv(time.intercurrent, status.intercurrent)`.
-  The details of model specification are given under ‘Details’.
+  Required for semicompeting data. An object of class "Surv" (or one
+  that can be coerced to that class). For example,
+  `add.scr=~Surv(time.intercurrent, status.intercurrent)`. The details
+  of model specification are given under ‘Details’.
 
 - data:
 
-  An optional data frame, list or environment (or object coercible by
-  as.data.frame to a data frame) containing the variables in the model.
+  Data or object coercible by as.data.frame to a data frame, containing
+  the variables in the model.
 
 - strategy:
 
@@ -165,15 +167,21 @@ bmt = transform(bmt, d4=d2+d3)
 A = as.numeric(bmt$group>1)
 X = as.matrix(bmt[,c('z1','z3','z5')])
 bmt$A = A
+
 library(survival)
 ## Composite variable strategy,
 ## nonparametric estimation without covariates
 ## Composite variable strategy,
 ## nonparametric estimation without covariates
 
-fit1 = tteICE(Surv(t2, d4, type = "mstate")~A, 
+## model fitting for competing risk data without covariates
+fit1 = tteICE(Surv(t2, d4, type = "mstate")~A,
  data=bmt, strategy="composite", method='eff')
 print(fit1)
+#> Input:
+#> tteICE(formula = Surv(t2, d4, type = "mstate") ~ A, data = bmt, 
+#>     strategy = "composite", method = "eff")
+#> -----------------------------------------------------------------------
 #> Data type: competing risks 
 #> Strategy: composite variable strategy 
 #> Estimation method: semiparametrically efficient estimation 
@@ -192,9 +200,41 @@ print(fit1)
 #> p.val  0.4192  0.5843  0.5843  0.9384
 #> 
 
-fit2 = tteICE(Surv(t2, d4, type = "mstate")~A|z1+z3+z5, 
+## model fitting for competing risk data without covariates 
+## with bootstrap confidence intervals
+fit.bt1 = tteICE(Surv(t2, d4, type = "mstate")~A,
+ data=bmt, strategy="composite", method='eff', nboot=20, seed=2)
+print(fit.bt1)
+#> Input:
+#> tteICE(formula = Surv(t2, d4, type = "mstate") ~ A, data = bmt, 
+#>     strategy = "composite", method = "eff", nboot = 20, seed = 2)
+#> -----------------------------------------------------------------------
+#> Data type: competing risks 
+#> Strategy: composite variable strategy 
+#> Estimation method: semiparametrically efficient estimation 
+#> Observations: 137 (including 99 treated and 38 control)
+#> Maximum follow-up time: 2640 
+#> P-value of the average treatment effect: 0.5907 
+#> -----------------------------------------------------------------------
+#> The estimated cumulative incidences and treatment effects at quartiles:
+#>           660    1320    1980    2640
+#> CIF1   0.5323  0.5864  0.5864  0.6299
+#> se1    0.0000  0.0000  0.0000  0.0000
+#> CIF0   0.6087  0.6377  0.6377  0.6377
+#> se0    0.0000  0.0000  0.0000  0.0000
+#> ATE   -0.0764 -0.0513 -0.0513 -0.0078
+#> se     0.0000  0.0000  0.0000  0.0000
+#> p.val  0.0000  0.0000  0.0000  0.0000
+#> 
+
+## model fitting for competing risk data with covariates
+fit2 = tteICE(Surv(t2, d4, type = "mstate")~A|z1+z3+z5,
  data=bmt, strategy="composite", method='eff')
 print(fit2)
+#> Input:
+#> tteICE(formula = Surv(t2, d4, type = "mstate") ~ A | z1 + z3 + 
+#>     z5, data = bmt, strategy = "composite", method = "eff")
+#> -----------------------------------------------------------------------
 #> Data type: competing risks 
 #> Strategy: composite variable strategy 
 #> Estimation method: semiparametrically efficient estimation 
@@ -213,9 +253,14 @@ print(fit2)
 #> p.val  0.0667  0.1560  0.1560  0.4494
 #> 
 
-fitscr1 = tteICE(Surv(t1, d1)~A, ~Surv(t2, d2), 
+## model fitting for semicompeting risk data without covariates
+fitscr1 = tteICE(Surv(t1, d1)~A, ~Surv(t2, d2),
  data=bmt, strategy="composite", method='eff')
 print(fitscr1)
+#> Input:
+#> tteICE(formula = Surv(t1, d1) ~ A, add.scr = ~Surv(t2, d2), data = bmt, 
+#>     strategy = "composite", method = "eff")
+#> -----------------------------------------------------------------------
 #> Data type: semicompeting risks 
 #> Strategy: composite variable strategy 
 #> Estimation method: semiparametrically efficient estimation 
@@ -234,9 +279,14 @@ print(fitscr1)
 #> p.val  0.4192  0.5843  0.5843  0.9384
 #> 
 
-fitscr2 = tteICE(Surv(t1, d1)~A|z1+z3+z5, ~Surv(t2, d2), 
+## model fitting for semicompeting risk data without covariates
+fitscr2 = tteICE(Surv(t1, d1)~A|z1+z3+z5, ~Surv(t2, d2),
  data=bmt, strategy="composite", method='eff')
 print(fitscr2)
+#> Input:
+#> tteICE(formula = Surv(t1, d1) ~ A | z1 + z3 + z5, add.scr = ~Surv(t2, 
+#>     d2), data = bmt, strategy = "composite", method = "eff")
+#> -----------------------------------------------------------------------
 #> Data type: semicompeting risks 
 #> Strategy: composite variable strategy 
 #> Estimation method: semiparametrically efficient estimation 
