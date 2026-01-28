@@ -9,7 +9,7 @@ input data should be of a competing risks structure.
 ``` r
 tteICE(
   formula,
-  add.scr,
+  add.scr = NULL,
   data,
   strategy = "composite",
   method = "np",
@@ -129,8 +129,7 @@ A list including the fitted object and input variables.
 
   The formula should be set as the following two ways.
 
-  When data are take format of competing risk data, set the first
-  argument
+  When data take format of competing risk data, set the first argument
   `formula = Surv(time, status, type="mstate") ~ treatment | covariate1+covariate2`
   or `formula = Surv(time, status)~ A` without any baseline covariates,
   where `status`=0,1,2 (1 for the primary event, 2 for the intercurrent
