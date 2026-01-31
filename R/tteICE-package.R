@@ -10,7 +10,6 @@
 #'   \item \code{\link[tteICE]{summary.tteICE}} Summary of a tteICE object
 #'   \item \code{\link[tteICE]{predict.tteICE}} Risk prediction at specific time points
 #'   \item \code{\link[tteICE]{tteICEShiny}} Interactive Shiny app for tteICE
-#' 	 \item \code{\link[tteICE]{surv.HR}} Estimate the hazard ratio with intercurrent events
 #' }
 #' Example data:
 #' \itemize{
