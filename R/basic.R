@@ -4,9 +4,9 @@
 .matchy <- function(yvec,xvec,newx,exact=FALSE){
   # options(warn = -1)
   if (exact) {
-    ivec = sapply(newx, function(x) max(which(xvec==x)))
+    ivec = sapply(newx, function(x) suppressWarnings(max(which(xvec==x))))
   } else {
-    ivec = sapply(newx, function(x) max(which(xvec<=x)))
+    ivec = sapply(newx, function(x) suppressWarnings(max(which(xvec<=x)))
   }
   if (is.vector(yvec)) {
     newy = yvec[ivec]
@@ -196,11 +196,11 @@
 #' Internal wrapper of survival:::event
 #' @noRd
 .event <- function(time, value=NULL, censor=NULL) {
-        x <- list(time=time, value=value, censor=censor); 
+        x <- list(time=time, value=value, censor=censor);
         class(x) <-"event"; x}
 
 #' Internal wrapper of survival:::tdc
 #' @noRd
 .tdc <- function(time, value=NULL, init=NULL) {
-        x <- list(time=time, value=value, default= init); 
+        x <- list(time=time, value=value, default= init);
         class(x) <- "tdc"; x}

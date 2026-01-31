@@ -32,7 +32,7 @@ footer=NULL,
 
 tabPanel(
   "tteICE",
-  headerPanel("tteICE: Treatment effect estimation for time-to-event outcomes with intercurrent events (ICEs)"),
+  headerPanel("tteICE: Treatment Effect Estimation for Time-to-Event Data with Intercurrent Events"),
   source("ui_data.R", local = TRUE, encoding = "UTF-8")$value,
   hr()
   )
