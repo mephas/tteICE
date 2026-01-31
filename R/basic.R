@@ -6,7 +6,7 @@
   if (exact) {
     ivec = sapply(newx, function(x) suppressWarnings(max(which(xvec==x))))
   } else {
-    ivec = sapply(newx, function(x) suppressWarnings(max(which(xvec<=x)))
+    ivec = sapply(newx, function(x) suppressWarnings(max(which(xvec<=x))))
   }
   if (is.vector(yvec)) {
     newy = yvec[ivec]
