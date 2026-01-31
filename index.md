@@ -258,7 +258,7 @@ To increase efficiency, we use the efficient influence function
 (EIF)-based method.
 
 ``` r
-fit6 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='eff') ## warnings
+fit6 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='eff') 
 plot_inc(fit6, plot.configs=list(legend=c('AML','ALL')))
 ```
 

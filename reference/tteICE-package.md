@@ -30,9 +30,6 @@ Main functions:
 - [`tteICEShiny`](https://mephas.github.io/tteICE/reference/tteICEShiny.md)
   Interactive Shiny app for tteICE
 
-- [`surv.HR`](https://mephas.github.io/tteICE/reference/surv.HR.md)
-  Estimate the hazard ratio with intercurrent events
-
 Example data:
 
 - [`bmt`](https://mephas.github.io/tteICE/reference/bmt.md) Data from
