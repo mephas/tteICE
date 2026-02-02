@@ -2,7 +2,7 @@
 % Please edit documentation in R/tteICE.R
 \name{tteICE}
 \alias{tteICE}
-\title{Using formula to fit the CIF for time-to-event with intercurrent events}
+\title{Using formula to fit CIFs for time-to-event data with intercurrent events}
 \usage{
 tteICE(
   formula,
@@ -56,9 +56,8 @@ asymptotic standard error based on the explicit form is calculated instead of bo
 A list including the fitted object and input variables.
 }
 \description{
-This function estimates the potential cumulative incidence function
-for time-to event data under ICH E9 (R1) to address intercurrent events. The input data
-should be of a competing risks structure.
+This function estimates the potential cumulative incidence function for time-to event data under ICH E9 (R1) to address intercurrent events.
+The input data can be competing or semicompeting risks data structure.
 }
 \details{
 \describe{

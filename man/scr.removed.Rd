@@ -2,7 +2,7 @@
 % Please edit documentation in R/scr_removed.R
 \name{scr.removed}
 \alias{scr.removed}
-\title{Fit the CIF using hypothetical strategy (II) for semicompeting risks data}
+\title{Fit CIFs using hypothetical strategy (II) for semicompeting risks data}
 \usage{
 scr.removed(A, Time, status, Time_int, status_int, weights = rep(1, length(A)))
 }

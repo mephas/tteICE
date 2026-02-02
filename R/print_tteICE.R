@@ -1,4 +1,5 @@
-#' @title Print a short summary of the estimated treatment effect
+#' @title 
+#' Print method for 'tteICE' objects
 #'
 #' @description This function summarizes the results
 #'

@@ -1,4 +1,4 @@
-#' @title Fit the CIF using while on treatment strategy for competing risks data
+#' @title Fit CIFs using while on treatment strategy for competing risks data
 #'
 #' @description This function nonparametrically estimates the potential cumulative incidence function
 #' using while on treatment strategy (competing risks data structure). This strategy can be understood

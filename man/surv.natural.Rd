@@ -2,7 +2,7 @@
 % Please edit documentation in R/surv_natural.R
 \name{surv.natural}
 \alias{surv.natural}
-\title{Fit the CIF using hypothetical strategy (I) for competing risks data}
+\title{Fit CIFs using hypothetical strategy (I) for competing risks data}
 \usage{
 surv.natural(A, Time, cstatus, weights = rep(1, length(A)))
 }

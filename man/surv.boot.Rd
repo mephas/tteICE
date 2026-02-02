@@ -2,7 +2,7 @@
 % Please edit documentation in R/surv_boot.R
 \name{surv.boot}
 \alias{surv.boot}
-\title{Calculate the standard error for the estimated CIF and treatment effect}
+\title{Calculate standard errors for estimated CIFs and treatment effects}
 \usage{
 surv.boot(fit, nboot = 0, seed = NULL)
 }

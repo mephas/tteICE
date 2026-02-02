@@ -2,7 +2,7 @@
 % Please edit documentation in R/scr_treatment_eff.R
 \name{scr.treatment.eff}
 \alias{scr.treatment.eff}
-\title{Fit the CIF using treatment policy strategy for semicompeting risks data, based on efficient influence functions}
+\title{Fit CIFs using treatment policy strategy for semicompeting risks data, based on efficient influence functions}
 \usage{
 scr.treatment.eff(A, Time, status, Time_int, status_int, X = NULL)
 }

@@ -1,4 +1,4 @@
-#' @title Fit the CIF using principal stratum strategy for semicompeting risks data, based on efficient influence functions
+#' @title Fit CIFs using principal stratum strategy for semicompeting risks data, based on efficient influence functions
 #'
 #' @description This function estimates the potential cumulative incidence function based on 
 #' efficient influence functions using principal stratum strategy (semicompeting risks data 

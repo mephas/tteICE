@@ -1,4 +1,4 @@
-#' @title Fit the CIF using composite variable strategy for competing risks data, based on efficient influence functions
+#' @title Fit CIFs using composite variable strategy for competing risks data, based on efficient influence functions
 #'
 #' @description This function estimates the potential cumulative incidence function based on
 #' efficient influence functions using composite variable strategy (competing risks data structure).

@@ -2,7 +2,7 @@
 % Please edit documentation in R/scr_whileon_eff.R
 \name{scr.whileon.eff}
 \alias{scr.whileon.eff}
-\title{Fit the CIF using while on treatment strategy for semicompeting risks data, based on efficient influence functions}
+\title{Fit CIFs using while on treatment strategy for semicompeting risks data, based on efficient influence functions}
 \usage{
 scr.whileon.eff(A, Time, status, Time_int, status_int, X = NULL)
 }

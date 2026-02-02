@@ -1,5 +1,5 @@
 #' @title 
-#' Graphical results of tteICE
+#' Plot method for 'tteICE' objects
 #'
 #' @description 
 #' This function plots the estimated potential cumulative incidence functions or treatment effect curve

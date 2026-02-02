@@ -1,4 +1,4 @@
-#' @title Summary of tteICE
+#' @title Summary method for 'tteICE' objects
 #'
 #' @description This function summarizes the results
 #'

@@ -2,7 +2,7 @@
 % Please edit documentation in R/scr_treatment.R
 \name{scr.treatment}
 \alias{scr.treatment}
-\title{Fit the CIF using treatment policy strategy for semicompeting risks data}
+\title{Fit CIFs using treatment policy strategy for semicompeting risks data}
 \usage{
 scr.treatment(
   A,

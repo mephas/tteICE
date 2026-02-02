@@ -2,7 +2,7 @@
 % Please edit documentation in R/scr_principal.R
 \name{scr.principal}
 \alias{scr.principal}
-\title{Fit the CIF using principal stratum strategy for semicompeting risks data}
+\title{Fit CIFs using principal stratum strategy for semicompeting risks data}
 \usage{
 scr.principal(
   A,

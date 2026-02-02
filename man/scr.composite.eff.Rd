@@ -2,7 +2,7 @@
 % Please edit documentation in R/scr_composite_eff.R
 \name{scr.composite.eff}
 \alias{scr.composite.eff}
-\title{Fit the CIF using composite variable strategy for semicompeting risks data, based on efficient influence functions}
+\title{Fit CIFs using composite variable strategy for semicompeting risks data, based on efficient influence functions}
 \usage{
 scr.composite.eff(A, Time, status, Time_int, status_int, X = NULL)
 }

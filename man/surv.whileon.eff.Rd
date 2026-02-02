@@ -2,7 +2,7 @@
 % Please edit documentation in R/surv_whileon_eff.R
 \name{surv.whileon.eff}
 \alias{surv.whileon.eff}
-\title{Fit the CIF using while on treatment strategy for competing risks data, based on efficient influence functions}
+\title{Fit CIFs using while on treatment strategy for competing risks data, based on efficient influence functions}
 \usage{
 surv.whileon.eff(A, Time, cstatus, X = NULL)
 }

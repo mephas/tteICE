@@ -1,4 +1,5 @@
-#' @title Fit the CIF for time-to-event data with intercurrent events for semicompeting risks data
+#' @title 
+#' Fit CIFs for semicompeting risks time-to-event data with intercurrent events.
 #'
 #' @description This function estimates the potential cumulative incidence function
 #' for time-to event data under ICH E9 (R1) to address intercurrent events. The input data

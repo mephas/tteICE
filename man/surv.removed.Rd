@@ -2,7 +2,7 @@
 % Please edit documentation in R/surv_removed.R
 \name{surv.removed}
 \alias{surv.removed}
-\title{Fit the CIF using hypothetical strategy (II) for competing risks data}
+\title{Fit CIFs using hypothetical strategy (II) for competing risks data}
 \usage{
 surv.removed(A, Time, cstatus, weights = rep(1, length(A)))
 }

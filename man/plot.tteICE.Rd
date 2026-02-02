@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_tteICE.R
 \name{plot.tteICE}
 \alias{plot.tteICE}
-\title{Graphical results of tteICE}
+\title{Plot method for 'tteICE' objects}
 \usage{
 \method{plot}{tteICE}(
   x,

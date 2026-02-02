@@ -2,7 +2,7 @@
 % Please edit documentation in R/scr_composite.R
 \name{scr.composite}
 \alias{scr.composite}
-\title{Fit the CIF using composite variable strategy for semicompeting risks data}
+\title{Fit CIFs using composite variable strategy for semicompeting risks data}
 \usage{
 scr.composite(
   A,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/surv_principal.R
 \name{surv.principal}
 \alias{surv.principal}
-\title{Fit the CIF using principal stratum strategy for competing risks data}
+\title{Fit CIFs using principal stratum strategy for competing risks data}
 \usage{
 surv.principal(A, Time, cstatus, weights = rep(1, length(A)))
 }

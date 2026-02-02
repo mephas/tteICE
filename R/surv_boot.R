@@ -1,4 +1,4 @@
-#' @title Calculate the standard error for the estimated CIF and treatment effect
+#' @title Calculate standard errors for estimated CIFs and treatment effects
 #'
 #' @description This function calculates the standard error for the estimated potential cumulative incidence function
 #' and treatment effect. Two methods to calculate the standard error are considered: the asymptotic standard error

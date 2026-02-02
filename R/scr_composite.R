@@ -1,4 +1,4 @@
-#' @title Fit the CIF using composite variable strategy for semicompeting risks data
+#' @title Fit CIFs using composite variable strategy for semicompeting risks data
 #'
 #' @description This function nonparametrically estimates the potential cumulative incidence function
 #' using composite variable strategy (semicompeting risks data structure). This strategy adopts the

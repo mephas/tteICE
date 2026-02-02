@@ -2,7 +2,7 @@
 % Please edit documentation in R/print_tteICE.R
 \name{print.tteICE}
 \alias{print.tteICE}
-\title{Print a short summary of the estimated treatment effect}
+\title{Print method for 'tteICE' objects}
 \usage{
 \method{print}{tteICE}(x, digits = 4, ...)
 }

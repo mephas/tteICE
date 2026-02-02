@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary_tteICE.R
 \name{summary.tteICE}
 \alias{summary.tteICE}
-\title{Summary of tteICE}
+\title{Summary method for 'tteICE' objects}
 \usage{
 \method{summary}{tteICE}(object, ...)
 }

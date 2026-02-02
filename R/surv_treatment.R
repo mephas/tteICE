@@ -1,4 +1,4 @@
-#' @title Fit the CIF using treatment policy strategy for competing risks data
+#' @title Fit CIFs using treatment policy strategy for competing risks data
 #'
 #' @description This function nonparametrically estimates the potential cumulative incidence function
 #' using treatment policy strategy (competing risks data structure). This strategy ignores the intercurrent

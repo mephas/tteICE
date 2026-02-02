@@ -2,7 +2,7 @@
 % Please edit documentation in R/scr_principal_eff.R
 \name{scr.principal.eff}
 \alias{scr.principal.eff}
-\title{Fit the CIF using principal stratum strategy for semicompeting risks data, based on efficient influence functions}
+\title{Fit CIFs using principal stratum strategy for semicompeting risks data, based on efficient influence functions}
 \usage{
 scr.principal.eff(A, Time, status, Time_int, status_int, X = NULL)
 }

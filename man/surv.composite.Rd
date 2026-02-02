@@ -2,7 +2,7 @@
 % Please edit documentation in R/surv_composite.R
 \name{surv.composite}
 \alias{surv.composite}
-\title{Fit the CIF using composite variable strategy for competing risks data}
+\title{Fit CIFs using composite variable strategy for competing risks data}
 \usage{
 surv.composite(A, Time, cstatus, weights = rep(1, length(A)))
 }

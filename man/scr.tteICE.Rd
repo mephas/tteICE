@@ -2,7 +2,7 @@
 % Please edit documentation in R/scr_tteICE.R
 \name{scr.tteICE}
 \alias{scr.tteICE}
-\title{Fit the CIF for time-to-event data with intercurrent events for semicompeting risks data}
+\title{Fit CIFs for semicompeting risks time-to-event data with intercurrent events.}
 \usage{
 scr.tteICE(
   A,

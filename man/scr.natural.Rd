@@ -2,7 +2,7 @@
 % Please edit documentation in R/scr_natural.R
 \name{scr.natural}
 \alias{scr.natural}
-\title{Fit the CIF using hypothetical strategy (I) for semicompeting risks data}
+\title{Fit CIFs using hypothetical strategy (I) for semicompeting risks data}
 \usage{
 scr.natural(A, Time, status, Time_int, status_int, weights = rep(1, length(A)))
 }

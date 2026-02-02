@@ -2,7 +2,7 @@
 % Please edit documentation in R/surv_tteICE.R
 \name{surv.tteICE}
 \alias{surv.tteICE}
-\title{Fit the CIF for time-to-event with intercurrent events for competing risks data}
+\title{Fit CIFs for competing risks time-to-event data with intercurrent events.}
 \usage{
 surv.tteICE(
   A,

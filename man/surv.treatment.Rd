@@ -2,7 +2,7 @@
 % Please edit documentation in R/surv_treatment.R
 \name{surv.treatment}
 \alias{surv.treatment}
-\title{Fit the CIF using treatment policy strategy for competing risks data}
+\title{Fit CIFs using treatment policy strategy for competing risks data}
 \usage{
 surv.treatment(A, Time, cstatus, weights = rep(1, length(A)))
 }

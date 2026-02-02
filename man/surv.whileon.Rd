@@ -2,7 +2,7 @@
 % Please edit documentation in R/surv_whileon.R
 \name{surv.whileon}
 \alias{surv.whileon}
-\title{Fit the CIF using while on treatment strategy for competing risks data}
+\title{Fit CIFs using while on treatment strategy for competing risks data}
 \usage{
 surv.whileon(A, Time, cstatus, weights = rep(1, length(A)))
 }

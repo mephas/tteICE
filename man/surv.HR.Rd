@@ -2,7 +2,7 @@
 % Please edit documentation in R/surv_HR.R
 \name{surv.HR}
 \alias{surv.HR}
-\title{Estimate the hazard ratio with intercurrent events}
+\title{Estimate hazard ratios}
 \usage{
 surv.HR(
   A,

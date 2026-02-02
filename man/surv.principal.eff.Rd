@@ -2,7 +2,7 @@
 % Please edit documentation in R/surv_principal_eff.R
 \name{surv.principal.eff}
 \alias{surv.principal.eff}
-\title{Fit the CIF using principal stratum strategy for competing risks data, based on efficient influence functions}
+\title{Fit CIFs using principal stratum strategy for competing risks data, based on efficient influence functions}
 \usage{
 surv.principal.eff(A, Time, cstatus, X = NULL)
 }

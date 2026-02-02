@@ -2,7 +2,7 @@
 % Please edit documentation in R/surv_natural_eff.R
 \name{surv.natural.eff}
 \alias{surv.natural.eff}
-\title{Fit the CIF using hypothetical strategy (I) for competing risks data, based on efficient influence functions}
+\title{Fit CIFs using hypothetical strategy (I) for competing risks data, based on efficient influence functions}
 \usage{
 surv.natural.eff(A, Time, cstatus, X = NULL)
 }

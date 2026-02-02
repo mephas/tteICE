@@ -2,7 +2,7 @@
 % Please edit documentation in R/scr_natural_eff.R
 \name{scr.natural.eff}
 \alias{scr.natural.eff}
-\title{Fit the CIF using hypothetical strategy (I) for semicompeting risks data, based on efficient influence functions}
+\title{Fit CIFs using hypothetical strategy (I) for semicompeting risks data, based on efficient influence functions}
 \usage{
 scr.natural.eff(A, Time, status, Time_int, status_int, X = NULL)
 }

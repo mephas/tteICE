@@ -1,4 +1,4 @@
-#' @title Fit the CIF using hypothetical strategy (II) for semicompeting risks data
+#' @title Fit CIFs using hypothetical strategy (II) for semicompeting risks data
 #'
 #' @description This function nonparametrically estimates the potential cumulative incidence function
 #' using hypothetical strategy (semicompeting risks data structure). The intercurrent event is assumed to

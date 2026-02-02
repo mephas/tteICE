@@ -5,16 +5,25 @@
 \alias{tteICE-package}
 \title{tteICE: Treatment Effect Estimation for Time-to-Event Data with Intercurrent Events}
 \description{
+This package aims to analyze treatment effects in clinical trials with time-to-event outcomes is complicated by intercurrent events.
+This package implements methods for estimating and inferring the cumulative incidence functions for time-to-event (TTE) outcomes with intercurrent events (ICE) under the five strategies outlined in the ICH E9 (R1) addendum, see Deng (2025) \url{doi:10.1002/sim.70091}.
+This package can be used for analyzing data from both randomized controlled trials and observational studies.
+In general, the data involve a primary outcome event and, potentially, an intercurrent event.
+Two data structures are allowed: competing risks, where only the time to the first event is recorded,
+and semicompeting risks, where the times to both the primary outcome event and intercurrent event (or censoring) are recorded.
+For estimation methods, nonparametric estimation (which does not use covariates) and semiparametrically efficient estimation are presented.
+}
+\details{
 Main functions:
 \itemize{
-\item \code{\link[tteICE]{tteICE}} Using formula to fit the cumulative incidence functions (CIFs) for time-to-event data with intercurrent events for competing or semicompeting risks data
-\item \code{\link[tteICE]{scr.tteICE}} Fit the CIFs for time-to-event data with intercurrent events for semicompeting risks data
-\item \code{\link[tteICE]{surv.tteICE}} Fit the CIFs for time-to-event with intercurrent events for competing risks data
-\item \code{\link[tteICE]{plot.tteICE}} Graphical results of tteICE
-\item \code{\link[tteICE]{print.tteICE}} Print a short summary of the estimated treatment effect
-\item \code{\link[tteICE]{summary.tteICE}} Summary of a tteICE object
-\item \code{\link[tteICE]{predict.tteICE}} Risk prediction at specific time points
-\item \code{\link[tteICE]{tteICEShiny}} Interactive Shiny app for tteICE
+\item \code{\link[tteICE]{tteICE}} Using formula to fit cumulative incidence functions (CIFs) for competing/semicompeting risk time-to-event data with intercurrent events.
+\item \code{\link[tteICE]{scr.tteICE}} Fit CIFs for semicompeting risk time-to-event data with intercurrent events.
+\item \code{\link[tteICE]{surv.tteICE}} Fit CIFs for competing risk time-to-event with intercurrent events.
+\item \code{\link[tteICE]{plot.tteICE}} Plot results from 'tteICE' objects.
+\item \code{\link[tteICE]{print.tteICE}} Print a short summary of results from 'tteICE' objects
+\item \code{\link[tteICE]{summary.tteICE}} Summarize results from 'tteICE' objects
+\item \code{\link[tteICE]{predict.tteICE}} Predict risks for 'tteICE' objects at specific time points
+\item \code{\link[tteICE]{tteICEShiny}} Interactive Shiny app for the 'tteICE' package
 }
 Example data:
 \itemize{

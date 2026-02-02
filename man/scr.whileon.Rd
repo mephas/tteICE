@@ -2,7 +2,7 @@
 % Please edit documentation in R/scr_whileon.R
 \name{scr.whileon}
 \alias{scr.whileon}
-\title{Fit the CIF using while on treatment strategy for semicompeting risks data}
+\title{Fit CIFs using while on treatment strategy for semicompeting risks data}
 \usage{
 scr.whileon(A, Time, status, Time_int, status_int, weights = rep(1, length(A)))
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/surv_treatment_eff.R
 \name{surv.treatment.eff}
 \alias{surv.treatment.eff}
-\title{Fit the CIF using treatment policy strategy for competing risks data, based on efficient influence functions}
+\title{Fit CIFs using treatment policy strategy for competing risks data, based on efficient influence functions}
 \usage{
 surv.treatment.eff(A, Time, cstatus, X = NULL)
 }

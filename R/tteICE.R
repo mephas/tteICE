@@ -1,8 +1,8 @@
-#' @title Using formula to fit the CIF for time-to-event with intercurrent events
+#' @title Using formula to fit CIFs for time-to-event data with intercurrent events
 #'
-#' @description This function estimates the potential cumulative incidence function
-#' for time-to event data under ICH E9 (R1) to address intercurrent events. The input data
-#' should be of a competing risks structure.
+#' @description 
+#' This function estimates the potential cumulative incidence function for time-to event data under ICH E9 (R1) to address intercurrent events. 
+#' The input data can be competing or semicompeting risks data structure.
 #'
 #' @param formula An object of class "formula" (or one that can be coerced to that class).
 #' A symbolic description of the model to be fitted.

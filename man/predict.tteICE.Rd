@@ -2,7 +2,7 @@
 % Please edit documentation in R/predict_tteICE.R
 \name{predict.tteICE}
 \alias{predict.tteICE}
-\title{Risk prediction at specific time points}
+\title{Predict method for 'tteICE' objects at specific time points}
 \usage{
 \method{predict}{tteICE}(object, timeset = NULL, ...)
 }
