@@ -1,4 +1,4 @@
-# Estimate the hazard ratio with intercurrent events
+# Estimate hazard ratios
 
 This function estimates the hazard ratio for time-to event data under
 ICH E9 (R1) to address intercurrent events. Multiple strategies except

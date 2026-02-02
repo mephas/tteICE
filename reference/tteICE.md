@@ -1,8 +1,8 @@
-# Using formula to fit the CIF for time-to-event with intercurrent events
+# Using formula to fit CIFs for time-to-event data with intercurrent events
 
 This function estimates the potential cumulative incidence function for
 time-to event data under ICH E9 (R1) to address intercurrent events. The
-input data should be of a competing risks structure.
+input data can be competing or semicompeting risks data structure.
 
 ## Usage
 

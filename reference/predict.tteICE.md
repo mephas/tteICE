@@ -1,4 +1,4 @@
-# Risk prediction at specific time points
+# Predict method for 'tteICE' objects at specific time points
 
 This function predicts the potential cumulative incidence function and
 treatment effect at specific time points.

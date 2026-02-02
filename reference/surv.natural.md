@@ -1,4 +1,4 @@
-# Fit the CIF using hypothetical strategy (I) for competing risks data
+# Fit CIFs using hypothetical strategy (I) for competing risks data
 
 This function nonparametrically estimates the potential cumulative
 incidence function using hypothetical strategy (competing risks data

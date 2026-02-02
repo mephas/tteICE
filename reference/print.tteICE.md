@@ -1,4 +1,4 @@
-# Print a short summary of the estimated treatment effect
+# Print method for 'tteICE' objects
 
 This function summarizes the results
 

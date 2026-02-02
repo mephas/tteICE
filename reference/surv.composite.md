@@ -1,4 +1,4 @@
-# Fit the CIF using composite variable strategy for competing risks data
+# Fit CIFs using composite variable strategy for competing risks data
 
 This function nonparametrically estimates the potential cumulative
 incidence function using composite variable strategy (competing risks

@@ -1,4 +1,4 @@
-# Graphical results of tteICE
+# Plot method for 'tteICE' objects
 
 This function plots the estimated potential cumulative incidence
 functions or treatment effect curve with pointwise confidence intervals.

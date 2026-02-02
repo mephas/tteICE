@@ -1,4 +1,4 @@
-# Fit the CIF using hypothetical strategy (II) for competing risks data, based on efficient influence functions
+# Fit CIFs using hypothetical strategy (II) for competing risks data, based on efficient influence functions
 
 This function estimates the potential cumulative incidence function
 based on efficient influence functions using hypothetical strategy

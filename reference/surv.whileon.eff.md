@@ -1,4 +1,4 @@
-# Fit the CIF using while on treatment strategy for competing risks data, based on efficient influence functions
+# Fit CIFs using while on treatment strategy for competing risks data, based on efficient influence functions
 
 This function estimates the potential cumulative incidence function
 based on efficient influence functions using while on treatment strategy

@@ -1,4 +1,4 @@
-# Fit the CIF using principal stratum strategy for semicompeting risks data
+# Fit CIFs using principal stratum strategy for semicompeting risks data
 
 This function nonparametrically estimates the potential cumulative
 incidence function using principal stratum strategy (semicompeting risks

@@ -1,4 +1,4 @@
-# Fit the CIF using while on treatment strategy for semicompeting risks data
+# Fit CIFs using while on treatment strategy for semicompeting risks data
 
 This function nonparametrically estimates the potential cumulative
 incidence function using while on treatment strategy (semicompeting

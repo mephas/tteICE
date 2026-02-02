@@ -1,4 +1,4 @@
-# Fit the CIF using principal stratum strategy for competing risks data, based on efficient influence functions
+# Fit CIFs using principal stratum strategy for competing risks data, based on efficient influence functions
 
 This function estimates the potential cumulative incidence function
 based on efficient influence functions using principal stratum strategy

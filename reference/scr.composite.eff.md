@@ -1,4 +1,4 @@
-# Fit the CIF using composite variable strategy for semicompeting risks data, based on efficient influence functions
+# Fit CIFs using composite variable strategy for semicompeting risks data, based on efficient influence functions
 
 This function estimates the potential cumulative incidence function
 based on efficient influence functions using composite variable strategy

@@ -1,4 +1,4 @@
-# Summary of tteICE
+# Summary method for 'tteICE' objects
 
 This function summarizes the results
 
