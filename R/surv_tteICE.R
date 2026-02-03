@@ -96,11 +96,11 @@
 #' @export
 
 surv.tteICE <- function(A,Time,cstatus,strategy='composite',cov1=NULL,method='np',
-                     weights=NULL,subset=NULL,na.rm=FALSE,nboot=0,seed=0){
-
+                        weights=NULL,subset=NULL,na.rm=FALSE,nboot=0,seed=0){
+  
   # strategy <- match.arg(strategy, c('treatment','composite','natural','removed','whileon','principal'))
   # method <- match.arg(method, c('np','ipw','eff'))
-
+  
   if (!strategy %in% c('treatment','composite','natural','removed','whileon','principal')){
     warning("Please choose a strategy from the following:\n treatment, composite, natural, removed, whileon, principal\n
             composite variable strategy is used by default", call. = FALSE)
@@ -136,16 +136,19 @@ surv.tteICE <- function(A,Time,cstatus,strategy='composite',cov1=NULL,method='np
   weights = weights[subset]
   if (!is.null(cov1)) cov1 = as.matrix(cov1)[subset,]
   
+  n = length(A); n1 = sum(A==1); n0 = sum(A==0)
   if (method=='ipw') {
-    weights = weights*.ipscore(A,cov1,TRUE,weights)
+    ips = .ipscore(A,cov1,TRUE,weights)
+  } else {
+    ips = rep(1, n)
   }
   if (method=='np' | method=='ipw') {
-    if (strategy=='treatment') fit = surv.treatment(A,Time,cstatus,weights)
-    if (strategy=='composite') fit = surv.composite(A,Time,cstatus,weights)
-    if (strategy=='natural') fit = surv.natural(A,Time,cstatus,weights)
-    if (strategy=='removed') fit = surv.removed(A,Time,cstatus,weights)
-    if (strategy=='whileon') fit = surv.whileon(A,Time,cstatus,weights)
-    if (strategy=='principal') fit = surv.principal(A,Time,cstatus,weights)
+    if (strategy=='treatment') fit = surv.treatment(A,Time,cstatus,weights*ips)
+    if (strategy=='composite') fit = surv.composite(A,Time,cstatus,weights*ips)
+    if (strategy=='natural') fit = surv.natural(A,Time,cstatus,weights*ips)
+    if (strategy=='removed') fit = surv.removed(A,Time,cstatus,weights*ips)
+    if (strategy=='whileon') fit = surv.whileon(A,Time,cstatus,weights*ips)
+    if (strategy=='principal') fit = surv.principal(A,Time,cstatus,weights*ips)
   } else if (method=='eff') {
     if (strategy=='treatment') fit = surv.treatment.eff(A,Time,cstatus,cov1)
     if (strategy=='composite') fit = surv.composite.eff(A,Time,cstatus,cov1)
@@ -155,9 +158,8 @@ surv.tteICE <- function(A,Time,cstatus,strategy='composite',cov1=NULL,method='np
     if (strategy=='principal') fit = surv.principal.eff(A,Time,cstatus,cov1)
   }
   fit = c(fit,list(A=A,Time=Time,cstatus=cstatus,strategy=strategy,cov1=cov1,
-                    method=method,weights=weights,na.rm=FALSE,dtype='cmprsk'))
+                   method=method,weights=weights,na.rm=FALSE,dtype='cmprsk'))
   if (nboot>-1) fit = surv.boot(fit,nboot,seed)
-  n = length(A); n1 = sum(A==1); n0 = sum(A==0)
   fit = c(fit, list(n=n, n1=n1, n0=n0, call= match.call()))
   
   class(fit) = "tteICE"

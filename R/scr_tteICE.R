@@ -107,11 +107,11 @@
 #' @export
 
 scr.tteICE <- function(A,Time,status,Time_int,status_int,strategy='composite',cov1=NULL,method='np',
-                     weights=NULL,subset=NULL,na.rm=FALSE,nboot=0,seed=0){
-
+                       weights=NULL,subset=NULL,na.rm=FALSE,nboot=0,seed=0){
+  
   # strategy <- match.arg(strategy, c('treatment','composite','natural','removed','whileon','principal'))
   # method <- match.arg(method, c('np','ipw','eff'))
-
+  
   if (!strategy %in% c('treatment','composite','natural','removed','whileon','principal')){
     warning("Please choose a strategy from the following:\n treatment, composite, natural, removed, whileon, principal\n
             composite variable strategy is used by default", call. = FALSE)
@@ -147,17 +147,20 @@ scr.tteICE <- function(A,Time,status,Time_int,status_int,strategy='composite',co
   status_int = status_int[subset]
   weights = weights[subset]
   if (!is.null(cov1)) cov1 = as.matrix(cov1)[subset,]
-
+  
+  n = length(A); n1 = sum(A==1); n0 = sum(A==0)
   if (method=='ipw') {
-    weights = weights*.ipscore(A,cov1,TRUE,weights)
+    ips = .ipscore(A,cov1,TRUE,weights)
+  } else {
+    ips = rep(1, n)
   }
   if (method=='np' | method=='ipw') {
-    if (strategy=='treatment') fit = scr.treatment(A,Time,status,Time_int,status_int,weights)
-    if (strategy=='composite') fit = scr.composite(A,Time,status,Time_int,status_int,weights)
-    if (strategy=='natural') fit = scr.natural(A,Time,status,Time_int,status_int,weights)
-    if (strategy=='removed') fit = scr.removed(A,Time,status,Time_int,status_int,weights)
-    if (strategy=='whileon') fit = scr.whileon(A,Time,status,Time_int,status_int,weights)
-    if (strategy=='principal') fit = scr.principal(A,Time,status,Time_int,status_int,weights)
+    if (strategy=='treatment') fit = scr.treatment(A,Time,status,Time_int,status_int,weights*ips)
+    if (strategy=='composite') fit = scr.composite(A,Time,status,Time_int,status_int,weights*ips)
+    if (strategy=='natural') fit = scr.natural(A,Time,status,Time_int,status_int,weights*ips)
+    if (strategy=='removed') fit = scr.removed(A,Time,status,Time_int,status_int,weights*ips)
+    if (strategy=='whileon') fit = scr.whileon(A,Time,status,Time_int,status_int,weights*ips)
+    if (strategy=='principal') fit = scr.principal(A,Time,status,Time_int,status_int,weights*ips)
   } else if (method=='eff') {
     if (strategy=='treatment') fit = scr.treatment.eff(A,Time,status,Time_int,status_int,cov1)
     if (strategy=='composite') fit = scr.composite.eff(A,Time,status,Time_int,status_int,cov1)
@@ -170,9 +173,8 @@ scr.tteICE <- function(A,Time,status,Time_int,status_int,strategy='composite',co
                     strategy=strategy,cov1=cov1,method=method,
                     weights=weights,na.rm=FALSE,dtype='smcmprsk'))
   if (nboot>-1) fit = surv.boot(fit,nboot,seed)
-  n = length(A); n1 = sum(A==1); n0 = sum(A==0)
   fit = c(fit, list(n=n, n1=n1, n0=n0, call= match.call()))
-
+  
   class(fit) = "tteICE"
   return(fit)
 }
