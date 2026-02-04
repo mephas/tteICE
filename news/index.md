@@ -14,4 +14,6 @@ CRAN release: 2026-02-02
 
 ## tteICE 1.1.1
 
+CRAN release: 2026-02-04
+
 - 2026-2-3 Revised standard error estimations.
