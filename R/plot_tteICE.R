@@ -1,7 +1,7 @@
-#' @title 
+#' @title
 #' Plot method for 'tteICE' objects
 #'
-#' @description 
+#' @description
 #' This function plots the estimated potential cumulative incidence functions or treatment effect curve
 #' with pointwise confidence intervals.
 #'
@@ -44,7 +44,6 @@
 #' bmt$A = A
 #'
 #' ## simple model fitting and plotting
-#' library(survival)
 #' fit1 = tteICE(Surv(t2,d4,type = "mstate")~A, data=bmt)
 #' plot(fit1, type="ate")
 #' plot(fit1, type="inc")
@@ -61,9 +60,9 @@
 #'      plot.configs=list(col="red"))
 #'
 #'
-#' @seealso 
-#' \code{\link[tteICE]{plot_ate}}, \code{\link[tteICE]{plot_inc}}, 
-#' \code{\link[tteICE]{surv.tteICE}}, \code{\link[tteICE]{scr.tteICE}}, 
+#' @seealso
+#' \code{\link[tteICE]{plot_ate}}, \code{\link[tteICE]{plot_inc}},
+#' \code{\link[tteICE]{surv.tteICE}}, \code{\link[tteICE]{scr.tteICE}},
 #' \code{\link[tteICE]{tteICE}}
 #'
 #'

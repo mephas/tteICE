@@ -33,6 +33,8 @@ A list including
 \item{se}{Standard error of the estimated treatment effect.}
 \item{p.val}{P value of testing the treatment effect based on the efficient influence function of
 the restricted mean survival time lost by the end of study.}
+\item{coef}{Coefficients of covariates in the working Cox models for each event.}
+\item{ph}{P values of the proportional hazards assumption in the working Cox models for each event.}
 }
 }
 \description{
@@ -58,3 +60,4 @@ If the size of the target principal stratum is small, the results could be highl
 \seealso{
 \code{\link[tteICE]{scr.principal}}, \code{\link[tteICE]{scr.tteICE}}
 }
+\keyword{internal}

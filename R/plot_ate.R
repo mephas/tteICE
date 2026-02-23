@@ -57,44 +57,8 @@
 #' \code{\link[graphics]{curve}},
 #' \code{\link[tteICE]{plot.tteICE}}
 #'
-#' @examples
-#' ## Load data
-#' data(bmt)
-#' bmt = transform(bmt, d4=d2+d3)
-#' A = as.numeric(bmt$group>1)
-#' bmt$A = A
-#'
-#' ## simple model fitting and plotting
-#' library(survival)
-#' fit = tteICE(Surv(t2,d4,type = "mstate")~A, data=bmt)
-#' plot_ate(fit)
-#'
-#' ## model fitting using competing risk data
-#' fit1 = surv.tteICE(A, bmt$t2, bmt$d4, 'composite')
-#'
-#' ## Plot asymptotic confidence intervals based on explicit formulas
-#' plot_ate(fit1, ylim=c(-0.4,0.4))
-#'
-#' ## Plot bootstrap confidence intervals
-#' fit2 = surv.tteICE(A, bmt$t2, bmt$d4, 'natural', nboot=50) ## SE=0??
-#' plot_ate(fit2, ylim=c(-0.4,0.4))
-#'
-#' ## Model with semicompeting risk data
-#' fit3 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
-#'
-#' ## Plot asymptotic confidence intervals based on explicit formulas
-#' plot_ate(fit3, ylim=c(-0.4,0.4),
-#'          plot.configs=list(add.null.line=FALSE))
-#'
-#' ## Plot bootstrap confidence intervals
-#' fit4 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2,
-#'                   "composite", nboot=50)           ## SE=0??
-#'
-#' plot_ate(fit4, ylim=c(-0.4,0.4),
-#'          plot.configs=list(add.null.line=FALSE, lty=2, main=""))
-#'
 #' @return Plot the average treatment effect (ATE) results from a tteICE object
-#' @export
+#' @keywords internal
 
 plot_ate <- function(fit,decrease=FALSE,conf.int=.95,
   xlab='Time',ylim=c(-1,1),xlim=NULL,

@@ -28,6 +28,7 @@ A list including
 \item{ate}{Estimated treatment effect (difference in cumulative incidence functions).}
 \item{se}{Standard error of the estimated treatment effect.}
 \item{p.val}{P value of testing the treatment effect based on Gray test.}
+\item{cumhaz}{Baseline cumulative hazards in the survival models.}
 }
 }
 \description{
@@ -59,3 +60,4 @@ treatment conditions under comparison is anticipated.
 \seealso{
 \code{\link[tteICE]{surv.whileon.eff}}, \code{\link[tteICE]{surv.tteICE}}
 }
+\keyword{internal}

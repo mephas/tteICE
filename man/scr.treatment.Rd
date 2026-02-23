@@ -72,3 +72,4 @@ the notations \eqn{T(w, R(w)) = T(w)} in defining estimands. As such,
 \seealso{
 \code{\link[tteICE]{scr.treatment.eff}}, \code{\link[tteICE]{scr.tteICE}}
 }
+\keyword{internal}

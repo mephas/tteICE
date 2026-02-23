@@ -1,8 +1,8 @@
-#' @title 
+#' @title
 #' Fit CIFs for competing risks time-to-event data with intercurrent events.
 #'
 #' @description This function estimates the potential cumulative incidence function
-#' for time-to event data under ICH E9 (R1) to address intercurrent events. The input data 
+#' for time-to event data under ICH E9 (R1) to address intercurrent events. The input data
 #' should be of a competing risks structure.
 #'
 #' @param A Treatment indicator, 1 for treatment and 0 for control.
@@ -19,8 +19,8 @@
 #'
 #' @param cov1 Baseline covariates.
 #'
-#' @param method Estimation method, \code{"np"} indicating nonparametric estimation, \code{"np"} indicating inverse 
-#' treatment probability weighting, \code{"eff"} indicating semiparametrically efficient estimation based on efficient 
+#' @param method Estimation method, \code{"np"} indicating nonparametric estimation, \code{"np"} indicating inverse
+#' treatment probability weighting, \code{"eff"} indicating semiparametrically efficient estimation based on efficient
 #' influence functions.
 #'
 #' @param weights Weight for each subject.
@@ -43,20 +43,20 @@
 #' bmt = transform(bmt, d4=d2+d3)
 #' A = as.numeric(bmt$group>1)
 #' X = as.matrix(bmt[,c('z1','z3','z5')])
-#' 
-#' ## Composite variable strategy, 
+#'
+#' ## Composite variable strategy,
 #' ## nonparametric estimation without covariates
 #' fit1 = surv.tteICE(A, bmt$t2, bmt$d4, "composite")
-#' 
-#' ## Hypothetical strategy (natural effects), 
+#'
+#' ## Hypothetical strategy (natural effects),
 #' ## nonparametric estimation with inverse probability weighting
 #' fit2 = surv.tteICE(A, bmt$t2, bmt$d4, "natural", X, method='ipw')
-#' 
+#'
 #' ## nonparametric estimation with weights as inverse propensity score
 #' ps = predict(glm(A ~ X, family='binomial'), type='response')
 #' w = A/ps + (1-A)/(1-ps)
 #' fit2 = surv.tteICE(A, bmt$t2, bmt$d4, "natural", weights=w)
-#' 
+#'
 #' ## Hypothetical strategy (removing intercurrent events),
 #' ## semiparametrically efficient estimation with covariates
 #' fit3 = surv.tteICE(A, bmt$t2, bmt$d4, "removed", X, method='eff')
@@ -90,17 +90,17 @@
 #' Deng, Y., Han, S., & Zhou, X. H. (2025).
 #' Inference for Cumulative Incidences and Treatment Effects in Randomized Controlled Trials With Time-to-Event Outcomes Under ICH E9 (R1).
 #' \emph{Statistics in Medicine}. \doi{10.1002/sim.70091}
-#' 
+#'
 #' @seealso \code{\link[tteICE]{surv.boot}}, \code{\link[tteICE]{scr.tteICE}}
 #'
 #' @export
 
 surv.tteICE <- function(A,Time,cstatus,strategy='composite',cov1=NULL,method='np',
                         weights=NULL,subset=NULL,na.rm=FALSE,nboot=0,seed=0){
-  
+
   # strategy <- match.arg(strategy, c('treatment','composite','natural','removed','whileon','principal'))
   # method <- match.arg(method, c('np','ipw','eff'))
-  
+
   if (!strategy %in% c('treatment','composite','natural','removed','whileon','principal')){
     warning("Please choose a strategy from the following:\n treatment, composite, natural, removed, whileon, principal\n
             composite variable strategy is used by default", call. = FALSE)
@@ -129,13 +129,13 @@ surv.tteICE <- function(A,Time,cstatus,strategy='composite',cov1=NULL,method='np
       warning(paste0('Treatment should be either 0 or 1! A=1 if A=',max(A)), call. = FALSE)
     }
   }
-  
+
   A = A[subset]
   Time = Time[subset]
   cstatus = cstatus[subset]
   weights = weights[subset]
   if (!is.null(cov1)) cov1 = as.matrix(cov1)[subset,]
-  
+
   n = length(A); n1 = sum(A==1); n0 = sum(A==0)
   if (method=='ipw') {
     ips = .ipscore(A,cov1,TRUE,weights)
@@ -161,7 +161,7 @@ surv.tteICE <- function(A,Time,cstatus,strategy='composite',cov1=NULL,method='np
                    method=method,weights=weights,na.rm=FALSE,dtype='cmprsk'))
   if (nboot>-1) fit = surv.boot(fit,nboot,seed)
   fit = c(fit, list(n=n, n1=n1, n0=n0, call= match.call()))
-  
+
   class(fit) = "tteICE"
   return(fit)
 }

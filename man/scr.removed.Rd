@@ -61,3 +61,4 @@ effect corresponds to the controlled direct effect with the intercurrent events 
 \seealso{
 \code{\link[tteICE]{scr.removed.eff}}, \code{\link[tteICE]{scr.tteICE}}
 }
+\keyword{internal}

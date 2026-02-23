@@ -37,3 +37,4 @@ based on the explicit formula and bootstrapping.
 \code{\link[tteICE]{surv.tteICE}}, \code{\link[tteICE]{scr.tteICE}},
 \code{\link[tteICE]{tteICE}}
 }
+\keyword{internal}

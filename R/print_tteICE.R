@@ -1,4 +1,4 @@
-#' @title 
+#' @title
 #' Print method for 'tteICE' objects
 #'
 #' @description This function summarizes the results

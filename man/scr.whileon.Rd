@@ -63,3 +63,4 @@ treatment conditions under comparison is anticipated.
 \seealso{
 \code{\link[tteICE]{scr.whileon.eff}}, \code{\link[tteICE]{scr.tteICE}}
 }
+\keyword{internal}

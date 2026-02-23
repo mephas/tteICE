@@ -97,9 +97,6 @@ X = as.matrix(bmt[,c('z1','z3','z5')])
 ## Composite variable strategy,
 ## nonparametric estimation without covariates
 fit1 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
-\donttest{
-fit10 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "aa") ## warning message
-}
 
 ## Hypothetical strategy (natural effects),
 ## nonparametric estimation with inverse probability weighting

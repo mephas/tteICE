@@ -149,9 +149,9 @@ We fit the model by nonparametric estimation.
 
 ```{r example_1, out.width="70%"}
 fit1 = surv.tteICE(A, bmt$t2, bmt$d4, "natural")
-plot_inc(fit1, plot.configs=list(legend=c('AML','ALL')))
+plot(fit1, type="inc", plot.configs=list(legend=c('AML','ALL')))
 
-plot_ate(fit1)
+plot(fit1, type="ate")
 ## We can also use bootstrap confidence intervals
 # plot_ate(fit1, nboot=200)
 ```
@@ -160,18 +160,18 @@ We can also use inverse probability weighting to account for confounding.
 
 ```{r example_2, out.width="70%"}
 fit2 = surv.tteICE(A, bmt$t2, bmt$d4, "natural", X, method='ipw')
-plot_inc(fit2, plot.configs=list(legend=c('AML','ALL')))
+plot(fit2, type="inc", plot.configs=list(legend=c('AML','ALL')))
 
-plot_ate(fit2)
+plot(fit2, type="ate")
 ```
 
 To increase efficiency, we use the efficient influence function (EIF)-based method.
 
 ```{r example_3, out.width="70%"}
 fit3 = surv.tteICE(A, bmt$t2, bmt$d4, "natural", X, method='eff')
-plot_inc(fit3, plot.configs=list(legend=c('AML','ALL')))
+plot(fit3, type="inc", plot.configs=list(legend=c('AML','ALL')))
 
-plot_ate(fit3)
+plot(fit3, type="ate")
 ```
 
 ## Semicompeting risks data structure
@@ -181,9 +181,9 @@ We use the hypothetical strategy (natural effects) and fit the model nonparametr
 
 ```{r example_4, out.width="70%"}
 fit4 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural")
-plot_inc(fit4, plot.configs=list(legend=c('AML','ALL')))
+plot(fit4, type="inc", plot.configs=list(legend=c('AML','ALL')))
 
-plot_ate(fit4)
+plot(fit4, type="ate")
 ## We can also use bootstrap confidence intervals
 # plot_ate(fit4, nboot=200)
 ```
@@ -192,18 +192,18 @@ We can also use inverse probability weighting to account for confounding.
 
 ```{r example_5, out.width="70%"}
 fit5 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='ipw')
-plot_inc(fit5, plot.configs=list(legend=c('AML','ALL')))
+plot(fit5, type="inc", plot.configs=list(legend=c('AML','ALL')))
 
-plot_ate(fit5)
+plot(fit5, type="ate")
 ```
 
 To increase efficiency, we use the efficient influence function (EIF)-based method.
 
 ```{r example_6, out.width="70%"}
 fit6 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='eff') 
-plot_inc(fit6, plot.configs=list(legend=c('AML','ALL')))
+plot(fit6, type="inc", plot.configs=list(legend=c('AML','ALL')))
 
-plot_ate(fit6)
+plot(fit6, type="ate")
 ```
 
 ## Using formula to fit the model

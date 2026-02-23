@@ -7,7 +7,9 @@
 <url><loc>https://mephas.github.io/tteICE/LICENSE-text.html</loc></url>
 <url><loc>https://mephas.github.io/tteICE/LICENSE.html</loc></url>
 <url><loc>https://mephas.github.io/tteICE/news/index.html</loc></url>
+<url><loc>https://mephas.github.io/tteICE/reference/basehaz.tteICE.html</loc></url>
 <url><loc>https://mephas.github.io/tteICE/reference/bmt.html</loc></url>
+<url><loc>https://mephas.github.io/tteICE/reference/coef.tteICE.html</loc></url>
 <url><loc>https://mephas.github.io/tteICE/reference/dat.html</loc></url>
 <url><loc>https://mephas.github.io/tteICE/reference/dot-phfit_d.html</loc></url>
 <url><loc>https://mephas.github.io/tteICE/reference/hello.html</loc></url>
@@ -19,6 +21,7 @@
 <url><loc>https://mephas.github.io/tteICE/reference/plot_ate.html</loc></url>
 <url><loc>https://mephas.github.io/tteICE/reference/plot_inc.html</loc></url>
 <url><loc>https://mephas.github.io/tteICE/reference/predict.tteICE.html</loc></url>
+<url><loc>https://mephas.github.io/tteICE/reference/print.summary.tteICE.html</loc></url>
 <url><loc>https://mephas.github.io/tteICE/reference/print.tteICE.html</loc></url>
 <url><loc>https://mephas.github.io/tteICE/reference/riskpredict.html</loc></url>
 <url><loc>https://mephas.github.io/tteICE/reference/scr.composite.eff.html</loc></url>
@@ -57,5 +60,6 @@
 <url><loc>https://mephas.github.io/tteICE/reference/tteICE.html</loc></url>
 <url><loc>https://mephas.github.io/tteICE/reference/tteICE2.html</loc></url>
 <url><loc>https://mephas.github.io/tteICE/reference/tteICEShiny.html</loc></url>
+<url><loc>https://mephas.github.io/tteICE/reference/zph.tteICE.html</loc></url>
 </urlset>
 

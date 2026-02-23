@@ -29,6 +29,7 @@
 #' \item{ate}{Estimated treatment effect (difference in cumulative incidence functions).}
 #' \item{se}{Standard error of the estimated treatment effect.}
 #' \item{p.val}{P value of testing the treatment effect based on logrank test.}
+#' \item{cumhaz}{Baselime cumulative hazards in the survival models.}
 #' }
 #'
 #' @details
@@ -57,8 +58,7 @@
 #'
 #' @seealso \code{\link[tteICE]{scr.natural.eff}}, \code{\link[tteICE]{scr.tteICE}}
 #'
-#'
-#' @export
+#' @keywords internal
 
 scr.natural <- function(A,Time,status,Time_int,status_int,weights=rep(1,length(A))){
   Td = Time; Dd = status
@@ -137,8 +137,6 @@ scr.natural <- function(A,Time,status,Time_int,status_int,weights=rep(1,length(A
     haz3.0 = append(haz3.0, haz3t.0)
     F3t.01 = F2t.01 - F3t.n.01*exp(-haz3t.1)
     F3t.00 = F2t.00 - F3t.n.00*exp(-haz3t.0)
-    #F3t.01 = F3t.01 + (F2t.01-F3t.01)*dhaz3.1
-    #F3t.00 = F3t.00 + (F2t.00-F3t.00)*dhaz3.0
     haz1t.1 = haz1t.1 + dhaz1.1
     haz1t.0 = haz1t.0 + dhaz1.0
     haz2t.1 = haz2t.1 + dhaz2.1
@@ -156,6 +154,11 @@ scr.natural <- function(A,Time,status,Time_int,status_int,weights=rep(1,length(A
     F3.01 = append(F3.01, F3t.01)
     F3.00 = append(F3.00, F3t.00)
   }
+  
+  cumhaz = data.frame(time=c(0,tseq), cumhaz11=haz1.1, cumhaz10=haz1.0,
+                       cumhaz21=haz2.1, cumhaz20=haz2.0,
+                       cumhaz31=haz3.1, cumhaz30=haz3.0)
+  
   Fhaz.01 = 1-F1.01-F3.01
   Fhaz.00 = 1-F1.00-F3.00
   G1.01 = Fhaz.01^2*cumsum(G1.1.01)-
@@ -190,10 +193,11 @@ scr.natural <- function(A,Time,status,Time_int,status_int,weights=rep(1,length(A
   if (tseq[1]==0){
     tseq = tseq[-1]; cif2 = cif2[-1]; cif0 = cif0[-1]
     se2 = se2[-1]; se0 = se0[-1]; ate = ate[-1]; se = se[-1]
+    cumhaz = cumhaz[-1,]
   }
   tseq = c(0,tseq)
   surv_diff = survdiff(Surv(Td,Dd)~A)
   p = pchisq(surv_diff$chisq, length(surv_diff$n)-1, lower.tail=FALSE)
   return(list(time1=tseq,time0=tseq,cif1=cif2,cif0=cif0,se1=se2,se0=se0,
-              time=tseq,ate=ate,se=se,p.val=p))
+              time=tseq,ate=ate,se=se,p.val=p,cumhaz=cumhaz))
 }

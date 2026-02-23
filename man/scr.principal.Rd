@@ -63,3 +63,4 @@ If the size of the target principal stratum is small, the results could be highl
 \seealso{
 \code{\link[tteICE]{scr.principal.eff}}, \code{\link[tteICE]{scr.tteICE}}
 }
+\keyword{internal}

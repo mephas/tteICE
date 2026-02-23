@@ -28,6 +28,7 @@ A list including
 \item{ate}{Estimated treatment effect (difference in cumulative incidence functions).}
 \item{se}{Standard error of the estimated treatment effect.}
 \item{p.val}{P value of testing the treatment effect, which is not available under this strategy.}
+\item{cumhaz}{Baseline cumulative hazards in the survival models.}
 }
 }
 \description{
@@ -52,3 +53,4 @@ If the size of the target principal stratum is small, the results could be highl
 \seealso{
 \code{\link[tteICE]{surv.principal.eff}}, \code{\link[tteICE]{surv.tteICE}}
 }
+\keyword{internal}

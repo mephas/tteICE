@@ -1,15 +1,15 @@
-#' @title 
+#' @title
 #' Calculate standard errors for estimated CIFs and treatment effects
 #'
-#' @description 
+#' @description
 #' This function calculates the standard error for the estimated potential cumulative incidence function
 #' and treatment effect. Two methods to calculate the standard error are considered: the asymptotic standard error
 #' based on the explicit formula and bootstrapping.
 #'
-#' @param fit 
+#' @param fit
 #' A fitted object returned by the function \code{tteICE}, \code{surv.tteICE}, or \code{scr.tteICE}.
 #'
-#' @param nboot 
+#' @param nboot
 #' Number of resamplings in the boostrapping method. If \code{nboot} is 0 or 1, then
 #' asymptotic standard error based on the explicit form is calculated instead of bootstrapping.
 #'
@@ -30,11 +30,11 @@
 #' }
 #'
 #'
-#' @seealso 
-#' \code{\link[tteICE]{surv.tteICE}}, \code{\link[tteICE]{scr.tteICE}}, 
+#' @seealso
+#' \code{\link[tteICE]{surv.tteICE}}, \code{\link[tteICE]{scr.tteICE}},
 #' \code{\link[tteICE]{tteICE}}
 #'
-#' @export
+#' @keywords internal
 
 surv.boot <- function(fit,nboot=0,seed=NULL){
   N = length(fit$A)
@@ -75,5 +75,8 @@ surv.boot <- function(fit,nboot=0,seed=NULL){
     se = apply(te,2,sd)
   }
   return(list(time=tt,cif1=cif1,cif0=cif0,ate=ate,se1=se1,se0=se0,se=se,p.val=p.val,
+              coef=if(!is.null(fit$coef)) fit$coef else NULL,
+              ph=if(!is.null(fit$ph)) fit$ph else NULL,
+              cumhaz=fit$cumhaz,
               strategy=fit$strategy,method=fit$method,dtype=fit$dtype))
 }

@@ -28,6 +28,7 @@ A list including
 \item{ate}{Estimated treatment effect (difference in cumulative incidence functions).}
 \item{se}{Standard error of the estimated treatment effect.}
 \item{p.val}{P value of testing the treatment effect based on logrank test.}
+\item{cumhaz}{Baseline cumulative hazards in the survival models.}
 }
 }
 \description{
@@ -57,3 +58,4 @@ effect corresponds to the controlled direct effect with the intercurrent events 
 \seealso{
 \code{\link[tteICE]{surv.removed.eff}}, \code{\link[tteICE]{surv.tteICE}}
 }
+\keyword{internal}

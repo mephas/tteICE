@@ -63,3 +63,4 @@ outcome events during \eqn{(0,t)} under active treatment and placebo.
 \seealso{
 \code{\link[tteICE]{scr.composite.eff}}, \code{\link[tteICE]{scr.tteICE}}
 }
+\keyword{internal}

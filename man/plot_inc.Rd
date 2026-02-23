@@ -58,46 +58,10 @@ Plot the cumulative incidence function results from a tteICE object
 \description{
 This function plots the estimated potential cumulative incidence function, along with pointwise confidence intervals.
 }
-\examples{
-## load data
-data(bmt)
-bmt = transform(bmt, d4=d2+d3)
-A = as.numeric(bmt$group>1)
-bmt$A = A
-
-## simple model fitting and plotting
-library(survival)
-fit = tteICE(Surv(t2,d4,type = "mstate")~A, data=bmt)
-plot_inc(fit)
-
-## model fitting using competing risk data
-fit1 = surv.tteICE(A, bmt$t2, bmt$d4, 'treatment')
-
-## plot asymptotic confidence intervals based on explicit formulas
-plot_inc(fit1, ylim=c(0,1),
-         plot.configs=list(legend=c('AML','ALL'), show.p.value=FALSE) )
-
-## plot bootstrap confidence intervals
-fit2 = surv.tteICE(A, bmt$t2, bmt$d4, 'treatment', nboot=50)
-plot_inc(fit2, ylim=c(0,1),
-         plot.configs=list(legend=c('AML','ALL')))
-
-## model fitting using semicompeting risk data
-fit3 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
-
-## plot asymptotic confidence intervals based on explicit formulas
-plot_inc(fit3, ylim=c(0,1), plot.configs=list(add.null.line=FALSE))
-
-## plot bootstrap confidence intervals
-fit4 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2,
-                  "composite", nboot=50) ##??
-plot_inc(fit4, ylim=c(0,1),
-         plot.configs=list(lty=2, lwd=3, main="My title"))
-
-}
 \seealso{
 \code{\link[graphics]{plot.default}},
 \code{\link[graphics]{points}},
 \code{\link[graphics]{curve}},
 \code{\link[tteICE]{plot.tteICE}}
 }
+\keyword{internal}

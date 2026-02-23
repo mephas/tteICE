@@ -204,3 +204,5 @@
 .tdc <- function(time, value=NULL, init=NULL) {
         x <- list(time=time, value=value, default= init);
         class(x) <- "tdc"; x}
+
+

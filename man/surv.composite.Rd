@@ -28,6 +28,7 @@ A list including
 \item{ate}{Estimated treatment effect (difference in cumulative incidence functions).}
 \item{se}{Standard error of the estimated treatment effect.}
 \item{p.val}{P value of testing the treatment effect based on logrank test.}
+\item{cumhaz}{Baseline cumulative hazards in the survival models.}
 }
 }
 \description{
@@ -53,3 +54,4 @@ outcome events during \eqn{(0,t)} under active treatment and placebo.
 \seealso{
 \code{\link[tteICE]{surv.composite.eff}}, \code{\link[tteICE]{surv.tteICE}}
 }
+\keyword{internal}

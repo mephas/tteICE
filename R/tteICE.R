@@ -1,7 +1,7 @@
 #' @title Using formula to fit CIFs for time-to-event data with intercurrent events
 #'
-#' @description 
-#' This function estimates the potential cumulative incidence function for time-to event data under ICH E9 (R1) to address intercurrent events. 
+#' @description
+#' This function estimates the potential cumulative incidence function for time-to event data under ICH E9 (R1) to address intercurrent events.
 #' The input data can be competing or semicompeting risks data structure.
 #'
 #' @param formula An object of class "formula" (or one that can be coerced to that class).
@@ -10,7 +10,7 @@
 #' The details of model specification are given under ‘Details’.
 #'
 #' @param add.scr Required for semicompeting data.
-#' An object of class "Surv" (or one that can be coerced to that class). 
+#' An object of class "Surv" (or one that can be coerced to that class).
 #' For example, \code{add.scr=~Surv(time.intercurrent, status.intercurrent)}.
 #' The details of model specification are given under ‘Details’.
 #'
@@ -47,7 +47,7 @@
 #' A = as.numeric(bmt$group>1)
 #' X = as.matrix(bmt[,c('z1','z3','z5')])
 #' bmt$A = A
-#' 
+#'
 #' library(survival)
 #' ## Composite variable strategy,
 #' ## nonparametric estimation without covariates
@@ -59,7 +59,7 @@
 #'  data=bmt, strategy="composite", method='eff')
 #' print(fit1)
 #'
-#' ## model fitting for competing risk data without covariates 
+#' ## model fitting for competing risk data without covariates
 #' ## with bootstrap confidence intervals
 #' fit.bt1 = tteICE(Surv(t2, d4, type = "mstate")~A,
 #'  data=bmt, strategy="composite", method='eff', nboot=20, seed=2)
@@ -270,8 +270,7 @@ if (length(parts) > 1) {
         if (strategy=='principal') fit = surv.principal.eff(A,Time,cstatus,cov1)
       }
 
-      fit = c(fit,list(A=A,Time=Time,cstatus
-        =cstatus,strategy=strategy,cov1=cov1,
+      fit = c(fit,list(A=A,Time=Time,cstatus=cstatus,strategy=strategy,cov1=cov1,
                         method=method,weights=weights,na.rm=na.rm,dtype='cmprsk'))
   } else{
     if (method=='np' | method=='ipw') {

@@ -55,7 +55,6 @@ A = as.numeric(bmt$group>1)
 bmt$A = A
 
 ## simple model fitting and plotting
-library(survival)
 fit1 = tteICE(Surv(t2,d4,type = "mstate")~A, data=bmt)
 plot(fit1, type="ate")
 plot(fit1, type="inc")

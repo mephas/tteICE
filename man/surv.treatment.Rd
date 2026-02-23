@@ -28,6 +28,7 @@ A list including
 \item{ate}{Estimated treatment effect (difference in cumulative incidence functions).}
 \item{se}{Standard error of the estimated treatment effect.}
 \item{p.val}{P value of testing the treatment effect based on logrank test.}
+\item{cumhaz}{Baseline cumulative hazards in the survival models.}
 }
 }
 \description{
@@ -61,3 +62,4 @@ the notations \eqn{T(w, R(w)) = T(w)} in defining estimands. As such,
 \seealso{
 \code{\link[tteICE]{surv.treatment.eff}}, \code{\link[tteICE]{surv.tteICE}}
 }
+\keyword{internal}

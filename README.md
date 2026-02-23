@@ -177,14 +177,14 @@ effects). We fit the model by nonparametric estimation.
 
 ``` r
 fit1 = surv.tteICE(A, bmt$t2, bmt$d4, "natural")
-plot_inc(fit1, plot.configs=list(legend=c('AML','ALL')))
+plot(fit1, type="inc", plot.configs=list(legend=c('AML','ALL')))
 ```
 
 <img src="man/figures/README-example_1-1.png" alt="" width="70%" style="display: block; margin: auto;" />
 
 ``` r
 
-plot_ate(fit1)
+plot(fit1, type="ate")
 ```
 
 <img src="man/figures/README-example_1-2.png" alt="" width="70%" style="display: block; margin: auto;" />
@@ -199,14 +199,14 @@ confounding.
 
 ``` r
 fit2 = surv.tteICE(A, bmt$t2, bmt$d4, "natural", X, method='ipw')
-plot_inc(fit2, plot.configs=list(legend=c('AML','ALL')))
+plot(fit2, type="inc", plot.configs=list(legend=c('AML','ALL')))
 ```
 
 <img src="man/figures/README-example_2-1.png" alt="" width="70%" style="display: block; margin: auto;" />
 
 ``` r
 
-plot_ate(fit2)
+plot(fit2, type="ate")
 ```
 
 <img src="man/figures/README-example_2-2.png" alt="" width="70%" style="display: block; margin: auto;" />
@@ -216,14 +216,14 @@ To increase efficiency, we use the efficient influence function
 
 ``` r
 fit3 = surv.tteICE(A, bmt$t2, bmt$d4, "natural", X, method='eff')
-plot_inc(fit3, plot.configs=list(legend=c('AML','ALL')))
+plot(fit3, type="inc", plot.configs=list(legend=c('AML','ALL')))
 ```
 
 <img src="man/figures/README-example_3-1.png" alt="" width="70%" style="display: block; margin: auto;" />
 
 ``` r
 
-plot_ate(fit3)
+plot(fit3, type="ate")
 ```
 
 <img src="man/figures/README-example_3-2.png" alt="" width="70%" style="display: block; margin: auto;" />
@@ -236,14 +236,14 @@ and fit the model nonparametrically.
 
 ``` r
 fit4 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural")
-plot_inc(fit4, plot.configs=list(legend=c('AML','ALL')))
+plot(fit4, type="inc", plot.configs=list(legend=c('AML','ALL')))
 ```
 
 <img src="man/figures/README-example_4-1.png" alt="" width="70%" style="display: block; margin: auto;" />
 
 ``` r
 
-plot_ate(fit4)
+plot(fit4, type="ate")
 ```
 
 <img src="man/figures/README-example_4-2.png" alt="" width="70%" style="display: block; margin: auto;" />
@@ -258,14 +258,14 @@ confounding.
 
 ``` r
 fit5 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='ipw')
-plot_inc(fit5, plot.configs=list(legend=c('AML','ALL')))
+plot(fit5, type="inc", plot.configs=list(legend=c('AML','ALL')))
 ```
 
 <img src="man/figures/README-example_5-1.png" alt="" width="70%" style="display: block; margin: auto;" />
 
 ``` r
 
-plot_ate(fit5)
+plot(fit5, type="ate")
 ```
 
 <img src="man/figures/README-example_5-2.png" alt="" width="70%" style="display: block; margin: auto;" />
@@ -275,14 +275,14 @@ To increase efficiency, we use the efficient influence function
 
 ``` r
 fit6 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "natural", X, method='eff') 
-plot_inc(fit6, plot.configs=list(legend=c('AML','ALL')))
+plot(fit6, type="inc", plot.configs=list(legend=c('AML','ALL')))
 ```
 
 <img src="man/figures/README-example_6-1.png" alt="" width="70%" style="display: block; margin: auto;" />
 
 ``` r
 
-plot_ate(fit6)
+plot(fit6, type="ate")
 ```
 
 <img src="man/figures/README-example_6-2.png" alt="" width="70%" style="display: block; margin: auto;" />

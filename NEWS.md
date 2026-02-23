@@ -9,3 +9,7 @@
 # tteICE 1.1.1
 
 * 2026-2-3 Revised standard error estimations.
+
+# tteICE 1.1.1
+
+* 2026-2-23 Added more outputs. Hided internal functions.
