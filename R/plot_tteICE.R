@@ -59,7 +59,6 @@
 #' plot(fit3, type="ate", ylim=c(-1,1), xlab="time",
 #'      plot.configs=list(col="red"))
 #'
-#'
 #' @seealso
 #' \code{\link[tteICE]{plot_ate}}, \code{\link[tteICE]{plot_inc}},
 #' \code{\link[tteICE]{surv.tteICE}}, \code{\link[tteICE]{scr.tteICE}},
