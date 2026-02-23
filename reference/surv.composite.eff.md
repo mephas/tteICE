@@ -80,6 +80,21 @@ A list including
   influence function of the restricted mean survival time lost by the
   end of study.
 
+- coef:
+
+  Coefficients of covariates in the working Cox models for the composite
+  event.
+
+- ph:
+
+  P values of the proportional hazards assumption in the working Cox
+  models for the composite event.
+
+- cumhaz:
+
+  Baseline cumulative hazards in the working Cox models for the
+  composite event.
+
 ## Details
 
 ## See also

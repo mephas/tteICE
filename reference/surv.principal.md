@@ -79,6 +79,10 @@ A list including
   P value of testing the treatment effect, which is not available under
   this strategy.
 
+- cumhaz:
+
+  Baseline cumulative hazards in the survival models.
+
 ## Details
 
 ## See also

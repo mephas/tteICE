@@ -85,6 +85,10 @@ A list including
 
   P value of testing the treatment effect based on logrank test.
 
+- cumhaz:
+
+  Baselime cumulative hazards in the survival models.
+
 ## Details
 
 ## See also

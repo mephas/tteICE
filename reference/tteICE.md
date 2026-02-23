@@ -200,7 +200,7 @@ print(fit1)
 #> p.val  0.4192  0.5843  0.5843  0.9384
 #> 
 
-## model fitting for competing risk data without covariates 
+## model fitting for competing risk data without covariates
 ## with bootstrap confidence intervals
 fit.bt1 = tteICE(Surv(t2, d4, type = "mstate")~A,
  data=bmt, strategy="composite", method='eff', nboot=20, seed=2)

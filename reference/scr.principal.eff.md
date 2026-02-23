@@ -89,6 +89,15 @@ A list including
   influence function of the restricted mean survival time lost by the
   end of study.
 
+- coef:
+
+  Coefficients of covariates in the working Cox models for each event.
+
+- ph:
+
+  P values of the proportional hazards assumption in the working Cox
+  models for each event.
+
 ## Details
 
 ## See also
