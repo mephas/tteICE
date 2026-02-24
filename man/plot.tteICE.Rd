@@ -70,7 +70,6 @@ fit3 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
 plot(fit3, type="ate", ylim=c(-1,1), xlab="time",
      plot.configs=list(col="red"))
 
-
 }
 \seealso{
 \code{\link[tteICE]{plot_ate}}, \code{\link[tteICE]{plot_inc}},
