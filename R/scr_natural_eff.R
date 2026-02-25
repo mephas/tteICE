@@ -243,8 +243,8 @@ scr.natural.eff <- function(A,Time,status,Time_int,status_int,X=NULL){
     se1 = c(0,se1); se0 = c(0,se0); ate = c(0,ate); se = c(0,se)
     cumhaz = rbind(0, cumhaz)
   }
-  coef11 = fit11$coefficients / attr(X,"scaled:scale")
-  coef10 = fit10$coefficients / attr(X,"scaled:scale")
+  coef11 = fit11$coefficients / c(1,attr(X,"scaled:scale"))
+  coef10 = fit10$coefficients / c(1,attr(X,"scaled:scale"))
   coef21 = fit21$coefficients / attr(X,"scaled:scale")
   coef20 = fit20$coefficients / attr(X,"scaled:scale")
   coef = list(coef11=coef11,coef10=coef10,coef21=coef21,coef20=coef20)
