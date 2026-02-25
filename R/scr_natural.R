@@ -29,7 +29,7 @@
 #' \item{ate}{Estimated treatment effect (difference in cumulative incidence functions).}
 #' \item{se}{Standard error of the estimated treatment effect.}
 #' \item{p.val}{P value of testing the treatment effect based on logrank test.}
-#' \item{cumhaz}{Baselime cumulative hazards in the survival models.}
+#' \item{cumhaz}{Baseline cumulative hazards in the survival models.}
 #' }
 #'
 #' @details
@@ -154,11 +154,11 @@ scr.natural <- function(A,Time,status,Time_int,status_int,weights=rep(1,length(A
     F3.01 = append(F3.01, F3t.01)
     F3.00 = append(F3.00, F3t.00)
   }
-  
+
   cumhaz = data.frame(time=c(0,tseq), cumhaz11=haz1.1, cumhaz10=haz1.0,
                        cumhaz21=haz2.1, cumhaz20=haz2.0,
                        cumhaz31=haz3.1, cumhaz30=haz3.0)
-  
+
   Fhaz.01 = 1-F1.01-F3.01
   Fhaz.00 = 1-F1.00-F3.00
   G1.01 = Fhaz.01^2*cumsum(G1.1.01)-

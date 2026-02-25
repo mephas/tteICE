@@ -3,7 +3,7 @@
 #' @description This function checks the proportional hazards assumption in the Cox model using Schoenfeld residuals.
 #' This function only return results for strategies based on efficient influence functions.
 #'
-#' @param object
+#' @param x
 #' A fitted object returned by the function \code{tteICE}, \code{surv.tteICE}, or \code{scr.tteICE}.
 #'
 #' @examples
@@ -17,8 +17,11 @@
 #' fit = tteICE(Surv(t2, d4, type = "mstate")~A|z1+z3+z5,
 #'  data=bmt, strategy="whileon", method='eff')
 #' print(fit$ph)
+#' zph(fit)
+#'
 #' plot(fit$ph$ph11)
 #' plot(fit$ph$ph10)
+#'
 #'
 #' ## No results when method is nonparametric
 #' fit.np = tteICE(Surv(t2, d4, type = "mstate")~A|z1+z3+z5,
@@ -38,7 +41,12 @@
 #' \code{ph20} is the P-values for the intercurrent in the control group.
 #'
 #' @export
+zph <- function(x) UseMethod("zph")
 
-zph.tteICE <- function(object) {
-  object$ph
+#' @method zph tteICE
+#' @export
+
+zph.tteICE <- function(x) {
+  x$ph
 }
+

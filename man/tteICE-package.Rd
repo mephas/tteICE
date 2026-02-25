@@ -19,11 +19,19 @@ Main functions:
 \item \code{\link[tteICE]{tteICE}} Using formula to fit cumulative incidence functions (CIFs) for competing/semicompeting risk time-to-event data with intercurrent events.
 \item \code{\link[tteICE]{scr.tteICE}} Fit CIFs for semicompeting risk time-to-event data with intercurrent events.
 \item \code{\link[tteICE]{surv.tteICE}} Fit CIFs for competing risk time-to-event with intercurrent events.
+\item \code{\link[tteICE]{tteICEShiny}} Interactive Shiny app for the 'tteICE' package
+}
+
+Results output functions:
+\itemize{
 \item \code{\link[tteICE]{plot.tteICE}} Plot results from 'tteICE' objects.
 \item \code{\link[tteICE]{print.tteICE}} Print a short summary of results from 'tteICE' objects
 \item \code{\link[tteICE]{summary.tteICE}} Summarize results from 'tteICE' objects
-\item \code{\link[tteICE]{predict.tteICE}} Predict risks for 'tteICE' objects at specific time points
-\item \code{\link[tteICE]{tteICEShiny}} Interactive Shiny app for the 'tteICE' package
+\item \code{\link[tteICE]{predict.tteICE}} Show the coefficient for 'tteICE' objects
+\item \code{\link[tteICE]{coef.tteICE}} Predict risks for 'tteICE' objects at specific time points
+\item \code{\link[tteICE]{bshaz}} Extract the baseline hazards for 'tteICE' objects
+\item \code{\link[tteICE]{zph}} Perform a test for the proportional hazards assumption for the Cox models in 'tteICE' objects
+
 }
 Example data:
 \itemize{

@@ -4,7 +4,7 @@
 #'
 #' @param object
 #' A fitted object returned by the function \code{tteICE}, \code{surv.tteICE}, or \code{scr.tteICE}.
-#' @param ... 
+#' @param ...
 #' Other arguments in function \code{\link{coef.default}}
 #'
 #' @return
@@ -16,6 +16,18 @@
 #' for the primary outcome event in the treatment group, \code{coef10} is the coefficients for the primary outcome
 #' event in the control group, \code{coef21} is the coefficients for the intercurrent event in the treated group,
 #' \code{coef20} is the coefficients for the intercurrent in the control group.
+#'
+#' @examples
+#' ## load data
+#' data(bmt)
+#' bmt = transform(bmt, d4=d2+d3)
+#' A = as.numeric(bmt$group>1)
+#' X = as.matrix(bmt[,c('z1','z3','z5')])
+#' bmt$A = A
+#'
+#' fit = tteICE(Surv(t2, d4, type = "mstate")~A|z1+z3+z5,
+#'  data=bmt, strategy="whileon", method='eff')
+#' coef(fit)
 #'
 #' @export
 

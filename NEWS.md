@@ -12,4 +12,4 @@
 
 # tteICE 1.1.1
 
-* 2026-2-23 Added more outputs. Hided internal functions.
+* 2026-2-23 Added more S3 methods (coef, bshaz, zph).  Hided internal functions.

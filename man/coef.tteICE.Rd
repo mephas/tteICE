@@ -24,3 +24,16 @@ event in the control group, \code{coef21} is the coefficients for the intercurre
 \description{
 This function extracts the coefficients in the Cox models
 }
+\examples{
+## load data
+data(bmt)
+bmt = transform(bmt, d4=d2+d3)
+A = as.numeric(bmt$group>1)
+X = as.matrix(bmt[,c('z1','z3','z5')])
+bmt$A = A
+
+fit = tteICE(Surv(t2, d4, type = "mstate")~A|z1+z3+z5,
+ data=bmt, strategy="whileon", method='eff')
+coef(fit)
+
+}
