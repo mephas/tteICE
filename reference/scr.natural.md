@@ -87,7 +87,7 @@ A list including
 
 - cumhaz:
 
-  Baselime cumulative hazards in the survival models.
+  Baseline cumulative hazards in the survival models.
 
 ## Details
 

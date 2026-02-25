@@ -22,4 +22,5 @@ CRAN release: 2026-02-04
 
 CRAN release: 2026-02-04
 
-- 2026-2-23 Added more outputs. Hided internal functions.
+- 2026-2-23 Added more S3 methods (coef, bshaz, zph). Hided internal
+  functions.

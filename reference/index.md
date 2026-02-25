@@ -2,10 +2,10 @@
 
 ## All functions
 
-- [`basehaz.tteICE()`](https://mephas.github.io/tteICE/reference/basehaz.tteICE.md)
-  : Baseline hazards of 'tteICE' objects
 - [`bmt`](https://mephas.github.io/tteICE/reference/bmt.md) : Data from
   Section 1.3 of Klein and Moeschberger (1997)
+- [`bshaz()`](https://mephas.github.io/tteICE/reference/bshaz.md) :
+  Baseline hazards of 'tteICE' objects
 - [`coef(`*`<tteICE>`*`)`](https://mephas.github.io/tteICE/reference/coef.tteICE.md)
   : Coefficients of 'tteICE' objects
 - [`plot(`*`<tteICE>`*`)`](https://mephas.github.io/tteICE/reference/plot.tteICE.md)
@@ -34,5 +34,5 @@
   events
 - [`tteICEShiny()`](https://mephas.github.io/tteICE/reference/tteICEShiny.md)
   : Shiny app for tteICE
-- [`zph.tteICE()`](https://mephas.github.io/tteICE/reference/zph.tteICE.md)
-  : Checking proportional hazards of 'tteICE' objects
+- [`zph()`](https://mephas.github.io/tteICE/reference/zph.md) : Checking
+  proportional hazards of 'tteICE' objects
