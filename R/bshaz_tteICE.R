@@ -21,13 +21,9 @@
 #'  data=bmt, strategy="whileon", method='eff')
 #' bshaz(fit)
 #'
-#' @export
-bshaz <- function(x) {
-  UseMethod("bshaz")
-}
-
 #' @method bshaz tteICE
 #' @export
+#'
 bshaz.tteICE <- function(x) {
   x$cumhaz
 }

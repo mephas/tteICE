@@ -40,9 +40,6 @@
 #' event in the control group, \code{ph21} is the P-values for the intercurrent event in the treated group,
 #' \code{ph20} is the P-values for the intercurrent in the control group.
 #'
-#' @export
-zph <- function(x) UseMethod("zph")
-
 #' @method zph tteICE
 #' @export
 
