@@ -11,6 +11,7 @@
 #' A list of P-values of testing the proportional hazards (PH) assumption in the working Cox models, for each
 #' covariate and a global test, stratified by treatment groups.
 #'
+#' @keywords internal
 #' @export
 zph <- function(x) UseMethod("zph")
 

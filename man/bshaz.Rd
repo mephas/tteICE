@@ -15,3 +15,4 @@ A data frame of baseline cumulative hazards in the working Kaplan-Meier or Cox m
 \description{
 This function extracts the baseline cumulative hazards in the survival models
 }
+\keyword{internal}

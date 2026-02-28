@@ -17,3 +17,4 @@ covariate and a global test, stratified by treatment groups.
 This function checks the proportional hazards assumption in the Cox model using Schoenfeld residuals.
 This function only return results for strategies based on efficient influence functions.
 }
+\keyword{internal}

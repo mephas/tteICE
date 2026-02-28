@@ -8,7 +8,7 @@
 #' @return
 #' A data frame of baseline cumulative hazards in the working Kaplan-Meier or Cox models, stratified by treatment groups from the model object.
 #'
-#'
+#' @keywords internal
 #' @export
 bshaz <- function(x) {
   UseMethod("bshaz")
