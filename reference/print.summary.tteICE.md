@@ -6,7 +6,7 @@ Print the summary of 'tteICE'
 
 ``` r
 # S3 method for class 'summary.tteICE'
-print(x, ...)
+print(x, digits = 3, ...)
 ```
 
 ## Arguments
@@ -15,6 +15,10 @@ print(x, ...)
 
   A fitted object returned by the function `tteICE`, `surv.tteICE`, or
   `scr.tteICE`.
+
+- digits:
+
+  The digits of the results
 
 - ...:
 
