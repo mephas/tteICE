@@ -13,6 +13,7 @@ print.summary.tteICE <- function(x, ...) {
     cat("Input:\n")
     print(x$call)
   }
+  if(is.null(x$p.val)) p=NA else p=x$p.val
   cat("-----------------------------------------------------------------------\n")
   cat("Data type:", x$dtype, "\n")
   cat("Strategy:", x$strategy, "\n")
