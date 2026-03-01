@@ -20,7 +20,7 @@ print.summary.tteICE <- function(x, ...) {
   cat("Estimation method:", x$method, "\n")
   cat("Observations:", x$n, '(including', x$n1, 'treated and', x$n0, 'control)\n')
   cat("Maximum follow-up time:", x$maxt, '\n')
-  cat("P-value of the average treatment effect:", round(x$p.val, 3), "\n")
+  cat("P-value of the average treatment effect:", round(p, 3), "\n")
   cat("-----------------------------------------------------------------------\n")
   cat("The estimated cumulative incidences and treatment effects at quartiles:\n")
   print(round(x$est, 3))
