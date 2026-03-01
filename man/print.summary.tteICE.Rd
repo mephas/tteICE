@@ -4,10 +4,12 @@
 \alias{print.summary.tteICE}
 \title{Print the summary of 'tteICE'}
 \usage{
-\method{print}{summary.tteICE}(x, ...)
+\method{print}{summary.tteICE}(x, digits = 3, ...)
 }
 \arguments{
 \item{x}{A fitted object returned by the function \code{tteICE}, \code{surv.tteICE}, or \code{scr.tteICE}.}
+
+\item{digits}{The digits of the results}
 
 \item{...}{Other arguments in function \code{\link{print.default}}}
 }
