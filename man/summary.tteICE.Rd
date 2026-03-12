@@ -37,7 +37,7 @@ fit2 = surv.tteICE(A, bmt$t2, bmt$d4, "composite")
 predict(fit2)
 
 library(survival)
-fit3 = tteICE(Surv(t2, factor(d4))~A|z1+z3+z5,
+fit3 = tteICE(Surv(t2, factor(d4))~A|z1+z3+z5, 
               data=bmt, strategy="composite", method='eff')
 summary(fit3)
 
