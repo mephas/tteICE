@@ -6,7 +6,7 @@ This function summarizes the results
 
 ``` r
 # S3 method for class 'tteICE'
-summary(object, ...)
+summary(object, digits = 3, ...)
 ```
 
 ## Arguments
@@ -15,6 +15,10 @@ summary(object, ...)
 
   A fitted object returned by the function `tteICE`, `surv.tteICE`, or
   `scr.tteICE`.
+
+- digits:
+
+  The digits of the results
 
 - ...:
 
@@ -53,9 +57,9 @@ summary(fit1)
 #> scr.tteICE(A = A, Time = bmt$t1, status = bmt$d1, Time_int = bmt$t2, 
 #>     status_int = bmt$d2, strategy = "composite")
 #> -----------------------------------------------------------------------
-#> Data type: smcmprsk 
-#> Strategy: composite 
-#> Estimation method: np 
+#> Data type: semicompeting risks 
+#> Strategy: composite variable strategy 
+#> Estimation method: nonparametric estimation 
 #> Observations: 137 (including 99 treated and 38 control)
 #> Maximum follow-up time: 2640 
 #> P-value of the average treatment effect: 0.591 
@@ -83,16 +87,16 @@ predict(fit2)
 #> p.val  0.41920919  0.58425802  0.58425802  0.938395060
 
 library(survival)
-fit3 = tteICE(Surv(t2, d4, type = "mstate")~A|z1+z3+z5, 
+fit3 = tteICE(Surv(t2, factor(d4))~A|z1+z3+z5,
               data=bmt, strategy="composite", method='eff')
 summary(fit3)
 #> Input:
-#> tteICE(formula = Surv(t2, d4, type = "mstate") ~ A | z1 + z3 + 
-#>     z5, data = bmt, strategy = "composite", method = "eff")
+#> tteICE(formula = Surv(t2, factor(d4)) ~ A | z1 + z3 + z5, data = bmt, 
+#>     strategy = "composite", method = "eff")
 #> -----------------------------------------------------------------------
-#> Data type: cmprsk 
-#> Strategy: composite 
-#> Estimation method: eff 
+#> Data type: competing risks 
+#> Strategy: composite variable strategy 
+#> Estimation method: semiparametrically efficient estimation 
 #> Observations: 137 (including 99 treated and 38 control)
 #> Maximum follow-up time: 2640 
 #> P-value of the average treatment effect: 0.137 

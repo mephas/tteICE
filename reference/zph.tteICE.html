@@ -9,7 +9,7 @@ This function only return results for strategies based on efficient influence fu
 
     <a class="navbar-brand me-2" href="../index.html">tteICE</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,7 +64,8 @@ group, <code>ph0</code> is the P-values in the control group. For other strategi
 each event (primary outcome event and intercurrent event). In these strategies, <code>ph11</code> is the P-values
 for the primary outcome event in the treatment group, <code>ph10</code> is the P-values for the primary outcome
 event in the control group, <code>ph21</code> is the P-values for the intercurrent event in the treated group,
-<code>ph20</code> is the P-values for the intercurrent in the control group.</p>
+<code>ph20</code> is the P-values for the intercurrent in the control group. If the nonparametric method is used,
+the return is <code>NULL</code>.</p>
     </div>
 
     <div class="section level2">
@@ -76,7 +77,8 @@ event in the control group, <code>ph21</code> is the P-values for the intercurre
 <span class="r-in"><span><span class="va">X</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">bmt</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'z1'</span>,<span class="st">'z3'</span>,<span class="st">'z5'</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">bmt</span><span class="op">$</span><span class="va">A</span> <span class="op">=</span> <span class="va">A</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">fit</span> <span class="op">=</span> <span class="fu"><a href="tteICE.html">tteICE</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">t2</span>, <span class="va">d4</span>, type <span class="op">=</span> <span class="st">"mstate"</span><span class="op">)</span><span class="op">~</span><span class="va">A</span><span class="op">|</span><span class="va">z1</span><span class="op">+</span><span class="va">z3</span><span class="op">+</span><span class="va">z5</span>,</span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/therneau/survival" class="external-link">survival</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fit</span> <span class="op">=</span> <span class="fu"><a href="tteICE.html">tteICE</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">t2</span>, <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">d4</span><span class="op">)</span><span class="op">)</span><span class="op">~</span><span class="va">A</span><span class="op">|</span><span class="va">z1</span><span class="op">+</span><span class="va">z3</span><span class="op">+</span><span class="va">z5</span>,</span></span>
 <span class="r-in"><span> data<span class="op">=</span><span class="va">bmt</span>, strategy<span class="op">=</span><span class="st">"whileon"</span>, method<span class="op">=</span><span class="st">'eff'</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">fit</span><span class="op">$</span><span class="va">ph</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ph11</span>
@@ -145,13 +147,6 @@ event in the control group, <code>ph21</code> is the P-values for the intercurre
 <span class="r-plt img"><img src="zph.tteICE-4.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="zph.tteICE-5.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="zph.tteICE-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">## No results when method is nonparametric</span></span></span>
-<span class="r-in"><span><span class="va">fit.np</span> <span class="op">=</span> <span class="fu"><a href="tteICE.html">tteICE</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">t2</span>, <span class="va">d4</span>, type <span class="op">=</span> <span class="st">"mstate"</span><span class="op">)</span><span class="op">~</span><span class="va">A</span><span class="op">|</span><span class="va">z1</span><span class="op">+</span><span class="va">z3</span><span class="op">+</span><span class="va">z5</span>,</span></span>
-<span class="r-in"><span> data<span class="op">=</span><span class="va">bmt</span>, strategy<span class="op">=</span><span class="st">"whileon"</span>, method<span class="op">=</span><span class="st">'np'</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">fit.np</span><span class="op">$</span><span class="va">ph</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

@@ -33,7 +33,8 @@ A = as.numeric(bmt$group>1)
 X = as.matrix(bmt[,c('z1','z3','z5')])
 bmt$A = A
 
-fit = tteICE(Surv(t2, d4, type = "mstate")~A|z1+z3+z5,
+library(survival)
+fit = tteICE(Surv(t2, factor(d4))~A|z1+z3+z5,
  data=bmt, strategy="whileon", method='eff')
 bshaz(fit)
 #>     time    cumhaz11   cumhaz10    cumhaz21   cumhaz20

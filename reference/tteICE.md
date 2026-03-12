@@ -1,4 +1,4 @@
-# Using formula to fit CIFs for time-to-event data with intercurrent events
+# Use formula to fit CIFs for time-to-event data with intercurrent events
 
 This function estimates the potential cumulative incidence function for
 time-to event data under ICH E9 (R1) to address intercurrent events. The
@@ -27,8 +27,8 @@ tteICE(
 
   An object of class "formula" (or one that can be coerced to that
   class). A symbolic description of the model to be fitted. For example,
-  `formula=Surv(time, status, type="mstate")~treatment | baseline.covariate`.
-  The details of model specification are given under ‘Details’.
+  `formula=Surv(time, status)~treatment | baseline.covariate`. The
+  details of model specification are given under ‘Details’.
 
 - add.scr:
 
@@ -129,18 +129,18 @@ A list including the fitted object and input variables.
 
 - Formula specifications:
 
-  The formula should be set as the following two ways.
+  The formula should be set in the following two ways.
 
   When data take format of competing risk data, set the first argument
-  `formula = Surv(time, status, type="mstate") ~ treatment | covariate1+covariate2`
-  or `formula = Surv(time, status)~ A` without any baseline covariates,
-  where `status`=0,1,2 (1 for the primary event, 2 for the intercurrent
-  event, and 0 for censoring).
+  `formula = Surv(time, status) ~ treatment | covariate1+covariate2` or
+  `formula = Surv(time, status)~ A` without any baseline covariates,
+  where `status` is a factor variable with levels 0,1,2 (1 for the
+  primary event, 2 for the intercurrent event, and 0 for censoring).
 
   When data take the format of semicompeting risk data, set the first
   argument
   `formula = Surv(time, status) ~ treatment | covariate1+covariate2` or
-  `formula = Surv(time, status)~ A` without any baseline covariates,
+  `formula = Surv(time, status) ~ A` without any baseline covariates,
   where `status`=0,1 (1 for the primary event and 0 for censoring). In
   addition, the second argument
   `add.scr = ~ Surv(time.intercurrent, status.intercurrent)` is
@@ -175,112 +175,68 @@ library(survival)
 ## nonparametric estimation without covariates
 
 ## model fitting for competing risk data without covariates
-fit1 = tteICE(Surv(t2, d4, type = "mstate")~A,
- data=bmt, strategy="composite", method='eff')
+fit1 = tteICE(Surv(t2, factor(d4)) ~ A,
+ data=bmt, strategy="composite", method='np')
 print(fit1)
 #> Input:
-#> tteICE(formula = Surv(t2, d4, type = "mstate") ~ A, data = bmt, 
-#>     strategy = "composite", method = "eff")
+#> tteICE(formula = Surv(t2, factor(d4)) ~ A, data = bmt, strategy = "composite", 
+#>     method = "np")
 #> -----------------------------------------------------------------------
 #> Data type: competing risks 
 #> Strategy: composite variable strategy 
-#> Estimation method: semiparametrically efficient estimation 
+#> Estimation method: nonparametric estimation 
 #> Observations: 137 (including 99 treated and 38 control)
 #> Maximum follow-up time: 2640 
-#> P-value of the average treatment effect: 0.5907 
-#> -----------------------------------------------------------------------
-#> The estimated cumulative incidences and treatment effects at quartiles:
-#>           660    1320    1980    2640
-#> CIF1   0.5323  0.5864  0.5864  0.6299
-#> se1    0.0501  0.0499  0.0499  0.0617
-#> CIF0   0.6087  0.6377  0.6377  0.6377
-#> se0    0.0803  0.0793  0.0793  0.0793
-#> ATE   -0.0764 -0.0513 -0.0513 -0.0078
-#> se     0.0946  0.0937  0.0937  0.1005
-#> p.val  0.4192  0.5843  0.5843  0.9384
-#> 
+#> P-value of the average treatment effect: 0.591 
 
 ## model fitting for competing risk data without covariates
 ## with bootstrap confidence intervals
-fit.bt1 = tteICE(Surv(t2, d4, type = "mstate")~A,
+fit.bt1 = tteICE(Surv(t2, factor(d4)) ~ A,
  data=bmt, strategy="composite", method='eff', nboot=20, seed=2)
 print(fit.bt1)
 #> Input:
-#> tteICE(formula = Surv(t2, d4, type = "mstate") ~ A, data = bmt, 
-#>     strategy = "composite", method = "eff", nboot = 20, seed = 2)
+#> tteICE(formula = Surv(t2, factor(d4)) ~ A, data = bmt, strategy = "composite", 
+#>     method = "eff", nboot = 20, seed = 2)
 #> -----------------------------------------------------------------------
 #> Data type: competing risks 
 #> Strategy: composite variable strategy 
 #> Estimation method: semiparametrically efficient estimation 
 #> Observations: 137 (including 99 treated and 38 control)
 #> Maximum follow-up time: 2640 
-#> P-value of the average treatment effect: 0.5907 
-#> -----------------------------------------------------------------------
-#> The estimated cumulative incidences and treatment effects at quartiles:
-#>           660    1320    1980    2640
-#> CIF1   0.5323  0.5864  0.5864  0.6299
-#> se1    0.0511  0.0574  0.0574  0.0586
-#> CIF0   0.6087  0.6377  0.6377  0.6377
-#> se0    0.0673  0.0716  0.0716  0.0716
-#> ATE   -0.0764 -0.0513 -0.0513 -0.0078
-#> se     0.0857  0.0916  0.0916  0.0912
-#> p.val  0.3723  0.5759  0.5759  0.9321
-#> 
+#> P-value of the average treatment effect: 0.591 
 
 ## model fitting for competing risk data with covariates
-fit2 = tteICE(Surv(t2, d4, type = "mstate")~A|z1+z3+z5,
+fit2 = tteICE(Surv(t2, factor(d4)) ~ A | z1 + z3 + z5,
  data=bmt, strategy="composite", method='eff')
 print(fit2)
 #> Input:
-#> tteICE(formula = Surv(t2, d4, type = "mstate") ~ A | z1 + z3 + 
-#>     z5, data = bmt, strategy = "composite", method = "eff")
+#> tteICE(formula = Surv(t2, factor(d4)) ~ A | z1 + z3 + z5, data = bmt, 
+#>     strategy = "composite", method = "eff")
 #> -----------------------------------------------------------------------
 #> Data type: competing risks 
 #> Strategy: composite variable strategy 
 #> Estimation method: semiparametrically efficient estimation 
 #> Observations: 137 (including 99 treated and 38 control)
 #> Maximum follow-up time: 2640 
-#> P-value of the average treatment effect: 0.1366 
-#> -----------------------------------------------------------------------
-#> The estimated cumulative incidences and treatment effects at quartiles:
-#>           660    1320    1980    2640
-#> CIF1   0.5246  0.5836  0.5836  0.6347
-#> se1    0.0514  0.0511  0.0511  0.0587
-#> CIF0   0.6784  0.7010  0.7010  0.7010
-#> se0    0.0662  0.0651  0.0651  0.0651
-#> ATE   -0.1538 -0.1174 -0.1174 -0.0663
-#> se     0.0838  0.0828  0.0828  0.0877
-#> p.val  0.0667  0.1560  0.1560  0.4494
-#> 
+#> P-value of the average treatment effect: 0.137 
 
 ## model fitting for semicompeting risk data without covariates
-fitscr1 = tteICE(Surv(t1, d1)~A, ~Surv(t2, d2),
- data=bmt, strategy="composite", method='eff')
+fitscr1 = tteICE(Surv(t1, d1) ~ A, ~Surv(t2, d2),
+ data=bmt, strategy="composite", method='np')
 print(fitscr1)
 #> Input:
 #> tteICE(formula = Surv(t1, d1) ~ A, add.scr = ~Surv(t2, d2), data = bmt, 
-#>     strategy = "composite", method = "eff")
+#>     strategy = "composite", method = "np")
 #> -----------------------------------------------------------------------
 #> Data type: semicompeting risks 
 #> Strategy: composite variable strategy 
-#> Estimation method: semiparametrically efficient estimation 
+#> Estimation method: nonparametric estimation 
 #> Observations: 137 (including 99 treated and 38 control)
 #> Maximum follow-up time: 2640 
-#> P-value of the average treatment effect: 0.5907 
-#> -----------------------------------------------------------------------
-#> The estimated cumulative incidences and treatment effects at quartiles:
-#>           660    1320    1980    2640
-#> CIF1   0.5323  0.5864  0.5864  0.6299
-#> se1    0.0501  0.0499  0.0499  0.0617
-#> CIF0   0.6087  0.6377  0.6377  0.6377
-#> se0    0.0803  0.0793  0.0793  0.0793
-#> ATE   -0.0764 -0.0513 -0.0513 -0.0078
-#> se     0.0946  0.0937  0.0937  0.1005
-#> p.val  0.4192  0.5843  0.5843  0.9384
-#> 
+#> P-value of the average treatment effect: 0.591 
 
 ## model fitting for semicompeting risk data without covariates
-fitscr2 = tteICE(Surv(t1, d1)~A|z1+z3+z5, ~Surv(t2, d2),
+fitscr2 = tteICE(Surv(t1, d1) ~ A | z1 + z3 + z5, ~Surv(t2, d2),
  data=bmt, strategy="composite", method='eff')
 print(fitscr2)
 #> Input:
@@ -292,17 +248,6 @@ print(fitscr2)
 #> Estimation method: semiparametrically efficient estimation 
 #> Observations: 137 (including 99 treated and 38 control)
 #> Maximum follow-up time: 2640 
-#> P-value of the average treatment effect: 0.1366 
-#> -----------------------------------------------------------------------
-#> The estimated cumulative incidences and treatment effects at quartiles:
-#>           660    1320    1980    2640
-#> CIF1   0.5246  0.5836  0.5836  0.6347
-#> se1    0.0514  0.0511  0.0511  0.0587
-#> CIF0   0.6784  0.7010  0.7010  0.7010
-#> se0    0.0662  0.0651  0.0651  0.0651
-#> ATE   -0.1538 -0.1174 -0.1174 -0.0663
-#> se     0.0838  0.0828  0.0828  0.0877
-#> p.val  0.0667  0.1560  0.1560  0.4494
-#> 
+#> P-value of the average treatment effect: 0.137 
 
 ```

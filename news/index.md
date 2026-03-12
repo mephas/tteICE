@@ -18,9 +18,13 @@ CRAN release: 2026-02-04
 
 - 2026-2-3 Revised standard error estimations.
 
-## tteICE 1.1.1
+## tteICE 1.1.3
 
-CRAN release: 2026-02-04
+CRAN release: 2026-03-02
 
 - 2026-2-23 Added more S3 methods (coef, bshaz, zph). Hided internal
   functions.
+
+## tteICE 1.1.4
+
+- 2026-3-12 Revised warnings.
