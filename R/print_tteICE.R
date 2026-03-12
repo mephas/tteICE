@@ -25,12 +25,12 @@
 #' print(fit1)
 #'
 #' fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
-#' print(fit2, digits=2)
+#' print(fit2)
 #'
 #' library(survival)
-#' fit3 = tteICE(Surv(t2, d4, type = "mstate")~A,
+#' fit3 = tteICE(Surv(t2, factor(d4))~A|z1+z3+z5,
 #'               data=bmt, strategy="composite", method='eff')
-#' print(fit3, digits=3)
+#' print(fit3, digits=4)
 #'
 #' @seealso
 #' \code{\link[tteICE]{surv.tteICE}},
@@ -41,7 +41,7 @@
 #' @return Print the summary of a tteICE object
 #' @export
 
-print.tteICE <- function(x, digits=4, ...){
+print.tteICE <- function(x, digits=3, ...){
   # if (!inherits(x, "tteICE"))  stop("Must be an object returned by `surv.tteICE` or `scr.tteICE`.", call. = FALSE)
   if(is.null(x$p.val)) p=NA else p=x$p.val
   dtype = c(cmprsk="competing risks", smcmprsk="semicompeting risks")
@@ -60,11 +60,7 @@ print.tteICE <- function(x, digits=4, ...){
   cat("Strategy:", strat[x$strategy], "\n")
   cat("Estimation method:", meth[x$method], "\n")
   cat("Observations:", x$n, '(including', x$n1, 'treated and', x$n0, 'control)\n')
-  cat("Maximum follow-up time:", max(x$time), '\n')
+  cat("Maximum follow-up time:", round(max(x$time), digits), '\n')
   cat("P-value of the average treatment effect:", round(p, digits), "\n")
-  cat("-----------------------------------------------------------------------\n")
-  cat("The estimated cumulative incidences and treatment effects at quartiles:\n")
-  print(round(predict(x), digits))
-  cat("\n")
   invisible(x)
 }

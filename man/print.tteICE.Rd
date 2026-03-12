@@ -4,7 +4,7 @@
 \alias{print.tteICE}
 \title{Print method for 'tteICE' objects}
 \usage{
-\method{print}{tteICE}(x, digits = 4, ...)
+\method{print}{tteICE}(x, digits = 3, ...)
 }
 \arguments{
 \item{x}{A fitted object returned by the function \code{tteICE}, \code{surv.tteICE}, or \code{scr.tteICE}.}
@@ -31,12 +31,12 @@ fit1 = surv.tteICE(A, bmt$t2, bmt$d4, "composite")
 print(fit1)
 
 fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
-print(fit2, digits=2)
+print(fit2)
 
 library(survival)
-fit3 = tteICE(Surv(t2, d4, type = "mstate")~A,
+fit3 = tteICE(Surv(t2, factor(d4))~A|z1+z3+z5,
               data=bmt, strategy="composite", method='eff')
-print(fit3, digits=3)
+print(fit3, digits=4)
 
 }
 \seealso{

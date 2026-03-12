@@ -15,10 +15,8 @@ basic analysis results. It provides a point-and-click interface, so users can
 obtain results without writing R code directly.
 }
 \examples{
-\donttest{
-if(interactive()){
+if(interactive() && requireNamespace("shiny", quietly = TRUE)){
   tteICEShiny()
-}
 }
 
 }

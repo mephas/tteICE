@@ -13,14 +13,13 @@
 #' @importFrom psych describe
 #'
 #' @examples
-#' \donttest{
-#' if(interactive()){
+#' if(interactive() && requireNamespace("shiny", quietly = TRUE)){
 #'   tteICEShiny()
-#' }
 #' }
 #'
 #' @export
 
 tteICEShiny <- function(){
+
   runApp(system.file("shiny", package = "tteICE"))
 }

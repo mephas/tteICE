@@ -15,7 +15,8 @@
 #' each event (primary outcome event and intercurrent event). In these strategies, \code{coef11} is the coefficients
 #' for the primary outcome event in the treatment group, \code{coef10} is the coefficients for the primary outcome
 #' event in the control group, \code{coef21} is the coefficients for the intercurrent event in the treated group,
-#' \code{coef20} is the coefficients for the intercurrent in the control group.
+#' \code{coef20} is the coefficients for the intercurrent in the control group. If the nonparametric method is used,
+#' the return is \code{NULL}.
 #'
 #' @examples
 #' ## load data
@@ -25,7 +26,8 @@
 #' X = as.matrix(bmt[,c('z1','z3','z5')])
 #' bmt$A = A
 #'
-#' fit = tteICE(Surv(t2, d4, type = "mstate")~A|z1+z3+z5,
+#' library(survival)
+#' fit = tteICE(Surv(t2, factor(d4))~A|z1+z3+z5,
 #'  data=bmt, strategy="whileon", method='eff')
 #' coef(fit)
 #'

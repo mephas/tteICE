@@ -18,7 +18,8 @@ group, \code{ph0} is the P-values in the control group. For other strategies, Co
 each event (primary outcome event and intercurrent event). In these strategies, \code{ph11} is the P-values
 for the primary outcome event in the treatment group, \code{ph10} is the P-values for the primary outcome
 event in the control group, \code{ph21} is the P-values for the intercurrent event in the treated group,
-\code{ph20} is the P-values for the intercurrent in the control group.
+\code{ph20} is the P-values for the intercurrent in the control group. If the nonparametric method is used,
+the return is \code{NULL}.
 }
 \description{
 This function checks the proportional hazards assumption in the Cox model using Schoenfeld residuals.
@@ -32,19 +33,14 @@ A = as.numeric(bmt$group>1)
 X = as.matrix(bmt[,c('z1','z3','z5')])
 bmt$A = A
 
-fit = tteICE(Surv(t2, d4, type = "mstate")~A|z1+z3+z5,
+library(survival)
+fit = tteICE(Surv(t2, factor(d4))~A|z1+z3+z5,
  data=bmt, strategy="whileon", method='eff')
 print(fit$ph)
 zph(fit)
 
 plot(fit$ph$ph11)
 plot(fit$ph$ph10)
-
-
-## No results when method is nonparametric
-fit.np = tteICE(Surv(t2, d4, type = "mstate")~A|z1+z3+z5,
- data=bmt, strategy="whileon", method='np')
-print(fit.np$ph)
 
 
 }
