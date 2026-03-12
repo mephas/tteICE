@@ -87,7 +87,7 @@ predict(fit2)
 #> p.val  0.41920919  0.58425802  0.58425802  0.938395060
 
 library(survival)
-fit3 = tteICE(Surv(t2, factor(d4))~A|z1+z3+z5,
+fit3 = tteICE(Surv(t2, factor(d4))~A|z1+z3+z5, 
               data=bmt, strategy="composite", method='eff')
 summary(fit3)
 #> Input:
@@ -100,6 +100,9 @@ summary(fit3)
 #> Observations: 137 (including 99 treated and 38 control)
 #> Maximum follow-up time: 2640 
 #> P-value of the average treatment effect: 0.137 
+#> -----------------------------------------------------------------------
+#> Coefficients of covariates in the Cox model
+#> 0.004102366 0.06287401 -0.2256202 -0.1124675 0.2259854 -0.1954273 
 #> -----------------------------------------------------------------------
 #> The estimated cumulative incidences and treatment effects at quartiles:
 #>          660   1320   1980   2640
