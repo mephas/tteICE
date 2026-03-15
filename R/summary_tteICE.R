@@ -55,19 +55,19 @@ summary.tteICE <- function(object, digits=3, ...) {
     if (!is.null(coef1)){
       rownames(coef1) = c("A=1", "A=0")
       cat("Coefficients of covariates in the Cox model for event 1\n")
-      cat(coef1,"\n")
+      print(coef1)
     }
     coef2 = rbind(object$coef$coef21, object$coef$coef20)
     if (!is.null(coef2)){
       rownames(coef2) = c("A=1", "A=0")
       cat("Coefficients of covariates in the Cox model for event 2\n")
-      cat(coef2,"\n")
+      print(coef2)
     }
     coef = rbind(object$coef$coef1, object$coef$coef0)
     if (!is.null(coef)){
       rownames(coef) = c("A=1", "A=0")
       cat("Coefficients of covariates in the Cox model\n")
-      cat(coef,"\n")
+      print(coef)
     }
   }
   cat("-----------------------------------------------------------------------\n")
