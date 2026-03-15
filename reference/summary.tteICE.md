@@ -102,7 +102,9 @@ summary(fit3)
 #> P-value of the average treatment effect: 0.137 
 #> -----------------------------------------------------------------------
 #> Coefficients of covariates in the Cox model
-#> 0.004102366 0.06287401 -0.2256202 -0.1124675 0.2259854 -0.1954273 
+#>             Xz1        Xz3        Xz5
+#> A=1 0.004102366 -0.2256202  0.2259854
+#> A=0 0.062874015 -0.1124675 -0.1954273
 #> -----------------------------------------------------------------------
 #> The estimated cumulative incidences and treatment effects at quartiles:
 #>          660   1320   1980   2640
