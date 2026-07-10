@@ -49,71 +49,30 @@ library(survival)
 fit = tteICE(Surv(t2, factor(d4))~A|z1+z3+z5,
  data=bmt, strategy="whileon", method='eff')
 print(fit$ph)
-#> $ph11
-#>        chisq df    p
-#> Xz1    0.166  1 0.68
-#> Xz3    0.767  1 0.38
-#> Xz5    0.310  1 0.58
-#> GLOBAL 1.131  3 0.77
-#> 
-#> $ph10
-#>        chisq df     p
-#> Xz1     5.38  1 0.020
-#> Xz3     0.11  1 0.740
-#> Xz5     3.19  1 0.074
-#> GLOBAL  6.77  3 0.079
-#> 
-#> $ph21
-#>         chisq df    p
-#> Xz1    0.0178  1 0.89
-#> Xz3    0.0956  1 0.76
-#> Xz5    0.0905  1 0.76
-#> GLOBAL 0.2487  3 0.97
-#> 
-#> $ph20
-#>         chisq df    p
-#> Xz1    0.9115  1 0.34
-#> Xz3    0.0551  1 0.81
-#> Xz5    2.5960  1 0.11
-#> GLOBAL 5.5810  3 0.13
-#> 
+#>        Primary, A=1 Primary, A=0  ICE, A=1  ICE, A=0
+#> z1        0.6834275   0.02040233 0.8938943 0.3397057
+#> z3        0.3812106   0.74035109 0.7571823 0.8144046
+#> z5        0.5778595   0.07386660 0.7635378 0.1071366
+#> GLOBAL    0.7696407   0.07948831 0.9693761 0.1338763
 zph(fit)
-#> $ph11
-#>        chisq df    p
-#> Xz1    0.166  1 0.68
-#> Xz3    0.767  1 0.38
-#> Xz5    0.310  1 0.58
-#> GLOBAL 1.131  3 0.77
-#> 
-#> $ph10
-#>        chisq df     p
-#> Xz1     5.38  1 0.020
-#> Xz3     0.11  1 0.740
-#> Xz5     3.19  1 0.074
-#> GLOBAL  6.77  3 0.079
-#> 
-#> $ph21
-#>         chisq df    p
-#> Xz1    0.0178  1 0.89
-#> Xz3    0.0956  1 0.76
-#> Xz5    0.0905  1 0.76
-#> GLOBAL 0.2487  3 0.97
-#> 
-#> $ph20
-#>         chisq df    p
-#> Xz1    0.9115  1 0.34
-#> Xz3    0.0551  1 0.81
-#> Xz5    2.5960  1 0.11
-#> GLOBAL 5.5810  3 0.13
-#> 
+#>        Primary, A=1 Primary, A=0  ICE, A=1  ICE, A=0
+#> z1        0.6834275   0.02040233 0.8938943 0.3397057
+#> z3        0.3812106   0.74035109 0.7571823 0.8144046
+#> z5        0.5778595   0.07386660 0.7635378 0.1071366
+#> GLOBAL    0.7696407   0.07948831 0.9693761 0.1338763
 
 plot(fit$ph$ph11)
+#> Warning: no non-missing arguments to min; returning Inf
+#> Warning: no non-missing arguments to max; returning -Inf
+#> Warning: no non-missing arguments to min; returning Inf
+#> Warning: no non-missing arguments to max; returning -Inf
 
-
-
+#> Error in plot.window(...): need finite 'xlim' values
 plot(fit$ph$ph10)
-
-
-
+#> Warning: no non-missing arguments to min; returning Inf
+#> Warning: no non-missing arguments to max; returning -Inf
+#> Warning: no non-missing arguments to min; returning Inf
+#> Warning: no non-missing arguments to max; returning -Inf
+#> Error in plot.window(...): need finite 'xlim' values
 
 ```

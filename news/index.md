@@ -27,4 +27,6 @@ CRAN release: 2026-03-02
 
 ## tteICE 1.1.4
 
+CRAN release: 2026-03-16
+
 - 2026-3-12 Revised warnings.

@@ -101,17 +101,13 @@ summary(fit3)
 #> Maximum follow-up time: 2640 
 #> P-value of the average treatment effect: 0.137 
 #> -----------------------------------------------------------------------
-#> Coefficients of covariates in the Cox model
-#>             Xz1        Xz3        Xz5
-#> A=1 0.004102366 -0.2256202  0.2259854
-#> A=0 0.062874015 -0.1124675 -0.1954273
 #> -----------------------------------------------------------------------
 #> The estimated cumulative incidences and treatment effects at quartiles:
 #>          660   1320   1980   2640
 #> CIF1   0.525  0.584  0.584  0.635
-#> se1    0.051  0.051  0.051  0.059
+#> se1       NA     NA     NA     NA
 #> CIF0   0.678  0.701  0.701  0.701
-#> se0    0.066  0.065  0.065  0.065
+#> se0       NA     NA     NA     NA
 #> ATE   -0.154 -0.117 -0.117 -0.066
 #> se     0.084  0.083  0.083  0.088
 #> p.val  0.067  0.156  0.156  0.449
