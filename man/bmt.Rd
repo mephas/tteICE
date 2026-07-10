@@ -36,7 +36,7 @@ Klein and Moeschberger (1997) Survival Analysis Techniques for Censored and Trun
 Springer.
 }
 \usage{
-bmt
+data(bmt)
 }
 \description{
 The \code{bmt} data frame has 137 rows and 22 columns.

@@ -74,10 +74,10 @@ surv.treatment.eff <- function(A,Time,cstatus,X=NULL){
   tt0 = c(0,basehaz(fit0)$time)
   tt = sort(unique(c(tt1,tt0)))
   K = length(tt)
-  Xb1 = X%*%fit1$coefficients
-  Xb0 = X%*%fit0$coefficients
-  Xb1c = X%*%fit1c$coefficients
-  Xb0c = X%*%fit0c$coefficients
+  Xb1 = X%*%replace(fit1$coefficients,is.na(fit1$coefficients),0)
+  Xb0 = X%*%replace(fit0$coefficients,is.na(fit0$coefficients),0)
+  Xb1c = X%*%replace(fit1c$coefficients,is.na(fit1c$coefficients),0)
+  Xb0c = X%*%replace(fit0c$coefficients,is.na(fit0c$coefficients),0)
   cumhaz1 = .matchy(c(0,basehaz(fit1,centered=FALSE)$hazard),tt1,tt)
   cumhaz0 = .matchy(c(0,basehaz(fit0,centered=FALSE)$hazard),tt0,tt)
   cumhaz = data.frame(time=tt,cumhaz1=cumhaz1,cumhaz0=cumhaz0)
@@ -110,12 +110,18 @@ surv.treatment.eff <- function(A,Time,cstatus,X=NULL){
   IFt = colSums(t(eif1-eif0)*diff(c(0,tt))*Ti,na.rm=TRUE)
   Vt = sd(IFt,na.rm=TRUE)/sqrt(n)
   p = 2*pnorm(-abs(Tt/Vt))
-  coef1 = fit1$coefficients / attr(X,"scaled:scale")
-  coef0 = fit0$coefficients / attr(X,"scaled:scale")
-  coef = list(coef1=coef1,coef0=coef0)
-  ph1 = cox.zph(fit1, terms=FALSE)
-  ph0 = cox.zph(fit0, terms=FALSE)
-  ph = list(ph1=ph1,ph0=ph0)
+  scaled = attr(X,"scaled:scale")
+  coef1 = fit1$coefficients / scaled
+  coef0 = fit0$coefficients / scaled
+  se1 = sqrt(diag(vcov(fit1))) / scaled
+  se0 = sqrt(diag(vcov(fit0))) / scaled
+  coef = data.frame(coef11=coef1,se11=se1,coef10=coef0,se10=se0)
+  colnames(coef) = c('Primary, A=1', 'SE', 'Primary, A=0', 'SE')
+  ph1 = cox.zph(fit1, terms=FALSE)[[1]][,3]
+  ph0 = cox.zph(fit0, terms=FALSE)[[1]][,3]
+  ph = data.frame(ph11=ph1,ph10=ph0)
+  colnames(ph) = c('Primary, A=1', 'Primary, A=0')
+  rownames(coef) = rownames(ph)[1:ncol(X)] = colnames(X)
   return(list(time1=tt,time0=tt,cif1=cif1,cif0=cif0,se1=se1,se0=se0,
               time=tt,ate=ate,se=se,p.val=p,
               coef=coef,ph=ph,cumhaz=cumhaz))

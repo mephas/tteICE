@@ -48,7 +48,7 @@
 #' @param ... Additional graphical arguments passed to function \code{\link{plot.default}} or function \code{\link{curve}}
 #'
 #' @importFrom graphics plot abline points legend
-#' @importFrom stats qnorm
+#' @importFrom stats qnorm vcov
 #' @importFrom stats binomial fitted glm.fit reformulate
 #'
 #' @seealso

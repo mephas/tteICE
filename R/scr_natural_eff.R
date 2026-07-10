@@ -82,34 +82,40 @@ scr.natural.eff <- function(A,Time,status,Time_int,status_int,X=NULL){
   time1 = basehaz(fit11,centered=FALSE)$time
   lamd1 = diff(c(0,basehaz(fit11,centered=FALSE)$hazard))
   lam_d1 = .matchy(lamd1, time1, tt, TRUE)
-  lam_od1 = sapply(1:l, function(t) lam_d1[t]*exp(X%*%fit11$coefficients[-1]))
-  lam_ord1 = lam_od1 * exp(fit11$coefficients[1])
+  coef11 = replace(fit11$coefficients,is.na(fit11$coefficients),0)
+  lam_od1 = sapply(1:l, function(t) lam_d1[t]*exp(X%*%coef11[-1]))
+  lam_ord1 = lam_od1 * exp(coef11[1])
   fit10 = coxph(cox_formula, data=mg, cluster=mg$id, subset=(A==0))
   time0 = basehaz(fit10,centered=FALSE)$time
   lamd0 = diff(c(0,basehaz(fit10,centered=FALSE)$hazard))
   lam_d0 = .matchy(lamd0, time0, tt, TRUE)
-  lam_od0 = sapply(1:l, function(t) lam_d0[t]*exp(X%*%fit10$coefficients[-1]))
-  lam_ord0 = lam_od0 * exp(fit10$coefficients[1])
+  coef10 = replace(fit10$coefficients,is.na(fit10$coefficients),0)
+  lam_od0 = sapply(1:l, function(t) lam_d0[t]*exp(X%*%coef10[-1]))
+  lam_ord0 = lam_od0 * exp(coef10[1])
   fit21 = coxph(Surv(Time_int,status_int)~X, subset=(A==1))
   time1 = basehaz(fit21,centered=FALSE)$time
   lamr1 = diff(c(0,basehaz(fit21,centered=FALSE)$hazard))
   lam_r1 = .matchy(lamr1, time1, tt, TRUE)
-  lam_or1 = sapply(1:l, function(t) lam_r1[t]*exp(X%*%fit21$coefficients))
+  coef21 = replace(fit21$coefficients,is.na(fit21$coefficients),0)
+  lam_or1 = sapply(1:l, function(t) lam_r1[t]*exp(X%*%coef21))
   fit20 = coxph(Surv(Time_int,status_int)~X, subset=(A==0))
   time0 = basehaz(fit20,centered=FALSE)$time
   lamr0 = diff(c(0,basehaz(fit20,centered=FALSE)$hazard))
   lam_r0 = .matchy(lamr0, time0, tt, TRUE)
-  lam_or0 = sapply(1:l, function(t) lam_r0[t]*exp(X%*%fit20$coefficients))
+  coef20 = replace(fit20$coefficients,is.na(fit20$coefficients),0)
+  lam_or0 = sapply(1:l, function(t) lam_r0[t]*exp(X%*%coef20))
   fit1c = coxph(Surv(Time,status==0)~X, subset=(A==1))
   time1 = basehaz(fit1c,centered=FALSE)$time
   lamc = diff(c(0,basehaz(fit1c,centered=FALSE)$hazard))
   lam_c = .matchy(lamc, time1, tt, TRUE)
-  lam_c1 = sapply(1:l, function(t) lam_c[t]*exp(X%*%fit1c$coefficients))
+  coef1c = replace(fit1c$coefficients,is.na(fit1c$coefficients),0)
+  lam_c1 = sapply(1:l, function(t) lam_c[t]*exp(X%*%coef1c))
   fit0c = coxph(Surv(Time,status==0)~X, subset=(A==0))
   time0 = basehaz(fit0c,centered=FALSE)$time
   lamc = diff(c(0,basehaz(fit0c,centered=FALSE)$hazard))
   lam_c = .matchy(lamc, time0, tt, TRUE)
-  lam_c0 = sapply(1:l, function(t) lam_c[t]*exp(X%*%fit0c$coefficients))
+  coef0c = replace(fit0c$coefficients,is.na(fit0c$coefficients),0)
+  lam_c0 = sapply(1:l, function(t) lam_c[t]*exp(X%*%coef0c))
   ips = .ipscore(A,X)
   cumhaz = data.frame(time=tt, cumhaz11=cumsum(lam_d1), cumhaz10=cumsum(lam_d0),
                      cumhaz21=cumsum(lam_r1), cumhaz20=cumsum(lam_r0))
@@ -243,17 +249,26 @@ scr.natural.eff <- function(A,Time,status,Time_int,status_int,X=NULL){
     se1 = c(0,se1); se0 = c(0,se0); ate = c(0,ate); se = c(0,se)
     cumhaz = rbind(0, cumhaz)
   }
-  coef11 = fit11$coefficients / c(1,attr(X,"scaled:scale"))
-  coef10 = fit10$coefficients / c(1,attr(X,"scaled:scale"))
-  coef21 = fit21$coefficients / attr(X,"scaled:scale")
-  coef20 = fit20$coefficients / attr(X,"scaled:scale")
-  coef = list(coef11=coef11,coef10=coef10,coef21=coef21,coef20=coef20)
-  ph11 = cox.zph(fit11, terms=FALSE)
-  ph10 = cox.zph(fit10, terms=FALSE)
-  ph21 = cox.zph(fit21, terms=FALSE)
-  ph20 = cox.zph(fit20, terms=FALSE)
-  ph = list(ph11=ph11,ph10=ph10,ph21=ph21,ph20=ph20)
-
+  scaled = attr(X,"scaled:scale")
+  coef11 = fit11$coefficients / c(1,scaled)
+  coef10 = fit10$coefficients / c(1,scaled)
+  coef21 = c(NA, fit21$coefficients / scaled)
+  coef20 = c(NA, fit20$coefficients / scaled)
+  se11 = sqrt(diag(vcov(fit11))) / c(1,scaled)
+  se10 = sqrt(diag(vcov(fit10))) / c(1,scaled)
+  se21 = c(NA, sqrt(diag(vcov(fit21))) / scaled)
+  se20 = c(NA, sqrt(diag(vcov(fit20))) / scaled)
+  coef = data.frame(coef11=coef11,se11=se11,coef10=coef10,se10=se10,
+                    coef21=coef21,se21=se21,coef20=coef20,se20=se20)
+  rownames(coef)[1] = 'ICE'
+  colnames(coef) = c('Primary, A=1', 'SE', 'Primary, A=0', 'SE', 'ICE, A=1', 'SE', 'ICE, A=0', 'SE')
+  ph11 = cox.zph(fit11, terms=FALSE)[[1]][,3]
+  ph10 = cox.zph(fit10, terms=FALSE)[[1]][,3]
+  ph21 = c(NA, cox.zph(fit21, terms=FALSE)[[1]][,3])
+  ph20 = c(NA, cox.zph(fit20, terms=FALSE)[[1]][,3])
+  ph = data.frame(ph11=ph11,ph10=ph10,ph21=ph21,ph20=ph20)
+  rownames(coef) = rownames(ph)[1:(ncol(X)+1)] = c('ICE',colnames(X))
+  colnames(ph) = c('Primary, A=1', 'Primary, A=0', 'ICE, A=1', 'ICE, A=0')
   return(list(time1=tt,time0=tt,cif1=cif1,cif0=cif0,se1=se1,se0=se0,
               time=tt,ate=ate,se=se,p.val=p,
               coef=coef,ph=ph,cumhaz=cumhaz))
