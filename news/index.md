@@ -30,3 +30,7 @@ CRAN release: 2026-03-02
 CRAN release: 2026-03-16
 
 - 2026-3-12 Revised warnings.
+
+## tteICE 1.1.5
+
+- 2026-8-14 Update the output of results. Update Rshiny.

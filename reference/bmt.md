@@ -5,7 +5,7 @@ The `bmt` data frame has 137 rows and 22 columns.
 ## Usage
 
 ``` r
-data(bmt)
+bmt
 ```
 
 ## Format
