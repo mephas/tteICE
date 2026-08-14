@@ -97,6 +97,7 @@ prettyToggle(
           value = FALSE),
 conditionalPanel(
   condition = "input.scr",
+  helpText(HTML("Variables of the above time to the primary (terminal) event and its event indicator may also need to be changed.")),
 uiOutput("time_321"),
 helpText(HTML("Time to the intercurrent event.")),
 
@@ -184,8 +185,9 @@ prettyCheckbox(
     status = "danger"
 ),
 
-hr()
+hr(),
 
+numericInput("digit_32", ("Enter a value for the digits of all the results:"), value = 3, min = 0, step = 1, width = "100%")
 
 ), #sidebarPanel
 
@@ -238,14 +240,15 @@ sliderInput("yrange", "Treatment effect plot: range for the Y-axis", min = -1, m
 sliderInput("yrangecif", "Survival plot: range for the Y-axis", min = 0, max = 1, step=0.05, width="100%", value = c(0,1))
 ),
 splitLayout(
-  textInput("t1", "Legend: the name of treatment (the 1st group)", value = "Treat", width = "100%", placeholder = NULL),
-  textInput("t0", "Legend: the name of control (the 2nd group)", value = "Control", width = "100%", placeholder = NULL)
+  textInput("t1", "Legend: input the name of treatment (the 1st group)", value = "Treat", width = "100%", placeholder = NULL),
+  textInput("t0", "Legend: input the name of control (the 2nd group)", value = "Control", width = "100%", placeholder = NULL)
   ),
 splitLayout(
-  textInput("col1", "Color: the color of treatment (the 1st group)", value = "brown", width = "100%", placeholder = NULL),
-  textInput("col0", "Color: the color of control (the 2nd group)", value = "darkcyan", width = "100%", placeholder = NULL)
+  textInput("col1", "Color: input the color of treatment (the 1st group)", value = "brown", width = "100%", placeholder = NULL),
+  textInput("col0", "Color: input the color of control (the 2nd group)", value = "darkcyan", width = "100%", placeholder = NULL)
   ),
-helpText(HTML('Refer to the color <a href="https://colorbrewer2.org/#type=qualitative&scheme=Set1&n=3" target="_blank">ColorBrewer Set1</a>.'))
+helpText(HTML('Refer to the color <a href="https://colorbrewer2.org/#type=qualitative&scheme=Set1&n=3" target="_blank">ColorBrewer Set1</a>.')),
+textInput("xlab", "X-lable: input the label of x-axis (the unit of time)", value = "Time", width = "50%", placeholder = NULL)
 ),
 
 
@@ -284,7 +287,7 @@ prettyRadioButtons(
           choiceValues = list(FALSE,TRUE))
 ),
 
-actionButton("B_32_surv", HTML('Show/Update plots'), 
+actionButton("B_32_surv", HTML('Show/Update plots/results'), 
              class =  "btn-danger",
              icon  = icon("chart-column")),
 helpText(HTML("Once settings are changes, click the button to update the plots.")),
@@ -297,7 +300,35 @@ tabsetPanel(
       splitLayout(
       plotOutput("tps_32a", width = 500, height = 400),plotOutput("tps_32b", width = 500, height = 400)
       ),
-      helpText(HTML("You can copy the plot by right-clicking on it and selecting `Copy image` from the menu."))
+      helpText(HTML("You can copy the plot by right-clicking on it and selecting `Copy image` from the menu.")),
+      conditionalPanel(
+        condition = "input.meth == 'eff'",
+          prettyCheckbox(
+            inputId = "effc1",
+            label = "Display the coefficients and standard errors in the Cox model", 
+            value = FALSE,
+            icon = icon("check"), 
+            bigger = TRUE,
+            status = "danger"
+            ),
+          conditionalPanel(
+            condition = "input.effc1",
+            DTOutput("eff1_tab"),
+            ),
+          prettyCheckbox(
+            inputId = "effp1",
+            label = "Display the p-value of testing proportional hazards assumption", 
+            value = FALSE,
+            icon = icon("check"), 
+            bigger = TRUE,
+            status = "danger"
+            ),
+          conditionalPanel(
+            condition = "input.effp1",
+            DTOutput("effp1_tab")
+            ),
+          helpText(HTML('If results are not shown, click the "Show/Update plots/results" button to update the plots.'))
+      )
       # uiOutput("bstime_320"),
       # DTOutput("tpsbs_32_tab"),
       # hr(),
@@ -310,7 +341,35 @@ tabsetPanel(
       splitLayout(
       plotOutput("cvs_32a", width = 500, height = 400),plotOutput("cvs_32b", width = 500, height = 400)
       ),
-      helpText(HTML("You can copy the plot by right-clicking on it and selecting `Copy image` from the menu."))
+      helpText(HTML("You can copy the plot by right-clicking on it and selecting `Copy image` from the menu.")),
+      conditionalPanel(
+        condition = "input.meth == 'eff'",
+          prettyCheckbox(
+            inputId = "effc2",
+            label = "Display the coefficients and standard errors in the Cox model", 
+            value = FALSE,
+            icon = icon("check"), 
+            bigger = TRUE,
+            status = "danger"
+            ),
+          conditionalPanel(
+            condition = "input.effc2",
+            DTOutput("eff2_tab"),
+            ),
+          prettyCheckbox(
+            inputId = "effp2",
+            label = "Display the p-value of testing proportional hazards assumption", 
+            value = FALSE,
+            icon = icon("check"), 
+            bigger = TRUE,
+            status = "danger"
+            ),
+          conditionalPanel(
+            condition = "input.effp2",
+            DTOutput("effp2_tab")
+            ),
+          helpText(HTML('If results are not shown, click the "Show/Update plots/results" button to update the plots.'))
+      )
       # uiOutput("bstime_321"),
       # DTOutput("cvsbs_32_tab"),
       # hr(),
@@ -323,7 +382,35 @@ tabsetPanel(
       splitLayout(
       plotOutput("hsn_32a", width = 500, height = 400),plotOutput("hsn_32b", width = 500, height = 400)
       ),
-      helpText(HTML("You can copy the plot by right-clicking on it and selecting `Copy image` from the menu."))
+      helpText(HTML("You can copy the plot by right-clicking on it and selecting `Copy image` from the menu.")),
+      conditionalPanel(
+        condition = "input.meth == 'eff'",
+          prettyCheckbox(
+            inputId = "effc3",
+            label = "Display the coefficients and standard errors in the Cox model", 
+            value = FALSE,
+            icon = icon("check"), 
+            bigger = TRUE,
+            status = "danger"
+            ),
+          conditionalPanel(
+            condition = "input.effc3",
+            DTOutput("eff3_tab"),
+            ),
+          prettyCheckbox(
+            inputId = "effp3",
+            label = "Display the p-value of testing proportional hazards assumption", 
+            value = FALSE,
+            icon = icon("check"), 
+            bigger = TRUE,
+            status = "danger"
+            ),
+          conditionalPanel(
+            condition = "input.effp3",
+            DTOutput("effp3_tab")
+            ),
+          helpText(HTML('If results are not shown, click the "Show/Update plots/results" button to update the plots.'))
+      )
       # uiOutput("bstime_322"),
       # DTOutput("hsnbs_32_tab"),
       # hr(),
@@ -336,7 +423,35 @@ tabsetPanel(
       splitLayout(
       plotOutput("hsr_32a", width = 500, height = 400),plotOutput("hsr_32b", width = 500, height = 400)
       ),
-      helpText(HTML("You can copy the plot by right-clicking on it and selecting `Copy image` from the menu."))
+      helpText(HTML("You can copy the plot by right-clicking on it and selecting `Copy image` from the menu.")),
+      conditionalPanel(
+        condition = "input.meth == 'eff'",
+          prettyCheckbox(
+            inputId = "effc4",
+            label = "Display the coefficients and standard errors in the Cox model", 
+            value = FALSE,
+            icon = icon("check"), 
+            bigger = TRUE,
+            status = "danger"
+            ),
+          conditionalPanel(
+            condition = "input.effc4",
+            DTOutput("eff4_tab"),
+            ),
+          prettyCheckbox(
+            inputId = "effp4",
+            label = "Display the p-value of testing proportional hazards assumption", 
+            value = FALSE,
+            icon = icon("check"), 
+            bigger = TRUE,
+            status = "danger"
+            ),
+          conditionalPanel(
+            condition = "input.effp4",
+            DTOutput("effp4_tab")
+            ),
+          helpText(HTML('If results are not shown, click the "Show/Update plots/results" button to update the plots.'))
+      )
       # uiOutput("bstime_323"),
       # DTOutput("hsrbs_32_tab"),
       # hr(),
@@ -349,7 +464,35 @@ tabsetPanel(
       splitLayout(
       plotOutput("wos_32a", width = 500, height = 400),plotOutput("wos_32b", width = 500, height = 400)
       ),
-      helpText(HTML("You can copy the plot by right-clicking on it and selecting `Copy image` from the menu."))
+      helpText(HTML("You can copy the plot by right-clicking on it and selecting `Copy image` from the menu.")),
+      conditionalPanel(
+        condition = "input.meth == 'eff'",
+          prettyCheckbox(
+            inputId = "effc5",
+            label = "Display the coefficients and standard errors in the Cox model", 
+            value = FALSE,
+            icon = icon("check"), 
+            bigger = TRUE,
+            status = "danger"
+            ),
+          conditionalPanel(
+            condition = "input.effc5",
+            DTOutput("eff5_tab"),
+            ),
+          prettyCheckbox(
+            inputId = "effp5",
+            label = "Display the p-value of testing proportional hazards assumption", 
+            value = FALSE,
+            icon = icon("check"), 
+            bigger = TRUE,
+            status = "danger"
+            ),
+          conditionalPanel(
+            condition = "input.effp5",
+            DTOutput("effp5_tab")
+            ),
+          helpText(HTML('If results are not shown, click the "Show/Update plots/results" button to update the plots.'))
+      )
       # uiOutput("bstime_324"),
       # DTOutput("wosbs_32_tab"),
       # hr(),
@@ -362,26 +505,52 @@ tabsetPanel(
       splitLayout(
       plotOutput("pss_32a", width = 500, height = 400),plotOutput("pss_32b", width = 500, height = 400)
       ),
-      helpText(HTML("You can copy the plot by right-clicking on it and selecting `Copy image` from the menu."))
+      helpText(HTML("You can copy the plot by right-clicking on it and selecting `Copy image` from the menu.")),
+      conditionalPanel(
+        condition = "input.meth == 'eff'",
+          prettyCheckbox(
+            inputId = "effc6",
+            label = "Display the coefficients and standard errors in the Cox model", 
+            value = FALSE,
+            icon = icon("check"), 
+            bigger = TRUE,
+            status = "danger"
+            ),
+          conditionalPanel(
+            condition = "input.effc6",
+            DTOutput("eff6_tab"),
+            ),
+          prettyCheckbox(
+            inputId = "effp6",
+            label = "Display the p-value of testing proportional hazards assumption", 
+            value = FALSE,
+            icon = icon("check"), 
+            bigger = TRUE,
+            status = "danger"
+            ),
+          conditionalPanel(
+            condition = "input.effp6",
+            DTOutput("effp6_tab")
+            ),
+          helpText(HTML('If results are not shown, click the "Show/Update plots/results" button to update the plots.'))
+      )
       # uiOutput("bstime_325"),
       # DTOutput("pssbs_32_tab"),
       # hr(),
       
       ))
-    
-    
 ),
 conditionalPanel("input.B_32_surv",
       h3("Result 2. Prediction"),      
-      splitLayout(
-        numericInput("num6", ("Enter a time point to predict the treatment effects:"), value = 0, min = 0, step = 1, width = "100%"),
-        numericInput("digit_32", ("Enter a value for the digits:"), value = 3, min = 0, step = 1, width = "100%"),
+      # splitLayout(
+        numericInput("num6", ("Enter a time point to predict the treatment effects:"), value = 0, min = 0, step = 1, width = "50%"),
+        # numericInput("digit_32", ("Enter a value for the digits:"), value = 3, min = 0, step = 1, width = "100%"),
         # dropdownButton(label = "Settings of digits",
         # numericInput(inputId = 'digit_32',label = 'decimal', value = 3, min = 0, max = 10, step=1),
         # circle = FALSE, 
         # icon = icon("gear"), width = "300px"
         # )
-        ),
+        # ),
       helpText(HTML("The time point may be within the observed data or beyond it (fitting or predicting, respectively). If input is changed, click the button above to update the results.")),
       
       actionButton("B_33_surv", HTML('Show/Update results'), 

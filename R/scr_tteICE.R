@@ -143,7 +143,7 @@ scr.tteICE <- function(A,Time,status,Time_int,status_int,strategy='composite',co
   Time_int = Time_int[subset]
   status_int = status_int[subset]
   weights = weights[subset]
-  if (!is.null(cov1)) cov1 = as.matrix(cov1)[subset,]
+  if (!is.null(cov1)) cov1 = as.matrix(cov1)[subset, ,drop=FALSE]
   
   n = length(A); n1 = sum(A==1); n0 = sum(A==0)
   if (method=='ipw') {

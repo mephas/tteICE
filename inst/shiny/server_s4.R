@@ -20,11 +20,11 @@ return(fit1)
 })
 
 hsr_32_plot1 <- eventReactive(input$B_32_surv,{
-  if(length(hsr_32())!=0) plot(hsr_32(), type="ate", decrease = as.logical(input$d_320), conf.int = input$conf, ylim=input$yrange)
+  if(length(hsr_32())!=0) plot(hsr_32(), type="ate", decrease = as.logical(input$d_320), conf.int = input$conf, ylim=input$yrange, xlab=input$xlab)
 })
 hsr_32_plot2 <- eventReactive(input$B_32_surv,{
   if(length(hsr_32())!=0) {
-    plot(hsr_32(), type="inc", decrease = as.logical(input$d_320), conf.int = input$conf, ylim=input$yrangecif, 
+    plot(hsr_32(), type="inc", decrease = as.logical(input$d_320), conf.int = input$conf, ylim=input$yrangecif, xlab=input$xlab, 
       plot.configs=list(legend=c(input$t1, input$t0), col=c(input$col1,input$col0), show.p.value=input$adp)) 
     # if(input$adp) {
     #   p = hsr_32()$p.val
@@ -68,5 +68,13 @@ return(est)
 })
 
 # output$hsrbs_32_tab_pred <- renderDT({hsrbs_32_tab_pred()}, options = list(scrollX = TRUE,dom = 't'))
+output$eff4_tab <- renderDT({
+  fit <- hsr_32()
+  if (is.null(COV2())) data.frame("Message" = "No covariates are selected.") else as.data.frame(round(fit$coef, input$digit_32))
+  })
 
+output$effp4_tab <- renderDT({
+  fit <- hsr_32()
+  if (is.null(COV2())) data.frame("Message" = "No covariates are selected.") else as.data.frame(round(fit$ph, input$digit_32))
+  })
 # Trunk 1 End===================================================================================

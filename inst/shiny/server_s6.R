@@ -20,11 +20,11 @@ return(fit1)
 })
 
 pss_32_plot1 <- eventReactive(input$B_32_surv,{
-  if(length(pss_32())!=0) plot(pss_32(), type="ate", decrease = as.logical(input$d_320), conf.int = input$conf, ylim=input$yrange)
+  if(length(pss_32())!=0) plot(pss_32(), type="ate", decrease = as.logical(input$d_320), conf.int = input$conf, ylim=input$yrange, xlab=input$xlab)
 })
 pss_32_plot2 <- eventReactive(input$B_32_surv,{
   if(length(pss_32())!=0) {
-    plot(pss_32(), type="inc", decrease = as.logical(input$d_320), conf.int = input$conf, ylim=input$yrangecif, 
+    plot(pss_32(), type="inc", decrease = as.logical(input$d_320), conf.int = input$conf, ylim=input$yrangecif, xlab=input$xlab, 
       plot.configs=list(legend=c(input$t1, input$t0), col=c(input$col1,input$col0), show.p.value=input$adp)) 
     # if(input$adp) {
     #   p = pss_32()$p.val
@@ -44,8 +44,8 @@ if((length(pss_32())!=0)){
 fit <- pss_32()
 time.point <- as.numeric(input$num6)
 tab <- predict(fit, timeset=time.point)
-ate <- tab[5]
-ate.sd <- tab[6]
+ate <- tab[5,]
+ate.sd <- tab[6,]
 cil = ate + qnorm((1-input$conf)/2)*ate.sd
 ciu = ate - qnorm((1-input$conf)/2)*ate.sd
 
@@ -68,6 +68,15 @@ return(est)
 
 
 # output$pssbs_32_tab_pred <- renderDT({pssbs_32_tab_pred()}, options = list(scrollX = TRUE,dom = 't'))
+output$eff6_tab <- renderDT({
+  fit <- pss_32()
+  if (is.null(COV2())) data.frame("Message" = "No covariates are selected.") else as.data.frame(round(fit$coef, input$digit_32))
+  })
+
+output$effp6_tab <- renderDT({
+  fit <- pss_32()
+  if (is.null(COV2())) data.frame("Message" = "No covariates are selected.") else as.data.frame(round(fit$ph, input$digit_32))
+  })
 
 # Trunk 1 End===================================================================================
 

@@ -134,7 +134,7 @@ surv.tteICE <- function(A,Time,cstatus,strategy='composite',cov1=NULL,method='np
   Time = Time[subset]
   cstatus = cstatus[subset]
   weights = weights[subset]
-  if (!is.null(cov1)) cov1 = as.matrix(cov1)[subset,]
+  if (!is.null(cov1)) cov1 = as.matrix(cov1)[subset, , drop=FALSE]
 
   n = length(A); n1 = sum(A==1); n0 = sum(A==0)
   if (method=='ipw') {

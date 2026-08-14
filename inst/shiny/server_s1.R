@@ -20,12 +20,12 @@ return(fit1)
 })
 
 tps_32_plot1 <- eventReactive(input$B_32_surv,{
-  if(length(tps_32())!=0) plot(tps_32(), type="ate", decrease = as.logical(input$d_320), conf.int = input$conf, ylim=input$yrange)
+  if(length(tps_32())!=0) plot(tps_32(), type="ate", decrease = as.logical(input$d_320), conf.int = input$conf, ylim=input$yrange, xlab=input$xlab)
 })
 tps_32_plot2 <- eventReactive(input$B_32_surv,{
   if(length(tps_32())!=0) {
     # if(input$adp) adp=TRUE else adp=FALSE
-    plot(tps_32(), type="inc", decrease = as.logical(input$d_320), conf.int = input$conf, ylim=input$yrangecif, 
+    plot(tps_32(), type="inc", decrease = as.logical(input$d_320), conf.int = input$conf, ylim=input$yrangecif, xlab=input$xlab,
       plot.configs=list(legend=c(input$t1, input$t0), col=c(input$col1,input$col0), show.p.value=input$adp)) 
     # if(input$adp) {
     #   p = tps_32()$p.val
@@ -45,8 +45,8 @@ if((length(tps_32())!=0)){
 fit <- tps_32()
 time.point <- as.numeric(input$num6)
 tab <- predict(fit, timeset=time.point)
-ate <- tab[5]
-ate.sd <- tab[6]
+ate <- tab[5,]
+ate.sd <- tab[6,]
 cil = ate + qnorm((1-input$conf)/2)*ate.sd
 ciu = ate - qnorm((1-input$conf)/2)*ate.sd
 
@@ -68,5 +68,29 @@ return(est)
 })
 
 # output$tpsbs_32_tab_pred <- renderDT({tpsbs_32_tab_pred()}, options = list(scrollX = TRUE,dom = 't'))
+
+
+## table from eff ------------------------------
+# eff1_tab <- eventReactive(input$B_32_surv,{
+
+# if (input$tbd_treatment) tps_32()$coef else NULL
+
+# })
+
+# effp1_tab <- eventReactive(input$B_32_surv,{
+
+# if (input$tbd_treatment) tps_32()$ph else NULL
+
+# })
+
+output$eff1_tab <- renderDT({
+  fit <- tps_32()
+  if (is.null(COV2())) data.frame("Message" = "No covariates are selected.") else as.data.frame(round(fit$coef, input$digit_32))
+  })
+
+output$effp1_tab <- renderDT({
+  fit <- tps_32()
+  if (is.null(COV2())) data.frame("Message" = "No covariates are selected.") else as.data.frame(round(fit$ph, input$digit_32))
+  })
 
 # Trunk 1 End===================================================================================

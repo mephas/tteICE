@@ -20,8 +20,6 @@
 #' print(fit$ph)
 #' zph(fit)
 #'
-#' plot(fit$ph$ph11)
-#' plot(fit$ph$ph10)
 #'
 #'
 #' @return

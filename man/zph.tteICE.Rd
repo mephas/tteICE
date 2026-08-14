@@ -39,8 +39,6 @@ fit = tteICE(Surv(t2, factor(d4))~A|z1+z3+z5,
 print(fit$ph)
 zph(fit)
 
-plot(fit$ph$ph11)
-plot(fit$ph$ph10)
 
 
 }
