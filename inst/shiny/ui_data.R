@@ -135,7 +135,8 @@ helpText(HTML("Weight for each subject."))),
 hr(),
 
 h3("Step 3. Choose strategy"),
-
+p(),
+helpText(HTML("1. Treatment policy: What is the effect of assigning the treatment, allowing ICEs to occur naturally?")),
 prettyCheckbox(
    inputId = "tbd_treatment",
    label = "1: Treatment policy strategy", 
@@ -144,6 +145,7 @@ prettyCheckbox(
     bigger = TRUE,
     status = "danger"
 ),
+helpText(HTML("2. Composite variable: What is the effect on the time to the first clinically meaningful event, either the primary outcome event or ICEs?")),
 prettyCheckbox(
    inputId = "tbd_composite",
    label = "2: Composite variable strategy", 
@@ -152,6 +154,7 @@ prettyCheckbox(
     bigger = TRUE,
     status = "danger"
 ),
+helpText(HTML("3. Hypothetical I (natural): What would the effect on the primary outcome event be if the hazard of ICEs were set to its natural level in the control group?")),
 prettyCheckbox(
    inputId = "tbd_natural",
    label = "3: Hypothetical strategy (I, natural ICEs)", 
@@ -160,6 +163,7 @@ prettyCheckbox(
     bigger = TRUE,
     status = "danger"
 ),
+helpText(HTML("4. Hypothetical II (removed): What would the effect on the primary outcome event be if ICEs were removed?")),
 prettyCheckbox(
    inputId = "tbd_removed",
    label = "4: Hypothetical strategy (II, removing ICEs)", 
@@ -168,6 +172,7 @@ prettyCheckbox(
     bigger = TRUE,
     status = "danger"
 ),
+helpText(HTML("5. While on treatment: What is the effect on the primary outcome event while remaining free from ICEs?")),
 prettyCheckbox(
    inputId = "tbd_whileon",
    label = "5: While on treatment strategy", 
@@ -176,6 +181,7 @@ prettyCheckbox(
     bigger = TRUE,
     status = "danger"
 ),
+helpText(HTML("6. Principal stratum: What is the effect specifically in the subgroup of patients who would never experience ICEs, regardless of their treatment assignment status?")),
 prettyCheckbox(
    inputId = "tbd_principal",
    label = "6: Principal stratum strategy", 
@@ -184,7 +190,7 @@ prettyCheckbox(
     bigger = TRUE,
     status = "danger"
 ),
-
+# helpText(HTML("Principal stratum: What is the effect specifically in the subgroup of patients who would never experience ICEs, regardless of their treatment assignment status?")),
 hr(),
 
 numericInput("digit_32", ("Enter a value for the digits of all the results:"), value = 3, min = 0, step = 1, width = "100%")
@@ -200,12 +206,12 @@ mainPanel(
 h3("Data preview and descriptive statistics"),
 materialSwitch(
    inputId = "prev",
-   label = h4("Hide data"), 
-    value = TRUE,
+   label = h4("Display data"), 
+    value = FALSE,
    status = "warning",
    width = "100%"
 ),
-helpText(HTML("If you want to show/hide this part, click the button.")),
+helpText(HTML("If you want to dsiplay data and summaries, click the button.")),
 conditionalPanel("input.prev",
 tabsetPanel(
 
@@ -266,7 +272,7 @@ splitLayout(
 prettyRadioButtons(
           inputId = "meth",
           status = "info",
-          label="Estimation method",
+          label=h5("Estimation method"),
           fill = TRUE,
           icon = icon("check"),
           choiceNames = list(
@@ -277,7 +283,7 @@ prettyRadioButtons(
 prettyRadioButtons(
           inputId = "d_320",
           status = "info",
-          label="Survival plot type",
+          label= h5("Survival plot type"),
           fill = TRUE,
           icon = icon("check"),
           choiceNames = list(
@@ -286,21 +292,22 @@ prettyRadioButtons(
           ),
           choiceValues = list(FALSE,TRUE))
 ),
-
+p(),
 actionButton("B_32_surv", HTML('Show/Update plots/results'), 
              class =  "btn-danger",
              icon  = icon("chart-column")),
-helpText(HTML("Once settings are changes, click the button to update the plots.")),
+helpText(HTML("Once settings are changes, click the button to update the plots. You can copy the plot by right-clicking on it and selecting `Copy image` from the menu.")),
+# helpText(HTML("You can copy the plot by right-clicking on it and selecting `Copy image` from the menu.")),
 
 hr(),
 
 tabsetPanel(
     tabPanel("1: Treatment policy strategy",
       conditionalPanel("input.tbd_treatment",
+      # helpText(HTML("You can copy the plot by right-clicking on it and selecting `Copy image` from the menu.")),
       splitLayout(
       plotOutput("tps_32a", width = 500, height = 400),plotOutput("tps_32b", width = 500, height = 400)
       ),
-      helpText(HTML("You can copy the plot by right-clicking on it and selecting `Copy image` from the menu.")),
       conditionalPanel(
         condition = "input.meth == 'eff'",
           prettyCheckbox(
@@ -325,7 +332,8 @@ tabsetPanel(
             ),
           conditionalPanel(
             condition = "input.effp1",
-            DTOutput("effp1_tab")
+            DTOutput("effp1_tab"),
+            helpText(HTML("A p-value smaller than 0.05 indicates failure of the proportional hazards assumption. Use bootstrapping to calculate confidence intervals instead.")),
             ),
           helpText(HTML('If results are not shown, click the "Show/Update plots/results" button to update the plots.'))
       )
@@ -341,7 +349,7 @@ tabsetPanel(
       splitLayout(
       plotOutput("cvs_32a", width = 500, height = 400),plotOutput("cvs_32b", width = 500, height = 400)
       ),
-      helpText(HTML("You can copy the plot by right-clicking on it and selecting `Copy image` from the menu.")),
+      # helpText(HTML("You can copy the plot by right-clicking on it and selecting `Copy image` from the menu.")),
       conditionalPanel(
         condition = "input.meth == 'eff'",
           prettyCheckbox(
@@ -382,7 +390,7 @@ tabsetPanel(
       splitLayout(
       plotOutput("hsn_32a", width = 500, height = 400),plotOutput("hsn_32b", width = 500, height = 400)
       ),
-      helpText(HTML("You can copy the plot by right-clicking on it and selecting `Copy image` from the menu.")),
+      # helpText(HTML("You can copy the plot by right-clicking on it and selecting `Copy image` from the menu.")),
       conditionalPanel(
         condition = "input.meth == 'eff'",
           prettyCheckbox(
@@ -423,7 +431,7 @@ tabsetPanel(
       splitLayout(
       plotOutput("hsr_32a", width = 500, height = 400),plotOutput("hsr_32b", width = 500, height = 400)
       ),
-      helpText(HTML("You can copy the plot by right-clicking on it and selecting `Copy image` from the menu.")),
+      # helpText(HTML("You can copy the plot by right-clicking on it and selecting `Copy image` from the menu.")),
       conditionalPanel(
         condition = "input.meth == 'eff'",
           prettyCheckbox(
@@ -464,7 +472,7 @@ tabsetPanel(
       splitLayout(
       plotOutput("wos_32a", width = 500, height = 400),plotOutput("wos_32b", width = 500, height = 400)
       ),
-      helpText(HTML("You can copy the plot by right-clicking on it and selecting `Copy image` from the menu.")),
+      # helpText(HTML("You can copy the plot by right-clicking on it and selecting `Copy image` from the menu.")),
       conditionalPanel(
         condition = "input.meth == 'eff'",
           prettyCheckbox(
@@ -505,7 +513,7 @@ tabsetPanel(
       splitLayout(
       plotOutput("pss_32a", width = 500, height = 400),plotOutput("pss_32b", width = 500, height = 400)
       ),
-      helpText(HTML("You can copy the plot by right-clicking on it and selecting `Copy image` from the menu.")),
+      # helpText(HTML("You can copy the plot by right-clicking on it and selecting `Copy image` from the menu.")),
       conditionalPanel(
         condition = "input.meth == 'eff'",
           prettyCheckbox(
@@ -540,6 +548,7 @@ tabsetPanel(
       
       ))
 ),
+hr(),
 conditionalPanel("input.B_32_surv",
       h3("Result 2. Prediction"),      
       # splitLayout(
@@ -552,7 +561,7 @@ conditionalPanel("input.B_32_surv",
         # )
         # ),
       helpText(HTML("The time point may be within the observed data or beyond it (fitting or predicting, respectively). If input is changed, click the button above to update the results.")),
-      
+      p(),
       actionButton("B_33_surv", HTML('Show/Update results'), 
                    class =  "btn-danger",
                    icon  = icon("chart-column")),

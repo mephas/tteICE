@@ -43,7 +43,7 @@ influence functions.}
 
 \item{na.rm}{Whether to remove missing values.}
 
-\item{nboot}{Number of resamplings in the boostrapping method. If \code{nboot} is 0 or 1, then
+\item{nboot}{Number of resamplings in the bootstrapping method. If \code{nboot} is 0 or 1, then
 asymptotic standard error based on the explicit form is calculated instead of bootstrapping.}
 
 \item{seed}{Seed for bootstrapping.}
@@ -72,9 +72,9 @@ the active treatment (a test drug) and \eqn{w = 0} represents the control (place
 patients adhere to their treatment assignments and do not discontinue treatment. Associated with individual
 \eqn{i = 1, ..., n} are two potential time-to-event primary outcomes \eqn{T_i(1)} and \eqn{T_i(0)},
 if any, which represent the time durations from treatment initiation to the primary outcome event under
-two treatment assignments respectively. Let \eqn{R_i(1)} and \eqn{R_i(0)} denote the occurrence time of
+two treatment assignments, respectively. Let \eqn{R_i(1)} and \eqn{R_i(0)} denote the occurrence time of
 potential intercurrent events, if any, under the two treatment assignments, respectively. Intercurrent
-events are considered as absent if no post-treatment intercurrent events occur until the end of study.}
+events are considered absent if no post-treatment intercurrent events occur until the end of study.}
 \item{Estimand}{We adopt the potential cumulative incidences under both treatment assignments as the target estimands.
 Potential cumulative incidences describe the probability of time-to-event outcomes occurring at each
 time point. We define the treatment effect as the contrast of two potential cumulative incidences.

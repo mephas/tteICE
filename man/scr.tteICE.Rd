@@ -49,7 +49,7 @@ influence functions.}
 
 \item{na.rm}{Whether to remove missing values.}
 
-\item{nboot}{Number of resamplings in the boostrapping method. If \code{nboot} is 0 or 1, then
+\item{nboot}{Number of resamplings in the bootstrapping method. If \code{nboot} is 0 or 1, then
 asymptotic standard error based on the explicit form is calculated instead of bootstrapping.}
 
 \item{seed}{Seed for bootstrapping.}

@@ -20,7 +20,7 @@ body {
 	font-family: Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
 }
 
-h1,h2{ 
+h1,h2{
 	padding-bottom: 0px;
 	padding-top: 0px;
 	font-family: Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
@@ -28,12 +28,12 @@ h1,h2{
 	color: #8B0000;
 }
 
-h3,h4,h5{ 
+h3,h4,h5{
     padding-bottom: 0px;
     padding-top: 0px;
     font-family: Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
     font-weight: bold;
-    color: #3A3B3C;
+    color: #36454F;
 }
 /*.navbar .navbar-nav { font-family: 'Microsoft YaHei',微软雅黑,"Helvetica Neue",Helvetica,Arial,sans-serif;}
 .navbar.navbar-default.navbar-static-top{ font-family: 'Microsoft YaHei',微软雅黑,"Helvetica Neue",Helvetica,Arial,sans-serif;}
@@ -49,6 +49,7 @@ h2{
 }
 
 h3{
+  color: #023020;
 	font-size: 22px;
 }
 
@@ -61,27 +62,27 @@ h5 {
 }
 
 .shiny-output-error-validation {
-	color: #4169e1; 
+	color: #4169e1;
 	font-weight: bold;
 }
 
-.shiny-output-error { 
-	color: #4169e1; 
+.shiny-output-error {
+	color: #4169e1;
 	font-weight: bold;
 }
 
-.shiny-output-error:before { 
-	visibility: visible; 
-	content: 'Check data and parameters'; 
-	color: #4169e1; 
+.shiny-output-error:before {
+	visibility: visible;
+	content: 'Check data and parameters';
+	color: #4169e1;
 }
- 
-.selectize-control.single .selectize-dropdown{ 
+
+.selectize-control.single .selectize-dropdown{
 	color: grey;
 	font-weight: bold;
 }
 
-.selectize-input { 
+.selectize-input {
 	font-weight: normal;
 }
 
@@ -101,7 +102,7 @@ h5 {
 }
 
 .help-block {
-	color: #6E8891;
+	color: #AA4A44;
 	font-size: 14px;
 	padding-bottom: 0px;
 	padding-top: -2px;
