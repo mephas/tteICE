@@ -61,18 +61,5 @@ zph(fit)
 #> z5        0.5778595   0.07386660 0.7635378 0.1071366
 #> GLOBAL    0.7696407   0.07948831 0.9693761 0.1338763
 
-plot(fit$ph$ph11)
-#> Warning: no non-missing arguments to min; returning Inf
-#> Warning: no non-missing arguments to max; returning -Inf
-#> Warning: no non-missing arguments to min; returning Inf
-#> Warning: no non-missing arguments to max; returning -Inf
-
-#> Error in plot.window(...): need finite 'xlim' values
-plot(fit$ph$ph10)
-#> Warning: no non-missing arguments to min; returning Inf
-#> Warning: no non-missing arguments to max; returning -Inf
-#> Warning: no non-missing arguments to min; returning Inf
-#> Warning: no non-missing arguments to max; returning -Inf
-#> Error in plot.window(...): need finite 'xlim' values
 
 ```
