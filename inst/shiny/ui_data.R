@@ -154,7 +154,7 @@ prettyCheckbox(
     bigger = TRUE,
     status = "danger"
 ),
-helpText(HTML("3. Hypothetical I (natural): What would the effect on the primary outcome event be if the hazard of ICEs were set to its natural level in the control group?")),
+helpText(HTML("3. Hypothetical (I, natural ICEs): What would the effect on the primary outcome event be if the hazard of ICEs were set to its natural level in the control group?")),
 prettyCheckbox(
    inputId = "tbd_natural",
    label = "3: Hypothetical strategy (I, natural ICEs)", 
@@ -163,7 +163,7 @@ prettyCheckbox(
     bigger = TRUE,
     status = "danger"
 ),
-helpText(HTML("4. Hypothetical II (removed): What would the effect on the primary outcome event be if ICEs were removed?")),
+helpText(HTML("4. Hypothetical (II, removing ICEs): What would the effect on the primary outcome event be if ICEs were removed?")),
 prettyCheckbox(
    inputId = "tbd_removed",
    label = "4: Hypothetical strategy (II, removing ICEs)", 
