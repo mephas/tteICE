@@ -48,7 +48,8 @@
 #' X = as.matrix(bmt[,c('z1','z3','z5')])
 #' bmt$A = A
 #'
-#' library(survival)
+#' ## library(survival)
+#' 
 #' ## Composite variable strategy,
 #' ## nonparametric estimation without covariates
 #' ## Composite variable strategy,
@@ -108,7 +109,7 @@
 #' The formula should be set in the following two ways.
 #'
 #' When data take format of competing risk data, set the first argument \code{formula = Surv(time, status) ~ treatment | covariate1+covariate2}
-#' or \code{formula = Surv(time, status)~ A} without any baseline covariates, where \code{status} is a factor variable with levels 0,1,2 
+#' or \code{formula = Surv(time, status)~ A} without any baseline covariates, where \code{status} is a factor variable with levels 0,1,2
 #' (1 for the primary event, 2 for the intercurrent event, and 0 for censoring).
 #'
 #' When data take the format of semicompeting risk data, set the first argument \code{formula = Surv(time, status) ~ treatment | covariate1+covariate2}

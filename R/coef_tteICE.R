@@ -26,7 +26,7 @@
 #' X = as.matrix(bmt[,c('z1','z3','z5')])
 #' bmt$A = A
 #'
-#' library(survival)
+#' ## library(survival)
 #' fit = tteICE(Surv(t2, factor(d4))~A|z1+z3+z5,
 #'  data=bmt, strategy="whileon", method='eff')
 #' coef(fit)

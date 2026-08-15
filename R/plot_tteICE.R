@@ -43,8 +43,9 @@
 #' A = as.numeric(bmt$group>1)
 #' bmt$A = A
 #'
-#' library(survival)
+#' 
 #' ## simple model fitting and plotting
+#' ## library(survival)
 #' fit1 = tteICE(Surv(t2, factor(d4))~A, data=bmt)
 #' plot(fit1, type="ate")
 #' plot(fit1, type="inc")

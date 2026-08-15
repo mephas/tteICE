@@ -1,4 +1,4 @@
-# library(survival)
+
 ## Hidden functions
 
 .matchy <- function(yvec,xvec,newx,exact=FALSE){

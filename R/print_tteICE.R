@@ -27,7 +27,7 @@
 #' fit2 = scr.tteICE(A, bmt$t1, bmt$d1, bmt$t2, bmt$d2, "composite")
 #' print(fit2)
 #'
-#' library(survival)
+#' ## library(survival)
 #' fit3 = tteICE(Surv(t2, factor(d4))~A|z1+z3+z5,
 #'               data=bmt, strategy="composite", method='eff')
 #' print(fit3, digits=4)
