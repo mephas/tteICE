@@ -86,7 +86,7 @@ predict(fit2)
 #> se     0.09462718  0.09368233  0.09368233  0.100502347
 #> p.val  0.41920919  0.58425802  0.58425802  0.938395060
 
-library(survival)
+## library(survival)
 fit3 = tteICE(Surv(t2, factor(d4))~A|z1+z3+z5, 
               data=bmt, strategy="composite", method='eff')
 summary(fit3)

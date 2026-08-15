@@ -168,7 +168,8 @@ A = as.numeric(bmt$group>1)
 X = as.matrix(bmt[,c('z1','z3','z5')])
 bmt$A = A
 
-library(survival)
+## library(survival)
+
 ## Composite variable strategy,
 ## nonparametric estimation without covariates
 ## Composite variable strategy,

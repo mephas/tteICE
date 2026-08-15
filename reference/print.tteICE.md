@@ -70,7 +70,7 @@ print(fit2)
 #> Maximum follow-up time: 2640 
 #> P-value of the average treatment effect: 0.591 
 
-library(survival)
+## library(survival)
 fit3 = tteICE(Surv(t2, factor(d4))~A|z1+z3+z5,
               data=bmt, strategy="composite", method='eff')
 print(fit3, digits=4)
