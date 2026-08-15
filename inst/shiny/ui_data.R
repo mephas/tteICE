@@ -320,7 +320,7 @@ tabsetPanel(
             ),
           conditionalPanel(
             condition = "input.effc1",
-            DTOutput("eff1_tab"),
+            DTOutput("eff1_tab")
             ),
           prettyCheckbox(
             inputId = "effp1",
@@ -333,7 +333,7 @@ tabsetPanel(
           conditionalPanel(
             condition = "input.effp1",
             DTOutput("effp1_tab"),
-            helpText(HTML("A p-value smaller than 0.05 indicates failure of the proportional hazards assumption. Use bootstrapping to calculate confidence intervals instead.")),
+            helpText(HTML("A p-value smaller than 0.05 indicates failure of the proportional hazards assumption. Use bootstrapping to calculate confidence intervals instead."))
             ),
           helpText(HTML('If results are not shown, click the "Show/Update plots/results" button to update the plots.'))
       )
@@ -362,7 +362,7 @@ tabsetPanel(
             ),
           conditionalPanel(
             condition = "input.effc2",
-            DTOutput("eff2_tab"),
+            DTOutput("eff2_tab")
             ),
           prettyCheckbox(
             inputId = "effp2",
@@ -374,7 +374,8 @@ tabsetPanel(
             ),
           conditionalPanel(
             condition = "input.effp2",
-            DTOutput("effp2_tab")
+            DTOutput("effp2_tab"),
+            helpText(HTML("A p-value smaller than 0.05 indicates failure of the proportional hazards assumption. Use bootstrapping to calculate confidence intervals instead."))
             ),
           helpText(HTML('If results are not shown, click the "Show/Update plots/results" button to update the plots.'))
       )
@@ -403,7 +404,7 @@ tabsetPanel(
             ),
           conditionalPanel(
             condition = "input.effc3",
-            DTOutput("eff3_tab"),
+            DTOutput("eff3_tab")
             ),
           prettyCheckbox(
             inputId = "effp3",
@@ -415,7 +416,8 @@ tabsetPanel(
             ),
           conditionalPanel(
             condition = "input.effp3",
-            DTOutput("effp3_tab")
+            DTOutput("effp3_tab"),
+            helpText(HTML("A p-value smaller than 0.05 indicates failure of the proportional hazards assumption. Use bootstrapping to calculate confidence intervals instead."))
             ),
           helpText(HTML('If results are not shown, click the "Show/Update plots/results" button to update the plots.'))
       )
@@ -444,7 +446,7 @@ tabsetPanel(
             ),
           conditionalPanel(
             condition = "input.effc4",
-            DTOutput("eff4_tab"),
+            DTOutput("eff4_tab")
             ),
           prettyCheckbox(
             inputId = "effp4",
@@ -456,7 +458,8 @@ tabsetPanel(
             ),
           conditionalPanel(
             condition = "input.effp4",
-            DTOutput("effp4_tab")
+            DTOutput("effp4_tab"),
+            helpText(HTML("A p-value smaller than 0.05 indicates failure of the proportional hazards assumption. Use bootstrapping to calculate confidence intervals instead."))
             ),
           helpText(HTML('If results are not shown, click the "Show/Update plots/results" button to update the plots.'))
       )
@@ -485,7 +488,7 @@ tabsetPanel(
             ),
           conditionalPanel(
             condition = "input.effc5",
-            DTOutput("eff5_tab"),
+            DTOutput("eff5_tab")
             ),
           prettyCheckbox(
             inputId = "effp5",
@@ -497,7 +500,8 @@ tabsetPanel(
             ),
           conditionalPanel(
             condition = "input.effp5",
-            DTOutput("effp5_tab")
+            DTOutput("effp5_tab"),
+            helpText(HTML("A p-value smaller than 0.05 indicates failure of the proportional hazards assumption. Use bootstrapping to calculate confidence intervals instead."))
             ),
           helpText(HTML('If results are not shown, click the "Show/Update plots/results" button to update the plots.'))
       )
@@ -526,7 +530,7 @@ tabsetPanel(
             ),
           conditionalPanel(
             condition = "input.effc6",
-            DTOutput("eff6_tab"),
+            DTOutput("eff6_tab")
             ),
           prettyCheckbox(
             inputId = "effp6",
@@ -538,7 +542,8 @@ tabsetPanel(
             ),
           conditionalPanel(
             condition = "input.effp6",
-            DTOutput("effp6_tab")
+            DTOutput("effp6_tab"),
+            helpText(HTML("A p-value smaller than 0.05 indicates failure of the proportional hazards assumption. Use bootstrapping to calculate confidence intervals instead."))
             ),
           helpText(HTML('If results are not shown, click the "Show/Update plots/results" button to update the plots.'))
       )
