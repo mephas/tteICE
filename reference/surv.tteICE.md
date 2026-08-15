@@ -72,7 +72,7 @@ surv.tteICE(
 
 - nboot:
 
-  Number of resamplings in the boostrapping method. If `nboot` is 0 or
+  Number of resamplings in the bootstrapping method. If `nboot` is 0 or
   1, then asymptotic standard error based on the explicit form is
   calculated instead of bootstrapping.
 
@@ -111,10 +111,10 @@ A list including the fitted object and input variables.
   Associated with individual \\i = 1, ..., n\\ are two potential
   time-to-event primary outcomes \\T_i(1)\\ and \\T_i(0)\\, if any,
   which represent the time durations from treatment initiation to the
-  primary outcome event under two treatment assignments respectively.
+  primary outcome event under two treatment assignments, respectively.
   Let \\R_i(1)\\ and \\R_i(0)\\ denote the occurrence time of potential
   intercurrent events, if any, under the two treatment assignments,
-  respectively. Intercurrent events are considered as absent if no
+  respectively. Intercurrent events are considered absent if no
   post-treatment intercurrent events occur until the end of study.
 
 - Estimand:

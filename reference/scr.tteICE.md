@@ -82,7 +82,7 @@ scr.tteICE(
 
 - nboot:
 
-  Number of resamplings in the boostrapping method. If `nboot` is 0 or
+  Number of resamplings in the bootstrapping method. If `nboot` is 0 or
   1, then asymptotic standard error based on the explicit form is
   calculated instead of bootstrapping.
 
